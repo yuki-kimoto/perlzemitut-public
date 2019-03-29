@@ -79,7 +79,8 @@
 <p>
   配置する場合は、二つのファイルをドキュメントルートに置いてください。
 </p>
-<h3>mail.html</h3>
+<h3>JSONとAjaxを使ったCGIのメールフォーム(CGI.pmを使わないバージョン)</h3>
+<h4>mail.html</h4>
 <p>
   HTMLファイルに、メールフォームを記述します。
 </p>
@@ -145,7 +146,7 @@
   &lt;/form&gt;
 &lt;/div&gt;
 </pre>
-<h3>mail.cgi</h3>
+<h4>mail.cgi</h4>
 <p>
   標準入力から、メールフォームの情報をJSONで受け取って、メールを送信して、標準出力にJSONで、送信結果を書き出します。
 </p>
@@ -239,6 +240,127 @@ sub sendmail {
 <pre>
 chmod 755 mail.cgi
 echo 'foo' | ./mail.cgi
+</pre>
+<h3>JSONとAjaxを使ったCGIのメールフォーム(CGI.pmを使うバージョン)</h3>
+<p>
+  JSONですべて完結できるかなぁと思っていたけど、ファイルアップロードまでを考慮に入れると、無理だったので、素直にCGI.pmとメール送信モジュールMIME::Liteを使ったバージョンも書きました。
+</p>
+<h4>mail.html</h4>
+<pre>
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  $(function() {
+    $('.mail-form button').on('click', function () {
+      var form_values = $('.mail-form form').serialize();
+      $.post("/mail.cgi", form_values, function (data) {
+        if (data) {
+          $('.mail-form').html('&lt;div&gt;Thank you very much for contacting us.&lt;/div&gt;');
+        }
+        else {
+          alert('Fail sending mail');
+        }
+      });
+    });
+  });
+&lt;/script&gt;
+
+&lt;h2&gt;Message Form&lt;/h2&gt;
+&lt;div class="mail-form"&gt;
+  &lt;form&gt;
+  	&lt;label&gt;
+  		&lt;div class="mail-form-title"&gt;
+  		  Name:
+  		&lt;/div&gt;
+  		&lt;div class="mail-form-body"&gt;
+  		  &lt;input type="text" size=50 name="name"&gt;&lt;br&gt;
+  		&lt;/div&gt;
+    &lt;/label&gt;
+  	&lt;label&gt;
+  		&lt;div class="mail-form-title"&gt;
+  		  Mail:
+  		&lt;/div&gt;
+  		&lt;div class="mail-form-body"&gt;
+  		  &lt;input type="text" size=50 name="email"&gt;
+  		&lt;/div&gt;
+    &lt;/label&gt;
+  	&lt;label&gt;
+  		&lt;div class="mail-form-title"&gt;
+  		  Message:
+  		&lt;/div&gt;
+  		&lt;div class="mail-form-body"&gt;
+  		  &lt;textarea cols=50 rows=3 name="message"&gt;&lt;/textarea&gt;
+  		&lt;/div&gt;
+    &lt;/label&gt;
+  	&lt;div&gt;
+  	  &lt;button type="button"&gt;Send&lt;/button&gt; &lt;input type="reset" value="Clear"&gt;
+  	&lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</pre>
+<h4>mail.cgi</h4>
+<pre>
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use utf8;
+use MIME::Base64;
+use CGI;
+use MIME::Lite;
+
+use Encode 'decode', 'encode';
+
+my $q = CGI-&gt;new;
+
+# Mail to
+my $mailto = 'kimoto_yuki@shinshina.co.jp';
+
+# Mail title
+my $subject = 'Mail From giblog-mail';
+
+# Mail command
+my $mail_cmd = '/usr/sbin/sendmail';
+
+# Name
+my $name = $q-&gt;param('name');
+$name = decode('UTF-8', $name);
+
+# Email
+my $email = $q-&gt;param('email');
+$email = decode('UTF-8', $email);
+
+# Message
+my $message = $q-&gt;param('message');
+$message = decode('UTF-8', $message);
+
+# Mail body
+my $mail_body = &lt;&lt;"EOS";
+Name: $name
+Email: $email
+Message: $message
+EOS
+
+# Send mail
+my $msg = MIME::Lite-&gt;new(
+  From    =&gt; $mailto,
+  To      =&gt; $mailto,
+  Subject =&gt; encode('MIME-Header', $subject),
+  Type    =&gt; 'multipart/mixed'
+);
+$msg-&gt;attach(
+  Type     =&gt; 'TEXT',
+  Data     =&gt; encode('UTF-8', $mail_body),
+);
+$msg-&gt;send;
+
+# Response
+my $res = &lt;&lt;"EOS";
+Content-type: application/json;
+
+1
+EOS
+print encode('UTF-8', $res);
 </pre>
 
   </div>
