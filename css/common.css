@@ -485,6 +485,41 @@
 	  padding:7px;
 	}
 
+  .mail-form {
+    padding:10px;
+  }
+  .mail-form-title {
+    font-weight:bold;
+    margin: 10px 0 10px 0;
+  }
+
+  .mail-form input[type=text] {
+    padding:5px;
+    font-size:16px;
+    max-width:500px;
+    width:100%;
+  }
+  
+  .mail-form textarea {
+    padding:5px;
+    font-size:16px;
+    max-width:500px;
+    width:100%;
+  }
+
+  .mail-form button {
+    padding:12px 10px 10px 10px;
+    font-size:18px;
+    background:#008e26;
+    margin-top:10px;
+    border:none;
+    color:white;
+	  box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+	  border-radius: 5px;
+	  text-shadow: 1px 1px 1px black;
+	  cursor:pointer;
+  }
+  
 @media only screen and (max-width:960px) {
 	.entry {
 	  width:100%;
