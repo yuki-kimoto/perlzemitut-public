@@ -139,7 +139,7 @@ kimot
 木本
 </pre>
 <p>
-  日本語になっていた場合は、msys2をインストールする前に、環境変数の設定で、変数名に「HOME」を変数値を「C:\msys2user」のように設定してください。
+  日本語になっていた場合は、msys2をインストールする前に、環境変数の設定で、変数名に「HOME」を、変数値に「C:\msys64\home\msys2user」のように設定してください。
 </p>
 <ul>
   <li><a href="http://www.wannko.net/windows10/etc/kankyo.html">環境変数の追加</a>
@@ -201,6 +201,9 @@ kimot
 pacman -S perl perl-CPAN msys2-devel make libcrypt-devel
 </pre>
 <p>
+  上記をコピーして、msys2で「右クリック」→「Paste」するとペーストされます。Enterを押して、上記のコマンドを実行しましょう。
+</p>
+<p>
   インストールするか聞かれるので「Enter」を押して進めましょう。何を聞かれても「Enter」で大丈夫。
 </p>
 <p>
@@ -224,7 +227,7 @@ pacman -S perl perl-CPAN msys2-devel make libcrypt-devel
   </li>
 </ul>
 <p>
-  <b>ここで一度右上のバツを押して、ターミナルを閉じて、「MSYS2 MSYS」再起動してください。これがないとPATHの設定が正しくされず、cpanコマンドが正しく動きません。</b>
+  <b>ここで一度右上のバツを押して、ターミナルを閉じて、「MSYS2 MSYS」再起動してください。これを行わないと、PATHの設定が正しくされず、cpanコマンドが正しく動きません。</b>
 </p>
 <p>
   Perlがインストールされているか確認しましょう。
@@ -233,10 +236,10 @@ pacman -S perl perl-CPAN msys2-devel make libcrypt-devel
 perl -v
 </pre>
 <p>
-  以下のように表示されれば、インストールされています。
+  以下のように表示されれば、インストールされています。バージョンは、新しい場合もあります。
 </p>
 <pre>
-This is perl 5, version 28, subversion 0 (v5.28.0) built for x86_64-msys-thread-multi
+This is perl 5, version 24, subversion 4 (v5.24.4) built for x86_64-msys-thread-multi
 </pre>
 <h4>Perlスクリプトを実行</h4>
 <p>
@@ -280,7 +283,7 @@ Hello, World!
 export MSYS=winsymlinks
 </pre>
 <p>
-  初回はcpanを自動設定するか聞かれるので「Enter」で進めましょう。
+  初回はcpanを自動設定するか聞かれるので「Enter」で進めましょう。何を聞かれても「Enter」で大丈夫です。
 </p>
 <pre>
 cpan Mojolicious
@@ -299,6 +302,14 @@ cpan JSON::XS
 <p>
   この問題が起こった場合は、msys2のインストーラーを起動する前に、ウイルスチェッカーを一時的に停止して、右クリック「管理者権限として実行」を行ってください。
 </p>
+<h3>よく使うLinuxコマンド</h3>
+<p>
+  gitやrsyncなどの、よく使うLinuxコマンドも一緒にインストールしておくと、よいでしょう。
+</p>
+<pre>
+pacman -S git
+pacman -S rsync
+</pre>
 <h3>お願い</h3>
 <p>
   msys2は定期的にアップデートされて、パッケージ名やアップデートコマンドが変わったりするので、この手順でうまくいかない場合は、<a href="https://github.com/yuki-kimoto/perlzemitut">リポジトリ</a>かTwitterにてお知らせください。
