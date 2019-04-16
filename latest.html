@@ -64,24 +64,24 @@
   </div>
   <div class="middle">
     <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/04/16</div>
-<h2><a href="/blog/20190416132232.html">CentOS7/minimal��perlbrew���g�����悤�ɂ������@</a></h2>
+<h2><a href="/blog/20190416132232.html">CentOS7/minimalでperlbrewを使えるようにする方法</a></h2>
 <p>
-  CentOS7/minimal��perlbrew���g����Perl���C���X�g�[�����悤�Ƃ����Ƃ��ɂ��낢���Ƒ����Ȃ������̂Ń����B
+  CentOS7/minimalでperlbrewを使ってPerlをインストールしようとしたときにいろいろと足りなかったのでメモ。
 </p>
 <p>
-  �ȉ���yum���g���ăC���X�g�[�������Ƃ��܂��������B
+  以下をyumを使ってインストールするとうまくいった。
 </p>
 <pre>
-# bzip2�̃C���X�g�[��
+# bzip2のインストール
 yum -y install bzip2
 
-# pache�̃C���X�g�[��
+# pacheのインストール
 yum -y install patch
 
-# Perl�R�A���W���[���̃C���X�g�[��
+# Perlコアモジュールのインストール
 yum -y install perl-core
 
-# gcc�̃C���X�g�[��
+# gccのインストール
 yum -y install gcc
 </pre>
 
