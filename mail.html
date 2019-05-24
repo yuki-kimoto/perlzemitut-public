@@ -53,14 +53,12 @@
         <h1>
   <a href="/"><img src="/images/logo.png"><span style="font-size:105%">Perl</span>入門ゼミ</a>
 </h1>
-<ul class="menu">
-  <li>
-    <a rel="nofollow" href="/list.html">新着</a>
-  </li>
-  <li>
-    <a rel="nofollow" href="https://twitter.com/perlzemi">Twitter</a>
-  </li>
-</ul>
+<div class="header-description">
+  テキスト処理、Linuxサーバー管理、Web開発
+</div>
+<div class="header-otoiawase">
+  <a rel="nofollow" href="/mail.html">お問い合わせ</a>
+</div>
 
       </div>
       <div class="main">
@@ -76,47 +74,62 @@
   $(function() {
     $('.mail-form button').on('click', function () {
       var form_values = $('.mail-form form').serialize();
-      $.post("/mail.cgi", form_values, function (data) {
-        if (data) {
-          $('.mail-form').html('<div>メッセージを受け付けました。ありがとうございます。</div>');
-        }
-        else {
-          alert('Fail sending mail');
-        }
-      });
+      $.post(
+        "/mail.cgi",
+        form_values,
+        function (data) {
+          if (data.success) {
+            $('.mail-form').html('<div class="mail-form-success">メッセージを受け付けました。送信ありがとうございます。</div>');
+          }
+          else {
+            // エラーメッセージ
+            var errors = data.errors;
+            $('.mail-form-errors').empty();
+            for (var i = 0; i < errors.length; i++) {
+              var error = errors[i];
+              var li = $('<li></li>');
+              li.text(error);
+              $('.mail-form-errors').append(li);
+            }
+          }
+        },
+        "json"
+      );
     });
   });
 </script>
 <h2><a href="/mail.html">お問合せフォーム</a></h2>
 <div class="mail-form">
+  <ul class="mail-form-errors">
+  </ul>
   <form>
-  	<label>
-  		<div class="mail-form-title">
-  		  名前:
-  		</div>
-  		<div class="mail-form-body">
-  		  <input type="text" size=50 name="name"><br>
-  		</div>
+    <label>
+      <div class="mail-form-title">
+        名前:
+      </div>
+      <div class="mail-form-body">
+        <input type="text" size=50 name="name"><br>
+      </div>
     </label>
-  	<label>
-  		<div class="mail-form-title">
-  		  メールアドレス:
-  		</div>
-  		<div class="mail-form-body">
-  		  <input type="text" size=50 name="email">
-  		</div>
+    <label>
+      <div class="mail-form-title">
+        メールアドレス:
+      </div>
+      <div class="mail-form-body">
+        <input type="text" size=50 name="email">
+      </div>
     </label>
-  	<label>
-  		<div class="mail-form-title">
-  		  メッセージ:
-  		</div>
-  		<div class="mail-form-body">
-  		  <textarea cols=50 rows=3 name="message"></textarea>
-  		</div>
+    <label>
+      <div class="mail-form-title">
+        メッセージ:
+      </div>
+      <div class="mail-form-body">
+        <textarea name="message"></textarea>
+      </div>
     </label>
-  	<div>
-  	  <button type="button">メッセージを送信</button>
-  	</div>
+    <div>
+      <button type="button">メッセージを送信</button>
+    </div>
   </form>
 </div>
 
