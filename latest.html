@@ -63,7 +63,27 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/06/15</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/07/03</div>
+<h2><a href="/blog/20190703160826.html">Perlテックブログは「Perlゼミ はてなブログ出張所」に名前が変わりました</a></h2>
+<p>
+  Perlテックブログは「Perlゼミ はてなブログ出張所」に名前が変わりました。
+</p>
+<blockquote>
+<p>
+  <a href="http://perlcodesample.hateblo.jp/">Perlゼミ はてなブログ出張所</a>
+</p>
+</blockquote>
+<p>
+  「Perlゼミ はてなブログ出張所」では、その場ですぐに書きたいという場合に、エイっと記事を投稿します。
+</p>
+<p>
+  新着記事は「Perlゼミ はてなブログ出張所」での投稿が多くなる気がします。
+</p>
+<p>
+  記事を整理するタイミングで、Perlゼミに反映させます。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/06/15</div>
 <h2><a href="/blog/20190615151356.html">Math::Bezier - Perlでベジェ曲線の座標を求める</a></h2>
 <p>
   Perlでベジェ曲線の座標を求めるにはMath::Bezierモジュールを使用します。制御点を指定して、それに沿った曲線の座標を分割して取得することができます。
@@ -871,57 +891,6 @@ git clone サイトのリポジトリ
 <p>
   セッションが必要になるような大きなWebアプリケーションは「Mojolicious」「Amon2」「Plack/PSGI」「Starman」などで構成して、小さなパーツは、CGIで作るというすみ分けができるかもね。
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/03/08</div>
-<h2><a href="/blog/20190308074548.html">__DATA__ - データセクション</a></h2>
-<p>
-  <b>__DATA__</b>より下に書かれたものは、データセクションと呼ばれます。データセクションを利用すると入力ファイルの内容を、プログラムの中に記述することができます。
-</p>
-<pre>
-
-# プログラム
-
-__DATA__
-kimoto,39
-tanaka,29
-</pre>
-<h3>DATAファイルハンドル</h3>
-<p>
-  データセクションに記述された内容は、<b>DATA</b>という特殊なファイルハンドルを使って読み込むことができます。
-</p>
-<pre>
-
-while (my $line = &lt;DATA&gt;) {
-  print "$line";
-}
-
-__DATA__
-kimoto,39
-tanaka,29
-</pre>
-<p>
-  編集したいテキストデータを、データセクションにコピーアンドペーストして、DATAファイルハンドルで読み込んで編集すれば、作業が楽です。
-</p>
-<h3>__DATA__とDATAファイルハンドルのサンプル</h3>
-<p>
-  __DATA__とDATAファイルハンドルのサンプルのサンプルです。
-</p>
-<pre>
-use strict;
-use warnings;
-
-# カンマをタブに変更
-while (my $line = &lt;DATA&gt;) {
-  chomp $line;
-  my @items = split(/,/, $line);
-  
-  print join("\t", @items) . "\n";
-}
-
-__DATA__
-kimoto,39
-tanaka,29
-</pre>
 
 
   </div>
