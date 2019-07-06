@@ -601,15 +601,13 @@
   }
   
   h1 {
-    width:50%;
-    white-space: nowrap;
+    width:70%;
   }
   .header-description {
     display:none;
   }
   .header-otoiawase {
-    width:50%;
-    white-space: nowrap;
+    width:30%;
   }
 
 }
