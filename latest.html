@@ -63,7 +63,85 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/08/02</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/08/03</div>
+<h2><a href="/blog/20190803184146.html">Giblog 1.0 リリース - Gitで管理できるWebサイトとブログ生成ツール</a></h2>
+<p>
+  Giblog 1.0 リリース。Giblogは、Perlゼミ製作のGitで管理できるWebサイトとブログ生成ツールを生成するためのツールです。
+</p>
+<blockquote>
+<p>
+  <a href="https://jp.giblog.net/">Giblog公式サイト - Gitで管理できるWebサイト・ブログの作成のツール</a>
+</p>
+</blockquote>
+<p>
+  <a href="https://new-website-example.giblog.net/"><img src="https://github.com/yuki-kimoto/giblog/raw/master/images/giblog-website.png/" width="100%"></a>
+</p>
+<p>
+  Gitで管理できる静的なWebサイトを簡単に作成できます。
+</p>
+<ul>
+  <li>
+    すべてのページをGit管理
+  </li>
+  <li>
+    高度なSEO対策
+  </li>
+  <li>
+    レスポンシブ対応
+  </li>
+  <li>
+    お問い合わせフォーム
+  </li>
+  <li>
+    高速な再構築
+  </li>
+  <li>
+    高度なセキュリティ
+  </li>
+  <li>
+    記事の検索・置換が簡単
+  </li>
+  <li>
+    Windows Mac Linux対応
+  </li>
+  <li>
+    Perlで自由にカスタマイズ
+  </li>
+</ul>
+<p>
+  645ページを0.78秒で再構築。ページのすべてを、静的なファイルで管理できるから、Perlを使った編集・置換も自由自在。
+</p>
+<p>
+  すべてが静的なページなので、ページ書き換えなどの脆弱性を生み出さない最強のセキュリティ。
+</p>
+<p>
+  Windows、Mac、Linux対応。
+</p>
+<p>
+  Twitterカードを追加したいなどの機能要望は、Perlを使って、実現できる。
+</p>
+<p>
+  Github Pagesにアップロードすれば、あなたのページが、すぐにできちゃう。
+</p>
+<p>
+  CGIを利用できる環境であれば、お問合せフォームもサポート。
+</p>
+<p>
+  Perlゼミで実証されている、高度なSEO対策をデフォルトで提供。
+</p>
+<p>
+  デフォルトでスマートフォン対応。現代的なWebサイトデザインもCSSの修正で対応可能です。
+</p>
+<p>
+  Giblog公式サイトはもちろんGiblogで製作されていますよ!
+</p>
+<blockquote>
+<p>
+  <a href="https://jp.giblog.net/">Giblogを試してみる</a>
+</p>
+</blockquote>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/08/02</div>
 <h2><a href="/blog/20190802175057.html">Perl 3分間クッキングをQiita上で連載を始めました</a></h2>
 <p>
   Qiitaで
@@ -426,298 +504,6 @@ app-&gt;start;
 <p>
   もっといい方法あるよという方は、Twitterで、教えてください。
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/03/29</div>
-<h2><a href="/blog/20190329072611.html">JSONとAjaxを使ったCGIのメールフォームが完成したので公開します</a></h2>
-<p>
-  JSONとAjaxを使ったCGIのメールフォームが完成したので公開します。
-</p>
-<p>
-  配置する場合は、二つのファイルをドキュメントルートに置いてください。
-</p>
-<h3>JSONとAjaxを使ったCGIのメールフォーム(CGI.pmを使わないバージョン)</h3>
-<h4>mail.html</h4>
-<p>
-  HTMLファイルに、メールフォームを記述します。
-</p>
-<p>
-  Sendが押されたタイミングで、メールフォームの情報をJSONにして、Ajax通信で、送信します。
-</p>
-<pre>
-&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"&gt;&lt;/script&gt;
-
-&lt;script&gt;
-  $(function() {
-    $('.mail-form button').on('click', function () {
-      var form_values = JSON.stringify($('.mail-form form').serializeArray(), null, 2);
-      $.ajax({
-        type:"post",
-        url:"/mail.cgi",
-        data:form_values,
-        contentType: 'application/json',
-        dataType: "json",
-        success : function (data) {
-          if (data) {
-            $('.mail-form').html('&lt;div&gt;Thank you very much for contacting us.&lt;/div&gt;');
-          }
-          else {
-            alert('Fail sending mail');
-          }
-        }
-      });
-    });
-  });
-&lt;/script&gt;
-
-&lt;h2&gt;Message Form&lt;/h2&gt;
-&lt;div class="mail-form"&gt;
-  &lt;form&gt;
-  	&lt;label&gt;
-  		&lt;div class="mail-form-title"&gt;
-  		  Name:
-  		&lt;/div&gt;
-  		&lt;div class="mail-form-body"&gt;
-  		  &lt;input type="text" size=50 name="name"&gt;&lt;br&gt;
-  		&lt;/div&gt;
-    &lt;/label&gt;
-  	&lt;label&gt;
-  		&lt;div class="mail-form-title"&gt;
-  		  Mail:
-  		&lt;/div&gt;
-  		&lt;div class="mail-form-body"&gt;
-  		  &lt;input type="text" size=50 name="email"&gt;
-  		&lt;/div&gt;
-    &lt;/label&gt;
-  	&lt;label&gt;
-  		&lt;div class="mail-form-title"&gt;
-  		  Message:
-  		&lt;/div&gt;
-  		&lt;div class="mail-form-body"&gt;
-  		  &lt;textarea cols=50 rows=3 name="message"&gt;&lt;/textarea&gt;
-  		&lt;/div&gt;
-    &lt;/label&gt;
-  	&lt;div&gt;
-  	  &lt;button type="button"&gt;Send&lt;/button&gt; &lt;input type="reset" value="Clear"&gt;
-  	&lt;/div&gt;
-  &lt;/form&gt;
-&lt;/div&gt;
-</pre>
-<h4>mail.cgi</h4>
-<p>
-  標準入力から、メールフォームの情報をJSONで受け取って、メールを送信して、標準出力にJSONで、送信結果を書き出します。
-</p>
-<p>
-  CGIに特有の概念のない、通常のPerlスクリプトです。
-</p>
-<pre>
-#!/usr/bin/env perl
-
-use strict;
-use warnings;
-use utf8;
-use MIME::Base64;
-
-use Encode 'decode', 'encode';
-
-# Mail to
-my $mailto = 'kimoto@foo.example';
-
-# Mail title
-my $subject = 'Mail From giblog-mail';
-
-# Mail command
-my $mail_cmd = '/usr/sbin/sendmail';
-
-my $input = do { local $/; &lt;STDIN&gt; };
-$input = decode('UTF-8', $input);
-
-my $error = sendmail($input);
-
-my $output;
-if ($error) {
-  $output = 0;
-}
-else {
-  $output = 1;
-}
-
-my $res = &lt;&lt;"EOS";
-Content-type: application/json;
-
-$output
-EOS
-
-print encode('UTF-8', $res);
-
-sub sendmail {
-  my ($data) = @_;
-  
-	# Mail header
-	my $mailfrom;
-	my $mail_head = "";
-	$mail_head .= "Content-Type: text/plain; charset=\"UTF-8\"\n";
-	$mail_head .= "Content-Transfer-Encoding: base64\n";
-	$mail_head .= "MIME-Version: 1.0\n";
-	$mail_head .= "To: $mailto\n";
-	$mail_head .= "From: $mailto\n";
-	$mail_head .= "Subject: " . encode('MIME-Header', $subject) . "\n";
-	$mail_head .= "\n";
-
-	# Mail body
-  my $mail_body = $data;
-
-	# Send mail
-	my $cmd = "$mail_cmd -f $mailto -t";
-	my $send_error;
-	if (open(my $out, "| $cmd")) {
-	  if (print $out $mail_head) {
-			if (print $out encode_base64(encode('UTF-8', $mail_body))) {
-			  # Success
-			}
-			else {
-				$send_error = "Mail sending fail(3)";
-			}
-	  }
-	  else {
-	    $send_error = "Mail sending fail(2)";
-	  }
-	}
-	else {
-		$send_error = "Mail sending fail(1)";
-	}
-	
-	return $error;
-}
-
-</pre>
-<p>
-  Perlスクリプトとして、実行して試験できます。POSTされるデータは、標準入力から受け取ります。
-</p>
-<pre>
-chmod 755 mail.cgi
-echo 'foo' | ./mail.cgi
-</pre>
-<h3>JSONとAjaxを使ったCGIのメールフォーム(CGI.pmを使うバージョン)</h3>
-<p>
-  JSONですべて完結できるかなぁと思っていたけど、ファイルアップロードまでを考慮に入れると、無理だったので、素直にCGI.pmとメール送信モジュールMIME::Liteを使ったバージョンも書きました。
-</p>
-<h4>mail.html</h4>
-<pre>
-&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"&gt;&lt;/script&gt;
-
-&lt;script&gt;
-  $(function() {
-    $('.mail-form button').on('click', function () {
-      var form_values = $('.mail-form form').serialize();
-      $.post("/mail.cgi", form_values, function (data) {
-        if (data) {
-          $('.mail-form').html('&lt;div&gt;Thank you very much for contacting us.&lt;/div&gt;');
-        }
-        else {
-          alert('Fail sending mail');
-        }
-      });
-    });
-  });
-&lt;/script&gt;
-
-&lt;h2&gt;Message Form&lt;/h2&gt;
-&lt;div class="mail-form"&gt;
-  &lt;form&gt;
-  	&lt;label&gt;
-  		&lt;div class="mail-form-title"&gt;
-  		  Name:
-  		&lt;/div&gt;
-  		&lt;div class="mail-form-body"&gt;
-  		  &lt;input type="text" size=50 name="name"&gt;&lt;br&gt;
-  		&lt;/div&gt;
-    &lt;/label&gt;
-  	&lt;label&gt;
-  		&lt;div class="mail-form-title"&gt;
-  		  Mail:
-  		&lt;/div&gt;
-  		&lt;div class="mail-form-body"&gt;
-  		  &lt;input type="text" size=50 name="email"&gt;
-  		&lt;/div&gt;
-    &lt;/label&gt;
-  	&lt;label&gt;
-  		&lt;div class="mail-form-title"&gt;
-  		  Message:
-  		&lt;/div&gt;
-  		&lt;div class="mail-form-body"&gt;
-  		  &lt;textarea cols=50 rows=3 name="message"&gt;&lt;/textarea&gt;
-  		&lt;/div&gt;
-    &lt;/label&gt;
-  	&lt;div&gt;
-  	  &lt;button type="button"&gt;Send&lt;/button&gt; &lt;input type="reset" value="Clear"&gt;
-  	&lt;/div&gt;
-  &lt;/form&gt;
-&lt;/div&gt;
-</pre>
-<h4>mail.cgi</h4>
-<pre>
-#!/usr/bin/env perl
-
-use strict;
-use warnings;
-use utf8;
-use MIME::Base64;
-use CGI;
-use MIME::Lite;
-
-use Encode 'decode', 'encode';
-
-my $q = CGI-&gt;new;
-
-# Mail to
-my $mailto = 'kimoto_yuki@shinshina.co.jp';
-
-# Mail title
-my $subject = 'Mail From giblog-mail';
-
-# Mail command
-my $mail_cmd = '/usr/sbin/sendmail';
-
-# Name
-my $name = $q-&gt;param('name');
-$name = decode('UTF-8', $name);
-
-# Email
-my $email = $q-&gt;param('email');
-$email = decode('UTF-8', $email);
-
-# Message
-my $message = $q-&gt;param('message');
-$message = decode('UTF-8', $message);
-
-# Mail body
-my $mail_body = &lt;&lt;"EOS";
-Name: $name
-Email: $email
-Message: $message
-EOS
-
-# Send mail
-my $msg = MIME::Lite-&gt;new(
-  From    =&gt; $mailto,
-  To      =&gt; $mailto,
-  Subject =&gt; encode('MIME-Header', $subject),
-  Type    =&gt; 'multipart/mixed'
-);
-$msg-&gt;attach(
-  Type     =&gt; 'TEXT',
-  Data     =&gt; encode('UTF-8', $mail_body),
-);
-$msg-&gt;send;
-
-# Response
-my $res = &lt;&lt;"EOS";
-Content-type: application/json;
-
-1
-EOS
-print encode('UTF-8', $res);
-</pre>
 
 
   </div>
