@@ -38,12 +38,12 @@
   });
 </script>
 
-<title>ucfirst関数 - 文字列の先頭を大文字に変換 - Perl入門ゼミ</title>
-<meta name="description" content="先頭の文字だけを大文字に変換するにはucfirst関数を使用します。">
+<title>ucfirst関数 - 文字列の先頭を小文字から大文字に変換する - Perl入門ゼミ</title>
+<meta name="description" content="ucfirst関数を使用すると、文字列の先頭だけを小文字から大文字に変換することができます。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="ucfirst関数 - 文字列の先頭を大文字に変換 - Perl入門ゼミ" />
-<meta name="twitter:description" content="先頭の文字だけを大文字に変換するにはucfirst関数を使用します。" />
+<meta name="twitter:title" content="ucfirst関数 - 文字列の先頭を小文字から大文字に変換する - Perl入門ゼミ" />
+<meta name="twitter:description" content="ucfirst関数を使用すると、文字列の先頭だけを小文字から大文字に変換することができます。" />
 <meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
 
 
@@ -89,13 +89,42 @@
     here
   </li>
 </ol>
-<h2><a href="/blog/20100325127089.html">ucfirst関数 - 文字列の先頭を大文字に変換</a></h2>
+<h2><a href="/blog/20100325127089.html">ucfirst関数 - 文字列の先頭を小文字から大文字に変換する</a></h2>
 <p>
-  先頭の文字だけを大文字に変換するには<strong>ucfirst</strong>関数を使用します。
+  <strong>ucfirst</strong>関数を使用すると、文字列の先頭だけを小文字から大文字に変換することができます。
 </p>
 <pre>
+# 先頭の文字を大文字に変換
 $ret = ucfirst $string;
 </pre>
+<h3>ucfirst関数のプログラミングのサンプル</h3>
+<p>
+  ucfirst関数のプログラミングのサンプルです。
+</p>
+<pre>
+use strict;
+use warnings;
+
+# "foo"を"Foo"に変換
+my $str = ucfirst "foo";
+
+print "$str\n";
+</pre>
+<p>
+  出力結果
+</p>
+<pre>
+Foo
+</pre>
+<h3>ucfirst関数の関連情報</h3>
+<p>
+  ucfirst関数の関連情報です。
+</p>
+<ul>
+  <li><a href="/blog/20100326127089.html">lc関数 - 大文字を小文字に変換する</a>
+  <li><a href="/blog/20100327127089.html">lcfirst関数 - 文字列の先頭を大文字から小文字に変換する</a>
+  <li><a href="/blog/20080903122057.html">uc関数 - 小文字を大文字に変換する</a>
+</ul>
 
   </div>
   <div class="bottom">
