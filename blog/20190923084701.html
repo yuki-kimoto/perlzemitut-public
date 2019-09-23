@@ -38,12 +38,12 @@
   });
 </script>
 
-<title>リストコンテキスト - Perl入門ゼミ</title>
-<meta name="description" content="Perlにはコンテキストと呼ばれる概念があり、リストとして評価される文脈をリストコンテキストといいます。">
+<title>名古屋でのプログラミングPerlのイベント YAPC::Nagoya::Tiny 2019年11月3日(日) - Perl入門ゼミ</title>
+<meta name="description" content="PerlというプログラミングのイベントがYAPC::Nagoya::Tiny、名古屋で2019年11月3日(日)に開催されます。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="リストコンテキスト - Perl入門ゼミ" />
-<meta name="twitter:description" content="Perlにはコンテキストと呼ばれる概念があり、リストとして評価される文脈をリストコンテキストといいます。" />
+<meta name="twitter:title" content="名古屋でのプログラミングPerlのイベント YAPC::Nagoya::Tiny 2019年11月3日(日) - Perl入門ゼミ" />
+<meta name="twitter:description" content="PerlというプログラミングのイベントがYAPC::Nagoya::Tiny、名古屋で2019年11月3日(日)に開催されます。" />
 <meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
 
 
@@ -74,74 +74,77 @@
 
   </div>
   <div class="middle">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161022147731.html">
-        <span itemprop="name">構文</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20080608121292.html">
-        <span itemprop="name">コンテキスト</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20180530152777.html">リストコンテキスト</a></h2>
+    <style>
+  .top {
+    display:none;
+  }
+</style>
+<h2><a href="/blog/20190923084701.html">名古屋でのプログラミングPerlのイベント YAPC::Nagoya::Tiny 2019年11月3日(日)</a></h2>
+<h3>YAPC::Nagoya::Tiny 2019年11月3日(日)</h3>
 <p>
-  Perlにはコンテキストと呼ばれる概念があり、リストとして評価される文脈を<b>リストコンテキスト</b>といいます。
+  PerlというプログラミングのイベントがYAPC::Nagoya::Tiny、名古屋で2019年11月3日(日)に開催されます。
 </p>
-<h4>配列への代入</h4>
 <p>
-  <a href="/blog/20161012147627.html">配列</a>への代入はリストコンテキストです。
+  主催は、<a href="http://blog.yapcjapan.org/">YACP::Japan運営ブログ</a>を運営しているJAP(Japan Perl Association)です。
 </p>
-<pre>
-my @values2 = @values;
-</pre>
-<h4>リスト</h4>
 <p>
-  <a href="/blog/20100308126967.html">リスト</a>の内側はリストコンテキストです。
+  今回の名古屋のYAPCの地方開催は初めてなので、まだ情報をチェックしていない方は、チェックしてみましょう。
 </p>
-<pre>
-(@values);
-</pre>
-<h4>無名配列生成子</h4>
+<h3>YAPC::Japanが名古屋に初登場！ </h3>
+<blockquote>
 <p>
-  無名配列生成子の内側はリストコンテキストです。
+  <b>YAPC::Japanが名古屋に初登場！ </b>
 </p>
-<pre>
-[@values];
-</pre>
-<h4>無名ハッシュ生成子</h4>
 <p>
-  無名ハッシュ生成子の内側はリストコンテキストです。
+  2016年から北海道、大阪、福岡、沖縄、東京で開催してきたYAPC::JapanがTinyとなって名古屋に登場です！
 </p>
-<pre>
-{@values};
-</pre>
 <p>
-  自動的に展開されて、気が付きにくい場所ですので、注意してください。
+  YAPCはYet Another Perl Conferenceの略で草の根的に始まったPerlのカンファレンスです。私達YAPC::Japanは一般社団法人JPAが主催する、Perlを軸としたITに関わる全ての人のためのカンファレンスです。
 </p>
-<h4>サブルーチンの引数</h4>
 <p>
-  <a href="/blog/20101130129876.html">サブルーチン</a>の引数は、リストコンテキストです。
+  Perlだけにとどまらない多様な分野のトークセッションを通じ、情報交換や交流を行っていただくことで、JPAのミッションである「日本におけるPerlコミュニティを脈々と続くものとして」盛り上げていくことが目標です。
 </p>
-<pre>
-func(@values);
-</pre>
 <p>
-  自動的に展開されて、気が付きにくい場所ですので、注意してください。
+  ☆ 懇親会についても開催を予定しております。詳細が決まり次第、順次お知らせいたします。
+</p>
+<p>
+  【運営】一般社団法人Japan Perl Association
+</p>
+<p>
+  <a href="https://yapcjapan.connpass.com/event/146727/">YAPC::Nagoya::Tiny 2019</a>
+</p>
+</blockquote>
+<h3>YAPC::Nagoya::Tinyの参加費、場所、時間</h3>
+<p>
+  YAPC::Nagoya::Tiny 2019の参加費は、1000円です。スポンサー企業様のご厚意によって、非常に安く設定されています。
+</p>
+<p>
+  場所は、名古屋国際センター 第1会議室。
+</p>
+<p>
+  時間は、10:30～18:00です。
+</p>
+<p>
+  イベントの後は、懇親会もあります。懇親会は別途発表で、費用は別にかかります。普段はできない、プログラミングや技術の話でわいわい盛り上がります。
+</p>
+<h3>YAPC::Nagoya::Tiny 2019の申し込み</h3>
+<p>
+  申し込みは、conpassと呼ばれる、イベントを公表・申し込みができるWebサイトで受け付けています。
+</p>
+<p>
+  中部地方、愛知県、名古屋の高校・大学の学生の皆様。研究者の皆様。インフラエンジニア、Webエンジニア、WebサービスをPerlで開発されているシステムマネージャ、経営者の方、奮ってご参加ください。
+</p>
+<p>
+  遠方から名古屋へ旅行してみたいよーという方も、ご参加ください。
+</p>
+<p>
+  Perl入学式のメンバーや、Perlゼミもconnpassで参加を申し込んでいるので、Perl入学式、過去に参加された方、Perlゼミ見ているよという方も、ぜひご参加ください。
+</p>
+<p>
+  申し込みには、Paypalのアカウントが必要です。
+</p>
+<p>
+  <a href="https://yapcjapan.connpass.com/event/146727/">YAPC::Nagoya::Tiny 2019の申し込みページに移動</a>
 </p>
 
   </div>
