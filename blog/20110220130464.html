@@ -121,7 +121,7 @@ sudo cpan App::perlbrew
 perlbrew init
 </pre>
 <p>
-  次にperlbrewのパスを通しましょう。perlbrewで用意されているbash用の設定ファイルを「.bashrc」に追加します(bashの場合)。
+  次にperlbrewのパスを通しましょう。perlbrewで用意されているbash用の設定ファイルを「~/.bash_profile」に追加します(bashの場合)。
 </p>
 <pre>
 echo "source ~/perl5/perlbrew/etc/bashrc" &gt;&gt; ~/.bash_profile
@@ -131,16 +131,24 @@ echo "source ~/perl5/perlbrew/etc/bashrc" &gt;&gt; ~/.bash_profile
 </p>
 <h3>ユーザー環境へのPerlのインストール</h3>
 <p>
-  ユーザー環境にPerlをインストールします。5.16.3のPerlをインストールしてみましょう。時間がかかるので待ちます(約40分程度)。
+  ユーザー環境にPerlをインストールします。5.28.2のPerlをインストールしてみましょう。時間がかかるので待ちます(約30分程度)。
 </p>
 <pre>
-perlbrew install perl-5.16.3
+perlbrew install perl-5.28.2
 </pre>
 <p>
-  インストールできない場合で試験を飛ばして強制的にインストールしたい場合は「-n」オプションを使用します。
+  インストールできない場合は、Perlのコンパイルに必要なツールが、まだインストールされていない可能性があります。以下のツールが必要になりますので、各環境に応じて、インストールしてください。
+</p>
+<ul>
+  <li>make</li>
+  <li>gcc</li>
+  <li>patch</li>
+</ul>
+<p>
+  試験を強制的に飛ばして強制的にインストールしたい場合は「-n」オプションを使用します。
 </p>
 <pre>
-perlbrew install -n perl-5.16.3
+perlbrew install -n perl-5.28.2
 </pre>
 <p>
   利用できるPerlの一覧を見てみましょう。perlbrewのlistコマンドを使用します。
@@ -152,14 +160,14 @@ perlbrew list
   以下のように利用できるPerlが表示されます。アスタリスクのあるものが現在利用しているPerlです。
 </p>
 <pre>
-  perl-5.16.3
+  perl-5.28.2
 * /usr/bin/perl (5.8.8)
 </pre>
 <p>
   Perlを切り替えるにはperlbrewのswitchコマンドを使用します。
 </p>
 <pre>
-perlbrew switch perl-5.16.3
+perlbrew switch perl-5.28.2
 </pre>
 <p>
   Perlのバージョンを実際に確認してみましょう。
@@ -168,10 +176,10 @@ perlbrew switch perl-5.16.3
 perl -v
 </pre>
 <p>
-  以下のように5.16.3のバージョンになっています。
+  以下のように5.28.2のバージョンになっています。
 </p>
 <pre>
-This is perl 5, version 16, subversion 3 (v5.16.3) built for i686-linux
+This is perl 5, version 16, subversion 3 (v5.28.2) built for i686-linux
 </pre>
 <h3>cpanmのインストール</h3>
 <p>
@@ -190,7 +198,7 @@ cpanm JSON
   モジュールは以下のディレクトリなどにインストールされます。
 </p>
 <pre>
-/home/kimoto/perl5/perlbrew/perls/perl-5.16.3/lib/site_perl/5.16.3/
+/home/kimoto/perl5/perlbrew/perls/perl-5.28.2/lib/site_perl/5.28.2/
 </pre>
 <h3>元のPerlに戻す</h3>
 <p>
@@ -201,7 +209,7 @@ perlbrew off
 </pre>
 <h3>perlbrewで指定したバージョンのPerlをcrontabで使う方法</h3>
 <p>
-  perlbrewのはまりどころのひとつは、perlbrewで指定したバージョンのPerlがcronからは利用されないということでしょう。これはcronから実行するときは、シェルが起動されないので.bashrcが読み込まれないことが原因です。perlbrewによる設定は、.bashrcの中に記述したからですね。
+  perlbrewのはまりどころのひとつは、perlbrewで指定したバージョンのPerlがcronからは利用されないということでしょう。これはcronから実行するときは、シェルが起動されないので.bash_profileが読み込まれないことが原因です。perlbrewによる設定は、.bash_profileの中に記述したからですね。
 </p>
 <p>
   一番簡単な解決策は、crontabの中でPATHを、そのユーザーが持っている環境変数PATHの値に書き換えてあげることです。
@@ -246,7 +254,7 @@ PATH=/home/admins/perl5/perlbrew/bin:/home/admins/perl5/perlbrew/perls/perl-5.16
   こうすると設定したPATHの値から自動的にperlを検出してくれます。
 </p>
 <p>
-  この方法は、見てのとおり、crontabの移植性がまったくないです。ユーザー名のadminsが直接埋め込まれていますし、perlのバージョン番号がそのまま記述されているので、perlbrewでバージョンを変更したときは、動かなくなります。
+  この方法は、見てのとおり、PATHをベタ書きしますので、crontabの移植性がまったくないです。ユーザー名のadminsが直接埋め込まれていますし、perlのバージョン番号がそのまま記述されているので、perlbrewでバージョンを変更したときは、動かなくなります。
 </p>
 <p>
   でもこの方法が一番よいと思います。その理由はcrontab内では、環境変数の変数展開ができないという制限があるので、うまく移植性を持たせることが難しいということが理由です。移植性を持たせると、記述量が多くなったり、追加のスクリプトが必要になったり、管理が煩雑になってしまいます。
