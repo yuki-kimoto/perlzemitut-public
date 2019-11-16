@@ -236,7 +236,7 @@ sub get_files {
   opendir my $dh, $dir
     or die qq/Can't open directory "$dir": $!/;
   
-  my @dirs = map { "$dir/$_" } grep { $_ ne '.' && $_ ne '..' } readdir $dh;
+  my @dirs = map { "$dir/$_" } grep { $_ ne '.' &amp;&amp; $_ ne '..' } readdir $dh;
   
   return @dirs;
 }

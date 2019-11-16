@@ -126,7 +126,7 @@ sysopen(my $fh, $file, O_RDWR | O_CREAT)
 
 my $cnt;
 $cnt = &lt;$fh&gt;;
-if (!defined $cnt && $!){ die "Cannot read $file: $!"; }
+if (!defined $cnt &amp;&amp; $!){ die "Cannot read $file: $!"; }
 
 $cnt++;
 

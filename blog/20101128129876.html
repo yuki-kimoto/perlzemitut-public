@@ -150,7 +150,7 @@ url_for('foobarid', id =&gt; 3);
   クエリ文字列を解析したい場合はMojo::Parametersのparseメソッドを使用します。
 </p>
 <pre>
-$params-&gt;parse('foo=b%3Bar&baz=23');
+$params-&gt;parse('foo=b%3Bar&amp;baz=23');
 </pre>
 <p>
   一般的な利用方法としてはurl_forメソッドでMojo::URLオブジェクトを生成した後に、Mojo::URLのqueryメソッドでMojo::Parametersオブジェクトを取得してからparseメソッドを使うことが多いでしょう。
@@ -161,7 +161,7 @@ $params-&gt;parse('foo=b%3Bar&baz=23');
 <pre>
 # テンプレートの中
 % my $url = url_for('/search');
-% $url-&gt;query-&gt;parse('title=perl&name=ken');
+% $url-&gt;query-&gt;parse('title=perl&amp;name=ken');
 </pre>
 <h4>クエリ文字列を置き換える</h4>
 <p>
@@ -175,10 +175,10 @@ $url-&gt;query(name =&gt; 'taro', price =&gt; 1900);
 </p>
 <pre>
 # 前
-title=perl&name=ken
+title=perl&amp;name=ken
 
 # 後
-name=taro&price=1900
+name=taro&amp;price=1900
 </pre>
 <h4>クエリ文字列のマージ</h4>
 <p>
@@ -192,10 +192,10 @@ $url-&gt;query([name =&gt; 'taro', price =&gt; 1900]);
 </p>
 <pre>
 # 前
-title=perl&name=ken
+title=perl&amp;name=ken
 
 # 後
-title=perl&name=taro&price=1900
+title=perl&amp;name=taro&amp;price=1900
 </pre>
 <h4>クエリ文字列の追加</h4>
 <p>
@@ -209,10 +209,10 @@ $url-&gt;query({name =&gt; 'taro', price =&gt; 1900});
 </p>
 <pre>
 # 前
-title=perl&name=ken
+title=perl&amp;name=ken
 
 # 後
-title=perl&name=ken&name=taro&price=1900
+title=perl&amp;name=ken&amp;name=taro&amp;price=1900
 </pre>
 <h3>リクエストのクエリ文字列を受け継いだURLを生成する - url_with</h3>
 <p>

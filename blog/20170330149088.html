@@ -176,7 +176,7 @@ $dbi-&gt;model('book')-&gt;insert(...);
   use DBIx::Custom;
   
   # 接続
-  my $dbi = DBIx::Custom-&gt;connect("dbi:mysql:database=dbname", 'ken', '!LFKD%$&',
+  my $dbi = DBIx::Custom-&gt;connect("dbi:mysql:database=dbname", 'ken', '!LFKD%$&amp;',
     {mysql_enable_utf8 =&gt; 1});
   
   # モデルの作成

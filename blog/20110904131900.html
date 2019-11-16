@@ -161,7 +161,7 @@ my $param = $dbi-&gt;merge_param({key1 =&gt; 1}, {key1 =&gt; 1, key2 =&gt; 2});
 my $dbi = DBIx::Custom-&gt;new(
   dsn =&gt; "dbi:mysql:database=dbname",
   user =&gt; 'ken',
-  password =&gt; '!LFKD%$&',
+  password =&gt; '!LFKD%$&amp;',
   option =&gt; {mysql_enable_utf8 =&gt; 1}
 );
 </pre>

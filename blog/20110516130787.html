@@ -161,7 +161,7 @@ my $default_option = DBIx::Custom-&gt;new-&gt;default_option;
 my $dbi = DBIx::Custom-&gt;connect(
   dsn =&gt; "dbi:mysql:database=bookshop",
   user =&gt; 'ken',
-  password =&gt; '!LFKD%$&',
+  password =&gt; '!LFKD%$&amp;',
   option =&gt; {mysql_enable_utf8 =&gt; 1}
 );
 </pre>
@@ -178,7 +178,7 @@ my $dbi = DBIx::Custom-&gt;connect(
 my $dbi = DBIx::Custom-&gt;connect(
   dsn =&gt; "dbi:mysql:database=bookshop;host=somehost.com;port=3306",
   user =&gt; 'ken',
-  password =&gt; '!LFKD%$&',
+  password =&gt; '!LFKD%$&amp;',
 );
 </pre>
 <h3>PostgreSQLへ接続する</h3>
@@ -189,7 +189,7 @@ my $dbi = DBIx::Custom-&gt;connect(
 my $dbi = DBIx::Custom-&gt;connect(
   dsn =&gt; "dbi:Pg:dbname=bookshop",
   user =&gt; 'ken',
-  password =&gt; '!LFKD%$&',
+  password =&gt; '!LFKD%$&amp;',
   option =&gt; {pg_enable_utf8  =&gt; 1}
 );
 </pre>
@@ -206,7 +206,7 @@ my $dbi = DBIx::Custom-&gt;connect(
 my $dbi = DBIx::Custom-&gt;connect(
   dsn =&gt; "dbi:Pg:dbname=$dbname;host=somehost.com;port=5432;",
   user =&gt; 'ken',
-  password =&gt; '!LFKD%$&',
+  password =&gt; '!LFKD%$&amp;',
 );
 </pre>
 <h3>SQLiteへ接続する</h3>

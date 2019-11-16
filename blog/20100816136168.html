@@ -160,7 +160,7 @@
 </p>
 <pre>
 # 1より大きい、かつ4より小さい
-if ($num &gt; 1 && $num &lt; 4) {
+if ($num &gt; 1 &amp;&amp; $num &lt; 4) {
   ...
 }
 </pre>
@@ -220,7 +220,7 @@ if (not $num) {
 </p>
 <pre>
 # 論理演算子
-if ($var1 && $var2 || $var3) {
+if ($var1 &amp;&amp; $var2 || $var3) {
   ...
 }
 </pre>
@@ -228,7 +228,7 @@ if ($var1 && $var2 || $var3) {
   「&&」は「||」よりも優先順位が高いです。優先順位を変えたい場合は括弧「()」を使用します。
 </p>
 <pre>
-if ($var1 && ($var2 || $var3)) {
+if ($var1 &amp;&amp; ($var2 || $var3)) {
   ...
 }
 </pre>
@@ -237,7 +237,7 @@ if ($var1 && ($var2 || $var3)) {
   Perlの論理演算子は評価が決定した時点で評価をやめます。たとえば
 </p>
 <pre>
-$var1 && $var2
+$var1 &amp;&amp; $var2
 </pre>
 <p>
   という条件があった場合、$var1が偽であれば「$var1 &amp;&amp; $var2」は偽になることが決定するのでそこで評価は終わります。
@@ -288,7 +288,7 @@ use warnings;
 # 論理積、論理和、否定
 print "1. 論理積( A かつ B )\n";
 my $num = 3;
-if ($num &gt; 1 && $num &lt; 4) {
+if ($num &gt; 1 &amp;&amp; $num &lt; 4) {
   print "\$numは、1より大きく、4より小さい\n\n";
 }
 

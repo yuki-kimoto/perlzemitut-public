@@ -193,7 +193,7 @@ get '/search-result' =&gt; sub {
     $person-&gt;{height} = $record[1];
     
     # Match
-    if ($person-&gt;{height} &gt;= $height_min &&
+    if ($person-&gt;{height} &gt;= $height_min &amp;&amp;
         $person-&gt;{height} &lt;= $height_max)
     {
       push @$persons, $person;

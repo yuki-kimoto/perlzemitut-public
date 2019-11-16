@@ -174,8 +174,8 @@ my @values = $self-&gt;param('foo');
   次は<strong>クエリ文字列</strong>としてパラメーターを受け取る方法を解説します。クエリ文字列とは、URLの後ろに続く、パラメーターを指定する部分のことです。次のURLを見てください。
 </p>
 <pre>
-/diary/?date=20131016&user=kimoto
-/diary/?date=20121013&user=kimoto
+/diary/?date=20131016&amp;user=kimoto
+/diary/?date=20121013&amp;user=kimoto
 </pre>
 <p>
   「?」の後ろからクエリ文字列は始まります。パラメーター名と値は「=」で区切られます。「&」を使うことで、複数のパラメーターを連結することができます。ひとつの目のURLでは、パラメーター名は二つあり「date」と「user」です。それぞれに対応する値は「20131016」と「kimoto」になっています。

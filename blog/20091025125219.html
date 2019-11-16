@@ -1220,10 +1220,10 @@ my $path = $url-&gt;path;
 # URLのクエリ文字列の設定
 $url-&gt;query_form(name =&gt; 'taro', age =&gt; 13);
 
-# URLのクエリ文字列 name=taro&age=13
+# URLのクエリ文字列 name=taro&amp;age=13
 my $query = $url-&gt;query;
 
-# URLを文字列で取得 http://www.perl.com/index.html?name=taro&age=13
+# URLを文字列で取得 http://www.perl.com/index.html?name=taro&amp;age=13
 my $url_str = $url-&gt;as_string;
 </pre>
 <h4>Data::Dumper</h4>

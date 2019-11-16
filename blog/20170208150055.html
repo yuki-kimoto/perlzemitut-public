@@ -327,7 +327,7 @@ foo(...)
     SV** num_sv_ptr = av_fetch(nums_av, i, FALSE);
     
     // 要素が見つかればその値を、見つからなければundefを設定
-    SV* num_sv = num_sv_ptr ? *num_sv_ptr : &PL_sv_undef;
+    SV* num_sv = num_sv_ptr ? *num_sv_ptr : &amp;PL_sv_undef;
     
     // IV型に変換
     IV num = SvIV(num_sv);
@@ -414,7 +414,7 @@ foo(...)
   SV** x_sv_ptr = hv_fetch(point_hv, "x", strlen("x"), 0);
   
   // 要素が見つかればその値を、見つからなければundefを設定
-  SV* x_sv = x_sv_ptr ? *x_sv_ptr : &PL_sv_undef;
+  SV* x_sv = x_sv_ptr ? *x_sv_ptr : &amp;PL_sv_undef;
   
   // double型に変換
   double x = SvNV(x_sv);
@@ -423,7 +423,7 @@ foo(...)
   SV** y_sv_ptr = hv_fetch(point_hv, "y", strlen("y"), 0);
   
   // 要素が見つかればその値を、見つからなければundefを設定
-  SV* y_sv = y_sv_ptr ? *y_sv_ptr : &PL_sv_undef;
+  SV* y_sv = y_sv_ptr ? *y_sv_ptr : &amp;PL_sv_undef;
   
   // double型に変換
   double y = SvNV(y_sv);  

@@ -98,7 +98,7 @@
 </p>
 <pre>
 use File::Find;
-find(\&process, $top_dir);
+find(\&amp;process, $top_dir);
 
 sub process{
   # 行いたい処理
@@ -118,7 +118,7 @@ sub process{
   この場合は、サブルーチンへのリファレンスは「wanted」に指定します。
 </p>
 <pre>
-find({wanted =&gt; \&process, no_chdir =&gt; 1}, $top_dir);
+find({wanted =&gt; \&amp;process, no_chdir =&gt; 1}, $top_dir);
 </pre>
 <h3>処理の記述の中で、使うことのできる変数</h3>
 <table>
@@ -217,7 +217,7 @@ print "準備: $top_dir を作成しました。\n\n";
 print "1: 再帰的に、すべてのファイル名( ベース名 )を出力する。\n";
 # 第一引数に、それぞれのファイルに対して行いたい処理を書いた
 # サブルーチンへのリファレンスを渡す。
-find( \&print_file_name, $top_dir );
+find( \&amp;print_file_name, $top_dir );
                                      
 sub print_file_name{
   # $_ に、現在走査しているディレクトリを
@@ -229,7 +229,7 @@ sub print_file_name{
 print "\n";
 
 print "2: 再帰的にすべてのファイル名(フルパス)を出力する。\n";
-find(\&print_file_full_name, $top_dir);
+find(\&amp;print_file_full_name, $top_dir);
 
 sub print_file_full_name{
   # $_ に、現在走査しているディレクトリを
@@ -239,7 +239,7 @@ sub print_file_full_name{
 print "\n";
 
 print "3: ディレクトリを、帰りがけ順に走査する\n";
-finddepth(\&print_file_full_name, $top_dir);
+finddepth(\&amp;print_file_full_name, $top_dir);
 </pre>
 <p>
   実行結果

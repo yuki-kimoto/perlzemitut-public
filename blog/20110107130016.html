@@ -125,7 +125,7 @@ get '/' =&gt; sub {
     $self-&gt;stash(error =&gt; '');
     $self-&gt;stash(output =&gt; '');
     
-    if ($module && $module =~ /^[:\w]+$/) {
+    if ($module &amp;&amp; $module =~ /^[:\w]+$/) {
         my $home = $ENV{DOCUMENT_ROOT};
         $home =~ s#/www$##;
         
@@ -159,7 +159,7 @@ get '/' =&gt; sub {
             
             close $write_fh;
             
-            my $output = `perl cpanm --local-lib=$home/perl5 $module 2&gt;&1`;
+            my $output = `perl cpanm --local-lib=$home/perl5 $module 2&gt;&amp;1`;
             push @output, split /\n/, $output;
         };
         

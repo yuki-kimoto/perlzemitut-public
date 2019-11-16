@@ -123,14 +123,14 @@ my $exit_value = $? &gt;&gt; 8;
 </p>
 <pre>
 # コアダンプが発生したかどうか
-my $dumped_core = $? & 128;
+my $dumped_core = $? &amp; 128;
 </pre>
 <p>
   とします。128は2進数になおすと 10000000 ですので、ビット積をとると8ビット目以外が0になります。子プロセスを終了させたシグナル番号を見るには
 </p>
 <pre>
 # 子プロセスを終了させたシグナル番号
-my $signal_num = $? & 127;
+my $signal_num = $? &amp; 127;
 </pre>
 <p>
   とします。127は2進数で、01111111 ですので、ビット積をとると下位7ビットが取得できます。
@@ -165,8 +165,8 @@ if ($pid) {
   wait;
   print "親プロセス( 子プロセスID: $pid )\n\n";
   my $exit_value = $? &gt;&gt; 8;
-  my $dumped_core = $? & 128;
-  my $signal_num = $? & 127;
+  my $dumped_core = $? &amp; 128;
+  my $signal_num = $? &amp; 127;
   
   my $is_finished = WIFEXITED( $? );
  

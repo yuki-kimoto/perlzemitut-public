@@ -135,7 +135,7 @@ app-&gt;hook(before_dispatch =&gt; sub {
   my $use_prefix
     = $self-&gt;req-&gt;headers-&gt;header('X-ProxyPassReverse-UsePrefix');
   
-  if (defined $use_prefix && lc $use_prefix eq 'on') {
+  if (defined $use_prefix &amp;&amp; lc $use_prefix eq 'on') {
     my $prefix = shift @{$self-&gt;req-&gt;url-&gt;path-&gt;parts};
     $self-&gt;req-&gt;url-&gt;base-&gt;path-&gt;parse("/$prefix");
   }

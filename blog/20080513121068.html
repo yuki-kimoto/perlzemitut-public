@@ -97,7 +97,7 @@
   「<strong>_</strong>」を使用すると<a href="/blog/20100820127859.html">ファイルテスト演算子</a>、あるいは<a href="/blog/20080512121060.html">stat関数</a>の結果を再利用することができます。
 </p>
 <pre>
-if( -s $file &gt; $size && -A _ &gt; $from_last_access ){ 
+if( -s $file &gt; $size &amp;&amp; -A _ &gt; $from_last_access ){ 
   ...
 }
 </pre>
@@ -130,7 +130,7 @@ print " 1: 古くて、ファイルサイズの大きいファイルかをチェ
 my $size = 1_000_000;
 my $from_last_access = 90;
 
-if (-s $file &gt; $size && -A _ &gt; $from_last_access) { 
+if (-s $file &gt; $size &amp;&amp; -A _ &gt; $from_last_access) { 
   # 2回目のファイルテストには、_ が利用できる。
   print "$file は、$sizeバイトより大きくて、" .
     "最終アクセスから $from_last_access日以上たっています。\n\n"; 

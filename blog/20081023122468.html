@@ -106,7 +106,7 @@ for my $record (@records) {
     my $time = sprintf("%02s:%02s:%02s", $1, $2, $3);
     
     # 開始時刻から終了時刻までに含まれるレコードを切り出す。
-    if ($time ge $start_time && $time lt $end_time) {
+    if ($time ge $start_time &amp;&amp; $time lt $end_time) {
       print $record . "\n";
     }
   }
@@ -130,7 +130,7 @@ for my $record (@records) {
 if ($record =~ / (\d{1,2}):(\d{2}):(\d{2}) /) {
   my $time = sprintf("%02s:%02s:%02s", $1, $2, $3);
   
-  if ($time ge $start_time && $time lt $end_time) {
+  if ($time ge $start_time &amp;&amp; $time lt $end_time) {
     print $record . "\n";
   }
 }
@@ -140,7 +140,7 @@ if ($record =~ / (\d{1,2}):(\d{2}):(\d{2}) /) {
   ge、lt は文字列での辞書順でどちらが先かを比較する演算子です。 geはgreater than or equel( 以上 ) の略でlt は lower than( より小さい )の略です。
 </p>
 <pre>
-if ($time ge $start_time && $time lt $end_time) {
+if ($time ge $start_time &amp;&amp; $time lt $end_time) {
   print $record . "\n";
 }
 </pre>

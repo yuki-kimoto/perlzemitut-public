@@ -143,7 +143,7 @@ EXTCONST char* const PL_op_desc[] = {
 EXT Perl_ppaddr_t PL_ppaddr[] /* or perlvars.h */
 #  endif
 #endif /* PERL_GLOBAL_STRUCT */
-#if (defined(DOINIT) && !defined(PERL_GLOBAL_STRUCT)) || defined(PERL_GLOBAL_STRUCT_INIT)
+#if (defined(DOINIT) &amp;&amp; !defined(PERL_GLOBAL_STRUCT)) || defined(PERL_GLOBAL_STRUCT_INIT)
 #  define PERL_PPADDR_INITED
 = {
   Perl_pp_null,
@@ -165,7 +165,7 @@ EXT Perl_ppaddr_t PL_ppaddr[] /* or perlvars.h */
   各オペレーションは「ck」というプレフィックスがつく関数で、最適化されます。その関数のアドレスが記述されています。「ck」は「check」の略です。
 </p>
 <pre>
-#if (defined(DOINIT) && !defined(PERL_GLOBAL_STRUCT)) || defined(PERL_GLOBAL_STRUCT_INIT)
+#if (defined(DOINIT) &amp;&amp; !defined(PERL_GLOBAL_STRUCT)) || defined(PERL_GLOBAL_STRUCT_INIT)
 #  define PERL_CHECK_INITED
 = {
   Perl_ck_null,   /* null */

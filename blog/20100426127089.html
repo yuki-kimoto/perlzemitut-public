@@ -156,7 +156,7 @@ sub import {
   # 関数のエクスポート
   no strict 'refs';
   foreach my $func (@{"${class}::EXPORT"}) {
-      *{"${caller}::$func"} = \&{"${class}::$func"};
+      *{"${caller}::$func"} = \&amp;{"${class}::$func"};
   }
 }
 </pre>

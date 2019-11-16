@@ -938,7 +938,7 @@ S_parse_body(pTHX_ char **env, XSINIT_t xsinit)
   // コマンドラインオプションの解析などがある
   
   // スクリプトをファイルオープン
-  rsfp = open_script(scriptname, dosearch, &suidscript);
+  rsfp = open_script(scriptname, dosearch, &amp;suidscript);
 
   // レキサー(トーカナイザー)の初期化
   lex_start(linestr_sv, rsfp, lex_start_flags);
@@ -1027,7 +1027,7 @@ S_new_body(pTHX_ const svtype sv_type)
 // sv.c
 #define new_body_inline(xpv, sv_type) \
     STMT_START { \
-	void ** const r3wt = &PL_body_roots[sv_type]; \
+	void ** const r3wt = &amp;PL_body_roots[sv_type]; \
 	xpv = (PTR_TBL_ENT_t*) (*((void **)(r3wt))      \
 	  ? *((void **)(r3wt)) : Perl_more_bodies(aTHX_ sv_type, \
 					     bodies_by_type[sv_type].body_size,\
@@ -1403,7 +1403,7 @@ typedef struct yy_parser {
     U8		lex_flags;
     PERL_BITFIELD16	in_pod:1;      /* lexer is within a =pod section */
     PERL_BITFIELD16	filtered:1;    /* source filters in evalbytes */
-    PERL_BITFIELD16	saw_infix_sigil:1; /* saw & or * or % operator */
+    PERL_BITFIELD16	saw_infix_sigil:1; /* saw &amp; or * or % operator */
     PERL_BITFIELD16	parsed_sub:1;  /* last thing parsed was a sub */
 } yy_parser;
 </pre>

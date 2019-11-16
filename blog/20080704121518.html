@@ -99,7 +99,7 @@
 </p>
 <pre>
 # リファレンスを作成
-my $twice_ref = \&twice;
+my $twice_ref = \&amp;twice;
 # デリファレンスして呼び出し
 my $twice_num = $twice_ref-&gt;($num); 
  
@@ -154,7 +154,7 @@ my @nums = (1, 2, 3);
 print "1: サブルーチンへのリファレンスを使って合計と平均を順番に求める。\n";
 
 # サブルーチンへのリファレンスの# 配列を作成。
-my @calc_funcs = (\&sum, \&average); 
+my @calc_funcs = (\&amp;sum, \&amp;average); 
                                        
 for my $calc_func (@calc_funcs) {
   my $result = $calc_func-&gt;(@nums);
@@ -181,10 +181,10 @@ my $how_to_calc = 'sum';
 my $calc_func;
 
 if ($how_to_calc eq 'sum') {
-  $calc_func = \&sum;
+  $calc_func = \&amp;sum;
 }
 else {
-  $calc_func = \&average;
+  $calc_func = \&amp;average;
 }
 
 my $result = $calc_func-&gt;(@nums);
@@ -195,7 +195,7 @@ print "計算方法 : $how_to_calc\n" .
 
 print "3: サブルーチンへのリファレンスとハッシュを使って選択的に処理する。\n";
 $how_to_calc = 'average';
-my %calc_table = (sum =&gt; \&sum, average =&gt; \&average);
+my %calc_table = (sum =&gt; \&amp;sum, average =&gt; \&amp;average);
 
 # $calc_table{'average'} には、サブルーチンへのリファレンス
 # が入っているので、-&gt; 演算子でデリファレンスして
@@ -207,7 +207,7 @@ print "計算方法 : $how_to_calc\n" .
 </pre>
 <h4>変数に対してサブルーチンを順番に適用する</h4>
 <pre>
-my @calc_funcs = (\&sum, \&average);
+my @calc_funcs = (\&amp;sum, \&amp;average);
 for my $calc_func (@calc_funcs) {
   my $result = $calc_func-&gt;(@nums);
 }
@@ -235,10 +235,10 @@ my $how_to_calc = 'sum';
 my $calc_func;
 
 if ($how_to_calc eq 'sum') {
-  $calc_func = \&sum;
+  $calc_func = \&amp;sum;
 }
 else {
-  $calc_func = \&average;
+  $calc_func = \&amp;average;
 }
 
 my $result = $calc_func-&gt;(@nums);
@@ -255,7 +255,7 @@ my $result = $calc_func-&gt;(@nums);
 <h4>ハッシュを利用した美しい方法</h4>
 <pre>
 $how_to_calc = 'average';
-my %calc_table = (sum =&gt; \&sum, average =&gt; \&average);
+my %calc_table = (sum =&gt; \&amp;sum, average =&gt; \&amp;average);
 $result = $calc_table{$how_to_calc}-&gt;(@nums); 
 </pre>
 <p>
@@ -297,9 +297,9 @@ my $text = "aIue!!!o";
 # 引数に、イベントハンドラを渡す。
 parse( 
   $text, 
-  start_h =&gt; \&start,
-  lc_h =&gt; \&found_lc,
-  end_h =&gt; \&end,
+  start_h =&gt; \&amp;start,
+  lc_h =&gt; \&amp;found_lc,
+  end_h =&gt; \&amp;end,
 );
 
 # 文字列を解析するサブルーチン( イベント検知関数 )
@@ -352,9 +352,9 @@ sub end {
 # イベントを検出する関数の呼び出し。
 parse( 
   $text, 
-  start_h =&gt; \&start,
-  lc_h =&gt; \&found_lc,
-  end_h =&gt; \&end,
+  start_h =&gt; \&amp;start,
+  lc_h =&gt; \&amp;found_lc,
+  end_h =&gt; \&amp;end,
 );
 
 # イベントを検出する関数
@@ -413,9 +413,9 @@ use warnings;
 # サブルーチンへのリファレンス
 # 接頭に\をつけてあげるとサブルーチンへの
 # リファレンスになります。
-# &twice が、twiceサブルーチン自体を指します。
+# &amp;twice が、twiceサブルーチン自体を指します。
 print "1: サブルーチンへのリファレンス\n";
-my $twice_ref = \&twice; 
+my $twice_ref = \&amp;twice; 
 
 # 呼び出すときは、
 # $sub_ref-&gt;( arg1, arg2 ) 

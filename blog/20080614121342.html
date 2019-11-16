@@ -105,7 +105,7 @@
 my $num_from_typedglob = ${*main::num}; # $numと同じ
 my @num_from_typedglob = @{*main::num}; # @numと同じ
 my %num_from_typedglob = %{*main::num}; # %numと同じ
-my $ret_from_typedglob = &{*main::num}; # &numと同じ( num() とも同じ )
+my $ret_from_typedglob = &amp;{*main::num}; # &amp;numと同じ( num() とも同じ )
 </pre>
 <p>
   型グロブは、一種のハッシュであり、<a href="/blog/20161107147852.html">スカラー変数</a>、<a href="/blog/20161012147627.html">配列</a>、<a href="/blog/20161013147635.html">ハッシュ</a>、<a href="/blog/20101130129876.html">サブルーチン</a>などにアクセスすることができます。デリファレンスと見た目が、まったく同じですが、デリファレンスではありません。
@@ -122,7 +122,7 @@ my $ret_from_typedglob = &{*main::num}; # &numと同じ( num() とも同じ )
                  |      |-----------------|
                  |-----&gt;| %{ *typedglob } |
                  |      |-----------------|
-                 |-----&gt;| &{ *typedglob } |
+                 |-----&gt;| &amp;{ *typedglob } |
                         |-----------------|
 </pre>
 <h3>サンプル</h3>
@@ -164,7 +164,7 @@ print Data::Dumper-&gt;Dump([\%num_from_symbol], ['*num_from_symbol']);
 print "\n";
 
 print "1-2: シンボルテーブルから、サブルーチンを呼び出す。\n";
-my $ret_from_symbol = &{$main::{num}}; # &{ } で括ると,サブルーチンのエントリ
+my $ret_from_symbol = &amp;{$main::{num}}; # &amp;{ } で括ると,サブルーチンのエントリ
 print "\$ret_from_symbol = $ret_from_symbol\n\n";
 
 print "2-1: 型グロブから、変数にアクセスする。\n";
@@ -178,7 +178,7 @@ print Data::Dumper-&gt;Dump([\%num_from_typedglob], ['*num_from_typedglob']);
 print "\n";
 
 print "2-2: 型グロブから、サブルーチンを呼び出す。\n";
-my $ret_from_typedglob = &{*main::num};
+my $ret_from_typedglob = &amp;{*main::num};
 print "\$ret_from_typedglob = $ret_from_typedglob\n\n";
 </pre>
 

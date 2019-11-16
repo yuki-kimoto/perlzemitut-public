@@ -222,7 +222,7 @@ $t-&gt;link_ok('/user/list');
   パイプとgrepをうまく使うとその行番号だけを表示することができます。
 </p>
 <pre>
-perl myapp.pl test 2&gt;&1 | grep line
+perl myapp.pl test 2&gt;&amp;1 | grep line
 </pre>
 <p>
   試験結果は標準エラー出力に出力されるので、それをパイプを使ってgrepに流し込んでlineという行が含まれている行のみ取り出します。

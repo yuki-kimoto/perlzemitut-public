@@ -165,7 +165,7 @@ SV* sv_num = newSVnv(1.14);
 my $val = undef;
 
 # XS
-SV* sv_val = &PL_sv_undef;
+SV* sv_val = &amp;PL_sv_undef;
 </pre>
 <h4>値が定義されているかどうかのチェック(defined関数に対応)</h4>
 <p>
@@ -275,7 +275,7 @@ my $num = $nums[0];
 
 # XS
 SV** const sv_num_ptr = av_fetch(nums, 0, FALSE);
-SV* const sv_num = num_ptr ? *sv_num_ptr : &PL_sv_undef;
+SV* const sv_num = num_ptr ? *sv_num_ptr : &amp;PL_sv_undef;
 </pre>
 <p>
   配列のサイズ。
@@ -778,7 +778,7 @@ sv_derived_from(sv_obj, "HASH");
   ですので、オブジェクトであり、特定のクラスを継承していることを確認するには、sv_isobject関数とsv_derived_from関数を組み合わせて利用します。
 </p>
 <pre>
-sv_isobject(sv_obj) && sv_derived_from(sv_obj, "MyClass")
+sv_isobject(sv_obj) &amp;&amp; sv_derived_from(sv_obj, "MyClass")
 </pre>
 <h3>Perl APIの公式ドキュメント</h3>
 <ul>

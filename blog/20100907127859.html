@@ -203,7 +203,7 @@ my $log = $app-&gt;log;
   クッキーを暗号化するためのパスワードを設定するにはsecretsメソッドを使用します。
 </p>
 <pre>
-$app-&gt;secrets(['lkjiji!&F']);
+$app-&gt;secrets(['lkjiji!&amp;F']);
 </pre>
 <p>
   クッキーを使用してセッション管理する場合は必ず設定しましょう。

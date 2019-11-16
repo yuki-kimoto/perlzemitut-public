@@ -126,8 +126,8 @@ grep -re 'given \+(' dir | grep -e '\.p[lm]'
   スマートマッチ演算子を使用している場合は、通常の演算子「eq」「==」に書き換えましょう。
 </p>
 <pre>
-$var ~~ 1 -&gt; defined $var && $var == 1
-$var ~~ [1, 2] -&gt; (defined $var && $var == 1) || (defined $var && $var == 2)
+$var ~~ 1 -&gt; defined $var &amp;&amp; $var == 1
+$var ~~ [1, 2] -&gt; (defined $var &amp;&amp; $var == 1) || (defined $var &amp;&amp; $var == 2)
 </pre>
 <p>
   given whenは通常のif文に書き換えましょう。

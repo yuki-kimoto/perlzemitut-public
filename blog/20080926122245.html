@@ -164,7 +164,7 @@ my $count = @nums;
   Perl 5.10未満のlengthは未定義値を渡したときに警告を発生させます。なので、汎用的なモジュールでlengthを書きたい場合は次のように書くと警告が出ないようになります。
 </p>
 <pre>
-my $has_length = defined $foo && length $foo;
+my $has_length = defined $foo &amp;&amp; length $foo;
 </pre>
 <p>
   定義されているかどうかを確認してからlength関数に渡すようにする。

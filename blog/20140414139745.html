@@ -281,10 +281,10 @@ $url-&gt;query(name =&gt; 'taro', price =&gt; 1900);
 </p>
 <pre>
 # 前
-title=perl&name=ken
+title=perl&amp;name=ken
 
 # 後
-name=taro&price=1900
+name=taro&amp;price=1900
 </pre>
 <h4>クエリ文字列のマージ</h4>
 <p>
@@ -298,10 +298,10 @@ $url-&gt;query([name =&gt; 'taro', price =&gt; 1900]);
 </p>
 <pre>
 # 前
-title=perl&name=ken
+title=perl&amp;name=ken
 
 # 後
-title=perl&name=taro&price=1900
+title=perl&amp;name=taro&amp;price=1900
 </pre>
 <h4>クエリ文字列の追加</h4>
 <p>
@@ -315,10 +315,10 @@ $url-&gt;query({name =&gt; 'taro', price =&gt; 1900});
 </p>
 <pre>
 # 前
-title=perl&name=ken
+title=perl&amp;name=ken
 
 # 後
-title=perl&name=ken&name=taro&price=1900
+title=perl&amp;name=ken&amp;name=taro&amp;price=1900
 </pre>
 <p>
   Webアプリではページ番号だけを差し替えたいという要望が強いと思います。そういう場合は、クエリのマージの機能を使うのがよいでしょう。
@@ -432,8 +432,8 @@ Author kimoto
 Name: kimoto
 Age: 32
 HTTP Method: GET
-Current URL: /person?name=kimoto&age=32
-Current URL with some change: /person?age=32&name=ken
+Current URL: /person?name=kimoto&amp;age=32
+Current URL with some change: /person?age=32&amp;name=ken
 </pre>
 
   </div>

@@ -134,7 +134,7 @@ my $cur_dir = getcwd();
 # 絶対パスで、コピー先ディレクトリ名を作成。
 my $dir_copy_to = "$cur_dir/dir_20080601_${$}_cp"; 
 
-find(\&recursive_copy, $top_dir);
+find(\&amp;recursive_copy, $top_dir);
 print "$top_dir が、$dir_copy_to にコピーされました。\n";
 
 # 再帰コピーするための関数
@@ -164,7 +164,7 @@ sub recursive_copy {
 </p>
 <h3>複数階層のディレクトリを再帰的にコピーする</h3>
 <pre>
-find(\&recursive_copy, $top_dir);
+find(\&amp;recursive_copy, $top_dir);
 
 # 再帰コピーするための関数
 sub recursive_copy {

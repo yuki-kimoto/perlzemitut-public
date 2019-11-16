@@ -575,7 +575,7 @@ $vc-&gt;register_constraint(
     
     my $is_int = $vc-&gt;constraints-&gt;{'int'}-&gt;($value);
     
-    my $is_valid = $is_int && $value &lt; 1000;
+    my $is_valid = $is_int &amp;&amp; $value &lt; 1000;
     
     return $is_valid;
   }
@@ -701,7 +701,7 @@ $rule-&gt;require('age')-&gt;check({between =&gt; [1, 20]});
   HTMLフォームのパスワードなど<strong>アスキーの印字文字</strong>(16進数の21～7Eまで)のみを許可したい場合があります。そのような場合は<strong>ascii</strong>制約関数を使用します。
 </p>
 <pre>
-my $data = {password =&gt; 'ajf&$#-'};
+my $data = {password =&gt; 'ajf&amp;$#-'};
 my $rule = $vc-&gt;create_rule;
 $rule-&gt;require('password')-&gt;check('ascii');
 </pre>

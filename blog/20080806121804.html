@@ -655,7 +655,7 @@ use warnings;
 # %04b という書式指定で４桁左0埋めの
 # 2進数表現を出力できます。
 print "1: 2進数1100と1010の論理積\n";
-printf("%04b", 0b1100 & 0b1010); 
+printf("%04b", 0b1100 &amp; 0b1010); 
 
 print "\n";
 
@@ -684,12 +684,12 @@ printf("%03b", $all_flg_on);
 print "\n\n";
 
 print "6: FLG3がオンであることを確認する。\n";
-if ($all_flg_on & FLG3) {
+if ($all_flg_on &amp; FLG3) {
   print "FLG3はオンになっています。\n";
 }
 </pre>
 <pre>
-printf("%04b", 0b1100 & 0b1010); 
+printf("%04b", 0b1100 &amp; 0b1010); 
 </pre>
 <h4>(1)2進数で数字を表現する</h4>
 <p>
@@ -710,7 +710,7 @@ printf("%03b", $all_flg_on);
 print "\n\n";
 
 print "6: FLG3がオンであることを確認する。\n";
-if ($all_flg_on & FLG3) {
+if ($all_flg_on &amp; FLG3) {
   print "FLG3はオンになっています。\n";
 }
 </pre>
@@ -739,7 +739,7 @@ my $all_flg_on = FLG1 | FLG2 | FLG3;
 </p>
 <h4>(3)-4 フラグがオンであることを確認する</h4>
 <pre>
-if ($all_flg_on & FLG3) {
+if ($all_flg_on &amp; FLG3) {
   # ...
 }
 </pre>

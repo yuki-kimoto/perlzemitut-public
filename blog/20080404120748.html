@@ -121,12 +121,12 @@ my $word_space = "ab cd ef";
 my $word = "abcd ef";
 
 print "1: ワード文字列の区切りを表\現する\n";
-if ($word_space =~ /ab\b/ && $word !~ /ab\b/) {
+if ($word_space =~ /ab\b/ &amp;&amp; $word !~ /ab\b/) {
   print "/ab\\b/ は、 'ab cd ef' にマッチしますが、" .
     "'abcd ef'にはマッチしません。\n\n";
 }
 
-if ($word_space =~ /\bcd\b/ && $word !~ /\bab\b/) {
+if ($word_space =~ /\bcd\b/ &amp;&amp; $word !~ /\bab\b/) {
   print "/\\bcd\\b/ は、 'ab cd ef' にマッチしますが、" .
     " 'abcd ef'にはマッチしません。\n";
 }

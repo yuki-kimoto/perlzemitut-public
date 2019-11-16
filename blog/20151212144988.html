@@ -415,7 +415,7 @@
   もし値の範囲のチェックも行いたいのであれば、次のように書くことができます。
 </p>
 <pre>
-  my $is_valid =  $vc-&gt;check($value, 'int') && $value &gt; 0;
+  my $is_valid =  $vc-&gt;check($value, 'int') &amp;&amp; $value &gt; 0;
 </pre>
 <h4> number</h4>
 <pre>
@@ -773,7 +773,7 @@
 <pre>
   $vc-&gt;add_check(space =&gt; sub {
     my ($vc, $value, $arg) = @_;
-    return defined $value && $value =~ '^[ \t\n\r\f]*$' ? 1 : 0;
+    return defined $value &amp;&amp; $value =~ '^[ \t\n\r\f]*$' ? 1 : 0;
   });
 </pre>
 <p>
@@ -782,7 +782,7 @@
 <pre>
   $vc-&gt;add_check(http_url =&gt; sub {
     my ($vc, $value, $arg) = @_;
-    return defined $value && $value =~ /^s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+$/ ? 1 : 0;
+    return defined $value &amp;&amp; $value =~ /^s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&amp;=+\$,%#]+$/ ? 1 : 0;
   });
 </pre>
 <p>
@@ -812,7 +812,7 @@
     
     # Regex
     my $re;
-    if (defined $digits-&gt;[0] && defined $digits-&gt;[1]) {
+    if (defined $digits-&gt;[0] &amp;&amp; defined $digits-&gt;[1]) {
       $re = qr/^[0-9]{1,$digits-&gt;[0]}(\.[0-9]{0,$digits-&gt;[1]})?$/;
     }
     elsif (defined $digits-&gt;[0]) {
