@@ -66,7 +66,286 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/23</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/30</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20191230091936.html">テキストを描画する  - PDF::API2で帳票作成</a></h2>
+<p>
+  PDF::API2で、PDFにテキストを描画するには、次のようにします。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/28</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20191228171433.html">Perlで帳票を作成する - PDF::API2で帳票作成</a></h2>
+<p>
+  Perlで帳票を作成する方法を解説します。ここでは、帳票とは、プリンタを使って、紙に印刷可能なファイル形式と定義します。
+</p>
+<p>
+  帳票を作るための一般的な方法は、PDFを作成することです。PDFであれば、印刷することができます。
+</p>
+<p>
+  <a href="https://metacpan.org/pod/PDF::API2">PDF::API2</a>というPerlのモジュールを使うと、PDFを作成したり、フォントを設定して字を書いたり、線を書いたり、画像を挿入したり、保存したりすることができます。
+</p>
+<p>
+  PDF::API2の使い方をマスターすれば、自由に帳票を使えるようになります。
+</p>
+<h3>PDF::API2のインストール</h3>
+<ul>
+  <li><a href="/blog/20191227161458.html">PDF::API2のインストール</a></li>
+</ul>
+<h3>帳票作成のためのPDFファイル操作</h3>
+<ul>
+  <li><a href="/blog/20191226175520.html">PDFファイルを作成する</a></li>
+  <li><a href="/blog/20191230091936.html">テキストを描画する</a></li>
+</ul>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/27</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20191227161458.html">PDF::API2のインストール</a></h2>
+<p>
+  PDF::API2をインストールするには<a href="/blog/20100504127089.html">cpan</a>か<a href="/blog/20101027127859.html">cpanm</a>を使います。
+</p>
+<p>
+  cpanmをインストールしている場合はcpanmを、そうでない場合は、cpanを使うのがお勧めです。
+</p>
+<pre>
+# cpanmを使う場合
+cpanm PDF::API2
+
+# cpanを使う場合
+cpan PDF::API2
+</pre>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/26</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20191226175520.html">PDFファイルを作成する - PDF::API2で帳票作成</a></h2>
+<p>
+  PDF::API2で、PDFファイルを作成するには次のようにします。
+</p>
+<p>
+  PDFの空の情報を作成するには、newメソッドを使用します。
+</p>
+<p>
+  空のページを追加するには、pageメソッドを使います。
+</p>
+<p>
+  最後にsaveasメソッドを使って、ファイルを保存します。
+</p>
+<p>
+  この手順を行うことで、空の1ページが存在するPDFファイルを作成できます。
+</p>
+<pre>
+use strict;
+use warnings;
+
+use PDF::API2;
+
+# PDFの空の情報を作成
+my $pdf = PDF::API2-&gt;new;
+
+# 空のページを追加
+my $page = $pdf-&gt;page;
+
+# PDFをファイルに保存
+my $pdf_file = 'empty.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
+<p>
+  空のPDFファイルが作成できれば、成功しています。
+</p>
+<h3>既存のPDFファイルを開く</h3>
+<p>
+  PDF::API2で既存のPDFファイルを開くには、openメソッドを使用します。
+</p>
+<pre>
+# 既存のPDFファイルを開く
+my $pdf = PDF::API2-&gt;open('some.pdf');
+</pre>
+<h3>既存のページを取得する</h3>
+<p>
+  PDF::API2で既に存在しているページを取得するには、openpageメソッドで、ページ番号を指定します。ページ番号は、1から始まります。0からの始まりではないことに注意してください。
+</p>
+<pre>
+# すでに存在しているページを取得
+my $page = $pdf-&gt;openpage($page_number);
+</pre>
+<h3>ページ数を取得する</h3>
+<p>
+  PDF::API2で、存在しているページ数を取得するには、pagesメソッドを使用します。
+</p>
+<pre>
+# PDFドキュメントのページ数を取得
+my $pages_count = $pdf-&gt;pages;
+</pre>
+<h3>用紙サイズを設定する</h3>
+<p>
+  PDF::API2でページの用紙サイズを設定するには、mediaboxメソッドを使用します。
+</p>
+<pre>
+# 名前で指定
+$pdf-&gt;mediabox($name);
+
+# 幅と高さで指定
+$pdf-&gt;mediabox($width, $height)
+</pre>
+<p>
+  指定できる名前はPDFで定義されている値です。以下に指定できる例を挙げておきます。これは、グローバルな設定であり、新規のページを作成した場合に、ページに設定が受け継がれます。
+</p>
+<p>
+  各ページに用紙サイズを指定するには、ページオブジェクトのmediaboxメソッドを使用します。
+</p>
+<pre>
+# 名前で指定
+$page-&gt;mediabox($name);
+
+# 幅と高さで指定
+$page-&gt;mediabox($width, $height)
+</pre>
+<ul>
+  <li>Letter</li>
+  <li>A3</li>
+  <li>A4</li>
+  <li>B4</li>
+  <li>A5</li>
+  <li>B5</li>
+  <li>A6</li>
+  <li>B6</li>
+</ul>
+<p>
+  PDF座標系についての簡単な解説のページのリンクを張っておきます。
+</p>
+<blockquote>
+<p>
+  幅と高さは、PDF単位という値で指定する必要があることに注意します。1単位は、1/72のインチ(約0.35mm)です。
+</p>
+<p>
+  典型的なPDFドキュメントはページの幅が612単位、高さが792単位です。インチのサイズは、8.5"×11"です。幅と高さを72で割ることによって得られます。
+</p>
+<p>
+  PDF文書が画面に与えられるとき、ピクセルなどの物理的な値が通常必要です。論理的にから物理的な単位まで変換するために、解像度は提供されなければなりません。解像度は、物理的な値に論理的な変換とき、使うインチにつき点（ピクセル）の値です。上記の例では、解像度として150を使用した場合、ピクセル単位のページサイズは1275×1650になります。これは8.5×11インチに150を乗算することによって得られます。
+</p>
+<p>
+  (参考)<a target="_blank" href="http://docs.leadtools.grapecity.com/v19/dh/to/leadtools.topics.pdf~pdf.topics.pdfcoordinatesystem.html">PDF座標系</a>
+</p>
+</blockquote>
+<p>
+  PDF::API2で、用紙サイズを指定するサンプルです。
+</p>
+<pre>
+use PDF::API2;
+
+# A4サイズで指定
+{
+  my $pdf = PDF::API2-&gt;new();
+  $pdf-&gt;mediabox('A4');
+  my $mediabox = $pdf-&gt;mediabox;
+  my $page = $pdf-&gt;page;
+  my $pdf_file = 'size_a4.pdf';
+  $pdf-&gt;saveas($pdf_file);
+}
+
+# B5サイズで指定
+{
+  my $pdf = PDF::API2-&gt;new();
+  $pdf-&gt;mediabox('B5');
+  my $page = $pdf-&gt;page;
+  my $pdf_file = 'size_b5.pdf';
+  $pdf-&gt;saveas($pdf_file);
+}
+
+# PDF単位 幅595,高さ842で指定
+{
+  my $pdf = PDF::API2-&gt;new();
+  $pdf-&gt;mediabox(595, 842);
+  my $page = $pdf-&gt;page;
+  my $pdf_file = 'size_595_842.pdf';
+  $pdf-&gt;saveas($pdf_file);
+}
+</pre>
+<h3>用紙サイズを取得する</h3>
+<p>
+  用紙サイズを取得するには、引数を与えないで、ページオブジェクトのmediaboxメソッドを使用します。
+</p>
+<pre>
+my @page_size_infos = $page-&gt;mediabox;
+</pre>
+<p>
+  実際のページの用紙サイズの情報を取得するには、PDFオブジェクトではなく、ページオブジェクトのmediaboxメソッドを呼び出す必要があることに注意してください。
+</p>
+<p>
+  用紙サイズの情報は、４つのPDF単位で取得されることに注意してください。
+</p>
+<pre>
+(左下からのマージンX, 左下からのマージンY, 右上の座標X, 右上の座標Y)
+</pre>
+<p>
+  たとえば、次のような値で、返ってきます。
+</p>
+<pre>
+(0, 0, 612, 792)
+</pre>
+<p>
+  一般的には、左下からのマージンXが0、 左下からのマージンYが0で返ってきますので、右上の座標Xが幅、右上の座標Yが、高さと考えてよいでしょう。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/23</div>
 <style>
   .top {
     display:none;
@@ -160,51 +439,6 @@
 <blockquote>
   <a href="https://philosophy.perlzemi.com/">Perlの哲学</a>
 </blockquote>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/05</div>
-<h2><a href="/blog/20190905072344.html">「Perlゼミのプロジェクト」のWebサイトを公開しました</a></h2>
-<p>
-  PerlゼミのプロジェクトのWebサイトを公開しました。
-</p>
-<p>
-  <a href="https://yuki-kimoto.github.io/">Perlゼミのプロジェクト</a>
-</p>
-<p>
-  GiblogとGithub Pagesを使って完全無料でWebサイトを作成しています。
-</p>
-<p>
-  手順を知りたい方はこちら。
-</p>
-<p>
-  <a href="https://jp.giblog.net/blog/20190828064434.html">GiblogとGithub Pagesを使って完全無料でWebサイトを作成</a>
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/04</div>
-<h2><a href="/blog/20190904072344.html">Perl Newbiesを公開しました</a></h2>
-<p>
-  Perl Newbiesというサイトで、Perlゼミの英語翻訳を開始しました。
-</p>
-<p>
-  <a href="https://newbie.perlzemi.com/">Perl Newbies</a>
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/03</div>
-<h2><a href="/blog/20190903072347.html">Linuxサーバー管理入門</a></h2>
-<p>
-  Linuxサーバー管理入門を公開しました。Linuxのサーバー管理の入門講座です。
-</p>
-<p>
-  <a href="https://linux.perlzemi.com/">Linuxサーバー管理入門</a>
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/02</div>
-<h2><a href="/blog/20190902272349.html">「Perlテキスト処理プログラミング入門」を公開しました</a></h2>
-<p>
-  Perlテキスト処理プログラミング入門を解説するサイトです。
-</p>
-<p>
-  <a href="https://text.perlzemi.com/">Perlテキスト処理プログラミング入門</a>
-</p>
 
 
   </div>
