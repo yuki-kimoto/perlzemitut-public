@@ -38,12 +38,12 @@
   });
 </script>
 
-<title>Perlで帳票を作成する - PDF::API2で帳票作成 - Perl入門ゼミ</title>
-<meta name="description" content="Perlで帳票を作成する方法を解説します。ここでは、帳票とは、プリンタを使って、紙に印刷可能なファイル形式と定義します。">
+<title>画像を挿入する - PDF::API2で帳票作成 - Perl入門ゼミ</title>
+<meta name="description" content="PDF::API2で、PNG,GIF,JPEGの画像を挿入する方法を解説します。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="Perlで帳票を作成する - PDF::API2で帳票作成 - Perl入門ゼミ" />
-<meta name="twitter:description" content="Perlで帳票を作成する方法を解説します。ここでは、帳票とは、プリンタを使って、紙に印刷可能なファイル形式と定義します。" />
+<meta name="twitter:title" content="画像を挿入する - PDF::API2で帳票作成 - Perl入門ゼミ" />
+<meta name="twitter:description" content="PDF::API2で、PNG,GIF,JPEGの画像を挿入する方法を解説します。" />
 <meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
 
 
@@ -83,32 +83,94 @@
   </li>
   &#8250;
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
     here
   </li>
 </ol>
-<h2><a href="/blog/20191228171433.html">Perlで帳票を作成する - PDF::API2で帳票作成</a></h2>
+<h2><a href="/blog/20191231143440.html">画像を挿入する - PDF::API2で帳票作成</a></h2>
 <p>
-  Perlで帳票を作成する方法を解説します。ここでは、帳票とは、プリンタを使って、紙に印刷可能なファイル形式と定義します。
+  PDF::API2で、PNG,GIF,JPEGの画像を挿入する方法を解説します。
 </p>
 <p>
-  帳票を作るための一般的な方法は、PDFを作成することです。PDFであれば、印刷することができます。
+  PDFには、画像を含めることができます。PDF::API2では、PNG,GIF,JPEG画像を、PDFに挿入することができます。
+</p>
+<h3>画像ファイルの挿入</h3>
+<p>
+  画像ファイルを挿入するには、まず画像ファイルを読み込んで、画像表現するリソースオブジェクトを生成する必要があります。
+</p>
+<h4>画像ファイルの読み込み</h4>
+<p>
+  画像ファイルを読み込んで、画像表現するリソースオブジェクトを生成しましょう。
 </p>
 <p>
-  <a href="https://metacpan.org/pod/PDF::API2">PDF::API2</a>というPerlのモジュールを使うと、PDFを作成したり、フォントを設定して字を書いたり、線を書いたり、画像を挿入したり、保存したりすることができます。
+  <b>JPEGファイルの読み込み</b>
 </p>
 <p>
-  PDF::API2の使い方をマスターすれば、自由に帳票を使えるようになります。
+  PDF::API2で、JPEGファイルを読み込むには、image_jpegメソッドを使用します。JPEG画像を表現するリソースオブジェクトが返されます。
 </p>
-<h3>PDF::API2のインストール</h3>
-<ul>
-  <li><a href="/blog/20191227161458.html">PDF::API2のインストール</a></li>
-</ul>
-<h3>帳票作成のためのPDFファイル操作</h3>
-<ul>
-  <li><a href="/blog/20191226175520.html">PDFファイルを作成する</a></li>
-  <li><a href="/blog/20191230091936.html">テキストを描画する</a></li>
-  <li><a href="/blog/20191231143440.html">画像を挿入する</a></li>
-</ul>
+<pre>
+# JPEG画像を表現するリソースオブジェクトを生成
+my $image_file = '/path/image.jpeg';
+my $image_object = $pdf-&gt;image_jpeg($image_file);
+</pre>
+<p>
+  <b>PNGファイルの読み込み</b>
+</p>
+<p>
+  PDF::API2で、PNGファイルを読み込むには、image_pngメソッドを使用します。PNG画像を表現するリソースオブジェクトが返されます。
+</p>
+<pre>
+# PNG画像を表現するリソースオブジェクトを生成
+my $image_file = '/path/image.png';
+my $image_object = $pdf-&gt;image_png($image_file)
+</pre>
+<p>
+  <b>GIFファイルの読み込み</b>
+</p>
+<p>
+  PDF::API2で、GIFファイルを読み込むには、image_gifメソッドを使用します。GIF画像を表現するリソースオブジェクトが返されます。
+</p>
+<pre>
+# GIF画像を表現するリソースオブジェクトを生成
+my $image_file = '/path/image.gif';
+my $image_object = $pdf-&gt;image_gif($image_file)
+</pre>
+<h4>画像コンテンツオブジェクトの生成</h4>
+<p>
+  画像を挿入するための、コンテンツオブジェクトを生成します。
+</p>
+<pre>
+# 画像を挿入するために必要なコンテンツオブジェクト
+my $gfx = $page-&gt;gfx;
+</pre>
+<h4>画像ファイルの挿入</h4>
+<p>
+  PDF::API2で、画像ファイルを挿入するには、コンテンツオブジェクトのimageメソッドを使用します。
+</p>
+<pre>
+# 指定した位置に画像を挿入
+$gfx-&gt;image($image_object, $x, $y);
+
+# 指定した位置に画像挿入。幅と高さを指定
+$gfx-&gt;image($image_object, $x, $y, $width, $height);
+
+# 指定した位置に画像挿入。スケールを指定(1.5倍など)
+$gfx-&gt;image($image_object, $x, $y, $scale);
+</pre>
+<p>
+  指定した位置に画像が挿入されます。
+</p>
+<p>
+  幅と高さは、PDF単位であることに注意してください。
+</p>
+<p>
+  例として、600x600のイメージを600dpiの解像度で表示したい場合は、72を指定します。
+</p>
 
   </div>
   <div class="bottom">

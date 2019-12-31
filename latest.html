@@ -66,7 +66,105 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/30</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/31</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20191231143440.html">画像を挿入する - PDF::API2で帳票作成</a></h2>
+<p>
+  PDF::API2で、PNG,GIF,JPEGの画像を挿入する方法を解説します。
+</p>
+<p>
+  PDFには、画像を含めることができます。PDF::API2では、PNG,GIF,JPEG画像を、PDFに挿入することができます。
+</p>
+<h3>画像ファイルの挿入</h3>
+<p>
+  画像ファイルを挿入するには、まず画像ファイルを読み込んで、画像表現するリソースオブジェクトを生成する必要があります。
+</p>
+<h4>画像ファイルの読み込み</h4>
+<p>
+  画像ファイルを読み込んで、画像表現するリソースオブジェクトを生成しましょう。
+</p>
+<p>
+  <b>JPEGファイルの読み込み</b>
+</p>
+<p>
+  PDF::API2で、JPEGファイルを読み込むには、image_jpegメソッドを使用します。JPEG画像を表現するリソースオブジェクトが返されます。
+</p>
+<pre>
+# JPEG画像を表現するリソースオブジェクトを生成
+my $image_file = '/path/image.jpeg';
+my $image_object = $pdf-&gt;image_jpeg($image_file);
+</pre>
+<p>
+  <b>PNGファイルの読み込み</b>
+</p>
+<p>
+  PDF::API2で、PNGファイルを読み込むには、image_pngメソッドを使用します。PNG画像を表現するリソースオブジェクトが返されます。
+</p>
+<pre>
+# PNG画像を表現するリソースオブジェクトを生成
+my $image_file = '/path/image.png';
+my $image_object = $pdf-&gt;image_png($image_file)
+</pre>
+<p>
+  <b>GIFファイルの読み込み</b>
+</p>
+<p>
+  PDF::API2で、GIFファイルを読み込むには、image_gifメソッドを使用します。GIF画像を表現するリソースオブジェクトが返されます。
+</p>
+<pre>
+# GIF画像を表現するリソースオブジェクトを生成
+my $image_file = '/path/image.gif';
+my $image_object = $pdf-&gt;image_gif($image_file)
+</pre>
+<h4>画像コンテンツオブジェクトの生成</h4>
+<p>
+  画像を挿入するための、コンテンツオブジェクトを生成します。
+</p>
+<pre>
+# 画像を挿入するために必要なコンテンツオブジェクト
+my $gfx = $page-&gt;gfx;
+</pre>
+<h4>画像ファイルの挿入</h4>
+<p>
+  PDF::API2で、画像ファイルを挿入するには、コンテンツオブジェクトのimageメソッドを使用します。
+</p>
+<pre>
+# 指定した位置に画像を挿入
+$gfx-&gt;image($image_object, $x, $y);
+
+# 指定した位置に画像挿入。幅と高さを指定
+$gfx-&gt;image($image_object, $x, $y, $width, $height);
+
+# 指定した位置に画像挿入。スケールを指定(1.5倍など)
+$gfx-&gt;image($image_object, $x, $y, $scale);
+</pre>
+<p>
+  指定した位置に画像が挿入されます。
+</p>
+<p>
+  幅と高さは、PDF単位であることに注意してください。
+</p>
+<p>
+  例として、600x600のイメージを600dpiの解像度で表示したい場合は、72を指定します。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/30</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
@@ -218,7 +316,7 @@ my ($x, $y) = $text-&gt;textpos();
 </p>
 <h3>フォントサイズを取得する</h3>
 <p>
-  既存のテキストのフォントサイズを取得するには、textstateメソッドを引数なしで呼び出し、テキストの状態を表現するハッシュが返されるので、fontsizeの値を取り出します。
+  PDF::API2で、既存のテキストのフォントサイズを取得するには、textstateメソッドを引数なしで呼び出し、テキストの状態を表現するハッシュが返されるので、fontsizeの値を取り出します。
 </p>
 <pre>
 # 既存のテキストのフォントサイズを取得
@@ -510,7 +608,7 @@ $pdf-&gt;saveas($pdf_file);
 </p>
 <h3>日本語を描画するためのフォント</h3>
 <p>
-  日本語を描画するためには、日本語に対応したフォントが必要になります。コアフォントは、英語だけです。
+  PDF::API2で日本語を描画するためには、日本語に対応したフォントが必要になります。コアフォントは、英語だけです。
 </p>
 <p>
   フォントの中でも、TrueType Font(トゥルータイプフォント)と呼ばれるフォントを使う必要があります。
@@ -599,6 +697,7 @@ my $true_type_font_file = "$FindBin::Bin/kochi-gothic-subst.ttf";
 <ul>
   <li><a href="/blog/20191226175520.html">PDFファイルを作成する</a></li>
   <li><a href="/blog/20191230091936.html">テキストを描画する</a></li>
+  <li><a href="/blog/20191231143440.html">画像を挿入する</a></li>
 </ul>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/27</div>
@@ -919,18 +1018,6 @@ my @page_size_infos = $page-&gt;mediabox;
 <p>
   <a href="http://www.perlzemi.com">Perlゼミ公式サイト</a>
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/06</div>
-<h2><a href="/blog/20190906142601.html">Perlの哲学というサイトを公開しました。</a></h2>
-<p>
-  Perlってどんなプログラミング言語なの。Perlに対する純粋な疑問に答えます。
-</p>
-<p>
-  Perl的な考え方も紹介します。
-</p>
-<blockquote>
-  <a href="https://philosophy.perlzemi.com/">Perlの哲学</a>
-</blockquote>
 
 
   </div>
