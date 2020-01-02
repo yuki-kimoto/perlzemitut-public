@@ -122,6 +122,9 @@ my $pdf_file = 'text_core_font.pdf';
 $pdf-&gt;saveas($pdf_file);
 </pre>
 <p>
+  <a href="/examples/pdf/text_core_font.pdf">出力結果 テキスト英語</a>
+</p>
+<p>
   <b>フォントオブジェクトの取得</b>
 </p>
 <p>
@@ -521,6 +524,9 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   僕の環境では、1万2000文字で1～2秒かかっています。PDF出力は、意外に重い処理です。
 </p>
+<p>
+  <a href="/examples/pdf/margin_full_text.pdf">出力結果 余白、改行、改ページ</a>
+</p>
 <h4>HTMLの見出しやpタグを表現するには?</h4>
 <p>
   ここでは、詳しく解説しませんが、ヒントだけ書いておきます。少なくとも、タグを解析する必要があります。正規表現や、HTMLを解析してくれるモジュールが利用できるでしょう。後で、リストやテーブルに対応することを考えると、HTMLを解析してくれるモジュールを使うのが、汎用的でしょうか。
@@ -773,6 +779,9 @@ while ($message =~ /(.)/g) {
 my $pdf_file = 'margin_full_text_jp.pdf';
 $pdf-&gt;saveas($pdf_file);
 </pre>
+<p>
+  <a href="/examples/pdf/margin_full_text_jp.pdf">出力結果 日本語、太字対応</a> 
+</p>
 
   </div>
   <div class="bottom">

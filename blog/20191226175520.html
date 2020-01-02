@@ -127,6 +127,9 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   空のPDFファイルが作成できれば、成功しています。
 </p>
+<p>
+  <a href="/examples/pdf/empty.pdf">出力結果 空ページ</a>
+</p>
 <h3>既存のPDFファイルを開く</h3>
 <p>
   PDF::API2で既存のPDFファイルを開くには、openメソッドを使用します。
@@ -251,6 +254,9 @@ use PDF::API2;
   $pdf-&gt;saveas($pdf_file);
 }
 </pre>
+<p>
+  <a href="/examples/pdf/size_a4.pdf">出力結果 A4サイズ</a>、 <a href="/examples/pdf/size_b5.pdf">出力結果 B5サイズ</a>、 <a href="/examples/pdf/size_595_842.pdf">出力結果 595×842サイズ</a> 
+</p>
 <h3>用紙サイズを取得する</h3>
 <p>
   用紙サイズを取得するには、引数を与えないで、ページオブジェクトのmediaboxメソッドを使用します。

@@ -130,6 +130,16 @@ my $image_file = '/path/image.png';
 my $image_object = $pdf-&gt;image_png($image_file)
 </pre>
 <p>
+  「Unsupported Interlace」というエラーがでた場合は、PNGのインターレース機能を解除する必要があります。
+</p>
+<p>
+  「Unsupported Compression」というエラーがでた場合は、PNGの圧縮機能を解除する必要があります。
+</p>
+<p>
+  「Unsupported Filter」というエラーがでた場合は、PNGのフィルタ機能を解除する必要があります。
+</p>
+            
+<p>
   <b>GIFファイルの読み込み</b>
 </p>
 <p>
@@ -140,6 +150,9 @@ my $image_object = $pdf-&gt;image_png($image_file)
 my $image_file = '/path/image.gif';
 my $image_object = $pdf-&gt;image_gif($image_file)
 </pre>
+<p>
+  「unsupported graphic control extension」というエラーが出た場合は、GIFのグラフィックコントロール拡張を削除する必要があります。
+</p>
 <h4>画像コンテンツオブジェクトの生成</h4>
 <p>
   画像を挿入するための、コンテンツオブジェクトを生成します。これはPDF::API2::Contentオブジェクトです。
@@ -170,6 +183,35 @@ $gfx-&gt;image($image_object, $x, $y, $scale);
 </p>
 <p>
   例として、600x600のイメージを600dpiの解像度で表示したい場合は、72を指定します。
+</p>
+<h3>PNG画像を挿入するサンプル</h3>
+<p>
+  PNG画像を挿入するサンプルを書いてみます。
+</p>
+<pre>
+use PDF::API2;
+
+my $pdf = PDF::API2-&gt;new;
+
+my $page = $pdf-&gt;page;
+
+# PNG画像を表現するリソースオブジェクトを生成
+my $image_file = "$FindBin::Bin/rokkaku.png";
+my $image_object = $pdf-&gt;image_png($image_file);
+
+# 画像を挿入するために必要なコンテンツオブジェクト
+my $gfx = $page-&gt;gfx;
+
+# 指定した位置に画像を挿入
+my $x = 50;
+my $y = 500;
+$gfx-&gt;image($image_object, $x, $y);
+
+my $pdf_file = 'image_png.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
+<p>
+  <a href="/examples/pdf/image_png.pdf">出力結果 PNG画像の挿入</a>
 </p>
 
   </div>

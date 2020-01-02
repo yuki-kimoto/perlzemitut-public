@@ -193,11 +193,24 @@ $gfx-&gt;strokecolor('%FF000000');
 <p>
   色の書式は、塗りつぶしの色の設定の場合も同じです。
 </p>
-<h4>線で囲む</h4>
+<h4>線で囲んで三角形を書く</h4>
 <p>
   線を書く応用として、線で囲んで三角形を書いてみましょう。lineメソッドで、点をつなげて、最後に始点に戻ります。
 </p>
 <pre>
+use strict;
+use warnings;
+use utf8;
+
+use PDF::API2;
+
+# PDFオブジェクトの生成
+my $pdf = PDF::API2-&gt;new;
+
+my $page = $pdf-&gt;page;
+
+my $gfx = $page-&gt;gfx;
+
 # 点P1
 my $x1 = 100;
 my $y1 = 100;
@@ -218,7 +231,13 @@ $gfx-&gt;line($x1, $y1);
 
 # 線を描画
 $gfx-&gt;stroke;
+
+my $pdf_file = 'render_tri.pdf';
+$pdf-&gt;saveas($pdf_file);
 </pre>
+<p>
+  <a href="/examples/pdf/render_tri.pdf">出力結果 三角形</a>
+</p>
 <h4>塗りつぶす</h4>
 <p>
   パスで囲むと、塗りつぶすことができます。塗りつぶすにはfillメソッドを使用します。塗りつぶしのデフォルト色は、黒です。fillは、strokeの前に呼び出す必要があることに注意してください。
@@ -460,6 +479,9 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   情報が何も入っていない表が完成しました。
 </p>
+<p>
+  <a href="/examples/pdf/table.pdf">出力結果 空の表</a>、
+</p>
 <h4>見出しと項目が入った表のサンプル</h4>
 <p>
   最後に、見出しと項目が入った表のサンプルを作成してみましょう。
@@ -657,7 +679,13 @@ $gfx-&gt;strokecolor('#333');
 
 # 四角形を塗りつぶして線を描画
 $gfx-&gt;stroke;
+
+my $pdf_file = 'table_items.pdf';
+$pdf-&gt;saveas($pdf_file);
 </pre>
+<p>
+  <a href="/examples/pdf/table_items.pdf">出力結果 項目ありの表</a>
+</p>
 
   </div>
   <div class="bottom">

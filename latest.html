@@ -267,11 +267,24 @@ $gfx-&gt;strokecolor('%FF000000');
 <p>
   色の書式は、塗りつぶしの色の設定の場合も同じです。
 </p>
-<h4>線で囲む</h4>
+<h4>線で囲んで三角形を書く</h4>
 <p>
   線を書く応用として、線で囲んで三角形を書いてみましょう。lineメソッドで、点をつなげて、最後に始点に戻ります。
 </p>
 <pre>
+use strict;
+use warnings;
+use utf8;
+
+use PDF::API2;
+
+# PDFオブジェクトの生成
+my $pdf = PDF::API2-&gt;new;
+
+my $page = $pdf-&gt;page;
+
+my $gfx = $page-&gt;gfx;
+
 # 点P1
 my $x1 = 100;
 my $y1 = 100;
@@ -292,7 +305,13 @@ $gfx-&gt;line($x1, $y1);
 
 # 線を描画
 $gfx-&gt;stroke;
+
+my $pdf_file = 'render_tri.pdf';
+$pdf-&gt;saveas($pdf_file);
 </pre>
+<p>
+  <a href="/examples/pdf/render_tri.pdf">出力結果 三角形</a>
+</p>
 <h4>塗りつぶす</h4>
 <p>
   パスで囲むと、塗りつぶすことができます。塗りつぶすにはfillメソッドを使用します。塗りつぶしのデフォルト色は、黒です。fillは、strokeの前に呼び出す必要があることに注意してください。
@@ -534,6 +553,9 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   情報が何も入っていない表が完成しました。
 </p>
+<p>
+  <a href="/examples/pdf/table.pdf">出力結果 空の表</a>、
+</p>
 <h4>見出しと項目が入った表のサンプル</h4>
 <p>
   最後に、見出しと項目が入った表のサンプルを作成してみましょう。
@@ -731,7 +753,13 @@ $gfx-&gt;strokecolor('#333');
 
 # 四角形を塗りつぶして線を描画
 $gfx-&gt;stroke;
+
+my $pdf_file = 'table_items.pdf';
+$pdf-&gt;saveas($pdf_file);
 </pre>
+<p>
+  <a href="/examples/pdf/table_items.pdf">出力結果 項目ありの表</a>
+</p>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/31</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -789,6 +817,16 @@ my $image_file = '/path/image.png';
 my $image_object = $pdf-&gt;image_png($image_file)
 </pre>
 <p>
+  「Unsupported Interlace」というエラーがでた場合は、PNGのインターレース機能を解除する必要があります。
+</p>
+<p>
+  「Unsupported Compression」というエラーがでた場合は、PNGの圧縮機能を解除する必要があります。
+</p>
+<p>
+  「Unsupported Filter」というエラーがでた場合は、PNGのフィルタ機能を解除する必要があります。
+</p>
+            
+<p>
   <b>GIFファイルの読み込み</b>
 </p>
 <p>
@@ -799,6 +837,9 @@ my $image_object = $pdf-&gt;image_png($image_file)
 my $image_file = '/path/image.gif';
 my $image_object = $pdf-&gt;image_gif($image_file)
 </pre>
+<p>
+  「unsupported graphic control extension」というエラーが出た場合は、GIFのグラフィックコントロール拡張を削除する必要があります。
+</p>
 <h4>画像コンテンツオブジェクトの生成</h4>
 <p>
   画像を挿入するための、コンテンツオブジェクトを生成します。これはPDF::API2::Contentオブジェクトです。
@@ -829,6 +870,35 @@ $gfx-&gt;image($image_object, $x, $y, $scale);
 </p>
 <p>
   例として、600x600のイメージを600dpiの解像度で表示したい場合は、72を指定します。
+</p>
+<h3>PNG画像を挿入するサンプル</h3>
+<p>
+  PNG画像を挿入するサンプルを書いてみます。
+</p>
+<pre>
+use PDF::API2;
+
+my $pdf = PDF::API2-&gt;new;
+
+my $page = $pdf-&gt;page;
+
+# PNG画像を表現するリソースオブジェクトを生成
+my $image_file = "$FindBin::Bin/rokkaku.png";
+my $image_object = $pdf-&gt;image_png($image_file);
+
+# 画像を挿入するために必要なコンテンツオブジェクト
+my $gfx = $page-&gt;gfx;
+
+# 指定した位置に画像を挿入
+my $x = 50;
+my $y = 500;
+$gfx-&gt;image($image_object, $x, $y);
+
+my $pdf_file = 'image_png.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
+<p>
+  <a href="/examples/pdf/image_png.pdf">出力結果 PNG画像の挿入</a>
 </p>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/30</div>
@@ -878,6 +948,9 @@ $text-&gt;text('Hello World!');
 my $pdf_file = 'text_core_font.pdf';
 $pdf-&gt;saveas($pdf_file);
 </pre>
+<p>
+  <a href="/examples/pdf/text_core_font.pdf">出力結果 テキスト英語</a>
+</p>
 <p>
   <b>フォントオブジェクトの取得</b>
 </p>
@@ -1278,6 +1351,9 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   僕の環境では、1万2000文字で1～2秒かかっています。PDF出力は、意外に重い処理です。
 </p>
+<p>
+  <a href="/examples/pdf/margin_full_text.pdf">出力結果 余白、改行、改ページ</a>
+</p>
 <h4>HTMLの見出しやpタグを表現するには?</h4>
 <p>
   ここでは、詳しく解説しませんが、ヒントだけ書いておきます。少なくとも、タグを解析する必要があります。正規表現や、HTMLを解析してくれるモジュールが利用できるでしょう。後で、リストやテーブルに対応することを考えると、HTMLを解析してくれるモジュールを使うのが、汎用的でしょうか。
@@ -1530,6 +1606,9 @@ while ($message =~ /(.)/g) {
 my $pdf_file = 'margin_full_text_jp.pdf';
 $pdf-&gt;saveas($pdf_file);
 </pre>
+<p>
+  <a href="/examples/pdf/margin_full_text_jp.pdf">出力結果 日本語、太字対応</a> 
+</p>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/28</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -1573,9 +1652,25 @@ $pdf-&gt;saveas($pdf_file);
   <li><a href="/blog/20191231143440.html">画像を挿入する</a></li>
   <li><a href="/blog/20200101082734.html">基本図形の描画と表の作成</a></li>
 </ul>
+<h3>PDF生成のサンプル</h3>
+<p>
+  記事で解説したPDF生成のサンプルの一覧です。
+</p>
+<p>
+  PDF生成 <a href="/examples/pdf/empty.pdf">空ページ</a>、 <a href="/examples/pdf/size_a4.pdf">A4サイズ</a>、 <a href="/examples/pdf/size_b5.pdf">B5サイズ</a>、 <a href="/examples/pdf/size_595_842.pdf">595×842サイズ</a> 
+</p>
+<p>
+  テキスト描画 <a href="/examples/pdf/text_core_font.pdf">テキスト英語</a>、 <a href="/examples/pdf/margin_full_text.pdf">余白、改行、改ページ</a>、 <a href="/examples/pdf/margin_full_text_jp.pdf">日本語、太字対応</a> 
+</p>
+<p>
+  画僧挿入 <a href="/examples/pdf/image_png.pdf">PNG画像の挿入</a>
+</p>
+<p>
+  基本図形と表 <a href="/examples/pdf/render_tri.pdf">三角形</a>、<a href="/examples/pdf/table.pdf">空の表</a>、<a href="/examples/pdf/table_items.pdf">項目ありの表</a>
+</p>
 <h3>PDF作成のユーティリティ</h3>
 <ul>
-  <li><a href="/blog/20200102105023.html">PDFファイルをブラウザから確認する方法</a></li>
+  <li><a href="/blog/20191226175520.html">PDFファイルをブラウザから確認する方法</a></li>
 </ul>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/27</div>
@@ -1663,6 +1758,9 @@ $pdf-&gt;saveas($pdf_file);
 </pre>
 <p>
   空のPDFファイルが作成できれば、成功しています。
+</p>
+<p>
+  <a href="/examples/pdf/empty.pdf">出力結果 空ページ</a>
 </p>
 <h3>既存のPDFファイルを開く</h3>
 <p>
@@ -1788,6 +1886,9 @@ use PDF::API2;
   $pdf-&gt;saveas($pdf_file);
 }
 </pre>
+<p>
+  <a href="/examples/pdf/size_a4.pdf">出力結果 A4サイズ</a>、 <a href="/examples/pdf/size_b5.pdf">出力結果 B5サイズ</a>、 <a href="/examples/pdf/size_595_842.pdf">出力結果 595×842サイズ</a> 
+</p>
 <h3>用紙サイズを取得する</h3>
 <p>
   用紙サイズを取得するには、引数を与えないで、ページオブジェクトのmediaboxメソッドを使用します。
