@@ -66,7 +66,89 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/01</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/02</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20200102105023.html">PDFファイルをブラウザから確認する方法</a></h2>
+<p>
+  PDFファイルをブラウザから確認する方法を解説します。
+</p>
+<p>
+  PDF::API2を使って、プログラムでPDFファイルを作成している場合、PDFを開いて確認するのが、少し面倒に感じます。
+</p>
+<p>
+  また<a href="https://linux.perlzemi.com/">Linux</a>を使って、PDFを生成した場合に、ダウンロードして確認するのは、大変です。
+</p>
+<p>
+  WebサーバーでPDFファイルを配信して、Webブラウザで確認できると便利です。Webブラウザは、PDF表示に対応していますので、これを利用しましょう。
+</p>
+<h3>Mojoliciousを使ってWebサーバーを起動する</h3>
+<p>
+  静的ファイルを配信するWebサーバーを、起動するには、<a href="https://web.perlzemi.com/">Mojolicious</a>を使うのが、簡単です。
+</p>
+<h4>Webサーバーのプログラム</h4>
+<p>
+  Webサーバーのプログラムを以下のように記述しましょう。名前は、serve.plにします。
+</p>
+<pre>
+# serve.pl
+use Mojolicious::Lite;
+
+app-&gt;start;
+</pre>
+<p>
+  デフォルトでは、静的ファイルのディレクトリは「public」というディレクトリなので、PDFファイルを出力するディレクトリに変更しましょう。PDFファイルをカレントディレクトリに出力している場合は、静的ファイルのディレクトリをカレントディレクトリに変更すると、よいでしょう。
+</p>
+<pre>
+# serve.pl
+use Mojolicious::Lite;
+
+# 静的ファイルの配信ディレクトリを変更
+app-&gt;static-&gt;paths(['.']);
+
+app-&gt;start;
+</pre>
+<h4>Webサーバーの起動</h4>
+<p>
+  Webサーバーを起動するには、morboコマンドを使用します。
+</p>
+<pre>
+morbo serve.pl
+</pre>
+<p>
+  これでWebサーバーが起動します。以下のURLでアクセスできます。デフォルトのポートは3000番です。
+</p>
+<pre>
+# ローカルPCの場合
+http://127.0.0.1:3000
+
+# リモートのLinuxの場合
+http://サーバーのIPアドレスあるいはドメイン名:3000
+</pre>
+<h4>ポート番号の変更</h4>
+<p>
+  ポート番号をデフォルトの3000番以外に変えるには、「MOJO_LISTEN」環境変数を使用します。以下は、3001番に変えるサンプルです。
+</p>
+<pre>
+MOJO_LISTEN=http://*:3001 morbo serve.pl
+</pre>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/01</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
@@ -779,7 +861,7 @@ my $pdf = PDF::API2-&gt;new;
 my $page = $pdf-&gt;page;
 
 # コアフォントの読み込み
-my $font = $pdf-&gt;corefont('Helvetica-Bold');
+my $font = $pdf-&gt;corefont('Helvetica');
 
 # テキストを表現するコンテンツオブジェクトを取得
 my $text = $page-&gt;text();
@@ -804,7 +886,7 @@ $pdf-&gt;saveas($pdf_file);
 </p>
 <pre>
 # コアフォントの読み込み
-my $font = $pdf-&gt;corefont('Helvetica-Bold');
+my $font = $pdf-&gt;corefont('Helvetica');
 </pre>
 <p>
   コアフォントを取得するにはcorefontメソッドを使います。注意点としては、corefontでは、日本語が描画できないことに注意してください。日本語を利用したい場合は、ttfontで日本語をサポートするトゥルータイプフォントを、指定する必要があります。
@@ -865,6 +947,35 @@ $text-&gt;text('Hello World!');
 <pre>
 # アンダーラインを描画
 $text-&gt;text('Hello World!', -underline =&gt; 'auto');
+</pre>
+<h3>太字にする</h3>
+<p>
+  コアフォントで、太字を使うには、太字用のフォントを指定します。
+</p>
+<pre>
+# コアフォントの読み込み
+my $font = $pdf-&gt;corefont('Helvetica-Bold');
+</pre>
+<p>
+  コンピューターにおける太字というのは、表現方法に二種類あって、太字用のフォントを使うか、アプリケーションで、文字を重ねて描画するかのどちらかです。
+</p>
+<p>
+  注意点として、PDF::API2は、太字にするためのAPIを持っていません。文字を横に拡大するhscaleというメソッドを持っていますが、文字間隔も開いて、太字としては、不自然な見栄えになってしまいます。
+</p>
+<p>
+  代替的な表現として、フォントサイズを1増やすことも検討してみてください。
+</p>
+<pre>
+# 太字の代替表現として、フォントサイズを1増やす
+$text-&gt;font($font, $font_size + 1);
+</pre>
+<h3>文字間隔を設定</h3>
+<p>
+  文字間隔を設定するにはcharspaceメソッドを使用します。デフォルトは0です。
+</p>
+<pre>
+# 文字間隔を設定
+$text-&gt;charspace(1);
 </pre>
 <h3>テキストを指定位置を中心として描画</h3>
 <p>
@@ -1248,6 +1359,177 @@ use FindBin;
 
 my $true_type_font_file = "$FindBin::Bin/kochi-gothic-subst.ttf";
 </pre>
+<h4>日本語対応のTrueTypeフォントで太字にしたい</h4>
+<p>
+  日本語対応のTrueType Fontで太字にしたい場合は、ノーマルフォントとは別に、太字のフォントも用意されているフォントを利用しましょう。
+</p>
+<p>
+  日本語、TrueTypeフォント、太字あり、商用利用可能なものを、調べたので紹介します。
+</p>
+<p>
+  <b>あおぞら明朝フォント</b>
+</p>
+<ul>
+  <a href="http://blueskis.wktk.so/AozoraMincho/">あおぞら明朝フォント</a>(<a href="http://ayapin-film.sakura.ne.jp/Jttf/jttf.html">日本語TTFフリーフォント for X11</a>)
+</ul>
+<p>
+  ダウンロードは以下から。
+</p>
+<p>
+  <a href="http://blueskis.wktk.so/AozoraMincho/archive/v0.1/aozoramincho-readme-ttf.zip">あおぞら明朝フォントのダウンロード</a>
+</p>
+<p>
+  aozoramincho-readme-ttf.zipを解凍すると、以下のフォントファイルがあります。
+</p>
+<pre>
+AozoraMincho-bold.ttf 太字
+AozoraMincho-thin.ttf
+AozoraMinchoBlack.ttf
+AozoraMinchoHeavy.ttf
+AozoraMinchoLight.ttf
+AozoraMinchoMedium.ttf
+AozoraMinchoRegular.ttf 通常
+</pre>
+<p>
+  これらのファイルを使うと、通常と太字に対応できます。
+</p>
+<pre>
+# 通常
+my $true_type_font_file = '/path/AozoraMinchoRegular.ttf';
+my $font = $pdf-&gt;ttfont($true_type_font_file);
+
+# 太字
+my $true_type_font_bold_file = '/path/AozoraMincho-bold.ttf';
+my $font_bold = $pdf-&gt;ttfont($true_type_font_file);
+</pre>
+<h3>余白、改行、改ページ、日本語、太字に対応したサンプル</h3>
+<p>
+  余白、改行、改ページ、日本語、太字に対応したサンプルです。「こんにちは、世界。」と繰り返し表示され、世界の場合だけ太字になります。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use FindBin;
+
+use PDF::API2;
+
+my $pdf = PDF::API2-&gt;new;
+
+# 日本語に対応したTrueTypeフォントの読み込み
+my $true_type_font_file = "$FindBin::Bin/AozoraMinchoRegular.ttf";
+my $font = $pdf-&gt;ttfont($true_type_font_file);
+my $true_type_font_bold_file = "$FindBin::Bin/AozoraMincho-bold.ttf";
+my $font_bold = $pdf-&gt;ttfont($true_type_font_bold_file);
+
+my $font_size = 11;
+
+# テキストの高さ
+my $text_height = $font_size;
+
+# 行間
+my $line_margin = 2;
+
+# 行の高さ
+my $line_height = $text_height + $line_margin;
+
+# 用紙サイズのデフォルトのグローバル設定(用紙サイズを取得するため)
+$pdf-&gt;mediabox(undef);
+
+# ページの高さと幅
+my @page_size_infos = $pdf-&gt;mediabox;
+my $page_width = $page_size_infos[2];
+my $page_height = $page_size_infos[3];
+
+# ページ余白
+my $page_top_margin = 36;
+my $page_bottom_margin = 36;
+my $page_left_margin = 36;
+my $page_right_margin = 36;
+
+# 描画開始x座標
+my $render_start_x = $page_left_margin;
+
+# 描画開始y座標
+my $render_start_y = $page_height - 1 - $page_top_margin;
+
+# 描画終了x座標
+my $render_end_x = $page_width - 1 - $page_right_margin;
+
+# 描画終了y座標
+my $render_end_y = $page_bottom_margin;
+
+# メッセージ(1000回の同じメッセージ繰り返し)
+my $message = 'こんにちは、世界。' x 1000;
+
+# 改行戻りx座標を保存
+my $new_line_left_x = $render_start_x;
+
+# 現在描画位置
+my $cur_render_x = $render_start_x;
+my $cur_render_y = $render_start_y;
+
+# ページの作成
+my $page = $pdf-&gt;page;
+
+# テキストを表現するコンテンツオブジェクトを取得
+my $text = $page-&gt;text();
+
+# フォント設定
+$text-&gt;font($font, $font_size);
+
+# 描画開始位置に移動
+$text-&gt;translate($render_start_x, $render_start_y);
+  
+# 1文字づつ取り出し
+while ($message =~ /(.)/g) {
+  my $char = $1;
+  
+  # 現在描画位置が、描画終了x座標を超えていれば改行
+  if ($cur_render_x &gt; $render_end_x) {
+    $cur_render_x = $new_line_left_x;
+    $cur_render_y -= $line_height;
+    
+    # 描画開始位置に移動
+    $text-&gt;translate($cur_render_x, $cur_render_y);
+  }
+
+  # 現在描画位置が、描画終了y座標を超えていれば改ページ
+  if ($cur_render_y &lt; $render_end_y) {
+    $cur_render_x = $render_start_x;
+    $cur_render_y = $render_start_y;
+    
+    # ページの作成
+    $page = $pdf-&gt;page;
+
+    # テキストを表現するコンテンツオブジェクトを取得
+    $text = $page-&gt;text();
+
+    # フォント設定
+    $text-&gt;font($font, $font_size);
+
+    # 描画開始位置に移動
+    $text-&gt;translate($cur_render_x, $cur_render_y);
+  }
+  
+  # 世界を太字
+  if ($char eq '世' || $char eq '界') {
+    $text-&gt;font($font_bold, $font_size);
+  }
+  else {
+    $text-&gt;font($font, $font_size);
+  }
+
+  # 文字を描画
+  $text-&gt;text($char);
+  
+  # 描画位置を更新
+  ($cur_render_x) = $text-&gt;textpos;
+}
+
+my $pdf_file = 'margin_full_text_jp.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/28</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -1290,6 +1572,10 @@ my $true_type_font_file = "$FindBin::Bin/kochi-gothic-subst.ttf";
   <li><a href="/blog/20191230091936.html">テキストを描画する</a></li>
   <li><a href="/blog/20191231143440.html">画像を挿入する</a></li>
   <li><a href="/blog/20200101082734.html">基本図形の描画と表の作成</a></li>
+</ul>
+<h3>PDF作成のユーティリティ</h3>
+<ul>
+  <li><a href="/blog/20200102105023.html">PDFファイルをブラウザから確認する方法</a></li>
 </ul>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/27</div>
@@ -1526,80 +1812,6 @@ my @page_size_infos = $page-&gt;mediabox;
 </pre>
 <p>
   一般的には、左下からのマージンXが0、 左下からのマージンYが0で返ってきますので、右上の座標Xが幅、右上の座標Yが、高さと考えてよいでしょう。
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/09/23</div>
-<style>
-  .top {
-    display:none;
-  }
-</style>
-<h2><a href="/blog/20190923084701.html">名古屋でのプログラミングPerlのイベント YAPC::Nagoya::Tiny 2019年11月3日(日)</a></h2>
-<h3>YAPC::Nagoya::Tiny 2019年11月3日(日)</h3>
-<p>
-  PerlというプログラミングのイベントがYAPC::Nagoya::Tiny、名古屋で2019年11月3日(日)に開催されます。
-</p>
-<p>
-  主催は、<a href="http://blog.yapcjapan.org/">YACP::Japan運営ブログ</a>を運営しているJAP(Japan Perl Association)です。
-</p>
-<p>
-  今回の名古屋のYAPCの地方開催は初めてなので、まだ情報をチェックしていない方は、チェックしてみましょう。
-</p>
-<h3>YAPC::Japanが名古屋に初登場！ </h3>
-<blockquote>
-<p>
-  <b>YAPC::Japanが名古屋に初登場！ </b>
-</p>
-<p>
-  2016年から北海道、大阪、福岡、沖縄、東京で開催してきたYAPC::JapanがTinyとなって名古屋に登場です！
-</p>
-<p>
-  YAPCはYet Another Perl Conferenceの略で草の根的に始まったPerlのカンファレンスです。私達YAPC::Japanは一般社団法人JPAが主催する、Perlを軸としたITに関わる全ての人のためのカンファレンスです。
-</p>
-<p>
-  Perlだけにとどまらない多様な分野のトークセッションを通じ、情報交換や交流を行っていただくことで、JPAのミッションである「日本におけるPerlコミュニティを脈々と続くものとして」盛り上げていくことが目標です。
-</p>
-<p>
-  ☆ 懇親会についても開催を予定しております。詳細が決まり次第、順次お知らせいたします。
-</p>
-<p>
-  【運営】一般社団法人Japan Perl Association
-</p>
-<p>
-  <a href="https://yapcjapan.connpass.com/event/146727/">YAPC::Nagoya::Tiny 2019</a>
-</p>
-</blockquote>
-<h3>YAPC::Nagoya::Tinyの参加費、場所、時間</h3>
-<p>
-  YAPC::Nagoya::Tiny 2019の参加費は、1000円です。スポンサー企業様のご厚意によって、非常に安く設定されています。
-</p>
-<p>
-  場所は、名古屋国際センター 第1会議室。
-</p>
-<p>
-  時間は、10:30～18:00です。
-</p>
-<p>
-  イベントの後は、懇親会もあります。懇親会は別途発表で、費用は別にかかります。普段はできない、プログラミングや技術の話でわいわい盛り上がります。
-</p>
-<h3>YAPC::Nagoya::Tiny 2019の申し込み</h3>
-<p>
-  申し込みは、conpassと呼ばれる、イベントを公表・申し込みができるWebサイトで受け付けています。
-</p>
-<p>
-  中部地方、愛知県、名古屋の高校・大学の学生の皆様。研究者の皆様。インフラエンジニア、Webエンジニア、WebサービスをPerlで開発されているシステムマネージャ、経営者の方、奮ってご参加ください。
-</p>
-<p>
-  遠方から名古屋へ旅行してみたいよーという方も、ご参加ください。
-</p>
-<p>
-  Perl入学式のメンバーや、Perlゼミもconnpassで参加を申し込んでいるので、Perl入学式、過去に参加された方、Perlゼミ見ているよという方も、ぜひご参加ください。
-</p>
-<p>
-  申し込みには、Paypalのアカウントが必要です。
-</p>
-<p>
-  <a href="https://yapcjapan.connpass.com/event/146727/">YAPC::Nagoya::Tiny 2019の申し込みページに移動</a>
 </p>
 
 
