@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37528940-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-37528940-3');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<title>請求書の作成 - PDF::API2で帳票作成 - Perl入門ゼミ</title>
+<meta name="description" content="PDF::API2で請求書を作成してみました。見積書、申込書、レシート、サービス利用明細など、本格的な帳票の作成の基本的なひな型として利用できます。">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="請求書の作成 - PDF::API2で帳票作成 - Perl入門ゼミ" />
+<meta name="twitter:description" content="PDF::API2で請求書を作成してみました。見積書、申込書、レシート、サービス利用明細など、本格的な帳票の作成の基本的なひな型として利用できます。" />
+<meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>
+  <a href="/"><img src="/images/logo.png"><span style="font-size:105%">Perl</span>入門ゼミ</a>
+</h1>
+<div class="header-description">
+  テキスト処理、Linuxサーバー管理、Web開発ならPerl
+</div>
+<div class="header-otoiawase">
+  <div style="display:table-cell;padding-right:3px;">
+    <a rel="nofollow" style="" href="https://twitter.com/perlzemi" title="Twitter" style="padding-right:3px;"><img style="width:37px" src="/images/Twitter_Social_Icon_Square_Color.png"></a>
+  </div>
+  <div style="display:table-cell;vertical-align:top;">
+    <a rel="nofollow" style="display:block;width:100%;background:#F048A4;color:white;text-decoration:none;padding:3px;" href="https://perlzemi.slack.com">フォーラムへ<br>ログイン</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    <!-- entry-top -->
+
+  </div>
+  <div class="middle">
+    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20200103081131.html">請求書の作成 - PDF::API2で帳票作成</a></h2>
+<p>
+  PDF::API2で請求書を作成してみました。見積書、申込書、レシート、サービス利用明細など、本格的な帳票の作成の基本的なひな型として利用できます。
+</p>
+<ul>
+  <li>A4用紙サイズ</li>
+  <li>日本語対応</li>
+  <li>太字対応</li>
+  <li>背景色対応</li>
+  <li>フォントサイズ対応</li>
+  <li>下線対応</li>
+  <li>表の表示</li>
+  <li>表の偶奇カラーリング</li>
+  <li>単価、数量、価格</li>
+  <li>価格合計</li>
+  <li>印鑑押印用の四角</li>
+  <li>会社ロゴの挿入</li>
+  <li>金額桁区切り</li>
+  <li>25項目</li>
+</ul>
+<p>
+  作成した請求書のPDFのサンプルは、こちらからダウンロードできます。
+</p>
+<p>
+  <a href="/examples/pdf/invoice.pdf">請求書のPDFのサンプル</a>
+</p>
+<h3>PDF::API2で書いた請求書のソースコード</h3>
+<p>
+  PDF::API2で書いた請求書のソースコードです。
+</p>
+<p>
+  <b>注意点</b>
+</p>
+<p>
+  会社ロゴは、同一ディレクトリに「logo.png」という名前で、配置してください。
+</p>
+<p>
+  日本語用フォントは、<a href="/blog/20191230091936.html">テキストを描画する</a>で紹介した、あおぞら明朝フォントを使っています。通常フォント「AozoraMinchoRegular.ttf」と太字フォント「AozoraMincho-bold.ttf」を同一ディレクトリに配置してください。
+</p>
+<p>
+  レイアウトのアルゴリズムは、表の構造になっています。1つの縦幅を指定して、行を進めています。列は、100分割されていて、その割合を示した位置に表示しています。
+</p>
+<p>
+  <b>PDF::API2で書いた請求書のソースコード</b>
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use FindBin;
+use PDF::API2;
+
+# 商品データ(本)
+my $books = [
+  {
+    name =&gt; '本1',
+    unit_price =&gt; 1000,
+    count =&gt; 3,
+  },
+  {
+    name =&gt; '本2',
+    unit_price =&gt; 2000,
+    count =&gt; 6,
+  },
+  {
+    name =&gt; '本3',
+    unit_price =&gt; 1500,
+    count =&gt; 5,
+  }
+];
+
+# 金額小計
+my $price_total_no_tax = 0;
+for my $book (@$books) {
+  $price_total_no_tax += $book-&gt;{unit_price} * $book-&gt;{count};
+}
+my $price_total_no_tax_disp = price_disp($price_total_no_tax);
+
+# 消費税
+my $tax_rate = 0.1;
+my $tax = int($price_total_no_tax * $tax_rate);
+my $tax_disp = price_disp($tax);
+
+# 税込金額
+my $price_total = $price_total_no_tax + $tax;
+my $price_total_disp = price_disp($price_total);
+
+# PDF
+my $pdf = PDF::API2-&gt;new;
+
+# 用紙サイズ A4設定
+$pdf-&gt;mediabox('A4');
+
+# 用紙サイズの取得
+my @page_size_infos = $pdf-&gt;mediabox;
+my $page_width = $page_size_infos[2];
+my $page_height = $page_size_infos[3];
+
+# ページ余白
+my $page_top_margin = 48;
+my $page_bottom_margin = 48;
+my $page_left_margin = 49;
+my $page_right_margin = 49;
+
+# 日本語に対応したTrueTypeフォントの読み込み - 通常フォントと太字フォント
+my $true_type_font_file = "$FindBin::Bin/AozoraMinchoRegular.ttf";
+my $font = $pdf-&gt;ttfont($true_type_font_file);
+my $true_type_font_bold_file = "$FindBin::Bin/AozoraMincho-bold.ttf";
+my $font_bold = $pdf-&gt;ttfont($true_type_font_bold_file);
+
+# フォントサイズ - デフォルト
+my $font_size_default = 10;
+
+# 描画開始x座標
+my $render_start_x = $page_left_margin;
+
+# 描画開始y座標
+my $render_start_y = $page_height - 1 - $page_top_margin;
+
+# 描画終了x座標
+my $render_end_x = $page_width - 1 - $page_right_margin;
+
+# 描画終了y座標
+my $render_end_y = $page_bottom_margin;
+
+# レイアウトは、テーブル構造になっていて
+# 縦幅と横幅の最小単位を設定、横幅は、100分割したものが最小単位
+my $unit_height = 14;
+my $unit_width = ($render_end_x - $render_start_x) / 100;
+
+# テキスト描画のパディング
+my $text_bottom_padding = 3;
+my $text_left_padding = 3;
+
+# 受取企業欄の幅
+my $receive_company_end_tds_count = 55;
+
+# 請求企業欄の開始位置
+my $send_company_start_tds_count = 66.5;
+
+# 色の一覧
+my $color_black = '#000';
+
+# 線の幅
+my $line_width_basic = 0.3;
+my $line_width_bold = 2;
+
+# ページ
+my $page = $pdf-&gt;page;
+
+# グラフィック描画
+my $gfx = $page-&gt;gfx;
+
+# テキスト描画
+my $text = $page-&gt;text;
+
+# 現在の行
+my $cur_row = 0;
+
+# 一番上太線
+$gfx-&gt;move($render_start_x, $render_start_y);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth(10);
+$gfx-&gt;stroke;
+$cur_row += 1.5;
+
+# 申し込み日付
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;strokecolor($color_black);
+$text-&gt;fillcolor($color_black);
+$text-&gt;text_right('2019年10月14日');
+$gfx-&gt;move($render_start_x + $send_company_start_tds_count * $unit_width);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 2;
+
+# ロゴの開始位置を保存
+my $cur_logo_row = $cur_row - 1.5;
+
+# 請求書タイトル
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font_bold, 20);
+$text-&gt;text('請求書');
+$cur_row += 3;
+
+# 右列の開始位置を保存
+my $cur_right_row = $cur_row + 1;
+
+# 納品先企業名
+my $receive_company_name = 'XXXXX株式会社';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($receive_company_name);
+$text-&gt;translate(
+  $render_start_x + $receive_company_end_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;text_right('御中');
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 4;
+
+# 件名
+my $subject_label = '件　名:';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($subject_label);
+my $subject = '2019年3月3日の商品売買契約';
+$text-&gt;translate(
+  $render_start_x + 10 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($subject);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 1;
+
+# 納品日
+my $delivery_date_label = '納品日:';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($delivery_date_label);
+my $delivery_date = '2019年3月30日';
+$text-&gt;translate(
+  $render_start_x + 10 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($delivery_date);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 2.8;
+
+# 請求メッセージ
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text('下記の通り、ご請求申し上げます。');
+$cur_row += 2;
+
+# 金額
+my $price_total_top_label = '金額';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_top_label);
+my $price_total_top = "￥${price_total_disp}円";
+$text-&gt;translate(
+  $render_start_x + 48 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default + 5);
+$text-&gt;text_right($price_total_top);
+my $price_total_top_zeikomi = '(税込)';
+$text-&gt;translate(
+  $render_start_x + 50 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_top_zeikomi);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row - 2);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 0.5;
+
+# 会社ロゴ挿入
+my $logo_image_file = "$FindBin::Bin/logo.png";
+my $logo_image_object = $pdf-&gt;image_png($logo_image_file);
+my $logo_image_width = 60;
+$gfx-&gt;image(
+  $logo_image_object,
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_logo_row - $logo_image_width,
+  $logo_image_width,
+  $logo_image_width,
+);
+
+# 請求者
+my $sender_company_name = '木本システム株式会社';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_company_name);
+$cur_right_row += 1;
+
+# 郵便番号
+my $sender_zip_code = '住所:123-4567';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_zip_code);
+$cur_right_row += 1;
+
+# 住所
+my $sender_address = '東京都港区〇〇 １２３－４';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_address);
+$cur_right_row += 1;
+
+# 電話番号
+my $sender_tel = 'TEL:090-1234-5678';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_tel);
+$cur_right_row += 1;
+
+# FAX
+my $sender_fax = 'FAX:090-1234-5679';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_fax);
+$cur_right_row += 1;
+
+# 担当
+my $sender_staff = '担当:田中太郎';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_staff);
+
+# 印鑑押印四角形
+my $sleal_width = 55;
+$gfx-&gt;rectxy(
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 2,
+  $render_start_y - $unit_height * ($cur_right_row - 1) + $sleal_width,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 3,
+  $render_start_y - $unit_height * ($cur_right_row - 1)
+);
+$gfx-&gt;rectxy(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row ,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 3,
+  $render_start_y - $unit_height * $cur_right_row - $sleal_width 
+);
+$gfx-&gt;poly(
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width,
+  $render_start_y - $unit_height * $cur_right_row ,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width,
+  $render_start_y - $unit_height * $cur_right_row - $sleal_width 
+);
+$gfx-&gt;poly(
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 2,
+  $render_start_y - $unit_height * $cur_right_row ,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 2,
+  $render_start_y - $unit_height * $cur_right_row - $sleal_width 
+);
+$gfx-&gt;strokecolor('#bbb');
+$gfx-&gt;stroke;
+
+# 見積書見出し背景
+$gfx-&gt;rectxy(
+  $render_start_x, $render_start_y - $unit_height * $cur_row,
+  $render_end_x, $render_start_y - $unit_height * ($cur_row + 1)
+);
+$gfx-&gt;fillcolor('#eee');
+$gfx-&gt;fill;
+
+# 見積書見出し上飾り太線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+$cur_row += 1;
+
+# 見積書見出し下飾り太線の位置を保存
+my $header_bottom_line_row = $cur_row;
+
+my $cur_column_units_count = 0;
+
+# No
+my $no_units_count = 10;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text('No.');
+$cur_column_units_count += $no_units_count;
+
+# 項目
+my $name_units_count = 34;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($name_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('項目');
+$cur_column_units_count += $name_units_count;
+
+# 数量
+my $count_units_count = 14;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($count_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('数量');
+$cur_column_units_count += $count_units_count;
+
+# 単価
+my $unit_price_units_count = 14;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($unit_price_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('単価');
+$cur_column_units_count += $unit_price_units_count;
+
+# 金額
+my $price_units_count = 28;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($price_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('金額');
+$cur_column_units_count = 0;
+
+$cur_row++;
+
+my $rows_count = 25;
+
+# 各項目の枠の描画
+for (my $row = 0; $row &lt; $rows_count; $row++) {
+  my $book = $books-&gt;[$row];
+  
+  # 行を交互に塗り分ける
+  if ($row % 2 == 1) {
+    $gfx-&gt;rectxy(
+      $render_start_x,
+      $render_start_y - $unit_height * $cur_row,
+      $render_end_x,
+      $render_start_y - $unit_height * ($cur_row - 1),
+    );
+    $gfx-&gt;fillcolor('#eee');
+    $gfx-&gt;fill;
+  }
+  
+  # No
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    $text-&gt;text($row + 1);
+  }
+  $cur_column_units_count += $no_units_count;
+
+  # 項目
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    $text-&gt;text($book-&gt;{name});
+  }
+  $cur_column_units_count += $name_units_count;
+
+  # 数量
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + ($count_units_count * $unit_width) - $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    $text-&gt;text_right($book-&gt;{count});
+  }
+  $cur_column_units_count += $count_units_count;
+
+  # 単価
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + ($unit_price_units_count * $unit_width) - $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    my $unit_price_disp = price_disp($book-&gt;{unit_price});
+    $text-&gt;text_right($unit_price_disp);
+  }
+  $cur_column_units_count += $unit_price_units_count;
+
+  # 金額
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + ($price_units_count * $unit_width) - $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    my $price_disp = price_disp($book-&gt;{unit_price} * $book-&gt;{count});
+    $text-&gt;text_right($price_disp);
+  }
+  $cur_column_units_count = 0;
+
+  $cur_row++;
+}
+
+# 見積書見出し下飾り太線(灰色の縦線の上に書くためこの位置で描画)
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $header_bottom_line_row);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 太線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * ($cur_row - 1));
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 小計
+my $price_total_no_tax_label = '小計';
+$text-&gt;translate($render_start_x + ($no_units_count + $name_units_count + $count_units_count) * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_no_tax_label);
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_right($price_total_no_tax_disp);
+$cur_row += 1;
+
+# 消費税
+my $tax_label = '消費税';
+$text-&gt;translate($render_start_x + ($no_units_count + $name_units_count + $count_units_count) * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($tax_label);
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_right($tax_disp);
+$cur_row += 1;
+
+# 消費税
+my $price_total_label = '税込合計';
+$text-&gt;translate($render_start_x + ($no_units_count + $name_units_count + $count_units_count) * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_label);
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_right("￥$price_total_disp");
+$cur_row += 1;
+
+# 太線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * ($cur_row - 1));
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 振込先
+my $furikomi_disp = &lt;&lt;"EOS";
+お振込先
+みずほ銀行芝支店
+普通口座 34521xx
+木本システム株式会社
+EOS
+for my $line (split /\n/, $furikomi_disp) {
+  $text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+  $text-&gt;font($font, $font_size_default);
+  $text-&gt;text($line);
+  $cur_row += 1;
+}
+
+# 細い線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * ($cur_row - 1));
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 備考
+my $bikou_disp = &lt;&lt;"EOS";
+納品日の翌月の末日までのお支払いをお願いいたします。
+EOS
+for my $line (split /\n/, $bikou_disp) {
+  $text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+  $text-&gt;font($font, $font_size_default);
+  $text-&gt;text($line);
+  $cur_row += 1;
+}
+
+# 太線
+$gfx-&gt;move($render_start_x, $render_end_y);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 3桁区切りで金額を表示してくれるサブルーチン
+sub price_disp {
+  my ($price) = @_;
+  
+  1 while $price =~ s/(.*\d)(\d\d\d)/$1,$2/;
+  
+  return $price;
+}
+
+
+my $pdf_file = 'invoice.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
+
+  </div>
+  <div class="bottom">
+    <!-- bottom -->
+<!--
+<hr>
+<div style="width:90%;max-width:400px;background:#ffcef6;border: 1px solid #ff59e6;border-radius:3px;margin:10px auto;font-size:20px;">
+<a rel="nofollow" href="https://perl-entrance-osaka.connpass.com/event/125719/"><img src="https://connpass-tokyo.s3.amazonaws.com/thumbs/c7/d9/c7d929370c08bcb1d0b37cc33f9b6b79.png" width="80px">Perl入学式大阪 大阪府大阪市北区芝田 2019年5月25日(土) 第一回 春季開校<br>Perlプログラミングを0から学ぼう。<br>テキスト処理,正規表現,if,for,変数</a>
+</div>
+-->
+
+<div class="perlzemi-forum">
+  <a rel="nofollow" href="https://docs.google.com/forms/d/e/1FAIpQLSe6ypMTx5XTh2KbsIgqgPMXNrC5Bo9FKRPVHM_o0jvrH_k28A/viewform">
+    Perlゼミフォーラム - Perlプログラムの読み書きに困ったらここで質問(無料・5分で登録)
+  </a>
+</div>
+
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          <div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl入門
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/list.html">新着情報</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20180820153471.html">Perlのインストール</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091226126425.html">基礎文法最速マスター</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161012147627.html">配列</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161013147635.html">ハッシュ</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161023147731.html">条件分岐</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20170521149524.html">繰り返し処理</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161003147558.html">文字列</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20100827127859.html">正規表現</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20100930127859.html">リファレンスと多次元データ構造</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20101130129876.html">サブルーチン</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20110212130370.html">ファイル入出力</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161107147852.html">変数</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl辞典
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20161004147558.html">標準関数</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161022147731.html">構文・文法</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161005147566.html">演算子</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091116124667.html">モジュール</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161102147817.html">特殊変数</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl中級編
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20100411127089.html">例外処理</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20080108132865.html">コマンドライン引数</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20100302126967.html">デバッガ</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161126148016.html">ファイル・ディレクトリ操作</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091120124667.html">現代的な記述方法</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20130305136248.html">オブジェクト指向</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20110128130016.html">スコープ</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091105124627.html">日付と時刻</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161026147748.html">数値計算</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Web開発
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20140319139520.html">Mojolicious入門</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl発展編
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20080229120427.html">Perl発展編</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    サイト情報
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20170917151092.html">サイト情報</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perlの書籍
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20120326133275.html"><img src="https://images-fe.ssl-images-amazon.com/images/I/51d4T7m8NzL._SL160_.jpg"></a><br>
+        <span style="color:green">ログ解析など日本語を含むテキスト処理の実践ならこれ!Perlゼミ執筆のお勧め書籍</span>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20120326133275.html">業務に役立つPerl</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20180724153238.html">雅なPerl入門</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    姉妹サイト
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="http://www.perlzemi.com">Perlゼミ公式サイト</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://twitter.com/perlzemi">Perlゼミ Twitter</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://philosophy.perlzemi.com/">Perlの哲学 - Perlに対する誤解を解きたい</a>
+      </li>
+      <li>
+        <a href="https://linux.perlzemi.com/">Linuxサーバー管理入門</a>
+      </li>
+      <li>
+        <a href="https://web.perlzemi.com/">Mojoliciousスタートアップ - 新規Web開発</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://yuki-kimoto.github.io">Perlゼミのオープンソースプロジェクト</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://newbie.perlzemi.com/">Perl Newbies</a>
+      </li>
+      <li>
+        <div class="giblog-banner">
+          <div>
+            <a href="https://jp.giblog.net"><img src="/images/giblog-banner.png" alt="Giblog"></a>
+          </div>
+        </div>
+        <a rel="nofollow" href="https://jp.giblog.net/">Giblog - Gitで管理できるサイト・ブログを作成するためのツール。Github PagesでWebサイトを無料で公開</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perlイベント
+  </div>
+  <div class="hatena-modulebody">
+    <a rel="nofollow" href="/blog/20190923084701.html"><img src="/images/yapc-nagoya.png" style="width:100%;"></a>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    お問合せ
+  </div>
+  <div class="hatena-modulebody">
+    <a rel="nofollow" href="/mail.html">お問合せはこちら</a>
+  </div>
+</div>
+
+        </div>
+      </div>
+      <div class="footer">
+        <style>
+.what-is-perl {
+  width:95%;
+  margin: 20px auto;
+}
+.what-is-perl b {
+  padding-left:3px;
+  padding-right:3px;
+  font-size:103%;
+}
+.what-is-perl ul {
+}
+.what-is-perl li {
+  list-style:none;
+}
+.what-is-perl img {
+  width:100%;
+  max-width:110px;
+}
+
+</style>
+
+<div class="what-is-perl">
+  <div>
+    <img src="/images/perl-onion-logo.png">
+  </div>
+  <ul>
+    <li><b>Perl</b>は、<b>テキスト処理</b>の記述性とパフォーマンスに優れ、<b>正規表現</b>が言語に組み込まれているプログラミング言語です。</li>
+    <li><a href="https://linux.perlzemi.com" style="color:#666"><b>Linuxサーバー管理</b></a>での<b>フィルタリングプログラム</b>、複数行の文字列を処理、ファイル内容の検索・置換などが得意。<a href="https://web.perlzemi.com/" style="color:#666"><b>Mojoliciousを使ったWebスタートアップ</b></a>も。</li>
+    <li>Perlは、<b>git</b>や<b>openssl</b>など<b>Unix/Linuxミドルウェア</b>の支援ツールとして採用されています。</li>
+  </ul>
+</div>
+
+<!-- footer -->
+<a rel="nofollow" href="http://www.perlzemi.com">Perlゼミのプログラミングスクールはこちら</a> & <a rel="nofollow" href="https://jp.giblog.net/">このサイトはGiblogで製作されています</a>
+
+      </div>
+    </div>
+  </body>
+</html>

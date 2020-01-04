@@ -238,6 +238,41 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   <a href="/examples/pdf/render_tri.pdf">出力結果 三角形</a>
 </p>
+<p>
+  polyメソッドを使うと、moveする点を設定して、複数の点を渡して、連続した線を描画できます。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+
+use PDF::API2;
+
+# PDFオブジェクトの生成
+my $pdf = PDF::API2-&gt;new;
+
+my $page = $pdf-&gt;page;
+
+my $gfx = $page-&gt;gfx;
+
+# 点P1
+my ($x1, $y1) = (100, 100);
+
+# 点P2
+my ($x2, $y2) = (300, 300);
+
+# 点P3
+my ($x3, $y3) = (500, 100);
+
+# polyメソッドで、三角形を一度に描画
+$gfx-&gt;poly($x1, $y1, $x2, $y2, $x3, $y3, $x1, $y1);
+
+# 線を描画
+$gfx-&gt;stroke;
+
+my $pdf_file = 'render_tri.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
 <h4>塗りつぶす</h4>
 <p>
   パスで囲むと、塗りつぶすことができます。塗りつぶすにはfillメソッドを使用します。塗りつぶしのデフォルト色は、黒です。fillは、strokeの前に呼び出す必要があることに注意してください。
@@ -362,6 +397,18 @@ $pdf-&gt;saveas($pdf_file);
 <h4>図形を拡大・縮小する</h4>
 <p>
   図形を拡大・縮小させるには、scaleメソッドを使用します。
+</p>
+<h4>水平線を引くには</h4>
+<p>
+  水平線を簡易的に描画できるhlineメソッドがあります。
+</p>
+<h4>縦線を引くには</h4>
+<p>
+  縦線を簡易的に描画できるvlineメソッドがあります。
+</p>
+<h4>破線を引くには</h4>
+<p>
+  波線を引くには、linedashメソッドを使用します。
 </p>
 <h3>表を作成する</h3>
 <p>

@@ -66,7 +66,676 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/02</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/03</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20191228171433.html">
+      <span itemprop="name">帳票作成</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li>
+    here
+  </li>
+</ol>
+<h2><a href="/blog/20200103081131.html">請求書の作成 - PDF::API2で帳票作成</a></h2>
+<p>
+  PDF::API2で請求書を作成してみました。見積書、申込書、レシート、サービス利用明細など、本格的な帳票の作成の基本的なひな型として利用できます。
+</p>
+<ul>
+  <li>A4用紙サイズ</li>
+  <li>日本語対応</li>
+  <li>太字対応</li>
+  <li>背景色対応</li>
+  <li>フォントサイズ対応</li>
+  <li>下線対応</li>
+  <li>表の表示</li>
+  <li>表の偶奇カラーリング</li>
+  <li>単価、数量、価格</li>
+  <li>価格合計</li>
+  <li>印鑑押印用の四角</li>
+  <li>会社ロゴの挿入</li>
+  <li>金額桁区切り</li>
+  <li>25項目</li>
+</ul>
+<p>
+  作成した請求書のPDFのサンプルは、こちらからダウンロードできます。
+</p>
+<p>
+  <a href="/examples/pdf/invoice.pdf">請求書のPDFのサンプル</a>
+</p>
+<h3>PDF::API2で書いた請求書のソースコード</h3>
+<p>
+  PDF::API2で書いた請求書のソースコードです。
+</p>
+<p>
+  <b>注意点</b>
+</p>
+<p>
+  会社ロゴは、同一ディレクトリに「logo.png」という名前で、配置してください。
+</p>
+<p>
+  日本語用フォントは、<a href="/blog/20191230091936.html">テキストを描画する</a>で紹介した、あおぞら明朝フォントを使っています。通常フォント「AozoraMinchoRegular.ttf」と太字フォント「AozoraMincho-bold.ttf」を同一ディレクトリに配置してください。
+</p>
+<p>
+  レイアウトのアルゴリズムは、表の構造になっています。1つの縦幅を指定して、行を進めています。列は、100分割されていて、その割合を示した位置に表示しています。
+</p>
+<p>
+  <b>PDF::API2で書いた請求書のソースコード</b>
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use FindBin;
+use PDF::API2;
+
+# 商品データ(本)
+my $books = [
+  {
+    name =&gt; '本1',
+    unit_price =&gt; 1000,
+    count =&gt; 3,
+  },
+  {
+    name =&gt; '本2',
+    unit_price =&gt; 2000,
+    count =&gt; 6,
+  },
+  {
+    name =&gt; '本3',
+    unit_price =&gt; 1500,
+    count =&gt; 5,
+  }
+];
+
+# 金額小計
+my $price_total_no_tax = 0;
+for my $book (@$books) {
+  $price_total_no_tax += $book-&gt;{unit_price} * $book-&gt;{count};
+}
+my $price_total_no_tax_disp = price_disp($price_total_no_tax);
+
+# 消費税
+my $tax_rate = 0.1;
+my $tax = int($price_total_no_tax * $tax_rate);
+my $tax_disp = price_disp($tax);
+
+# 税込金額
+my $price_total = $price_total_no_tax + $tax;
+my $price_total_disp = price_disp($price_total);
+
+# PDF
+my $pdf = PDF::API2-&gt;new;
+
+# 用紙サイズ A4設定
+$pdf-&gt;mediabox('A4');
+
+# 用紙サイズの取得
+my @page_size_infos = $pdf-&gt;mediabox;
+my $page_width = $page_size_infos[2];
+my $page_height = $page_size_infos[3];
+
+# ページ余白
+my $page_top_margin = 48;
+my $page_bottom_margin = 48;
+my $page_left_margin = 49;
+my $page_right_margin = 49;
+
+# 日本語に対応したTrueTypeフォントの読み込み - 通常フォントと太字フォント
+my $true_type_font_file = "$FindBin::Bin/AozoraMinchoRegular.ttf";
+my $font = $pdf-&gt;ttfont($true_type_font_file);
+my $true_type_font_bold_file = "$FindBin::Bin/AozoraMincho-bold.ttf";
+my $font_bold = $pdf-&gt;ttfont($true_type_font_bold_file);
+
+# フォントサイズ - デフォルト
+my $font_size_default = 10;
+
+# 描画開始x座標
+my $render_start_x = $page_left_margin;
+
+# 描画開始y座標
+my $render_start_y = $page_height - 1 - $page_top_margin;
+
+# 描画終了x座標
+my $render_end_x = $page_width - 1 - $page_right_margin;
+
+# 描画終了y座標
+my $render_end_y = $page_bottom_margin;
+
+# レイアウトは、テーブル構造になっていて
+# 縦幅と横幅の最小単位を設定、横幅は、100分割したものが最小単位
+my $unit_height = 14;
+my $unit_width = ($render_end_x - $render_start_x) / 100;
+
+# テキスト描画のパディング
+my $text_bottom_padding = 3;
+my $text_left_padding = 3;
+
+# 受取企業欄の幅
+my $receive_company_end_tds_count = 55;
+
+# 請求企業欄の開始位置
+my $send_company_start_tds_count = 66.5;
+
+# 色の一覧
+my $color_black = '#000';
+
+# 線の幅
+my $line_width_basic = 0.3;
+my $line_width_bold = 2;
+
+# ページ
+my $page = $pdf-&gt;page;
+
+# グラフィック描画
+my $gfx = $page-&gt;gfx;
+
+# テキスト描画
+my $text = $page-&gt;text;
+
+# 現在の行
+my $cur_row = 0;
+
+# 一番上太線
+$gfx-&gt;move($render_start_x, $render_start_y);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth(10);
+$gfx-&gt;stroke;
+$cur_row += 1.5;
+
+# 申し込み日付
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;strokecolor($color_black);
+$text-&gt;fillcolor($color_black);
+$text-&gt;text_right('2019年10月14日');
+$gfx-&gt;move($render_start_x + $send_company_start_tds_count * $unit_width);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 2;
+
+# ロゴの開始位置を保存
+my $cur_logo_row = $cur_row - 1.5;
+
+# 請求書タイトル
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font_bold, 20);
+$text-&gt;text('請求書');
+$cur_row += 3;
+
+# 右列の開始位置を保存
+my $cur_right_row = $cur_row + 1;
+
+# 納品先企業名
+my $receive_company_name = 'XXXXX株式会社';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($receive_company_name);
+$text-&gt;translate(
+  $render_start_x + $receive_company_end_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;text_right('御中');
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 4;
+
+# 件名
+my $subject_label = '件　名:';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($subject_label);
+my $subject = '2019年3月3日の商品売買契約';
+$text-&gt;translate(
+  $render_start_x + 10 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($subject);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 1;
+
+# 納品日
+my $delivery_date_label = '納品日:';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($delivery_date_label);
+my $delivery_date = '2019年3月30日';
+$text-&gt;translate(
+  $render_start_x + 10 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($delivery_date);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 2.8;
+
+# 請求メッセージ
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text('下記の通り、ご請求申し上げます。');
+$cur_row += 2;
+
+# 金額
+my $price_total_top_label = '金額';
+$text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_top_label);
+my $price_total_top = "￥${price_total_disp}円";
+$text-&gt;translate(
+  $render_start_x + 48 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default + 5);
+$text-&gt;text_right($price_total_top);
+my $price_total_top_zeikomi = '(税込)';
+$text-&gt;translate(
+  $render_start_x + 50 * $unit_width,
+  $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_top_zeikomi);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row - 2);
+$gfx-&gt;hline($render_start_x + $receive_company_end_tds_count * $unit_width);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;stroke;
+$cur_row += 0.5;
+
+# 会社ロゴ挿入
+my $logo_image_file = "$FindBin::Bin/logo.png";
+my $logo_image_object = $pdf-&gt;image_png($logo_image_file);
+my $logo_image_width = 60;
+$gfx-&gt;image(
+  $logo_image_object,
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_logo_row - $logo_image_width,
+  $logo_image_width,
+  $logo_image_width,
+);
+
+# 請求者
+my $sender_company_name = '木本システム株式会社';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_company_name);
+$cur_right_row += 1;
+
+# 郵便番号
+my $sender_zip_code = '住所:123-4567';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_zip_code);
+$cur_right_row += 1;
+
+# 住所
+my $sender_address = '東京都港区〇〇 １２３－４';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_address);
+$cur_right_row += 1;
+
+# 電話番号
+my $sender_tel = 'TEL:090-1234-5678';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_tel);
+$cur_right_row += 1;
+
+# FAX
+my $sender_fax = 'FAX:090-1234-5679';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_fax);
+$cur_right_row += 1;
+
+# 担当
+my $sender_staff = '担当:田中太郎';
+$text-&gt;translate(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row + $text_bottom_padding
+);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($sender_staff);
+
+# 印鑑押印四角形
+my $sleal_width = 55;
+$gfx-&gt;rectxy(
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 2,
+  $render_start_y - $unit_height * ($cur_right_row - 1) + $sleal_width,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 3,
+  $render_start_y - $unit_height * ($cur_right_row - 1)
+);
+$gfx-&gt;rectxy(
+  $render_start_x + $send_company_start_tds_count * $unit_width,
+  $render_start_y - $unit_height * $cur_right_row ,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 3,
+  $render_start_y - $unit_height * $cur_right_row - $sleal_width 
+);
+$gfx-&gt;poly(
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width,
+  $render_start_y - $unit_height * $cur_right_row ,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width,
+  $render_start_y - $unit_height * $cur_right_row - $sleal_width 
+);
+$gfx-&gt;poly(
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 2,
+  $render_start_y - $unit_height * $cur_right_row ,
+  $render_start_x + $send_company_start_tds_count * $unit_width + $sleal_width * 2,
+  $render_start_y - $unit_height * $cur_right_row - $sleal_width 
+);
+$gfx-&gt;strokecolor('#bbb');
+$gfx-&gt;stroke;
+
+# 見積書見出し背景
+$gfx-&gt;rectxy(
+  $render_start_x, $render_start_y - $unit_height * $cur_row,
+  $render_end_x, $render_start_y - $unit_height * ($cur_row + 1)
+);
+$gfx-&gt;fillcolor('#eee');
+$gfx-&gt;fill;
+
+# 見積書見出し上飾り太線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $cur_row);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+$cur_row += 1;
+
+# 見積書見出し下飾り太線の位置を保存
+my $header_bottom_line_row = $cur_row;
+
+my $cur_column_units_count = 0;
+
+# No
+my $no_units_count = 10;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text('No.');
+$cur_column_units_count += $no_units_count;
+
+# 項目
+my $name_units_count = 34;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($name_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('項目');
+$cur_column_units_count += $name_units_count;
+
+# 数量
+my $count_units_count = 14;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($count_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('数量');
+$cur_column_units_count += $count_units_count;
+
+# 単価
+my $unit_price_units_count = 14;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($unit_price_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('単価');
+$cur_column_units_count += $unit_price_units_count;
+
+# 金額
+my $price_units_count = 28;
+$text-&gt;translate($render_start_x + $cur_column_units_count * $unit_width + ($price_units_count * $unit_width / 2), $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_center('金額');
+$cur_column_units_count = 0;
+
+$cur_row++;
+
+my $rows_count = 25;
+
+# 各項目の枠の描画
+for (my $row = 0; $row &lt; $rows_count; $row++) {
+  my $book = $books-&gt;[$row];
+  
+  # 行を交互に塗り分ける
+  if ($row % 2 == 1) {
+    $gfx-&gt;rectxy(
+      $render_start_x,
+      $render_start_y - $unit_height * $cur_row,
+      $render_end_x,
+      $render_start_y - $unit_height * ($cur_row - 1),
+    );
+    $gfx-&gt;fillcolor('#eee');
+    $gfx-&gt;fill;
+  }
+  
+  # No
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    $text-&gt;text($row + 1);
+  }
+  $cur_column_units_count += $no_units_count;
+
+  # 項目
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    $text-&gt;text($book-&gt;{name});
+  }
+  $cur_column_units_count += $name_units_count;
+
+  # 数量
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + ($count_units_count * $unit_width) - $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    $text-&gt;text_right($book-&gt;{count});
+  }
+  $cur_column_units_count += $count_units_count;
+
+  # 単価
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + ($unit_price_units_count * $unit_width) - $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    my $unit_price_disp = price_disp($book-&gt;{unit_price});
+    $text-&gt;text_right($unit_price_disp);
+  }
+  $cur_column_units_count += $unit_price_units_count;
+
+  # 金額
+  $gfx-&gt;poly(
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * $cur_row,
+    $render_start_x + $cur_column_units_count * $unit_width,
+    $render_start_y - $unit_height * ($cur_row - 1)
+  );
+  $gfx-&gt;linewidth(1.5);
+  $gfx-&gt;strokecolor('#ccc');
+  $gfx-&gt;stroke;
+  if ($book) {
+    $text-&gt;translate(
+      $render_start_x + $cur_column_units_count * $unit_width + ($price_units_count * $unit_width) - $text_left_padding,
+      $render_start_y - $unit_height * $cur_row + $text_bottom_padding
+    );
+    $text-&gt;font($font, $font_size_default);
+    my $price_disp = price_disp($book-&gt;{unit_price} * $book-&gt;{count});
+    $text-&gt;text_right($price_disp);
+  }
+  $cur_column_units_count = 0;
+
+  $cur_row++;
+}
+
+# 見積書見出し下飾り太線(灰色の縦線の上に書くためこの位置で描画)
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * $header_bottom_line_row);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 太線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * ($cur_row - 1));
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 小計
+my $price_total_no_tax_label = '小計';
+$text-&gt;translate($render_start_x + ($no_units_count + $name_units_count + $count_units_count) * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_no_tax_label);
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_right($price_total_no_tax_disp);
+$cur_row += 1;
+
+# 消費税
+my $tax_label = '消費税';
+$text-&gt;translate($render_start_x + ($no_units_count + $name_units_count + $count_units_count) * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($tax_label);
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_right($tax_disp);
+$cur_row += 1;
+
+# 消費税
+my $price_total_label = '税込合計';
+$text-&gt;translate($render_start_x + ($no_units_count + $name_units_count + $count_units_count) * $unit_width + $text_left_padding, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text($price_total_label);
+$text-&gt;translate($render_end_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+$text-&gt;font($font, $font_size_default);
+$text-&gt;text_right("￥$price_total_disp");
+$cur_row += 1;
+
+# 太線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * ($cur_row - 1));
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 振込先
+my $furikomi_disp = &lt;&lt;"EOS";
+お振込先
+みずほ銀行芝支店
+普通口座 34521xx
+木本システム株式会社
+EOS
+for my $line (split /\n/, $furikomi_disp) {
+  $text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+  $text-&gt;font($font, $font_size_default);
+  $text-&gt;text($line);
+  $cur_row += 1;
+}
+
+# 細い線
+$gfx-&gt;move($render_start_x, $render_start_y - $unit_height * ($cur_row - 1));
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_basic);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 備考
+my $bikou_disp = &lt;&lt;"EOS";
+納品日の翌月の末日までのお支払いをお願いいたします。
+EOS
+for my $line (split /\n/, $bikou_disp) {
+  $text-&gt;translate($render_start_x, $render_start_y - $unit_height * $cur_row + $text_bottom_padding);
+  $text-&gt;font($font, $font_size_default);
+  $text-&gt;text($line);
+  $cur_row += 1;
+}
+
+# 太線
+$gfx-&gt;move($render_start_x, $render_end_y);
+$gfx-&gt;hline($render_end_x);
+$gfx-&gt;linewidth($line_width_bold);
+$gfx-&gt;strokecolor($color_black);
+$gfx-&gt;stroke;
+
+# 3桁区切りで金額を表示してくれるサブルーチン
+sub price_disp {
+  my ($price) = @_;
+  
+  1 while $price =~ s/(.*\d)(\d\d\d)/$1,$2/;
+  
+  return $price;
+}
+
+
+my $pdf_file = 'invoice.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/02</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
@@ -312,6 +981,41 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   <a href="/examples/pdf/render_tri.pdf">出力結果 三角形</a>
 </p>
+<p>
+  polyメソッドを使うと、moveする点を設定して、複数の点を渡して、連続した線を描画できます。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+
+use PDF::API2;
+
+# PDFオブジェクトの生成
+my $pdf = PDF::API2-&gt;new;
+
+my $page = $pdf-&gt;page;
+
+my $gfx = $page-&gt;gfx;
+
+# 点P1
+my ($x1, $y1) = (100, 100);
+
+# 点P2
+my ($x2, $y2) = (300, 300);
+
+# 点P3
+my ($x3, $y3) = (500, 100);
+
+# polyメソッドで、三角形を一度に描画
+$gfx-&gt;poly($x1, $y1, $x2, $y2, $x3, $y3, $x1, $y1);
+
+# 線を描画
+$gfx-&gt;stroke;
+
+my $pdf_file = 'render_tri.pdf';
+$pdf-&gt;saveas($pdf_file);
+</pre>
 <h4>塗りつぶす</h4>
 <p>
   パスで囲むと、塗りつぶすことができます。塗りつぶすにはfillメソッドを使用します。塗りつぶしのデフォルト色は、黒です。fillは、strokeの前に呼び出す必要があることに注意してください。
@@ -436,6 +1140,18 @@ $pdf-&gt;saveas($pdf_file);
 <h4>図形を拡大・縮小する</h4>
 <p>
   図形を拡大・縮小させるには、scaleメソッドを使用します。
+</p>
+<h4>水平線を引くには</h4>
+<p>
+  水平線を簡易的に描画できるhlineメソッドがあります。
+</p>
+<h4>縦線を引くには</h4>
+<p>
+  縦線を簡易的に描画できるvlineメソッドがあります。
+</p>
+<h4>破線を引くには</h4>
+<p>
+  波線を引くには、linedashメソッドを使用します。
 </p>
 <h3>表を作成する</h3>
 <p>
@@ -814,7 +1530,7 @@ my $image_object = $pdf-&gt;image_jpeg($image_file);
 <pre>
 # PNG画像を表現するリソースオブジェクトを生成
 my $image_file = '/path/image.png';
-my $image_object = $pdf-&gt;image_png($image_file)
+my $image_object = $pdf-&gt;image_png($image_file);
 </pre>
 <p>
   「Unsupported Interlace」というエラーがでた場合は、PNGのインターレース機能を解除する必要があります。
@@ -828,7 +1544,7 @@ my $image_object = $pdf-&gt;image_png($image_file)
 <pre>
 # GIF画像を表現するリソースオブジェクトを生成
 my $image_file = '/path/image.gif';
-my $image_object = $pdf-&gt;image_gif($image_file)
+my $image_object = $pdf-&gt;image_gif($image_file);
 </pre>
 <h4>画像コンテンツオブジェクトの生成</h4>
 <p>
@@ -856,7 +1572,7 @@ $gfx-&gt;image($image_object, $x, $y, $scale);
   指定した位置に画像が挿入されます。
 </p>
 <p>
-  幅と高さは、PDF単位であることに注意してください。
+  幅と高さは、PDF単位であることに注意してください。座標は、右上に向かって進むので、指定した点から見て、右上に描画されることに注意してください。
 </p>
 <p>
   例として、600x600のイメージを600dpiの解像度で表示したい場合は、72を指定します。
@@ -1003,11 +1719,80 @@ $text-&gt;text('Hello World!');
 <p>
   テキストを描画すると、現在の描画位置のx座標がテキストの終端まで移動します。この位置は、textposメソッドで取得できます。
 </p>
-<h3>アンダーラインを描画</h3>
 <p>
-  PDF::API2でテキストにアンダーラインを描画するにはtextメソッドの「-underline」オプションを指定します。「auto」で自動的にアンダーラインの位置が決まります。
+  テキストはフォントのベースライン上に書き出されることに注意してください。
+</p>
+<h3>フォントの色を設定する</h3>
+<p>
+  フォントの色を設定するには、strokecolorとfillcolorに色を設定します。フォントの色を直接指定できるメソッドはないので注意してください。
 </p>
 <pre>
+# フォントの色を設定する - 色名
+$text-&gt;strokecolor('red');
+$text-&gt;fillcolor('red');
+
+# フォントの色を設定する - RGB
+$text-&gt;strokecolor('red');
+$text-&gt;fillcolor('red');
+
+# フォントの色を設定する - CMYK
+$text-&gt;strokecolor('%FF000000');
+$text-&gt;fillcolor('%FF000000');
+</pre>
+<p>
+  テキストの描画も、コンテンツの描画の機能を使って、フォントに存在するアウトラインのパスを作成した後に、パスの内部を塗りつぶすことで作成しています。
+</p>
+<p>
+  図形の描画とstrokecolorとfillcolorの詳しい解説は、<a href="/blog/20200101082734.html">基本図形の描画と表の作成</a>を参考にしてください。
+</p>
+<h3>背景色を設定する</h3>
+<p>
+  背景色を描画して、その上に、テキストを描画する方法を解説します。実は、これには、落とし穴があるので、注意しましょう。
+</p>
+<p>
+  PDF::API2の動作として、最初に定義されたコンテンツオブジェクトを先に描画するという特性があります。
+</p>
+<p>
+  もし、テキストコンテンツオブジェクトを生成した後に、グラフィックコンテンツオブジェクトを生成したとすれば、テキストは、グラフィックで、消されてしまいます。ですので、必ず、グラフィックコンテンツオブジェクトを先に、テキストコンテンツオブジェクトを後に生成してください。
+</p>
+<pre>
+# グラフィックコンテンツオブジェクトを先に生成
+my $gfx = $page-&gt;gfx;
+
+# テキストコンテンツオブジェクトを次にに生成
+my $text = $page-&gt;text;
+
+# 間違い(落とし穴、グラフィックでテキストが消える)
+my $text = $page-&gt;text;
+my $gfx = $page-&gt;gfx;
+</pre>
+<p>
+  もう一つ必要なこととして、フォント色を設定しておく必要があります。これを忘れると、背景色が文字色なって、まるで描画されていないようになります。
+</p>
+<pre>
+my $gfx = $page-&gt;gfx;
+
+# フォント色を忘れずに設定
+my $text = $page-&gt;text;
+$text-&gt;strokecolor('#000');
+$text-&gt;fillcolor('#000');
+
+# 背景を描画
+# ...
+
+# テキストを描画
+$text-&gt;text('Hello');
+&lt;pre&gt;
+
+背景色は、単純にグラフィックコンテンツオブジェクトの機能を使って、書きます。たとえば、四角形を描画して、fillすれば、背景色になります。&lt;a href="/blog/20200101082734.html"&gt;基本図形の描画と表の作成&lt;/a&gt;を参考にしてください。
+
+こうすることで、背景色の上に、テキストを描画することができます。
+
+&lt;h3&gt;アンダーラインを描画&lt;/h3&gt;
+
+PDF::API2でテキストにアンダーラインを描画するにはtextメソッドの「-underline」オプションを指定します。「auto」で自動的にアンダーラインの位置が決まります。
+
+&lt;pre&gt;
 # アンダーラインを描画
 $text-&gt;text('Hello World!', -underline =&gt; 'auto');
 </pre>
@@ -1468,6 +2253,12 @@ my $font = $pdf-&gt;ttfont($true_type_font_file);
 my $true_type_font_bold_file = '/path/AozoraMincho-bold.ttf';
 my $font_bold = $pdf-&gt;ttfont($true_type_font_file);
 </pre>
+<p>
+  日本語フォントにおいては、テキストのベースラインは、文字の下端に存在することがほとんどだと想定しますが、あおぞら明朝フォントもベースラインは、文字の下端に存在します。つまり、translateで移動した点に対して、右上にはみ出るように、文字が描画されるということです。
+</p>
+<p>
+  この場合は、余白の上の設定は、文字が上側にはみ出るために、その分を考慮する必要があることに注意してください。
+</p>
 <h3>余白、改行、改ページ、日本語、太字に対応したサンプル</h3>
 <p>
   余白、改行、改ページ、日本語、太字に対応したサンプルです。「こんにちは、世界。」と繰り返し表示され、世界の場合だけ太字になります。
@@ -1658,6 +2449,13 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   基本図形と表 <a href="/examples/pdf/render_tri.pdf">三角形</a>、<a href="/examples/pdf/table.pdf">空の表</a>、<a href="/examples/pdf/table_items.pdf">項目ありの表</a>
 </p>
+<h3>実務で使える帳票のサンプル</h3>
+<p>
+  実務で使える本格的な帳票のサンプルを掲載します。
+</p>
+<ul>
+  <li><a href="/blog/20200103081131.html">請求書</a></li>
+</ul>
 <h3>PDF作成のユーティリティ</h3>
 <ul>
   <li><a href="/blog/20191226175520.html">PDFファイルをブラウザから確認する方法</a></li>
@@ -1695,215 +2493,6 @@ cpanm PDF::API2
 # cpanを使う場合
 cpan PDF::API2
 </pre>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/26</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20191228171433.html">
-      <span itemprop="name">帳票作成</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li>
-    here
-  </li>
-</ol>
-<h2><a href="/blog/20191226175520.html">PDFファイルを作成する - PDF::API2で帳票作成</a></h2>
-<p>
-  PDF::API2で、PDFファイルを作成するには次のようにします。
-</p>
-<p>
-  PDFの空の情報を作成するには、newメソッドを使用します。
-</p>
-<p>
-  空のページを追加するには、pageメソッドを使います。
-</p>
-<p>
-  最後にsaveasメソッドを使って、ファイルを保存します。
-</p>
-<p>
-  この手順を行うことで、空の1ページが存在するPDFファイルを作成できます。
-</p>
-<pre>
-use strict;
-use warnings;
-
-use PDF::API2;
-
-# PDFの空の情報を作成
-my $pdf = PDF::API2-&gt;new;
-
-# 空のページを追加
-my $page = $pdf-&gt;page;
-
-# PDFをファイルに保存
-my $pdf_file = 'empty.pdf';
-$pdf-&gt;saveas($pdf_file);
-</pre>
-<p>
-  空のPDFファイルが作成できれば、成功しています。
-</p>
-<p>
-  <a href="/examples/pdf/empty.pdf">出力結果 空ページ</a>
-</p>
-<h3>既存のPDFファイルを開く</h3>
-<p>
-  PDF::API2で既存のPDFファイルを開くには、openメソッドを使用します。
-</p>
-<pre>
-# 既存のPDFファイルを開く
-my $pdf = PDF::API2-&gt;open('some.pdf');
-</pre>
-<h3>新しいページを追加する</h3>
-<p>
-  PDF::API2で新しいページを追加するにはpageメソッドを使用します。pageで作成されたページは、PDFドキュメントの末尾に追加されます。
-</p>
-<pre>
-# PDFドキュメントの末尾にページを追加
-my $page = $pdf-&gt;page;
-</pre>
-<p>
-  引数を指定すると、指定のページに挿入できます。既存のページは、後ろにずれます。
-</p>
-<pre>
-# PDFドキュメントの指定のページにページを追加
-my $page = $pdf-&gt;page(5);
-</pre>
-<h3>既存のページを取得する</h3>
-<p>
-  PDF::API2で既に存在しているページを取得するには、openpageメソッドで、ページ番号を指定します。ページ番号は、1から始まります。0からの始まりではないことに注意してください。
-</p>
-<pre>
-# すでに存在しているページを取得
-my $page = $pdf-&gt;openpage($page_number);
-</pre>
-<h3>ページ数を取得する</h3>
-<p>
-  PDF::API2で、存在しているページ数を取得するには、pagesメソッドを使用します。
-</p>
-<pre>
-# PDFドキュメントのページ数を取得
-my $pages_count = $pdf-&gt;pages;
-</pre>
-<h3>用紙サイズを設定する</h3>
-<p>
-  PDF::API2でページの用紙サイズを設定するには、mediaboxメソッドを使用します。
-</p>
-<pre>
-# 名前で指定
-$pdf-&gt;mediabox($name);
-
-# 幅と高さで指定
-$pdf-&gt;mediabox($width, $height)
-</pre>
-<p>
-  指定できる名前はPDFで定義されている値です。以下に指定できる例を挙げておきます。これは、グローバルな設定であり、新規のページを作成した場合に、ページに設定が受け継がれます。
-</p>
-<p>
-  各ページに用紙サイズを指定するには、ページオブジェクトのmediaboxメソッドを使用します。
-</p>
-<pre>
-# 名前で指定
-$page-&gt;mediabox($name);
-
-# 幅と高さで指定
-$page-&gt;mediabox($width, $height)
-</pre>
-<ul>
-  <li>Letter</li>
-  <li>A3</li>
-  <li>A4</li>
-  <li>B4</li>
-  <li>A5</li>
-  <li>B5</li>
-  <li>A6</li>
-  <li>B6</li>
-</ul>
-<p>
-  PDF座標系についての簡単な解説のページのリンクを張っておきます。
-</p>
-<blockquote>
-<p>
-  幅と高さは、PDF単位という値で指定する必要があることに注意します。1単位は、1/72のインチ(約0.35mm)です。
-</p>
-<p>
-  典型的なPDFドキュメントはページの幅が612単位、高さが792単位です。インチのサイズは、8.5"×11"です。幅と高さを72で割ることによって得られます。
-</p>
-<p>
-  PDF文書が画面に与えられるとき、ピクセルなどの物理的な値が通常必要です。論理的にから物理的な単位まで変換するために、解像度は提供されなければなりません。解像度は、物理的な値に論理的な変換とき、使うインチにつき点（ピクセル）の値です。上記の例では、解像度として150を使用した場合、ピクセル単位のページサイズは1275×1650になります。これは8.5×11インチに150を乗算することによって得られます。
-</p>
-<p>
-  (参考)<a target="_blank" href="http://docs.leadtools.grapecity.com/v19/dh/to/leadtools.topics.pdf~pdf.topics.pdfcoordinatesystem.html">PDF座標系</a>
-</p>
-</blockquote>
-<p>
-  PDF::API2で、用紙サイズを指定するサンプルです。
-</p>
-<pre>
-use PDF::API2;
-
-# A4サイズで指定
-{
-  my $pdf = PDF::API2-&gt;new();
-  $pdf-&gt;mediabox('A4');
-  my $mediabox = $pdf-&gt;mediabox;
-  my $page = $pdf-&gt;page;
-  my $pdf_file = 'size_a4.pdf';
-  $pdf-&gt;saveas($pdf_file);
-}
-
-# B5サイズで指定
-{
-  my $pdf = PDF::API2-&gt;new();
-  $pdf-&gt;mediabox('B5');
-  my $page = $pdf-&gt;page;
-  my $pdf_file = 'size_b5.pdf';
-  $pdf-&gt;saveas($pdf_file);
-}
-
-# PDF単位 幅595,高さ842で指定
-{
-  my $pdf = PDF::API2-&gt;new();
-  $pdf-&gt;mediabox(595, 842);
-  my $page = $pdf-&gt;page;
-  my $pdf_file = 'size_595_842.pdf';
-  $pdf-&gt;saveas($pdf_file);
-}
-</pre>
-<p>
-  <a href="/examples/pdf/size_a4.pdf">出力結果 A4サイズ</a>、 <a href="/examples/pdf/size_b5.pdf">出力結果 B5サイズ</a>、 <a href="/examples/pdf/size_595_842.pdf">出力結果 595×842サイズ</a> 
-</p>
-<h3>用紙サイズを取得する</h3>
-<p>
-  用紙サイズを取得するには、引数を与えないで、ページオブジェクトのmediaboxメソッドを使用します。
-</p>
-<pre>
-my @page_size_infos = $page-&gt;mediabox;
-</pre>
-<p>
-  実際のページの用紙サイズの情報を取得するには、PDFオブジェクトではなく、ページオブジェクトのmediaboxメソッドを呼び出す必要があることに注意してください。
-</p>
-<p>
-  用紙サイズの情報は、４つのPDF単位で取得されることに注意してください。
-</p>
-<pre>
-(左下からのマージンX, 左下からのマージンY, 右上の座標X, 右上の座標Y)
-</pre>
-<p>
-  たとえば、次のような値で、返ってきます。
-</p>
-<pre>
-(0, 0, 612, 792)
-</pre>
-<p>
-  一般的には、左下からのマージンXが0、 左下からのマージンYが0で返ってきますので、右上の座標Xが幅、右上の座標Yが、高さと考えてよいでしょう。
-</p>
 
 
   </div>
