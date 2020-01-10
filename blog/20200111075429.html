@@ -38,12 +38,12 @@
   });
 </script>
 
-<title>Mojoliciousにおけるセッションの扱い - Perl入門ゼミ</title>
-<meta name="description" content="僕はWebアプリケーションをまともに作ったことがない人なので、Webアプリケーションのセキュリティ周りはうといです。Mojoliciousにはsessionというメソッドがあるのですが、これはWebアプリでいうところの、セッション管理であると信じていたのですが、ぜんぜん関係がない気がしてきました。">
+<title>Perlゼミの「爆速」プログラミングちゃんねる - Perl入門ゼミ</title>
+<meta name="description" content="Perlゼミの「爆速」プログラミングちゃんねるをYoutubeで始めました。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="Mojoliciousにおけるセッションの扱い - Perl入門ゼミ" />
-<meta name="twitter:description" content="僕はWebアプリケーションをまともに作ったことがない人なので、Webアプリケーションのセキュリティ周りはうといです。Mojoliciousにはsessionというメソッドがあるのですが、これはWebアプリでいうところの、セッション管理であると信じていたのですが、ぜんぜん関係がない気がしてきました。" />
+<meta name="twitter:title" content="Perlゼミの「爆速」プログラミングちゃんねる - Perl入門ゼミ" />
+<meta name="twitter:description" content="Perlゼミの「爆速」プログラミングちゃんねるをYoutubeで始めました。" />
 <meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
 
 
@@ -75,191 +75,13 @@
 
   </div>
   <div class="middle">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-      <span itemprop="name">Perl</span>
-    </a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20140319139520.html">
-      <span itemprop="name">Mojolicious</span>
-    </a>
-    <meta itemprop="position" content="2" />
-  </li>
-</ol>
-<h2><a href="/blog/20121227136093.html">Mojoliciousにおけるセッションの扱い</a></h2>
+    <h2><a href="/blog/20200111075429.html">Perlゼミの「爆速」プログラミングちゃんねる</a></h2>
 <p>
-  僕はWebアプリケーションをまともに作ったことがない人なので、Webアプリケーションのセキュリティ周りはうといです。Mojoliciousにはsessionというメソッドがあるのですが、これはWebアプリでいうところの、セッション管理であると信じていたのですが、ぜんぜん関係がない気がしてきました。
+  Perlゼミの「爆速」プログラミングちゃんねるをYoutubeで始めました。
 </p>
 <p>
-  sessionというメソッドの名前ゆえに僕が勘違いしていた可能性が高いです。Mojoliciousのセッション管理機能は貧弱といわれるけれど、そもそもMojoliciousにはセッション管理機能がついていないんじゃないかと思えてきました。
+  <a href="https://perlzemichannel.seesaa.net/">Perlゼミの「爆速」プログラミングちゃんねる</a>
 </p>
-<p>
-  sessionメソッドっていうのは、単純にクッキーに値を保存するための簡単な仕組みで、HMACによる署名がつくので、確実に改ざんを検出できるようになっています。
-</p>
-<pre>
-$c-&gt;session(name =&gt; 'kimoto');
-</pre>
-<p>
-  ですから、クッキーに保存されるデータはJSONをBase64でエンコードしただけで、暗号化はされていません。ですのでデータは丸見えです。
-</p>
-<p>
-  けれどもHMACによる署名がされているので、信頼できない経路を通っても、改ざんを確実に検出することができます。
-</p>
-<blockquote>
-<p>
-  sessionメソッドを使っても、暗号化はされない。改ざんの検出が可能。
-</p>
-</blockquote>
-<p>
-  改ざんされないためには、secretの値をデフォルトの設定ではなく、きちんと変更しておくことが大切です。
-</p>
-<pre>
-$app-&gt;secret('#!=%JOLFIS#jf438nfj');
-</pre>
-<p>
-  もし改ざんされている場合は、クッキーの値は破棄されます。
-</p>
-<h3>どんなデータをsessionに保存してよいか</h3>
-<p>
-  一つ目は、見られてもよい重要でないデータです。暗号化されないので、見られたら困るデータは、sessionメソッドを使って保存してはいけません。見られたら困るデータは、サーバー側に保存しましょう。
-</p>
-<p>
-  二つ目は、セッションIDです。これには条件があって、一意であるという条件です。一度使ったセッションIDを再利用すると、セキュリティを維持することができないようです。
-</p>
-<p>
-  ですので、何らかのモジュールで、アプリケーションで一意になるセッションIDを生成してくれるモジュールを使いましょう。
-</p>
-<pre>
-# セッションIDの生成(一意であること)
-my $session_id = Some::Module-&gt;new-&gt;create_session_id;
-
-# セッションIDを署名付きクッキーに保存
-$c-&gt;session(session_id =&gt; $session_id);
-
-# 見られてもよいデータは、sessionに保存してもよい
-$c-&gt;session(display =&gt; 'light');
-
-# 見られてはいけないデータは、データベースなどへ
-$dbi-&gt;insert({user_id =&gt; $user_id, age =&gt; 19});
-</pre>
-<h3>追記</h3>
-<p>
-  セッションを盗まれる可能性がありますが、それはクッキーにセッションIDを保存する以上は、どうにもならないです。これについては、セッションの有効期限を短く設定することで対処しましょう。
-</p>
-<h3>セッションにデータを保存する</h3>
-<p>
-  現在のセッションにデータを保存するにはMojolicious::Controllerクラスのsessionメソッドを利用します。セッションIDは内部的に自動的に発行されているので、セッションIDを作成する必要はありません。セッションにデータを保存しておけば、同じユーザーからリクエストがあった場合に、保存したデータを取得することができます。
-</p>
-<pre>
-# データの保存
-$c-&gt;session(name =&gt; 'Ken');
-$c-&gt;session(age =&gt; 19);
-
-# データの取得
-my $name = $c-&gt;session('name');
-my $age = $c-&gt;session('age');
-</pre>
-<p>
-  Mojoliciousのセッションはクッキーを使って実装されており、クッキーの上限サイズが4096バイトであることに注意してください。つまりこれを超えるバイトのデータを保存することはできないということです。
-</p>
-<p>
-  Mojolicious::Liteのサンプルです。
-</p>
-<pre>
-# Mojolicious::Lite
-get '/' =&gt; sub {
-  my $self = shift;
-  $self-&gt;session(name =&gt; 'Ken');
-};
-</pre>
-<p>
-  Mojoliciousのサンプルです。
-</p>
-<pre>
-# Mojolicious
-package MyApp::Login;
-
-use Mojo::Base 'Mojolicious::Controller';
-
-sub default {
-  my $self = shift;
-  $self-&gt;session(name =&gt; 'Ken');
-}
-</pre>
-<h3>現在のセッションを破棄する</h3>
-<p>
-  現在のセッションを破棄するにはMojolicious::Controllerクラスの<strong>session</strong>メソッドでexpiresを「1」に設定します。
-</p>
-<pre>
-$c-&gt;session(expires =&gt; 1);
-</pre>
-<p>
-  Mojolicious::Liteのサンプルです。ログアウト処理の際にセッションを破棄して、「/login」というURLにリダイレクトしています。
-</p>
-<pre>
-# Mojolicious::Lite
-get '/logout' =&gt; sub {
-  my $self = shift;
-  $self-&gt;session(expires =&gt; 1);
-  $self-&gt;redirect_to('/login');
-};
-</pre>
-<p>
-  Mojoliciousのサンプルです。
-</p>
-<pre>
-# Mojolicious
-package MyApp::Logout;
-
-use Mojo::Base 'Mojolicious::Controller';
-
-sub default {
-  my $self = shift;
-  $self-&gt;session(expires =&gt; 1);
-  $self-&gt;redirect_to('/login');
-}
-</pre>
-<h3>フラッシュにデータを保存する</h3>
-<p>
-  フラッシュにデータを保存するにはMojolicious::Controllerクラスの<strong>flash</strong>メソッドを利用します。フラッシュは、次のリクエストにだけ引き継がれるセッションのことです。次回のリクエストのためだけにデータを保存しておきたい場合、たとえばリダイレクトを行う場合になどに利用されます。
-</p>
-<pre>
-# データの保存
-$c-&gt;flash(name =&gt; 'Ken');
-$c-&gt;flash(age =&gt; 19);
-
-# データの取得
-my $name = $c-&gt;flash('name');
-my $age = $c-&gt;flash('age');
-</pre>
-<p>
-  Mojolicious::Liteのサンプルです。
-</p>
-<pre>
-# Mojolicious::Lite
-get '/' =&gt; sub {
-  my $self = shift;
-  $self-&gt;flash(name =&gt; 'Ken');
-};
-</pre>
-<p>
-  Mojoliciousのサンプルです。
-</p>
-<pre>
-# Mojolicious
-package MyApp::Login;
-
-use Mojo::Base 'Mojolicious::Controller';
-
-sub default {
-  my $self = shift;
-  $self-&gt;flash(name =&gt; 'Ken');
-}
-</pre>
 
   </div>
   <div class="bottom">
