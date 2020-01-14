@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-37528940-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-37528940-3');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<title>正規表現の文字クラス - Perl入門ゼミ</title>
+<meta name="description" content="複数の文字の集合を表現するには文字クラスを使用します。">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="正規表現の文字クラス - Perl入門ゼミ" />
+<meta name="twitter:description" content="複数の文字の集合を表現するには文字クラスを使用します。" />
+<meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>
+  <a href="/"><img src="/images/logo.png"><span style="font-size:105%">Perl</span>入門ゼミ</a>
+</h1>
+<div class="header-description">
+  テキスト処理、Linuxサーバー管理、Web開発ならPerl
+</div>
+<div class="header-otoiawase">
+  <div style="display:table-cell;padding-right:3px;">
+    <a rel="nofollow" style="" href="https://twitter.com/perlzemi" title="Twitter" style="padding-right:3px;"><img style="width:37px" src="/images/Twitter_Social_Icon_Square_Color.png"></a>
+  </div>
+  <div style="display:table-cell;vertical-align:top;">
+    <a rel="nofollow" style="display:block;width:100%;background:#F048A4;color:white;text-decoration:none;padding:3px;" href="https://perlzemi.slack.com">フォーラムへ<br>ログイン</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    <!-- entry-top -->
+
+  </div>
+  <div class="middle">
+    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name"><a href="/blog/20100827127859.html">正規表現</a></span>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">here</span>
+    <meta itemprop="position" content="3" />
+  </li>
+</ol>
+<h2><a href="/blog/20200114103559.html">正規表現の文字クラス</a></h2>
+<p>
+  複数の文字の集合を表現するには文字クラスを使用します。
+</p>
+<pre>
+[文字の集合]
+</pre>
+<p>
+  たとえば「a」か「b」か「c」という文字を表現したい場合は[abc]と書きます。
+</p>
+<pre>
+a
+b    -&gt;    [abc]
+c
+</pre>
+<p>
+  アルファベットの範囲や数値の範囲を指定するのにハイフン「-」記号を使用することができます。
+</p>
+<pre>
+a
+b
+c    -&gt;    [a-e]
+d
+e
+</pre>
+<pre>
+0
+1
+2    -&gt;    [0-4]
+3
+4
+</pre>
+<p>
+  アルファベットと数値のいずれかを表現したい場合は[a-zA-Z0-9]と書きます。
+</p>
+<pre>
+アルファベットと数字    -&gt;    [a-zA-Z0-9]
+</pre>
+<h3>文字クラスの否定</h3>
+<p>
+  文字クラスを使って特定の文字以外を表現することもできます。特定の文字以外を表現するには「^」を使用します。文字クラス[]の先頭で「^」が使用されると「それ以外」という意味になり、「文字の先頭」という意味にはならないので注意してください。
+</p>
+<p>
+  たとえば「a」「b」「c」以外の文字を表現するには次のようにします。
+</p>
+<pre>
+「a」「b」「c」以外の文字    -&gt;    [^abc]
+</pre>
+<h3>Perlで定義済みの文字クラス</h3>
+<p>
+  Perlで定義済みの文字クラスというものが存在します。「\d」というのは、定義済みの文字クラスです。
+</p>
+<p>
+  <a href="https://perldoc.jp/docs/perl/5.16.1/perlreref.pod#CHARACTER32CLASSES">文字クラス - 正規表現のリファレンス</a>から、定義済みの文字クラスを引用します。
+</p>
+<pre>
+   \d      数値
+   \D      非数値
+   \w      単語文字
+   \W      非単語文字
+   \s      空白文字
+   \S      非空白文字
+   \h      水平空白文字
+   \H      非水平空白文字
+   \N      非改行 ('{NAME}' に引き続いていない場合; 実験的; 文字クラスでは
+           不正; [^\n] と等価; /s なしの場合の '.' と同様)
+   \v      垂直空白文字
+   \V      非垂直空白文字
+   \R      一般的な改行                (?&gt;\v|\x0D\x0A)
+   \C      1 バイトにマッチする (Unicode では、'.' は文字にマッチする)
+   \pP     P の名前の (Unicode) プロパティ
+   \p{...} 1 文字より長い名前の Unicode プロパティにマッチする
+   \PP     非 P にマッチする
+   \P{...} 1 文字より長い名前の Unicode プロパティがないものにマッチする
+   \X      Unicode の拡張書記素クラスタにマッチする
+</pre>
+<p>
+  文字クラスは、文字クラスの中でも使用できます。
+</p>
+<pre>
+[a-c\d\s]
+</pre>
+<p>
+  注意してほしいのは、これらは、すべて、Unicodeの影響を受けるということです。PerlはUnicodeをサポートしており、日本語を扱うよい慣習は、プログラムの中では、すべて<a href="https://tutorial.perlzemi.com/blog/20091118124667.html">内部文字列(デコードされた文字列)</a>として扱うことです。
+</p>
+<p>
+  この場合、「\d」は半角の0～9だけではなく、全角の０～９にもマッチします。\sは、半角の空白文字だけではなく、全角の空白文字にもマッチします。
+</p>
+<p>
+  ASCII範囲に限定したい場合は、以下の解説を読んでください。
+</p>
+<h4>文字クラスをASCII範囲のみに限定する</h4>
+<p>
+  文字クラスをASCII範囲のみに限定する「a」オプションがPerl 5.14から導入されています。
+</p>
+<pre>
+# ASCII範囲の数字のみにマッチさせる。
+$str =~ /\d+/a;
+</pre>
+<h4>ASCII範囲のみを表現する文字クラス</h4>
+<p>
+  Perlには、ASCIIの範囲を表現する文字クラスも存在します。この方法も、ASCII範囲のみに限定したい場合の、もう一つの解決方法です。
+</p>
+<p>
+  たとえばASCIIの範囲で、アルファベットと数字にマッチする文字クラスは以下のように表現できます。
+</p>
+<pre>
+# ASCIIの範囲で、アルファベットと数字にマッチする文字クラス
+\p{PosixAlnum}
+</pre>
+<p>
+  <a href="https://perldoc.jp/docs/perl/5.16.1/perlreref.pod#CHARACTER32CLASSES">文字クラス - 正規表現のリファレンス</a>から、定義済みの文字クラスを引用します。
+</p>
+<p>
+  ASCII-rangeと書かれている列の文字クラスに、注目してみましょう。
+</p>
+<pre>
+            ASCII-         Full-
+   POSIX    range          range    backslash
+ [[:...:]]  \p{...}        \p{...}   sequence    Description
+ -----------------------------------------------------------------------
+ alnum   PosixAlnum       XPosixAlnum            Alpha と Digit
+ alpha   PosixAlpha       XPosixAlpha            英字
+ ascii   ASCII                                   任意の ASCII 文字
+ blank   PosixBlank       XPosixBlank   \h       水平空白;
+                                                   全種類は \p{HorizSpace}
+                                                   とも (GNU 拡張)
+ cntrl   PosixCntrl       XPosixCntrl            制御文字
+ digit   PosixDigit       XPosixDigit   \d       数字
+ graph   PosixGraph       XPosixGraph            Alnum と Punct
+ lower   PosixLower       XPosixLower            小文字
+ print   PosixPrint       XPosixPrint            Graph と Print、しかし
+                                                   Cntrl は含まない
+ punct   PosixPunct       XPosixPunct            ASCII の範囲の句読点と
+                                                   シンボル; 単にその外側の
+                                                   punct
+ space   PosixSpace       XPosixSpace            [\s\cK]
+         PerlSpace        XPerlSpace    \s       Perl の空白の定義
+ upper   PosixUpper       XPosixUpper            大文字
+ word    PosixWord        XPosixWord    \w       Alnum + Unicode マーク +
+                                                   '_' のような接続文字
+                                                   (Perl 拡張)
+ xdigit  ASCII_Hex_Digit  XPosixDigit            16 進数;
+                                                    ASCII の範囲では
+                                                    [0-9A-Fa-f]
+</pre>
+<h3>文字クラスのサンプル</h3>
+<p>
+  文字クラスのサンプルです。WebサービスのユーザーIDの正規表現、Webサービスのパスワードの正規表現のサンプルも書いてみました。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+
+# 文字クラスを使う
+my $str = 'Hello';
+if ($str =~ /[abcde]/) {
+  print "Match\n";
+}
+
+# WebサービスのユーザーID(a-zA-Z0-9_)にマッチさせる
+my $user_id = 'kimoto_yuki089';
+my $user_id_invalid = 'abc&amp;cde';
+if ($user_id =~ /^\p{PosixWord}+$/) {
+  print "user_is valid\n";
+}
+unless ($user_id_invalid =~ /^\p{PosixWord}+$/) {
+  print "user_id_invalid is invalid\n";
+}
+
+# Webサービスのパスワード(ASCII範囲の空白以外の見える文字)にマッチさせる
+my $password = 'Ufy|&amp;123_';
+my $passowrd_invalid1 = 'abc def';
+my $passowrd_invalid2 = 'abcあ';
+if ($password =~ /^\p{PosixGraph}+$/) {
+  print "password is valid\n";
+}
+unless ($passowrd_invalid1 =~ /^\p{PosixGraph}+$/) {
+  print "passowrd_invalid1 is inalid\n";
+}
+unless ($passowrd_invalid2 =~ /^\p{PosixGraph}+$/) {
+  print "passowrd_invalid2 is inalid\n";
+}
+</pre>
+
+  </div>
+  <div class="bottom">
+    <!-- bottom -->
+<!--
+<hr>
+<div style="width:90%;max-width:400px;background:#ffcef6;border: 1px solid #ff59e6;border-radius:3px;margin:10px auto;font-size:20px;">
+<a rel="nofollow" href="https://perl-entrance-osaka.connpass.com/event/125719/"><img src="https://connpass-tokyo.s3.amazonaws.com/thumbs/c7/d9/c7d929370c08bcb1d0b37cc33f9b6b79.png" width="80px">Perl入学式大阪 大阪府大阪市北区芝田 2019年5月25日(土) 第一回 春季開校<br>Perlプログラミングを0から学ぼう。<br>テキスト処理,正規表現,if,for,変数</a>
+</div>
+-->
+
+<div class="perlzemi-forum">
+  <a rel="nofollow" href="https://docs.google.com/forms/d/e/1FAIpQLSe6ypMTx5XTh2KbsIgqgPMXNrC5Bo9FKRPVHM_o0jvrH_k28A/viewform">
+    Perlゼミフォーラム - Perlプログラムの読み書きに困ったらここで質問(無料・5分で登録)
+  </a>
+</div>
+
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          <div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl入門
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/list.html">新着情報</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20180820153471.html">Perlのインストール</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091226126425.html">基礎文法最速マスター</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161012147627.html">配列</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161013147635.html">ハッシュ</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161023147731.html">条件分岐</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20170521149524.html">繰り返し処理</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161003147558.html">文字列</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20100827127859.html">正規表現</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20100930127859.html">リファレンスと多次元データ構造</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20101130129876.html">サブルーチン</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20110212130370.html">ファイル入出力</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161107147852.html">変数</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl辞典
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20161004147558.html">標準関数</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161022147731.html">構文・文法</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161005147566.html">演算子</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091116124667.html">モジュール</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161102147817.html">特殊変数</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl中級編
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20100411127089.html">例外処理</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20080108132865.html">コマンドライン引数</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20100302126967.html">デバッガ</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161126148016.html">ファイル・ディレクトリ操作</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091120124667.html">現代的な記述方法</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20130305136248.html">オブジェクト指向</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20110128130016.html">スコープ</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20091105124627.html">日付と時刻</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20161026147748.html">数値計算</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Web開発
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20140319139520.html">Mojolicious入門</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl発展編
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20080229120427.html">Perl発展編</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    サイト情報
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20170917151092.html">サイト情報</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perlの書籍
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a rel="nofollow" href="/blog/20120326133275.html"><img src="https://images-fe.ssl-images-amazon.com/images/I/51d4T7m8NzL._SL160_.jpg"></a><br>
+        <span style="color:green">ログ解析など日本語を含むテキスト処理の実践ならこれ!Perlゼミ執筆のお勧め書籍</span>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20120326133275.html">業務に役立つPerl</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="/blog/20180724153238.html">雅なPerl入門</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    姉妹サイト
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a href="https://linux.perlzemi.com/">Linuxサーバー管理入門</a>
+      </li>
+      <li>
+        <a href="https://web.perlzemi.com/">Mojoliciousスタートアップ - 新規Web開発</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://twitter.com/perlzemi">Perlゼミ Twitter</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://perlzemichannel.seesaa.net/">Perlゼミの「爆速」プログラミングちゃんねる</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="http://www.perlzemi.com">Perlゼミのプログラミングスクール</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://philosophy.perlzemi.com/">Perlの哲学 - Perlに対する誤解を解きたい</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://yuki-kimoto.github.io">Perlゼミのオープンソースプロジェクト</a>
+      </li>
+      <li>
+        <div class="giblog-banner">
+          <div>
+            <a href="https://jp.giblog.net"><img src="/images/giblog-banner.png" alt="Giblog"></a>
+          </div>
+        </div>
+        <a rel="nofollow" href="https://jp.giblog.net/">Giblog - Gitで管理できるサイト・ブログを作成するためのツール。Github PagesでWebサイトを無料で公開</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    Perl勉強会・イベント
+  </div>
+  <div class="hatena-modulebody">
+    <ul>
+      <li>
+        <a href="https://blog.yapcjapan.org/">YAPC::Japan 運営ブログ</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="http://www.perl-entrance.org/">Perl入学式</a>
+      </li>
+      <li>
+        <a rel="nofollow" href="https://kichijojipm.hatenablog.com/">吉祥寺.pm</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="hatena-module">
+  <div class="hatena-moduletitle">
+    お問合せ
+  </div>
+  <div class="hatena-modulebody">
+    <a rel="nofollow" href="/mail.html">お問合せはこちら</a>
+  </div>
+</div>
+
+        </div>
+      </div>
+      <div class="footer">
+        <style>
+.what-is-perl {
+  width:95%;
+  margin: 20px auto;
+}
+.what-is-perl b {
+  padding-left:3px;
+  padding-right:3px;
+  font-size:103%;
+}
+.what-is-perl ul {
+}
+.what-is-perl li {
+  list-style:none;
+}
+.what-is-perl img {
+  width:100%;
+  max-width:110px;
+}
+
+</style>
+
+<div class="what-is-perl">
+  <div>
+    <img src="/images/perl-onion-logo.png">
+  </div>
+  <ul>
+    <li><b>Perl</b>は、<b>テキスト処理</b>の記述性とパフォーマンスに優れ、<b>正規表現</b>が言語に組み込まれているプログラミング言語です。</li>
+    <li><a href="https://linux.perlzemi.com" style="color:#666"><b>Linuxサーバー管理</b></a>での<b>フィルタリングプログラム</b>、複数行の文字列を処理、ファイル内容の検索・置換などが得意。<a href="https://web.perlzemi.com/" style="color:#666"><b>Mojoliciousを使ったWebスタートアップ</b></a>も。</li>
+    <li>Perlは、<b>git</b>や<b>openssl</b>など<b>Unix/Linuxミドルウェア</b>の支援ツールとして採用されています。</li>
+  </ul>
+</div>
+
+<!-- footer -->
+<a rel="nofollow" href="http://www.perlzemi.com">Perlゼミのプログラミングスクールはこちら</a> & <a rel="nofollow" href="https://jp.giblog.net/">このサイトはGiblogで製作されています</a>
+
+      </div>
+    </div>
+  </body>
+</html>

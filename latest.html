@@ -66,7 +66,211 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/11</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/14</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name"><a href="/blog/20100827127859.html">正規表現</a></span>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">here</span>
+    <meta itemprop="position" content="3" />
+  </li>
+</ol>
+<h2><a href="/blog/20200114103559.html">正規表現の文字クラス</a></h2>
+<p>
+  複数の文字の集合を表現するには文字クラスを使用します。
+</p>
+<pre>
+[文字の集合]
+</pre>
+<p>
+  たとえば「a」か「b」か「c」という文字を表現したい場合は[abc]と書きます。
+</p>
+<pre>
+a
+b    -&gt;    [abc]
+c
+</pre>
+<p>
+  アルファベットの範囲や数値の範囲を指定するのにハイフン「-」記号を使用することができます。
+</p>
+<pre>
+a
+b
+c    -&gt;    [a-e]
+d
+e
+</pre>
+<pre>
+0
+1
+2    -&gt;    [0-4]
+3
+4
+</pre>
+<p>
+  アルファベットと数値のいずれかを表現したい場合は[a-zA-Z0-9]と書きます。
+</p>
+<pre>
+アルファベットと数字    -&gt;    [a-zA-Z0-9]
+</pre>
+<h3>文字クラスの否定</h3>
+<p>
+  文字クラスを使って特定の文字以外を表現することもできます。特定の文字以外を表現するには「^」を使用します。文字クラス[]の先頭で「^」が使用されると「それ以外」という意味になり、「文字の先頭」という意味にはならないので注意してください。
+</p>
+<p>
+  たとえば「a」「b」「c」以外の文字を表現するには次のようにします。
+</p>
+<pre>
+「a」「b」「c」以外の文字    -&gt;    [^abc]
+</pre>
+<h3>Perlで定義済みの文字クラス</h3>
+<p>
+  Perlで定義済みの文字クラスというものが存在します。「\d」というのは、定義済みの文字クラスです。
+</p>
+<p>
+  <a href="https://perldoc.jp/docs/perl/5.16.1/perlreref.pod#CHARACTER32CLASSES">文字クラス - 正規表現のリファレンス</a>から、定義済みの文字クラスを引用します。
+</p>
+<pre>
+   \d      数値
+   \D      非数値
+   \w      単語文字
+   \W      非単語文字
+   \s      空白文字
+   \S      非空白文字
+   \h      水平空白文字
+   \H      非水平空白文字
+   \N      非改行 ('{NAME}' に引き続いていない場合; 実験的; 文字クラスでは
+           不正; [^\n] と等価; /s なしの場合の '.' と同様)
+   \v      垂直空白文字
+   \V      非垂直空白文字
+   \R      一般的な改行                (?&gt;\v|\x0D\x0A)
+   \C      1 バイトにマッチする (Unicode では、'.' は文字にマッチする)
+   \pP     P の名前の (Unicode) プロパティ
+   \p{...} 1 文字より長い名前の Unicode プロパティにマッチする
+   \PP     非 P にマッチする
+   \P{...} 1 文字より長い名前の Unicode プロパティがないものにマッチする
+   \X      Unicode の拡張書記素クラスタにマッチする
+</pre>
+<p>
+  文字クラスは、文字クラスの中でも使用できます。
+</p>
+<pre>
+[a-c\d\s]
+</pre>
+<p>
+  注意してほしいのは、これらは、すべて、Unicodeの影響を受けるということです。PerlはUnicodeをサポートしており、日本語を扱うよい慣習は、プログラムの中では、すべて<a href="https://tutorial.perlzemi.com/blog/20091118124667.html">内部文字列(デコードされた文字列)</a>として扱うことです。
+</p>
+<p>
+  この場合、「\d」は半角の0～9だけではなく、全角の０～９にもマッチします。\sは、半角の空白文字だけではなく、全角の空白文字にもマッチします。
+</p>
+<p>
+  ASCII範囲に限定したい場合は、以下の解説を読んでください。
+</p>
+<h4>文字クラスをASCII範囲のみに限定する</h4>
+<p>
+  文字クラスをASCII範囲のみに限定する「a」オプションがPerl 5.14から導入されています。
+</p>
+<pre>
+# ASCII範囲の数字のみにマッチさせる。
+$str =~ /\d+/a;
+</pre>
+<h4>ASCII範囲のみを表現する文字クラス</h4>
+<p>
+  Perlには、ASCIIの範囲を表現する文字クラスも存在します。この方法も、ASCII範囲のみに限定したい場合の、もう一つの解決方法です。
+</p>
+<p>
+  たとえばASCIIの範囲で、アルファベットと数字にマッチする文字クラスは以下のように表現できます。
+</p>
+<pre>
+# ASCIIの範囲で、アルファベットと数字にマッチする文字クラス
+\p{PosixAlnum}
+</pre>
+<p>
+  <a href="https://perldoc.jp/docs/perl/5.16.1/perlreref.pod#CHARACTER32CLASSES">文字クラス - 正規表現のリファレンス</a>から、定義済みの文字クラスを引用します。
+</p>
+<p>
+  ASCII-rangeと書かれている列の文字クラスに、注目してみましょう。
+</p>
+<pre>
+            ASCII-         Full-
+   POSIX    range          range    backslash
+ [[:...:]]  \p{...}        \p{...}   sequence    Description
+ -----------------------------------------------------------------------
+ alnum   PosixAlnum       XPosixAlnum            Alpha と Digit
+ alpha   PosixAlpha       XPosixAlpha            英字
+ ascii   ASCII                                   任意の ASCII 文字
+ blank   PosixBlank       XPosixBlank   \h       水平空白;
+                                                   全種類は \p{HorizSpace}
+                                                   とも (GNU 拡張)
+ cntrl   PosixCntrl       XPosixCntrl            制御文字
+ digit   PosixDigit       XPosixDigit   \d       数字
+ graph   PosixGraph       XPosixGraph            Alnum と Punct
+ lower   PosixLower       XPosixLower            小文字
+ print   PosixPrint       XPosixPrint            Graph と Print、しかし
+                                                   Cntrl は含まない
+ punct   PosixPunct       XPosixPunct            ASCII の範囲の句読点と
+                                                   シンボル; 単にその外側の
+                                                   punct
+ space   PosixSpace       XPosixSpace            [\s\cK]
+         PerlSpace        XPerlSpace    \s       Perl の空白の定義
+ upper   PosixUpper       XPosixUpper            大文字
+ word    PosixWord        XPosixWord    \w       Alnum + Unicode マーク +
+                                                   '_' のような接続文字
+                                                   (Perl 拡張)
+ xdigit  ASCII_Hex_Digit  XPosixDigit            16 進数;
+                                                    ASCII の範囲では
+                                                    [0-9A-Fa-f]
+</pre>
+<h3>文字クラスのサンプル</h3>
+<p>
+  文字クラスのサンプルです。WebサービスのユーザーIDの正規表現、Webサービスのパスワードの正規表現のサンプルも書いてみました。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+
+# 文字クラスを使う
+my $str = 'Hello';
+if ($str =~ /[abcde]/) {
+  print "Match\n";
+}
+
+# WebサービスのユーザーID(a-zA-Z0-9_)にマッチさせる
+my $user_id = 'kimoto_yuki089';
+my $user_id_invalid = 'abc&amp;cde';
+if ($user_id =~ /^\p{PosixWord}+$/) {
+  print "user_is valid\n";
+}
+unless ($user_id_invalid =~ /^\p{PosixWord}+$/) {
+  print "user_id_invalid is invalid\n";
+}
+
+# Webサービスのパスワード(ASCII範囲の空白以外の見える文字)にマッチさせる
+my $password = 'Ufy|&amp;123_';
+my $passowrd_invalid1 = 'abc def';
+my $passowrd_invalid2 = 'abcあ';
+if ($password =~ /^\p{PosixGraph}+$/) {
+  print "password is valid\n";
+}
+unless ($passowrd_invalid1 =~ /^\p{PosixGraph}+$/) {
+  print "passowrd_invalid1 is inalid\n";
+}
+unless ($passowrd_invalid2 =~ /^\p{PosixGraph}+$/) {
+  print "passowrd_invalid2 is inalid\n";
+}
+</pre>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/11</div>
 <h2><a href="/blog/20200111075429.html">Perlゼミの「爆速」プログラミングちゃんねる</a></h2>
 <p>
   Perlゼミの「爆速」プログラミングちゃんねるをYoutubeで始めました。
@@ -2399,76 +2603,6 @@ $pdf-&gt;saveas($pdf_file);
 <p>
   <a href="/examples/pdf/margin_full_text_jp.pdf">出力結果 日本語、太字対応</a> 
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/28</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    here
-  </li>
-</ol>
-<h2><a href="/blog/20191228171433.html">Perlで帳票を作成する - PDF::API2で帳票作成</a></h2>
-<p>
-  Perlで帳票を作成する方法を解説します。ここでは、帳票とは、プリンタを使って、紙に印刷可能なファイル形式と定義します。
-</p>
-<p>
-  帳票を作るための一般的な方法は、PDFを作成することです。PDFであれば、印刷することができます。
-</p>
-<p>
-  <a href="https://metacpan.org/pod/PDF::API2">PDF::API2</a>というPerlのモジュールを使うと、PDFを作成したり、フォントを設定して字を書いたり、線を書いたり、画像を挿入したり、保存したりすることができます。
-</p>
-<p>
-  PDF::API2の使い方をマスターすれば、自由に帳票を使えるようになります。
-</p>
-<h3>PDF::API2のインストール</h3>
-<p>
-  PDF::API2のインストール方法を解説します。
-</p>
-<ul>
-  <li><a href="/blog/20191227161458.html">PDF::API2のインストール</a></li>
-</ul>
-<h3>帳票作成のためのPDFファイル操作</h3>
-<p>
-  PDFファイルの作成方法、テキストの描画、画像の挿入、基本図形と表の作成方法を学びましょう。
-</p>
-<ul>
-  <li><a href="/blog/20191226175520.html">PDFファイルを作成する</a></li>
-  <li><a href="/blog/20191230091936.html">テキストを描画する</a></li>
-  <li><a href="/blog/20191231143440.html">画像を挿入する</a></li>
-  <li><a href="/blog/20200101082734.html">基本図形の描画と表の作成</a></li>
-</ul>
-<h3>PDF生成のサンプル</h3>
-<p>
-  記事で解説したPDF生成のサンプルの一覧です。
-</p>
-<p>
-  PDF生成 <a href="/examples/pdf/empty.pdf">空ページ</a>、 <a href="/examples/pdf/size_a4.pdf">A4サイズ</a>、 <a href="/examples/pdf/size_b5.pdf">B5サイズ</a>、 <a href="/examples/pdf/size_595_842.pdf">595×842サイズ</a> 
-</p>
-<p>
-  テキスト描画 <a href="/examples/pdf/text_core_font.pdf">テキスト英語</a>、 <a href="/examples/pdf/margin_full_text.pdf">余白、改行、改ページ</a>、 <a href="/examples/pdf/margin_full_text_jp.pdf">日本語、太字対応</a> 
-</p>
-<p>
-  画僧挿入 <a href="/examples/pdf/image_png.pdf">PNG画像の挿入</a>
-</p>
-<p>
-  基本図形と表 <a href="/examples/pdf/render_tri.pdf">三角形</a>、<a href="/examples/pdf/table.pdf">空の表</a>、<a href="/examples/pdf/table_items.pdf">項目ありの表</a>
-</p>
-<h3>実務で使える帳票のサンプル</h3>
-<p>
-  実務で使える本格的な帳票のサンプルを掲載します。
-</p>
-<ul>
-  <li><a href="/blog/20200103081131.html">請求書</a></li>
-</ul>
-<h3>PDF作成のユーティリティ</h3>
-<ul>
-  <li><a href="/blog/20191226175520.html">PDFファイルをブラウザから確認する方法</a></li>
-</ul>
 
 
   </div>
