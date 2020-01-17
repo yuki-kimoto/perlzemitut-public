@@ -38,12 +38,12 @@
   });
 </script>
 
-<title>Strawberry PerlをWindowsにインストールする - Perl入門ゼミ</title>
-<meta name="description" content="Strawberry Perl(ストロベリーパール)はWindowsでPerlを利用するために作成されたPerlのディストリビューションのひとつです。">
+<title>Strawberry PerlとコマンドプロンプトでLinux風環境を作る方法 - Perl入門ゼミ</title>
+<meta name="description" content="Strawberry PerlとコマンドプロンプトでLinux風の環境を作る方法を紹介します。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="Strawberry PerlをWindowsにインストールする - Perl入門ゼミ" />
-<meta name="twitter:description" content="Strawberry Perl(ストロベリーパール)はWindowsでPerlを利用するために作成されたPerlのディストリビューションのひとつです。" />
+<meta name="twitter:title" content="Strawberry PerlとコマンドプロンプトでLinux風環境を作る方法 - Perl入門ゼミ" />
+<meta name="twitter:description" content="Strawberry PerlとコマンドプロンプトでLinux風の環境を作る方法を紹介します。" />
 <meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
 
 
@@ -75,166 +75,167 @@
 
   </div>
   <div class="middle">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name"><a href="/blog/20180820153471.html">インストール</a></span>
-    <meta itemprop="position" content="2" />
-  </li>
-</ol>
-<h2><a href="/blog/20180808153368.html">Strawberry PerlをWindowsにインストールする</a></h2>
+    <h2><a href="/blog/20200117144713.html">Strawberry PerlとコマンドプロンプトでLinux風環境を作る方法</a></h2>
 <p>
-  Strawberry Perl(ストロベリーパール)はWindowsでPerlを利用するために作成されたPerlのディストリビューションのひとつです。
+  Strawberry Perlとコマンドプロンプトで<a href="https://linux.perlzemi.com/">Linux</a>風の環境を作る方法を紹介します。
 </p>
 <p>
-  <a href="http://strawberryperl.com"><img style="border:#ddd 1px solid" src="https://cdn-ak.f.st-hatena.com/images/fotolife/p/perlcodesample/20180808/20180808073552.png?1533681423"></a>
+  Perlエンジニアは、開発やサーバー運用をするときは、Linux/Unix環境で作業をしていることが多いです。
 </p>
 <p>
-  <a href="http://strawberryperl.com">Strawberry Perl for Windows</a>
+  <a href="https://linux.perlzemi.com/">Linux</a>用に作ったプログラムをWindowsで試験をしたいといった場合に、実行するコマンドがLinuxとなるべく近いとやりやすいですね。
 </p>
 <p>
-  Strawberry Perlの良いところは、
+  コマンドプロンプトでもLinuxと同じ感覚で作業ができる方法を紹介します。
 </p>
-<ul>
-  <li>
-    Unix/Linux環境のPerlと近い感覚で使うことができる
-  </li>
-  <li>
-    gccなどの開発環境が準備されていて、CPANモジュールがインストール可能
-  </li>
-  <li>
-    古いバージョンのPerlも公開されている
-  </li>
-</ul>
+<h3>Linux環境とコマンドプロンプトで同じ方法で作業ができること</h3>
 <p>
-  です。
+  先にLinux環境とコマンドプロンプトで、同じ方法で作業ができることはなんでしょうか? 2020年1月に、以下は、Windows 10の環境で確認した項目です。
 </p>
+<h4>cdコマンド</h4>
 <p>
-  PerlのUnix生まれの言語なので、Windowsでもなるべく<b>Unix環境に近い感覚</b>で利用できると使いやすく感じます。
+  Linuxの<a href="https://linux.perlzemi.com/blog/20191012191854.html">cdコマンド</a>は、コマンドプロンプトにも、cdコマンドとして存在します。
 </p>
+<h4>ファイルパスの区切りは「/」でOK</h4>
 <p>
-  Strawberry Perlを使うと、<b>ほとんどのCPANモジュールがインストールが可能</b>です。
-</p>
-<p>
-  <b>古いバージョンのPerlもそのまま残してくれている</b>ので、開発をしていて、古いPerlがダウンロードできなくなったという心配もありません。
-</p>
-<p>
-  WindowsでPerlを利用する場合は、一番最初に試してみてほしいPerlです。
-</p>
-<p>
-  以下では、Windows 10を想定して、インストール方法を解説します。Windowsの古いバージョンでも、手順はほとんど同じです。
-</p>
-<h4>Strawberry Perlのダウンロード</h4>
-<p>
-  Strawberry Perlをダウンロードして、インストールしてみましょう。2018年の最新のPerlは、Perl 5.28です。
-</p>
-<p>
-  以下のリンクから<b>Strawberry Perl 5.28 64bit MSI installer</b>をクリックして、Strawberry Perlをデスクトップにダウンロードしましょう。
-</p>
-<ul>
-  <li>
-    <a href="http://strawberryperl.com/releases.html">Strawberry Perl Releases</a>
-  </li>
-</ul>
-<p>
-  <a href="http://strawberryperl.com/releases.html"><img style="border:1px solid #ddd" src="https://cdn-ak.f.st-hatena.com/images/fotolife/p/perlcodesample/20180808/20180808073518.png?1533681603"></a>
-</p>
-<p>
-  MSI installerというのはWindowsのデフォルトのインストーラーという意味です。
-</p>
-<p>
-  末尾のバージョン番号が少し違うこともあるかもしれませんが、気にしないで大丈夫です。
-</p>
-<p>
-  ほとんどの場合は64bit版のWindowsで大丈夫だと思いますが、32bit版が必要な方は、32bitの方のStrawberry Perlをダウンロードしてください。
-</p>
-<h4>Strawberry Perlのインストール</h4>
-<p>
-  ダウンロードしたStrawberry Perlをダブルクリックします。
-</p>
-<p>
-  インストーラーが起動します。空き容量の計算に少し時間がかかる場合がありますが、そのまま待ちましょう。
-</p>
-<p>
-  インストーラーが起動しますので「Next」を押して進みます。
-</p>
-<p>
-  途中で「I accept the terms in the License Agreement」というチェックボックスがでてくるので、チェックをいれて「Next」を押します。
-</p>
-<p>
-  さらに「Next」を押して進んでいって、最後に「Install」をクリックするとStrawberry Perlのインストールが始まります。
-</p>
-<p>
-  ここで「この不明な発行元からのアプリがデバイスに変更を加えることを許可しますか?」というダイアログが表示されると思いますが、「はい」をクリックしましょう。
-</p>
-<p>
-  5分くらい時間がかかるので待ちましょう。
-</p>
-<p>
-  プログレスバーが満タンになると、Strawberry Perlのインストールが完了します。
-</p>
-<p>
-  「Finish」を押してダイアログを閉じましょう。Readmeが表示されますが、これも閉じて大丈夫です。
-</p>
-<h4>Perlがインストールされていることの確認</h4>
-<p>
-  インストールが完了したら実際にStrawberry Perlがインストールできているか確認してみましょう。
-</p>
-<p>
-  コマンドプロンプトというツールをを実行してPerlのバージョンを表示してみます。
-</p>
-<p>
-  コマンドプロンプトは、「スタートメニュー」→「アプリの一覧」→「Windowsシステムツール」→「コマンドプロンプト」から実行できます。
-</p>
-<p>
-  黒い画面がでてくるので、以下の文字をキーボードからうち「Enter」を押してみてください。
+  Windowsのファイルパスの区切りは「\」ですが、実は「/」を使うこともできます。コマンドプロンプトのcdコマンドで、「/」を使った例です。
 </p>
 <pre>
-perl -v
+cd labo/perlzemi
 </pre>
+<h4>gccはStrawberry Perlがインストールされていれば使える</h4>
 <p>
-  次のようにバージョン情報が表示されればインストールは成功しています。
+  PerlのXSモジュールをインストールするのに必要な、C言語のコンパイラであるgccは、<a href="/blog/20180808153368.html">Strawberry Perl</a>がインストールされていれば最初から使うことができます。
 </p>
 <pre>
-This is perl 5, version 28, subversion 0 (v5.28.0) built for MSWin32-x64-multi-thread
+gcc --help
+</pre>
+<h4>コマンドプロンプトを閉じる</h4>
+<p>
+  コマンドプロンプトを閉じる場合は、Linuxのexitコマンドと同じコマンドがコマンドプロンプトにも存在します。
+</p>
+<pre>
+exit
+</pre>
+<h4>右クリックで、コピーと張り付け</h4>
+<p>
+  コマンドプロンプトの設定で、簡易編集モードにチェックをいれると、右クリックとで、コピーと貼り付けができます。
+</p>
+<p>
+  <a href="https://www.relief.jp/docs/003578.html">コマンドプロンプトのコピー＆ペーストを簡単に−右クリック</a>
+</p>
+<h4>&&によるコマンドの連続実行</h4>
+<p>
+  コマンドプロンプトでも&&は、Linuxと同じように使えます。
+</p>
+<pre>
+command1 &amp;&amp; command2
+</pre>
+<h4>リダイレクトとパイプ</h4>
+<p>
+  Linuxのリダイレクトとパイプは、コマンドプロンプトでも利用できます。
+</p>
+<pre>
+command &gt; file.txt
+command &lt; file.txt
+command1 | command2
+</pre>
+<h3>コマンドプロンプトには、存在しないLinuxコマンド</h3>
+<p>
+  次は、コマンドプロンプトには、存在しないLinuxコマンドです。存在しないのであれば、作ってしまいましょう。
+</p>
+<p>
+  Strawberry Perlがインストールされていれば、次のパスが、コマンドの検索パスに含まれているはずです。
+</p>
+<pre>
+C:\Strawberry\perl\site\bin
 </pre>
 <p>
-  これでStrawberry Perlのインストールは完了です。
+  これは、ユーザーがインストールした実行ファイルやバッチファイルが格納される場所です。
 </p>
 <p>
-  WindowsでPerlを実行するためにはコマンドプロンプトと呼ばれるものを利用します。perlコマンドを使ってPerlスクリプトを実行できるようになります。
+  このパスの中に、存在しないコマンドを書いてみましょう。
+</p>
+<h4>lsコマンドの作成</h4>
+<p>
+  Linuxの<a href="https://linux.perlzemi.com/blog/20191126082723.html">lsコマンド</a>に該当するコマンドを作成しましょう。
 </p>
 <p>
-  コマンドプロンプトの使い方を知りたい方は「<a href="/blog/20080603121251.html">Perlを実行するためのコマンドプロンプト入門</a>」という記事で解説しています。
+  拡張子を「.bat」にするとWindowsは、それはコマンドとして認識します。
 </p>
 <p>
-  Strawberry Perlとコマンドプロンプトで、<a href="https://linux.perlzemi.com/">Linux</a>風の環境を作りたいという場合は、以下の記事を参考にしてください。
+  Strawberry Perlのコマンドの検索パスの中に「ls.bat」というファイルを作成してください。
 </p>
-<ul>
-  <li>
-    <a href="/blog/20200117144713.html">Strawberry PerlとコマンドプロンプトでLinux風環境を作る方法</a>
-  </li>
-</ul>
-<h3>その他のインストール方法</h3>
 <p>
-  WindowsでPerlを利用するその他の方法については、以下を参考にしてください。それぞれに長所があります。
+  以下の内容を書き込みます。これでlsコマンドでdirコマンドを呼び出します。
 </p>
-<ul>
-  <li>
-    <a href="/blog/20080602121231.html">ActivePerlをWindowsにインストールする</a>
-  </li>
-  <li>
-    <a href="/blog/20180806153350.html">msys2をWindowsにインストールしてPerlを使う</a>
-  </li>
-</ul>
-<h3>Strawberry Perlがうまく動かない</h3>
+<pre>
+dir
+</pre>
 <p>
-  Active PerlやStrawbery Perl 32bitなど別のPerlがインストールされていると、うまく動かない場合があります。別のPerlを<a href="https://win10labo.info/apli-uninstall/">アプリのアンインストール画面</a>からアンインストールして、もう一度Strawberry Perlをインストールしなおしてみてください。
+  コマンドプロンプトで以下のコマンドを実行できるようになります。
+</p>
+<pre>
+ls
+</pre>
+<h4>makeコマンドの作成</h4>
+<p>
+  gmakeというコマンドは、<a href="/blog/20180808153368.html">Strawberry Perl</a>がインストールされていれば最初から使うことができます。
+</p>
+<p>
+  ですので、これをラッピングしてmakeコマンドを作成してみましょう。
+</p>
+<p>
+  Strawberry Perlのコマンドの検索パスの中に「make.bat」というファイルを作成してください。
+</p>
+<p>
+  以下の内容を書き込みます。これでmakeコマンドでgmakeコマンドを呼び出します。
+</p>
+<pre>
+gmake %1
+</pre>
+<p>
+  %1は、コマンドライン引数です。これを指定しておくと「make test」のように、makeコマンドに引数を与えることができます。
+</p>
+<p>
+  コマンドプロンプトで以下のコマンドを実行できるようになります。
+</p>
+<pre>
+make
+</pre>
+<h4>その他のLinuxコマンド</h4>
+<p>
+  必要になれば<a href="https://linux.perlzemi.com/blog/20200113083613.html">catコマンド</a>や<a href="https://linux.perlzemi.com/blog/20191210081417.html">rmコマンド</a>なども、同じ方法で、簡単につくれそうですね。
+</p>
+<h3>Linux風環境を試す</h3>
+<p>
+  さぁ、Linuxのあれをやってみましょう。例のあれです。
+</p>
+<pre>
+cd proj/MyModule
+perl Makefile.PL
+make &amp;&amp; make test
+</pre>
+<p>
+  いいですね!
+</p>
+<h3>よくある質問</h3>
+<p>
+  よくある質問です。
+</p>
+<h4>DOSKEYで、エイリアスを使えばよいのでは?</h4>
+<p>
+  はい、これは試しました。ですが、&&を実行するときは、コマンドプロンプトは新しいプロセスを実行します。実はこのとき環境を受け継いでくれず、エイリアスが効かなくなります。
+</p>
+<h4>パワーシェルではだめなのですか?</h4>
+<p>
+  パワーシェルは、コマンドプロンプトの改良というよりは、Windowsの運用をやりやすい用に設計されているように感じます。
+</p>
+<p>
+  リダイレクトやパイプは、.netに接続されて、加工された情報が出力されます。
+</p>
+<p>
+  リダイレクトやパイプを使って、プログラムの動作を確認したい場合は、そのままの情報が出力される、コマンドプロンプトが優れていると感じます。
 </p>
 
   </div>

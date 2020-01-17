@@ -66,7 +66,171 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/15</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/17</div>
+<h2><a href="/blog/20200117144713.html">Strawberry PerlとコマンドプロンプトでLinux風環境を作る方法</a></h2>
+<p>
+  Strawberry Perlとコマンドプロンプトで<a href="https://linux.perlzemi.com/">Linux</a>風の環境を作る方法を紹介します。
+</p>
+<p>
+  Perlエンジニアは、開発やサーバー運用をするときは、Linux/Unix環境で作業をしていることが多いです。
+</p>
+<p>
+  <a href="https://linux.perlzemi.com/">Linux</a>用に作ったプログラムをWindowsで試験をしたいといった場合に、実行するコマンドがLinuxとなるべく近いとやりやすいですね。
+</p>
+<p>
+  コマンドプロンプトでもLinuxと同じ感覚で作業ができる方法を紹介します。
+</p>
+<h3>Linux環境とコマンドプロンプトで同じ方法で作業ができること</h3>
+<p>
+  先にLinux環境とコマンドプロンプトで、同じ方法で作業ができることはなんでしょうか? 2020年1月に、以下は、Windows 10の環境で確認した項目です。
+</p>
+<h4>cdコマンド</h4>
+<p>
+  Linuxの<a href="https://linux.perlzemi.com/blog/20191012191854.html">cdコマンド</a>は、コマンドプロンプトにも、cdコマンドとして存在します。
+</p>
+<h4>ファイルパスの区切りは「/」でOK</h4>
+<p>
+  Windowsのファイルパスの区切りは「\」ですが、実は「/」を使うこともできます。コマンドプロンプトのcdコマンドで、「/」を使った例です。
+</p>
+<pre>
+cd labo/perlzemi
+</pre>
+<h4>gccはStrawberry Perlがインストールされていれば使える</h4>
+<p>
+  PerlのXSモジュールをインストールするのに必要な、C言語のコンパイラであるgccは、<a href="/blog/20180808153368.html">Strawberry Perl</a>がインストールされていれば最初から使うことができます。
+</p>
+<pre>
+gcc --help
+</pre>
+<h4>コマンドプロンプトを閉じる</h4>
+<p>
+  コマンドプロンプトを閉じる場合は、Linuxのexitコマンドと同じコマンドがコマンドプロンプトにも存在します。
+</p>
+<pre>
+exit
+</pre>
+<h4>右クリックで、コピーと張り付け</h4>
+<p>
+  コマンドプロンプトの設定で、簡易編集モードにチェックをいれると、右クリックとで、コピーと貼り付けができます。
+</p>
+<p>
+  <a href="https://www.relief.jp/docs/003578.html">コマンドプロンプトのコピー＆ペーストを簡単に−右クリック</a>
+</p>
+<h4>&&によるコマンドの連続実行</h4>
+<p>
+  コマンドプロンプトでも&&は、Linuxと同じように使えます。
+</p>
+<pre>
+command1 &amp;&amp; command2
+</pre>
+<h4>リダイレクトとパイプ</h4>
+<p>
+  Linuxのリダイレクトとパイプは、コマンドプロンプトでも利用できます。
+</p>
+<pre>
+command &gt; file.txt
+command &lt; file.txt
+command1 | command2
+</pre>
+<h3>コマンドプロンプトには、存在しないLinuxコマンド</h3>
+<p>
+  次は、コマンドプロンプトには、存在しないLinuxコマンドです。存在しないのであれば、作ってしまいましょう。
+</p>
+<p>
+  Strawberry Perlがインストールされていれば、次のパスが、コマンドの検索パスに含まれているはずです。
+</p>
+<pre>
+C:\Strawberry\perl\site\bin
+</pre>
+<p>
+  これは、ユーザーがインストールした実行ファイルやバッチファイルが格納される場所です。
+</p>
+<p>
+  このパスの中に、存在しないコマンドを書いてみましょう。
+</p>
+<h4>lsコマンドの作成</h4>
+<p>
+  Linuxの<a href="https://linux.perlzemi.com/blog/20191126082723.html">lsコマンド</a>に該当するコマンドを作成しましょう。
+</p>
+<p>
+  拡張子を「.bat」にするとWindowsは、それはコマンドとして認識します。
+</p>
+<p>
+  Strawberry Perlのコマンドの検索パスの中に「ls.bat」というファイルを作成してください。
+</p>
+<p>
+  以下の内容を書き込みます。これでlsコマンドでdirコマンドを呼び出します。
+</p>
+<pre>
+dir
+</pre>
+<p>
+  コマンドプロンプトで以下のコマンドを実行できるようになります。
+</p>
+<pre>
+ls
+</pre>
+<h4>makeコマンドの作成</h4>
+<p>
+  gmakeというコマンドは、<a href="/blog/20180808153368.html">Strawberry Perl</a>がインストールされていれば最初から使うことができます。
+</p>
+<p>
+  ですので、これをラッピングしてmakeコマンドを作成してみましょう。
+</p>
+<p>
+  Strawberry Perlのコマンドの検索パスの中に「make.bat」というファイルを作成してください。
+</p>
+<p>
+  以下の内容を書き込みます。これでmakeコマンドでgmakeコマンドを呼び出します。
+</p>
+<pre>
+gmake %1
+</pre>
+<p>
+  %1は、コマンドライン引数です。これを指定しておくと「make test」のように、makeコマンドに引数を与えることができます。
+</p>
+<p>
+  コマンドプロンプトで以下のコマンドを実行できるようになります。
+</p>
+<pre>
+make
+</pre>
+<h4>その他のLinuxコマンド</h4>
+<p>
+  必要になれば<a href="https://linux.perlzemi.com/blog/20200113083613.html">catコマンド</a>や<a href="https://linux.perlzemi.com/blog/20191210081417.html">rmコマンド</a>なども、同じ方法で、簡単につくれそうですね。
+</p>
+<h3>Linux風環境を試す</h3>
+<p>
+  さぁ、Linuxのあれをやってみましょう。例のあれです。
+</p>
+<pre>
+cd proj/MyModule
+perl Makefile.PL
+make &amp;&amp; make test
+</pre>
+<p>
+  いいですね!
+</p>
+<h3>よくある質問</h3>
+<p>
+  よくある質問です。
+</p>
+<h4>DOSKEYで、エイリアスを使えばよいのでは?</h4>
+<p>
+  はい、これは試しました。ですが、&&を実行するときは、コマンドプロンプトは新しいプロセスを実行します。実はこのとき環境を受け継いでくれず、エイリアスが効かなくなります。
+</p>
+<h4>パワーシェルではだめなのですか?</h4>
+<p>
+  パワーシェルは、コマンドプロンプトの改良というよりは、Windowsの運用をやりやすい用に設計されているように感じます。
+</p>
+<p>
+  リダイレクトやパイプは、.netに接続されて、加工された情報が出力されます。
+</p>
+<p>
+  リダイレクトやパイプを使って、プログラムの動作を確認したい場合は、そのままの情報が出力される、コマンドプロンプトが優れていると感じます。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/15</div>
 <h2><a href="/blog/20200115082029.html">Class::Struct - オブジェクト指向を提供するコアモジュール</a></h2>
 <p>
   Class::Structは、Perlに<a href="/blog/20161030147778.html">オブジェクト指向</a>の機能を提供する古典的なモジュールです。コンストラクタnewの自動生成、アクセッサの自動生成ができます。アクセッサとは、フィールドの設定・取得を行うためのメソッドのことです。
@@ -1782,136 +1946,6 @@ $pdf-&gt;saveas($pdf_file);
 </pre>
 <p>
   <a href="/examples/pdf/table_items.pdf">出力結果 項目ありの表</a>
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2019/12/31</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20191228171433.html">
-      <span itemprop="name">帳票作成</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li>
-    here
-  </li>
-</ol>
-<h2><a href="/blog/20191231143440.html">画像を挿入する - PDF::API2で帳票作成</a></h2>
-<p>
-  PDF::API2で、PNG,GIF,JPEGの画像を挿入する方法を解説します。
-</p>
-<p>
-  PDFには、画像を含めることができます。PDF::API2では、PNG,GIF,JPEG画像を、PDFに挿入することができます。
-</p>
-<h3>画像ファイルの挿入</h3>
-<p>
-  画像ファイルを挿入するには、まず画像ファイルを読み込んで、画像表現するリソースオブジェクトを生成する必要があります。
-</p>
-<h4>画像ファイルの読み込み</h4>
-<p>
-  画像ファイルを読み込んで、画像表現するリソースオブジェクトを生成しましょう。
-</p>
-<p>
-  <b>JPEGファイルの読み込み</b>
-</p>
-<p>
-  PDF::API2で、JPEGファイルを読み込むには、image_jpegメソッドを使用します。JPEG画像を表現するリソースオブジェクトが返されます。
-</p>
-<pre>
-# JPEG画像を表現するリソースオブジェクトを生成
-my $image_file = '/path/image.jpeg';
-my $image_object = $pdf-&gt;image_jpeg($image_file);
-</pre>
-<p>
-  <b>PNGファイルの読み込み</b>
-</p>
-<p>
-  PDF::API2で、PNGファイルを読み込むには、image_pngメソッドを使用します。PNG画像を表現するリソースオブジェクトが返されます。
-</p>
-<pre>
-# PNG画像を表現するリソースオブジェクトを生成
-my $image_file = '/path/image.png';
-my $image_object = $pdf-&gt;image_png($image_file);
-</pre>
-<p>
-  「Unsupported Interlace」というエラーがでた場合は、PNGのインターレース機能を解除する必要があります。
-</p>
-<p>
-  <b>GIFファイルの読み込み</b>
-</p>
-<p>
-  PDF::API2で、GIFファイルを読み込むには、image_gifメソッドを使用します。GIF画像を表現するリソースオブジェクトが返されます。
-</p>
-<pre>
-# GIF画像を表現するリソースオブジェクトを生成
-my $image_file = '/path/image.gif';
-my $image_object = $pdf-&gt;image_gif($image_file);
-</pre>
-<h4>画像コンテンツオブジェクトの生成</h4>
-<p>
-  画像を挿入するための、コンテンツオブジェクトを生成します。これはPDF::API2::Contentオブジェクトです。
-</p>
-<pre>
-# 画像を挿入するために必要なコンテンツオブジェクト
-my $gfx = $page-&gt;gfx;
-</pre>
-<h4>画像ファイルの挿入</h4>
-<p>
-  PDF::API2で、画像ファイルを挿入するには、コンテンツオブジェクトのimageメソッドを使用します。
-</p>
-<pre>
-# 指定した位置に画像を挿入
-$gfx-&gt;image($image_object, $x, $y);
-
-# 指定した位置に画像挿入。幅と高さを指定
-$gfx-&gt;image($image_object, $x, $y, $width, $height);
-
-# 指定した位置に画像挿入。スケールを指定(1.5倍など)
-$gfx-&gt;image($image_object, $x, $y, $scale);
-</pre>
-<p>
-  指定した位置に画像が挿入されます。
-</p>
-<p>
-  幅と高さは、PDF単位であることに注意してください。座標は、右上に向かって進むので、指定した点から見て、右上に描画されることに注意してください。
-</p>
-<p>
-  例として、600x600のイメージを600dpiの解像度で表示したい場合は、72を指定します。
-</p>
-<h3>PNG画像を挿入するサンプル</h3>
-<p>
-  PNG画像を挿入するサンプルを書いてみます。
-</p>
-<pre>
-use PDF::API2;
-
-my $pdf = PDF::API2-&gt;new;
-
-my $page = $pdf-&gt;page;
-
-# PNG画像を表現するリソースオブジェクトを生成
-my $image_file = "$FindBin::Bin/rokkaku.png";
-my $image_object = $pdf-&gt;image_png($image_file);
-
-# 画像を挿入するために必要なコンテンツオブジェクト
-my $gfx = $page-&gt;gfx;
-
-# 指定した位置に画像を挿入
-my $x = 50;
-my $y = 500;
-$gfx-&gt;image($image_object, $x, $y);
-
-my $pdf_file = 'image_png.pdf';
-$pdf-&gt;saveas($pdf_file);
-</pre>
-<p>
-  <a href="/examples/pdf/image_png.pdf">出力結果 PNG画像の挿入</a>
 </p>
 
 
