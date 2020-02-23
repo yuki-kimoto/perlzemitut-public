@@ -57,11 +57,6 @@
 <div class="header-description">
   テキスト処理、Linuxサーバー管理、Web開発ならPerl
 </div>
-<div class="header-otoiawase">
-  <div style="display:table-cell;vertical-align:top;">
-    <a style="display:block;width:100%;background:#F048A4;color:white;text-decoration:none;padding:3px;" rel="nofollow" href="/mail.html">質問フォーム</a>
-  </div>
-</div>
 
       </div>
       <div class="main">
@@ -199,46 +194,75 @@ my %key_values = %hash{'a', 'b'};
 
   </div>
   <div class="bottom">
-    <div style="background:pink;margin-top:50px;">
-  <ul>
-    <li>
-      <a rel="nofollow" href="https://perlzemichannel.seesaa.net/">0から動画でプログラミングを学ぶならPerlゼミちゃんねる</a>
-    </li>
-    <li>
-      <a rel="nofollow" href="https://tutorial.perlzemi.com/">Perlプログラミングを学ぶならPerl入門ゼミ</a>
-    </li>
-    <li>
-      <a href="https://linux.perlzemi.com/">Linuxコマンドを学ぶならLinuxサーバー管理入門</a>
-    </li>
-    <li>
-      <a href="https://web.perlzemi.com/">Webサービス開発を始めるならMojoliciousスタートアップ</a>
-    </li>
-    <li>
-      <a href="https://jp.giblog.net/">Webサイトを簡単に作るならGiblog</a>
-    </li>
-    <li>
-      <a href="https://webdesign.perlzemi.com/">Webデザインを学ぶならWebデザイン入門</a>
-    </li>
-    <li>
-      <a rel="nofollow" href="https://twitter.com/perlzemi">Perlの最新情報ならPerlゼミ Twitter</a>
-    </li>
-    <li>
-      <a rel="nofollow" href="https://philosophy.perlzemi.com/">Perlへの誤解を解くならPerlの哲学</a>
-    </li>
-    <li>
-      <a rel="nofollow" href="http://www.perl-entrance.org/">プログラミングの勉強会ならPerl入学式</a>
-    </li>
-    <li>
-      <a rel="nofollow" href="https://docs.google.com/forms/d/e/1FAIpQLSe6ypMTx5XTh2KbsIgqgPMXNrC5Bo9FKRPVHM_o0jvrH_k28A/viewform">質問するならまずはPerlゼミフォーラムへ登録</a>
-    </li>
-    <li>
-      <a rel="nofollow" href="https://perlzemi.slack.com">質問するならPerlゼミフォーラムへログイン</a>
-    </li>
-    <li>
-      <a rel="nofollow" href="/mail.html">個人的に質問したいなら質問フォーム</a>
-    </li>
-  </ul>
-</div>
+    <style>
+  .bottom ul {
+    background:#ffedfa;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
+  }
+  .bottom li {
+    width:50%;
+    margin-top:50px;
+    list-style:none;
+    margin:0;
+    padding:0;
+    padding:7px;
+  }
+  .bottom a {
+    background:white;
+    display:block;
+    width:100%;
+    padding:30px;
+    height:100%;
+    text-decoration:none;
+    color:#535;
+  }
+  .bottom a:hover {
+    opacity:0.8;
+  }
+</style>
+
+<div style="margin-top:70px;text-align:center;"><b>サイト案内</b></div>
+
+<ul>
+  <li>
+    <a rel="nofollow" href="https://perlzemichannel.seesaa.net/">0から動画でプログラミングを学ぶならPerlゼミちゃんねる</a>
+  </li>
+  <li>
+    <a href="https://text.perlzemi.com/">テキスト処理ならテキスト処理・正規表現入門</a>
+  </li>
+  <li>
+    <a href="https://linux.perlzemi.com/">Linuxコマンドを学ぶならLinuxサーバー管理入門</a>
+  </li>
+  <li>
+    <a href="https://webdesign.perlzemi.com/">Webデザインを学ぶならWebデザイン入門</a>
+  </li>
+  <li>
+    <a href="https://web.perlzemi.com/">Web開発を始めるならMojoliciousスタートアップ</a>
+  </li>
+  <li>
+    <a href="https://jp.giblog.net/">Webサイトを簡単に作るならGiblog</a>
+  </li>
+</ul>
+
+<div style="margin-top:70px;text-align:center;"><b>コミュニティ</b></div>
+
+<ul>
+  <li>
+    <a rel="nofollow" href="http://www.perl-entrance.org/">プログラミングの勉強会ならPerl入学式</a>
+  </li>
+  <li>
+    <a rel="nofollow" href="https://docs.google.com/forms/d/e/1FAIpQLSe6ypMTx5XTh2KbsIgqgPMXNrC5Bo9FKRPVHM_o0jvrH_k28A/viewform">質問するならまずはPerlゼミフォーラムへ登録</a>
+  </li>
+  <li>
+    <a rel="nofollow" href="https://perlzemi.slack.com">Perlゼミフォーラムへログイン</a>
+  </li>
+  <li>
+    <a href="/mail.html">個人的に質問したいなら質問フォーム</a>
+  </li>
+</ul>
 
   </div>
 </div>
@@ -390,13 +414,13 @@ my %key_values = %hash{'a', 'b'};
   </div>
   <ul>
     <li><b>Perl</b>は、<b>テキスト処理</b>の記述性とパフォーマンスに優れ、<b>正規表現</b>が言語に組み込まれているプログラミング言語です。</li>
-    <li><a href="https://linux.perlzemi.com" style="color:#666"><b>Linuxサーバー管理</b></a>での<b>フィルタリングプログラム</b>、複数行の文字列を処理、ファイル内容の検索・置換などが得意。<a href="https://web.perlzemi.com/" style="color:#666"><b>Mojoliciousを使ったWebスタートアップ</b></a>も。</li>
+    <li><b>Linuxサーバー管理</b>での<b>フィルタリングプログラム</b>、複数行の文字列を処理、ファイル内容の検索・置換などが得意。Mojoliciousを使った<b>Webサービス開発</b>も。</li>
     <li>Perlは、<b>git</b>や<b>openssl</b>など<b>Unix/Linuxミドルウェア</b>の支援ツールとして採用されています。</li>
   </ul>
 </div>
 
 <!-- footer -->
-<a rel="nofollow" href="http://www.perlzemi.com">Perlゼミのプログラミングスクールはこちら</a> & <a rel="nofollow" href="https://jp.giblog.net/">このサイトはGiblogで製作されています</a>
+<a href="https://kimoto-system.co.jp/">サイト運営 木本システム Copyright © Yuki Kimoto</a>
 
       </div>
     </div>
