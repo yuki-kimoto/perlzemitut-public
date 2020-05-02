@@ -57,10 +57,49 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/04/04</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/05/02</div>
+<style>
+  .bottom {
+    display:none;
+  }
+</style>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">書籍案内</span>
+    <meta itemprop="position" content="2" />
+  </li>
+</ol>
+<h2><a href="/blog/20200502174033.html">【書籍案内】初めてのPerl - Perl入門書 定番の一冊</a></h2>
+<p>
+  「初めてのPerl」はPerl入門書 定番の一冊で、オライリーから出版されています。本を購入して、Perlプログラミングの基礎を学ぶのにぴったりの一冊です。
+</p>
+<p>
+  <a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784873118246" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886428281" height="1" width="0" border="0"><img src='https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/48731/4873118247.jpg' border='0' /></a>
+</p>
+<p>
+  Perl 5.24，Unicode 8.0対応。
+</p>
+<h3>ご購入を検討されている方へ</h3>
+<p>
+  Perlゼミは<a href="/blog/20200404070954.html">紀伊国屋のアフェリエイト販売プログラムと提携</a>しています。
+</p>
+<p>
+  「初めてのPerl」の販売手数料は、教材管理費、Perlゼミコンテンツ執筆者への還元、イベントの会場費など、Perlゼミのコンテンツの品質向上に利用されます。
+</p>
+<p>
+  個人で勉強のため、コミュニティでの勉強会、企業のプログラミング研修で利用など、「初めてのPerl」を<a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784873118246" rel="nofollow">こちら</a>から購入いただくと、あなたもPerlに関するコンテンツの品質向上に貢献できます。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/04/04</div>
 <h2><a href="/blog/20200404070954.html">紀伊国屋書店とPerlプログラミング入門ゼミが提携</a></h2>
 <p>
-  紀伊国屋書店とPerlプログラミング入門ゼミが提携しました。
+  紀伊国屋書店とPerlプログラミング入門ゼミが、アフェリエイト販売プログラムで、提携しました。
 </p>
 <p>
   Perlプログラミング入門ゼミでは「初めてのPerl」と「業務に役立つPerl」を入門書として紹介しています。
@@ -523,100 +562,6 @@ make &amp;&amp; make test
   リダイレクトやパイプを使って、プログラムの動作を確認したい場合は、そのままの情報が出力される、コマンドプロンプトが優れていると感じます。
 </p>
 
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/01/15</div>
-<h2><a href="/blog/20200115082029.html">Class::Struct - オブジェクト指向を提供するコアモジュール</a></h2>
-<p>
-  Class::Structは、Perlに<a href="/blog/20161030147778.html">オブジェクト指向</a>の機能を提供する古典的なモジュールです。コンストラクタnewの自動生成、アクセッサの自動生成ができます。アクセッサとは、フィールドの設定・取得を行うためのメソッドのことです。
-</p>
-<p>
-  Perl入門ゼミでは、オブジェクトの基本型として、ハッシュリファレンスを持ち、スカラのアクセッサを提供する方法を解説します。
-</p>
-<h3>xとyというフィールドを持つPointクラスの作成</h3>
-<p>
-  Class::Structを使って、xとyというフィールドを持つPointクラスを作成してみましょう。
-</p>
-<pre>
-package Point;
-
-use Class::Struct __PACKAGE__, {
-  x =&gt; '$',
-  y =&gt; '$',
-};
-</pre>
-<p>
-  <a href="/blog/20090205123287.html">use</a>では、モジュール名の後ろに引数を渡すことができます。
-</p>
-<p>
-  第一引数は、パッケージ名です。この引数で、どのパッケージに対して、コンストラクタやアクセッサを生成するのかを指定します。<a href="/blog/20080425120914.html">__PACKAGE__</a>は、現在のパッケージ名を返す関数で、Pointが返ります。
-</p>
-<p>
-  第二引数は、フィールドを定義した、<a href="/blog/20180208151809.html">ハッシュのリファレンス</a>です。アクセッサが自動生成されます。
-</p>
-<h3>Pointクラスの利用</h3>
-<p>
-  Pointクラスを利用してみましょう。先ほどのコードに続けて以下を記述します。
-</p>
-<pre>
-package main;
-
-# オブジェクトの生成
-my $point = Point-&gt;new(x =&gt; 1, y =&gt; 2);
-
-# フィールドの値をアクセッサを使って取得
-my $x = $point-&gt;x;
-my $y = $point-&gt;y;
-print "($x, $y)\n";
-
-# フィールドの値をアクセッサを使って設定
-$point-&gt;x(5);
-$point-&gt;y(10);
-my $x2 = $point-&gt;x;
-my $y2 = $point-&gt;y;
-print "($x2, $y2)\n";
-</pre>
-<p>
-  mainパッケージについては、<a href="/blog/20100419127089.html">パッケージの宣言</a>の記事を参考にしてください。
-</p>
-<h4>コンストラクタnewの呼び出し</h4>
-<p>
-  コンストラクタnewを呼び出すことができます。フィールドの値を渡すこともできます。
-</p>
-<pre>
-# オブジェクトの生成
-my $point = Point-&gt;new(x =&gt; 1, y =&gt; 2);
-</pre>
-<h4>アクセッサの呼び出し</h4>
-<p>
-  値の設定・取得を行うために、アクセッサを呼び出すことができます。
-</p>
-<pre>
-# フィールドの値をアクセッサを使って取得
-my $x = $point-&gt;x;
-my $y = $point-&gt;y;
-print "($x, $y)\n";
-
-# フィールドの値をアクセッサを使って設定
-$point-&gt;x(5);
-$point-&gt;y(10);
-my $x2 = $point-&gt;x;
-my $y2 = $point-&gt;y;
-print "($x2, $y2)\n";
-</pre>
-<h3>Class::Structで、継承することはできますか?</h3>
-<p>
-  Class::Strcutによって作成したクラスを継承することは可能ですが、制限として、フィールドを追加するということはできません。継承を行いたい場合は、フィールドを追加したい場合が、ほとんどですので、できないと考えておくのがよいでしょう。
-</p>
-<p>
-  継承を予定しているのであれば、Perlコア限定なら<a href="/blog/20100203126425.html">bless</a>を使ってオブジェクトを作成します。CPANモジュールを利用する場合は、継承によるフィールド定義の追加をサポートしているモジュールを利用しましょう。
-</p>
-<h3>コンストラクタをオーバライドすることはできますか?</h3>
-<p>
-  Class::Strcutでは、対象のクラスにコンストラクタが生成されますので、コンストラクタをオーバーライドすることはできません。
-</p>
-<p>
-  コンストラクタのカスタマイズを予定しているのであれば、Perlコア限定なら<a href="/blog/20100203126425.html">bless</a>を使ってオブジェクトを作成します。CPANモジュールを利用する場合は、コンストラクタのカスタマイズをサポートしているモジュールを利用しましょう。
-</p>
-
 
   </div>
   <div class="bottom">
@@ -708,7 +653,7 @@ print "($x2, $y2)\n";
     <ul>
       <li>
         <div style="font-size:17px;margin-bottom:5px"><b>初めてのPerl 第7版</b></div>
-        <a rel="nofollow" href="https://www.amazon.co.jp/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AEPerl-%E7%AC%AC7%E7%89%88-Randal-L-Schwartz/dp/4873118247"><img src="https://images-na.ssl-images-amazon.com/images/I/51t%2B7ZTGW6L._SX388_BO1,204,203,200_.jpg" width="160px"></a><br>
+        <a rel="nofollow" href="/blog/20200502174033.html"><img src="https://images-na.ssl-images-amazon.com/images/I/51t%2B7ZTGW6L._SX388_BO1,204,203,200_.jpg" width="160px"></a><br>
         <div style="margin-top:10px;">Perl入門 定番の一冊</div>
       </li>
       <li>
