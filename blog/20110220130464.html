@@ -112,14 +112,17 @@ sudo cpan App::perlbrew
 perlbrew init
 </pre>
 <p>
-  次にperlbrewのパスを通しましょう。perlbrewで用意されているbash用の設定ファイルを「~/.bash_profile」に追加します(bashの場合)。
+  次にperlbrewのパスを通しましょう。perlbrewで用意されているbash用の設定ファイルを「~/.bashrc」に追加します(bashの場合)。
 </p>
 <pre>
-echo "source ~/perl5/perlbrew/etc/bashrc" &gt;&gt; ~/.bash_profile
+echo "source ~/perl5/perlbrew/etc/bashrc" &gt;&gt; ~/.bashrc
 </pre>
 <p>
-  そして、シェルを立ち上げなおします。
+  「.bashrc」を読み込みなおします。
 </p>
+<pre>
+source  ~/.bashrc
+</pre>
 <h3>ユーザー環境へのPerlのインストール</h3>
 <p>
   ユーザー環境にPerlをインストールします。5.28.2のPerlをインストールしてみましょう。時間がかかるので待ちます(約30分程度)。
