@@ -57,7 +57,61 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/05/20</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/06/17</div>
+<h2><a href="/blog/20200617111016.html">PERL5LIB環境変数を使ってモジュールの検索パスを追加する</a></h2>
+<p>
+  PERL5LIB環境変数を使ってモジュールの検索パスを追加する方法の解説です。
+</p>
+<h4>Linuxのbashの環境変数</h4>
+<p>
+  以下は<a href="https://linux.perlzemi.com/">Linux</a>の<a href="https://linux.perlzemi.com/blog/20200617103220.html">bashの環境変数</a>で「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。これを「<a href="https://linux.perlzemi.com/blog/20200616103220.html">.bashrc</a>」ファイルに追記してください。
+</p>
+<pre>
+export PERL5LIB=/foo/lib
+</pre>
+<p>
+  複数指定する場合はコロンで区切ります。
+</p>
+<pre>
+export PERL5LIB=/foo/lib:/bar/lib
+</pre>
+<h4>商用UNIXなどのcshの環境変数</h4>
+<p>
+  FreeBSDなど商用UNIXにおけるcshの環境変数で「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。これを「~/.cshrc」ファイルに追記してください。
+</p>
+<pre>
+setenv PERL5LIB /foo/lib
+</pre>
+<p>
+  複数指定する場合はコロンで区切ります。
+</p>
+<pre>
+setenv PERL5LIB /foo/lib:/bar/lib
+</pre>
+<h4>Windowsにおける環境変数</h4>
+<p>
+  Windowsで環境変数「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。Windowsの環境変数の設定方法は、GUIで追加するので、方法については調べてみてください。
+</p>
+<pre>
+# 環境変数PERL5LIBの値
+/foo/lib
+</pre>
+<p>
+  複数指定する場合はセミコロンで区切ります。ここはUnix/Linuxと異なる部分です。
+</p>
+<pre>
+# 環境変数PERL5LIBの値
+/foo/lib;/bar/lib
+</pre>
+<h4>環境変数PERL5LIBはポータブルではない</h4>
+<p>
+  OSによって環境変数の表現方法が異なるため、環境変数PERL5LIBはポータブルな方法ではありません。
+</p>
+<p>
+  一方、スクリプトと密結合してしまいますが、<a href="/blog/20100525127859.html">libモジュール</a>はどのような環境でも同じように動きます。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/05/20</div>
 <h2><a href="/blog/20200520133201.html">2020年5月のPerlゼミブランドのサイト一覧</a></h2>
 <p>
   2020年5月のPerlゼミブランドのサイト一覧。
@@ -401,39 +455,6 @@ dn $data;
 <p>
   <a href="https://metacpan.org/pod/D" target="_blank">https://metacpan.org/pod/D</a>
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/02/06</div>
-<h2><a href="/blog/20200206074434.html">2020年2月のPerlゼミブランドのサイト一覧</a></h2>
-<p>
-  2020年2月のPerlゼミブランドのサイト一覧。
-</p>
-<h3>1年以内のPerlゼミブランドの新公開サイト</h3>
-<p>
-  1年以内のPerlゼミブランドの新公開サイト、新しい順!!!
-</p>
-<ul>
-  <li><a href="https://note.com/perlzemi">エンジニアのメンタルヘルス改善ノート</a>2020/2/8～</li> 
-  <li><a href="https://webdesign.perlzemi.com">Webデザイン入門</a>2020/2/6～</li> 
-  <li><a href="https://education.perlzemi.com">プログラミング教育の教材</a>2020/2/6～</li> 
-  <li><a href="https://laboratory.perlzemi.com">Perlゼミ ソフトウェア研究所</a>2020/2/6～</li>
-  <li><a href="https://centos.perlzemi.com">CentOS入門</a>2020/2/6～</li>
-  <li><a href="https://mariadb.perlzemi.com">MariaDB入門</a>2020/2/6～</li>
-  <li><a href="http://school.perlzemi.com">Perlゼミのプログラミングスクール</a>2020/2/6～</li>
-  <li><a href="https://dbix-custom.perlzemi.com">DBIx::Custom - PerlのO/Rマッパー</a>2020/1/25～</li>
-  <li><a href="https://perlzemichannel.seesaa.net">Perlゼミの「爆速」プログラミングチャンネル</a>2020/1/11～</li>
-</ul>
-<h3>Perlゼミブランドのサイト一覧</h3>
-<ul>
-  <li><a href="https://philosophy.perlzemi.com">Perlの哲学</a>2019～</li>
-  <li><a href="https://linux.perlzemi.com">Linuxサーバー管理入門</a>2019～</li>
-  <li><a href="https://web.perlzemi.com">Mojoliciousスタートアップ</a>2019～</li>
-  <li><a href="https://doc.giblog.net">Giblog日本語ドキュメント</a>2019～</li>
-  <li><a href="https://jp.giblog.net">Giblog公式サイト</a>2019～</li>
-  <li><a href="https://jp.spvm.info">SPVMドキュメント</a>2019～</li>
-  <li><a href="https://perlcodesample.hateblo.jp">Perlテックブログ</a>2018年～</li>
-  <li><a href="https://mojodoc.perlzemi.com">Mojoliciousドキュメント 日本語訳</a>2014～</li>
-  <li><a href="https://tutorial.perlzemi.com/">Perl入門ゼミ</a>2009年～</li>
-</ul>
 
 
   </div>

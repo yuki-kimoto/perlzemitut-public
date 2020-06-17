@@ -38,12 +38,12 @@
   });
 </script>
 
-<title>lib - モジュールの検索パスを追加 - Perlゼミ</title>
-<meta name="description" content="libモジュールを使用すると、モジュールの検索パスを追加することができます。">
+<title>PERL5LIB環境変数を使ってモジュールの検索パスを追加する - Perlゼミ</title>
+<meta name="description" content="PERL5LIB環境変数を使ってモジュールの検索パスを追加する方法の解説です。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="lib - モジュールの検索パスを追加 - Perlゼミ" />
-<meta name="twitter:description" content="libモジュールを使用すると、モジュールの検索パスを追加することができます。" />
+<meta name="twitter:title" content="PERL5LIB環境変数を使ってモジュールの検索パスを追加する - Perlゼミ" />
+<meta name="twitter:description" content="PERL5LIB環境変数を使ってモジュールの検索パスを追加する方法の解説です。" />
 <meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
 
 
@@ -66,54 +66,57 @@
     
   </div>
   <div class="middle">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20091116124667.html">
-      <span itemprop="name">モジュール</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li>
-    here
-  </li>
-</ol>
-<h2><a href="/blog/20100525127859.html">lib - モジュールの検索パスを追加</a></h2>
+    <h2><a href="/blog/20200617111016.html">PERL5LIB環境変数を使ってモジュールの検索パスを追加する</a></h2>
 <p>
-  <strong>lib</strong>モジュールを使用すると、モジュールの検索パスを追加することができます。
+  PERL5LIB環境変数を使ってモジュールの検索パスを追加する方法の解説です。
+</p>
+<h4>Linuxのbashの環境変数</h4>
+<p>
+  以下は<a href="https://linux.perlzemi.com/">Linux</a>の<a href="https://linux.perlzemi.com/blog/20200617103220.html">bashの環境変数</a>で「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。これを「<a href="https://linux.perlzemi.com/blog/20200616103220.html">.bashrc</a>」ファイルに追記してください。
 </p>
 <pre>
-# モジュールの検索パスを追加
-use lib 'home/user/local/lib';
+export PERL5LIB=/foo/lib
 </pre>
 <p>
-  Perlにおいては、<a href="/blog/20180508152716.html">モジュールの検索パスの一覧</a>は特殊変数「@INC」に格納されていますが、libモジュールはコンパイル時に@INCの先頭に検索パスを追加します。
+  複数指定する場合はコロンで区切ります。
 </p>
 <pre>
-# libモジュールは@INCの先頭にパスを追加する
-BEGIN {
-  unshift @INC, '/home/user/local/lib';
-}
+export PERL5LIB=/foo/lib:/bar/lib
 </pre>
+<h4>商用UNIXなどのcshの環境変数</h4>
 <p>
-  libモジュールは<a href="/blog/20100524127696.html">FindBin</a>モジュールと組み合わせて利用されることが多いです。スクリプトの存在するディレクトリのlibというディレクトリをモジュールの検索パスに追加するサンプルです。
+  FreeBSDなど商用UNIXにおけるcshの環境変数で「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。これを「~/.cshrc」ファイルに追記してください。
 </p>
 <pre>
-# スクリプトの存在するディレクトリのlibディレクトリを検索パスに追加
-use FindBin;
-use lib "$FindBin::Bin/lib";
+setenv PERL5LIB /foo/lib
 </pre>
-<h4>libモジュールに関するFAQ</h4>
 <p>
-  Q. libモジュール以外の方法でモジュールの検索パスを追加する方法はありますか。
+  複数指定する場合はコロンで区切ります。
+</p>
+<pre>
+setenv PERL5LIB /foo/lib:/bar/lib
+</pre>
+<h4>Windowsにおける環境変数</h4>
+<p>
+  Windowsで環境変数「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。Windowsの環境変数の設定方法は、GUIで追加するので、方法については調べてみてください。
+</p>
+<pre>
+# 環境変数PERL5LIBの値
+/foo/lib
+</pre>
+<p>
+  複数指定する場合はセミコロンで区切ります。ここはUnix/Linuxと異なる部分です。
+</p>
+<pre>
+# 環境変数PERL5LIBの値
+/foo/lib;/bar/lib
+</pre>
+<h4>環境変数PERL5LIBはポータブルではない</h4>
+<p>
+  OSによって環境変数の表現方法が異なるため、環境変数PERL5LIBはポータブルな方法ではありません。
 </p>
 <p>
-  A. はい。<a href="/blog/20200617111016.html">PERL5LIB環境変数</a>を設定する方法とスクリプトの起動時に <strong>-I オプション</strong>を指定する方法があります。libモジュールは最も柔軟性がありますが、スクリプトと密に結合してしまい移植性に欠けます。状況に応じてどの方法が最善かを考えましょう。
+  一方、スクリプトと密結合してしまいますが、<a href="/blog/20100525127859.html">libモジュール</a>はどのような環境でも同じように動きます。
 </p>
 
   </div>
