@@ -527,481 +527,365 @@ my $res = $ua-&gt;post(
   Amazon S3 API リファレンス : エラーコードのリスト
 </p>
 
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/06/17</div>
-<h2><a href="/blog/20200617111016.html">PERL5LIB環境変数を使ってモジュールの検索パスを追加する</a></h2>
-<p>
-  PERL5LIB環境変数を使ってモジュールの検索パスを追加する方法の解説です。
-</p>
-<h4>Linuxのbashの環境変数</h4>
-<p>
-  以下は<a href="https://linux.perlzemi.com/">Linux</a>の<a href="https://linux.perlzemi.com/blog/20200617103220.html">bashの環境変数</a>で「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。これを「<a href="https://linux.perlzemi.com/blog/20200616103220.html">.bashrc</a>」ファイルに追記してください。
-</p>
-<pre>
-export PERL5LIB=/foo/lib
-</pre>
-<p>
-  複数指定する場合はコロンで区切ります。
-</p>
-<pre>
-export PERL5LIB=/foo/lib:/bar/lib
-</pre>
-<h4>商用UNIXなどのcshの環境変数</h4>
-<p>
-  FreeBSDなど商用UNIXにおけるcshの環境変数で「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。これを「~/.cshrc」ファイルに追記してください。
-</p>
-<pre>
-setenv PERL5LIB /foo/lib
-</pre>
-<p>
-  複数指定する場合はコロンで区切ります。
-</p>
-<pre>
-setenv PERL5LIB /foo/lib:/bar/lib
-</pre>
-<h4>Windowsにおける環境変数</h4>
-<p>
-  Windowsで環境変数「PERL5LIB」を設定して、モジュールの検索パスを追加する方法です。Windowsの環境変数の設定方法は、GUIで追加するので、方法については調べてみてください。
-</p>
-<pre>
-# 環境変数PERL5LIBの値
-/foo/lib
-</pre>
-<p>
-  複数指定する場合はセミコロンで区切ります。ここはUnix/Linuxと異なる部分です。
-</p>
-<pre>
-# 環境変数PERL5LIBの値
-/foo/lib;/bar/lib
-</pre>
-<h4>環境変数PERL5LIBはポータブルではない</h4>
-<p>
-  OSによって環境変数の表現方法が異なるため、環境変数PERL5LIBはポータブルな方法ではありません。
-</p>
-<p>
-  一方、スクリプトと密結合してしまいますが、<a href="/blog/20100525127859.html">libモジュール</a>はどのような環境でも同じように動きます。
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/05/20</div>
-<h2><a href="/blog/20200520133201.html">2020年5月のPerlゼミブランドのサイト一覧</a></h2>
-<p>
-  2020年5月のPerlゼミブランドのサイト一覧。
-</p>
-<h3>1年以内のPerlゼミブランドの新公開サイト</h3>
-<p>
-  1年以内のPerlゼミブランドの新公開サイト、新しい順!!!
-</p>
-<ul>
-  <li><a href="https://text.perlzemi.com/">テキスト処理・正規表現入門</a>2020/5/1</li>
-  <li><a href="https://mojolicious.perlzemi.com/">Mojolicious入門</a>2020/5/1 リニューアル</li>
-  <li><a href="https://mojolicious.perlzemi.com/">Mojolicious入門</a>2020/5/1 リニューアル</li>
-  <li><a href="https://tutorial.perlzemi.com/">Perlゼミ</a>2020/5/1 リニューアル</li>
-  <li><a href="https://www.youtube.com/embed/51rY9Xswv0E">パール木本のPerlプログラミングちゃんねる</a>2020/5/1 リニューアル</li>
-  <li><a href="https://perlcodesample.hateblo.jp">パール木本のPerlテックブログ</a>2020/5/1 リニューアル</li>
-  <li><a href="https://mojodoc.perlzemi.com">Mojoliciousドキュメント日本語訳</a>2020/4/1 リニューアル</li>
-  <li><a href="https://web.perlzemi.com">Webシステム開発入門</a>2019/4/1 リニューアル</li>
-  <li><a href="https://deeplearning.perlzemi.com/">Perlで学ぶディープラーニング入門</a>2020/2/27～</li> 
-  <li><a href="https://ubuntu.perlzemi.com/">Ubuntuサーバー構築入門</a>2020/5/1～</li> 
-  <li><a href="https://deeplearning.perlzemi.com/">Perlで学ぶディープラーニング入門</a>2020/2/27～</li> 
-  <li><a href="https://datascience.perlzemi.com/">Perlで学ぶデータサイエンス入門</a>2020/2/27～</li> 
-  <li><a href="https://bio.perlzemi.com/">Perlで学ぶ分子生物学・バイオインフォマティクス入門 高速処理対応</a>2020/2/27～</li> 
-  <li><a href="https://webdesign.perlzemi.com">Webデザイン入門</a>2020/2/6～</li> 
-  <li><a href="https://centos.perlzemi.com">CentOS入門</a>2020/2/6～</li>
-  <li><a href="https://mariadb.perlzemi.com">MariaDB入門</a>2020/2/6～</li>
-  <li><a href="https://dbix-custom.perlzemi.com">DBIx::Custom - PerlのO/Rマッパー</a>2020/1/25～</li>
-</ul>
-<h3>Perlゼミブランドのサイト一覧</h3>
-<ul>
-  <li><a href="https://philosophy.perlzemi.com">Perlの哲学</a>2019～</li>
-  <li><a href="https://linux.perlzemi.com">Linuxサーバー管理入門</a>2019～</li>
-  <li><a href="https://doc.giblog.net">Giblog日本語ドキュメント</a>2019～</li>
-  <li><a href="https://jp.giblog.net">Giblog公式サイト</a>2019～</li>
-  <li><a href="https://jp.spvm.info">SPVMドキュメント</a>2019～</li>
-</ul>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/05/02</div>
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/28</div>
 <style>
-  .bottom {
-    display:none;
-  }
+  .bottom { display:none; }
+  img { width:200px; }
+  li { list-style:none; }
 </style>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
+<h2><a href="/blog/20200728215543.html">Perlの書籍販売</a></h2>
+<p>
+  Perlの書籍の購入はこちらから。Perl入門書、実践、正規表現、応用、バイトインフォマティクスの書籍を取り揃えています。
+</p>
+<h3>Perl入門書</h3>
+<ul>
+  <li>
+    <a href="/blog/20200502174033.html">
+      <img src="https://images-na.ssl-images-amazon.com/images/I/51t%2B7ZTGW6L._SX388_BO1,204,203,200_.jpg"><br>
+      初めてのPerl 第7版
+    </a>
   </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">書籍案内</span>
-    <meta itemprop="position" content="2" />
+  <li>
+    <a href="/blog/20200722215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/47973/4797336803.jpg"><br>
+      Perl言語プログラミングレッスン 入門編 (新版)
+    </a>
   </li>
-</ol>
-<h2><a href="/blog/20200502174033.html">【書籍案内】初めてのPerl - Perl入門書 定番の一冊</a></h2>
+  <li>
+    <a href="/blog/20200726215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/47741/4774177911.jpg"><br>
+      かんたんＰｅｒｌ プログラミングの教科書
+    </a>
+  </li>
+  <li>
+    <a href="/blog/20200724215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/47741/4774192635.jpg"><br>
+      Perlではじめるプログラミング超入門
+    </a>
+  </li>
+</ul>
+<h3>Perl実践</h3>
+<ul>
+  <li>
+    <a href="/blog/20120326133275.html">
+      <img src="https://images-na.ssl-images-amazon.com/images/I/51d4T7m8NzL._SX347_BO1,204,203,200_.jpg"><br>
+      業務に役立つPerl
+    </a>
+  </li>
+</ul>
+<h3>正規表現</h3>
+<ul>
+  <li>
+    <a href="/blog/20200727215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/48731/4873113598.jpg"><br>
+      詳説　正規表現　第３版 （第３版）
+    </a>
+  </li>
+  <li>
+    <a href="/blog/20200725215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/47741/4774177407.jpg"><br>
+      正規表現ポケットリファレンス
+    </a>
+  </li>
+</ul>
+<h3>Perl発展</h3>
+<ul>
+  <li>
+    <a href="/blog/20200723215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/large/48731/4873116287.jpg"><br>
+      続・初めてのＰｅｒｌ （改訂第２版）
+    </a>
+  </li>
+  <li>
+    <a href="/blog/20200719215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/large/48731/4873113008.jpg"><br>
+      Perlベストプラクティス
+    </a>
+  </li>
+  <li>
+    <a href="/blog/20200720215543.html">
+      <img src="https://www.oreilly.co.jp/books/images/picture4-87311-096-3.gif"><br>
+      プログラミングPerl〈VOLUME1〉 (第3版)
+    </a>
+  </li>
+</ul>
+<h3>バイオインフォマティクス</h3>
+<ul>
+  <li>
+    <a href="/blog/20200721215543.html">
+      <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/46278/4627845014.jpg"><br>
+      生物系のためのＰｅｒｌプログラミング
+    </a>
+  </li>
+</ul>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/27</div>
+<style>
+  .bottom { display:none; }
+</style>
+<h2><a href="/blog/20200727215543.html">【書籍案内】詳説　正規表現　第３版 （第３版）</a></h2>
 <p>
-  「初めてのPerl」はPerl入門書 定番の一冊で、オライリーから出版されています。
+  正規表現を詳細に解説した書籍です。正規表現エンジンの仕組みまで深く知りたい場合に有用です。正規表現のプログラムのサンプルとしてPerl、Java、.NET、PHPが紹介されています。
 </p>
 <p>
-  文章に、独特の表現は多いです。まったくのプログラミング初心者が学ぶ場合は、すこし難しく感じるかもしれません。
-</p>
-<p>
-  他のプログラミング言語を学んでいる人が、Perlプログラミングの基礎を学んだり、Perlの文化やPerlの発展歴史などを感じるのに適していると思います。
-</p>
-<p>
-  <a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784873118246" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886428281" height="1" width="0" border="0"><img src='https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/48731/4873118247.jpg' border='0' /></a>
+  <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/48731/4873113598.jpg">
 </p>
 <blockquote>
 <p>
-  1993年の第1版の発刊以来、多くのPerlユーザに読まれ、Perl入門書の定番として不動の人気を誇ってきたロングセラーの改訂版です。
+  詳説　正規表現　第３版 （第３版）
 </p>
 <p>
-  Perl言語を基礎からていねいに解説します。
+  内容説明
 </p>
 <p>
-  効果的にPerlを学ぶことができるように、長年にわたって著者たちが工夫と改良を重ねており、高い評価を得て支持され続けています。
-</p>
-<p>
-  本書はPerl 5.24に対応して改訂されています。Perl 5.24では、サブルーチンと数値計算が高速化されるなどパフォーマンスが大きく改善されたほか、Unicode 8.0のサポート、新たな正規表現の追加など、機能が強化されています。
-</p>
-<p>
-  実験的機能についても積極的に取り上げています。
+  本書は正規表現の概念を詳細に解説し、言語やツールの実例を豊富に示しながら、正規表現への理解を深める解説書である。第３版では、前版のＪａｖａと．ＮＥＴに加え、新たにＰＨＰの章が追加された。正規表現の本質を読み解く決定版。
 </p>
 </blockquote>
-<h3>目次</h3>
+<h3>詳説　正規表現の目次</h3>
 <p>
-  初めてのPerlの目次紹介。
+  詳説　正規表現の目次です。
 </p>
 <pre>
 目次
-はじめに
 
-1章　Perl入門
-    1.1　質疑応答
-    1.2　Perlとは何の略でしょうか？
-    1.3　どうすれば Perlが手に入りますか？
-    1.4　どうやって Perlのプログラムを作るのでしょうか？
-    1.5　Perl早わかりツアー
-    1.6　練習問題
+１章　正規表現入門
+２章　初心者向けのサンプル
+３章　正規表現の機能と方言
+４章　正規表現処理のメカニズム
+５章　正規表現の実践的なテクニック
+６章　効率のよい正規表現の作り方
+７章　Ｐｅｒｌ
+８章　Ｊａｖａ
+９章　．ＮＥＴ
+１０章　ＰＨＰ
 
-2章　スカラーデータ
-    2.1　数値
-    2.2　文字列
-    2.3　Perlに組み込まれている警告メッセージ
-    2.4　スカラー変数
-    2.5　printによる出力
-    2.6　if制御構造
-    2.7　ユーザからの入力を受け取る
-    2.8　chomp演算子
-    2.9　while制御構造
-    2.10 未定義値
-    2.11 defined関数
-    2.12 練習問題
+著者等紹介
 
-3章　リストと配列
-    3.1　配列の要素にアクセスする
-    3.2　配列の特別なインデックス
-    3.3　リストリテラル
-    3.4　リスト代入
-    3.5　配列を文字列の中に展開する
-    3.6　foreach制御構造
-    3.7　スカラーコンテキストとリストコンテキスト
-    3.8　リストコンテキストで &lt;STDIN&gt;を使う
-    3.9　練習問題
+フリードル，ジェフリー・Ｅ．Ｆ．［フリードル，ジェフリーＥ．Ｆ．］［Ｆｒｉｅｄｌ，Ｊｅｆｆｒｅｙ　Ｅ．Ｆ．］
+ケント大学（学士号）とニューハンプシャー大学（修士号）を修了し、オムロン株式会社（京都）でカーネルの開発に８年間携わった後、１９９７年にシリコンバレーへ移り、当時まだほとんど知られていなかった“Ｙａｈｏｏ！”で彼の正規表現のノウハウを金融関係のニュースやデータを処理するシステムの開発に注いだ。２００４年の春、妻と息子とともに京都へ戻った
 
-4章　サブルーチン
-    4.1　サブルーチンを定義する
-    4.2　サブルーチンを起動する
-    4.3　戻り値
-    4.4　引数
-    4.5　サブルーチン内でプライベートな変数
-    4.6　可変長のパラメータリスト
-    4.7　レキシカル変数（my変数）についての注意事項
-    4.8　use strictプラグマ
-    4.9　return演算子
-    4.10 スカラー以外の戻り値
-    4.11 永続的なプライベート変数
-    4.12 サブルーチンシグネチャ
-    4.13 練習問題
+長尾高弘［ナガオタカヒロ］
 
-5章　入力と出力
-    5.1　標準入力からの入力
-    5.2　ダイヤモンド演算子からの入力
-    5.3　起動引数
-    5.4　標準出力への出力
-    5.5　printfによるフォーマット付き出力
-    5.6　ファイルハンドル
-    5.7　ファイルハンドルをオープンする
-    5.8　dieによって致命的エラーを発生させる
-    5.9　ファイルハンドルを使う
-    5.10 標準ファイルハンドルを再オープンする
-    5.11 sayを使って出力する
-    5.12 ファイルハンドルをスカラー変数に入れる
-    5.13 練習問題
+１９６０年千葉県生まれ。１９８４年東京大学教育学部卒。昭和の終わり頃から技術翻訳にかかわり、１９９７年に株式会社ロングテールを設立、社長を務める（本データはこの書籍が刊行された当時に掲載されていたものです）
+※書籍に掲載されている著者及び編者、訳者、監修者、イラストレーターなどの紹介情報です。
 
-6章　ハッシュ
-    6.1　ハッシュとは？
-    6.2　ハッシュの要素にアクセスする
-    6.3　ハッシュ関数
-    6.4　ハッシュの利用例
-    6.5　%ENVハッシュ
-    6.6　練習問題
+出版社内容情報
 
-7章　正規表現
-    7.1　並び
-    7.2　パターンの練習
-    7.3　ワイルドカード
-    7.4　量指定子
-    7.5　パターンをグループにまとめる
-    7.6　選択肢
-    7.7　文字クラス
-    7.8　Unicode属性
-    7.9　アンカー
-    7.10 練習問題
-
-8章　正規表現によるマッチ
-    8.1　m//を使ってマッチを行う
-    8.2　マッチ修飾子
-    8.3　結合演算子 =~
-    8.4　マッチ変数
-    8.5　優先順位
-    8.6　パターンをテストするプログラム
-    8.7　練習問題
-
-9章　正規表現によるテキスト処理
-    9.1　s///を使って置換を行う
-    9.2　split演算子
-    9.3　join関数
-    9.4　m//をリストコンテキストで使う
-    9.5　より強力な正規表現機能
-    9.6　練習問題
-
-10章　さまざまな制御構造
-    10.1　unless制御構造
-    10.2　until制御構造
-    10.3　文修飾子
-    10.4　裸のブロック制御構造
-    10.5　elsif節
-    10.6　オートインクリメントとオートデクリメント
-    10.7　for制御構造
-    10.8　ループを制御する
-    10.9　条件演算子
-    10.10 論理演算子
-    10.11 練習問題
-
-11章　Perlモジュール
-    11.1　モジュールを探す
-    11.2　モジュールをインストールする
-    11.3　単純なモジュールを使う
-    11.4　練習問題
-
-12章　ファイルテスト
-    12.1　ファイルテスト演算子
-    12.2　stat関数と lstat関数
-    12.3　localtime関数
-    12.4　ビット演算子
-    12.5　練習問題
-
-13章　ディレクトリ操作
-    13.1　カレントディレクトリ
-    13.2　ディレクトリを移動する
-    13.3　グロブ
-    13.4　グロブの別の書き方
-    13.5　ディレクトリハンドル
-    13.6　ファイルとディレクトリの取り扱い
-    13.7　ファイルを削除する
-    13.8　ファイルの名前を変更する
-    13.9　リンクとファイル
-    13.10 ディレクトリの作成と削除
-    13.11 パーミッションを変更する
-    13.12 ファイルのオーナーを変更する
-    13.13 タイムスタンプを変更する
-    13.14 練習問題
-
-14章　文字列処理とソート
-    14.1　indexを使って部分文字列を探す
-    14.2　substrを使って部分文字列をいじる
-    14.3　sprintfを使ってデータをフォーマットする
-    14.4　高度なソート
-    14.5　練習問題
-
-15章　プロセス管理
-    15.1　system関数
-    15.2　環境変数
-    15.3　exec関数
-    15.4　バッククォートを使って出力を取り込む
-    15.5　IPC::System::Simpleによる外部プロセスの起動
-    15.6　プロセスをファイルハンドルとして使う
-    15.7　forkを使って低レベル処理を行う
-    15.8　シグナルを送受信する
-    15.9　練習問題
-
-16章　上級テクニック
-    16.1　スライス
-    16.2　エラーをトラップする
-    16.3　grepを使ってリストから要素を選び出す
-    16.4　mapを使ってリストの要素を変換する
-    16.5　便利なリストユーティリティ
-    16.6　練習問題
-
-付録A　練習問題の解答
-    1章の練習問題の解答
-    2章の練習問題の解答
-    3章の練習問題の解答
-    4章の練習問題の解答
-    5章の練習問題の解答
-    6章の練習問題の解答
-    7章の練習問題の解答
-    8章の練習問題の解答
-    9章の練習問題の解答
-    10章の練習問題の解答
-    11章の練習問題の解答
-    12章の練習問題の解答
-    13章の練習問題の解答
-    14章の練習問題の解答
-    15章の練習問題の解答
-    16章の練習問題の解答
-
-付録B　リャマを越えて
-    B.1　豊富なドキュメント
-    B.2　正規表現
-    B.3　パッケージ
-    B.4　Perlの機能を拡張する
-    B.5　データベース
-    B.6　数学
-    B.7　リストと配列
-    B.8　ビット操作
-    B.9　フォーマット
-    B.10 ネットワークと IPC
-    B.11 セキュリティ
-    B.12 デバッグ
-    B.13 コマンドラインオプション
-    B.14 組み込み変数
-    B.15 リファレンス
-    B.16 タイ変数
-    B.17 演算子オーバーロード
-    B.18 Perlから他の言語を使う
-    B.19 Perlを他のプログラムに組み込む
-    B.20 findコマンドラインを Perlに変換する
-    B.21 コマンドラインオプションを受け取る
-    B.22 ドキュメントを埋め込む
-    B.23 ファイルハンドルをオープンする他の方法
-    B.24 グラフィカルユーザインタフェース（GUI）
-    B.25 そしてまだまだ続く……
-
-付録C　Unicode入門
-    C.1　Unicode
-    C.2　UTF-8と仲間たち
-    C.3　みんなの同意を取り付ける
-    C.4　ファンシーな文字
-    C.5　Perlでの Unicodeの扱い方
-    C.6　データベースの扱い
-    C.7　参考文献
-
-付録D　実験的機能
-    D.1　Perl開発小史
-    D.2　新しい Perlをインストールする
-    D.3　実験的機能
+各種プログラミング言語などに実装された、文書処理、フォーマット変換、検索処理のための基礎技術である「正規表現」の真髄を解く、世界的ロングセラーの待望の改訂版。
 </pre>
-<h3>初めてのPerlの購入</h3>
-<p>
-  初めてのPerlのご購入はこちらから。
-</p>
+<h3>詳説　正規表現の購入</h3>
 <ul>
-  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784873118246" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886428281" height="1" width="0" border="0">紀伊国屋書店で購入</a></li>
-  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663584&vc_url=https%3A%2F%2Fhonto.jp%2Fnetstore%2Fpd-book_28830700.html%3Fpartnerid%3D02vc01" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663584" height="1" width="0" border="0">hontoで購入</a></li>
-  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663661&vc_url=https%3A%2F%2Fstore.shopping.yahoo.co.jp%2Fhmv%2F8479056.html%3Fsc_i%3Dshp_pc_search_itemlist_shsrg_title%26sc_e%3Dafvc_shp_3513971" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663661" height="1" width="0" border="0">Yahooショッピングで購入</a></li>
-  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663670&vc_url=https%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F15296059%2F%3Fl-id%3Dsearch-all-non-again%26scid%3Daf_vlc_kobo%26argument%3DbgyDAcwK%26dmai%3DVC0001" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663670" height="1" width="0" border="0">楽天ブックスで購入</a></li>
-  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886662145&vc_url=https%3A%2F%2Fwww.amazon.co.jp%2F%25E5%2588%259D%25E3%2582%2581%25E3%2581%25A6%25E3%2581%25AEPerl-%25E7%25AC%25AC7%25E7%2589%2588-Randal-L-Schwartz%2Fdp%2F4873118247%2Fref%3Dsr_1_1%3F__mk_ja_JP%3D%25E3%2582%25AB%25E3%2582%25BF%25E3%2582%25AB%25E3%2583%258A%26dchild%3D1%26keywords%3D%25E5%2588%259D%25E3%2582%2581%25E3%2581%25A6%25E3%2581%25AEPerl%26qid%3D1596102038%26sr%3D8-1%26tag%3Dvc-22%26linkCode%3Dure" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886662145" height="1" width="0" border="0">Amazonで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784873111308" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886428281" height="1" width="0" border="0">紀伊国屋書店で購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663584&vc_url=https%3A%2F%2Fhonto.jp%2Fnetstore%2Fpd-book_02999825.html%3Fpartnerid%3D02vc01" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663584" height="1" width="0" border="0">hontoで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663670&vc_url=https%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F5611106%2F%3Fl-id%3Dsearch-c-item-text-01%26scid%3Daf_vlc_kobo%26argument%3DbgyDAcwK%26dmai%3DVC0001" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663670" height="1" width="0" border="0">楽天ブックスで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886662145&vc_url=https%3A%2F%2Fwww.amazon.co.jp%2F%25E6%25AD%25A3%25E8%25A6%258F%25E8%25A1%25A8%25E7%258F%25BE-%25E7%25AC%25AC3%25E7%2589%2588-Jeffrey-F-Friedl%2Fdp%2F4873113598%2Fref%3Dsr_1_1%3F__mk_ja_JP%3D%25E3%2582%25AB%25E3%2582%25BF%25E3%2582%25AB%25E3%2583%258A%26dchild%3D1%26keywords%3D%25E8%25A9%25B3%25E8%25AA%25AC%2B%25E6%25AD%25A3%25E8%25A6%258F%25E8%25A1%25A8%25E7%258F%25BE%26qid%3D1596210702%26s%3Dbooks%26sr%3D1-1%26tag%3Dvc-22%26linkCode%3Dure" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886662145" height="1" width="0" border="0">Amazonで購入</a></li>
 </ul>
 
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/03/23</div>
-<h2><a href="/blog/20200323094204.html">Unix/Linuxサーバー管理とWebシステム開発をPerlで統合し業務効率化</a></h2>
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/26</div>
+<style>
+  .bottom { display:none; }
+</style>
+<h2><a href="/blog/20200726215543.html">【書籍案内】かんたんPerl プログラミングの教科書</a></h2>
 <p>
-  Perlは、Unixで生まれ、Unix/Linux環境におけるテキスト処理のミドルウェアツールとして広く活用されています。
+  「かんたんPerl プログラミングの教科書」は、日本人の著者によるPerlの入門書。プログラミングを0から始める方が、Perlの基礎を学ぶのに適しています。実際に動くサンプルが300本収録。
 </p>
 <p>
-  Webシステム開発はテキストが中心の処理であり、Perlの得意分野のひとつです。Webシステム開発で培われた長年の実績もあります。
+  <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/47741/4774177911.jpg">
+</p>
+<blockquote>
+<p>
+  内容説明
 </p>
 <p>
-  システム開発を、テキスト処理を中心に構成すれば、リモートワークによるシステム開発も簡単です。
+  すぐわかる!プログラミング入門書。一歩一歩ていねいに解説。実動サンプル300本。あるあるエラーも先回り解説。
 </p>
-<h3>Unix/Linuxサーバー管理とWebシステム開発をPerlで統合し業務効率化</h3>
+</blockquote>
+<h3>かんたんPerl プログラミングの教科書の目次</h3>
 <p>
-  Unix/Linuxサーバー管理とWebシステム開発をPerlで統合し業務効率化という道が考えられます。
+  かんたんPerl プログラミングの教科書の目次です。
+</p>
+<pre>
+目次
+最初はあいさつから
+数と計算
+文字列とコンテキスト
+リストと配列
+ハッシュ
+枝分かれのifと真偽
+繰り返しと脱出
+自作関数サブルーチン
+ファイル処理
+日本語処理
+正規表現
+モジュール入門/フォルダー処理、CGI
+</pre>
+<blockquote>
+<p>
+  著者等紹介
 </p>
 <p>
-  人材不足が予測され、業務の自動化や業務の効率化を求められる場合は、Perlという選択肢が強みになります。
+  深沢千尋[フカザワチヒロ]
 </p>
 <p>
-  Perlは、サーバーサイドのプログラミング言語であり、Unix/Linux環境のサーバー管理におけるテキスト処理に強く、Webシステムの開発効率とパフォーマンスを十分に満たせます。
+  汎用機のSE、技術翻訳会社でのツール開発および社員教育担当を経て、現在はフリーのテクニカルライター、プログラマー(本データはこの書籍が刊行された当時に掲載されていたものです)
 </p>
-<h3>Linux + Git + Perl + Webシステム開発</h3>
+</blockquote>
+<blockquote>
 <p>
-  「Linux + Git + Perl + Webシステム開発」という選択肢を一つの選択肢としてぜひ考慮してみてください。
+  ※書籍に掲載されている著者及び編者、訳者、監修者、イラストレーターなどの紹介情報です。
 </p>
 <p>
-  Perlは、よりよい開発効率とWebシステムのパフォーマンスをもたらしてくれるでしょう。
+  出版社内容情報
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/02/27</div>
-<h2><a href="/blog/20200227074732.html">2020年3月のPerlゼミブランドのサイト一覧</a></h2>
 <p>
-  2020年3月のPerlゼミブランドのサイト一覧。
+  本書は、プログラム言語Perlの入門書です。Perlは、気楽に書けて超強力な言語として、長く親しまれています。本書ではデータ構造、アルゴリズム、ファイル処理、日本語処理、正規表現をまったくの初歩から学ぶことで、基本的な考え方から、実用的なプログラミングまで、楽しく身につけられることを目的としています。
 </p>
-<h3>1年以内のPerlゼミブランドの新公開サイト</h3>
-<p>
-  1年以内のPerlゼミブランドの新公開サイト、新しい順!!!
-</p>
+</blockquote>
+<h3かんたんPerlの購入</h3>
 <ul>
-  <li><a href="https://deeplearning.perlzemi.com/">Perlで学ぶディープラーニング入門</a>2020/2/27～</li> 
-  <li><a href="https://datascience.perlzemi.com/">Perlで学ぶデータサイエンス入門</a>2020/2/27～</li> 
-  <li><a href="https://bio.perlzemi.com/">Perlで学ぶ分子生物学・バイオインフォマティクス入門 高速処理対応</a>2020/2/27～</li> 
-  <li><a href="https://note.com/perlzemi">エンジニアのメンタルヘルス改善ノート</a>2020/2/8～</li> 
-  <li><a href="https://webdesign.perlzemi.com">Webデザイン入門</a>2020/2/6～</li> 
-  <li><a href="https://education.perlzemi.com">プログラミング教育の教材</a>2020/2/6～</li> 
-  <li><a href="https://laboratory.perlzemi.com">Perlゼミ ソフトウェア研究所</a>2020/2/6～</li>
-  <li><a href="https://centos.perlzemi.com">CentOS入門</a>2020/2/6～</li>
-  <li><a href="https://mariadb.perlzemi.com">MariaDB入門</a>2020/2/6～</li>
-  <li><a href="http://school.perlzemi.com">Perlゼミのプログラミングスクール</a>2020/2/6～</li>
-  <li><a href="https://dbix-custom.perlzemi.com">DBIx::Custom - PerlのO/Rマッパー</a>2020/1/25～</li>
-  <li><a href="https://perlzemichannel.seesaa.net">Perlゼミの「爆速」プログラミングチャンネル</a>2020/1/11～</li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784774177915" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886428281" height="1" width="0" border="0">紀伊国屋書店で購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663584&vc_url=https%3A%2F%2Fhonto.jp%2Fnetstore%2Fpd-book_02999825.html%3Fpartnerid%3D02vc01" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663584" height="1" width="0" border="0">hontoで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663670&vc_url=https%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F13530380%2F%3Fl-id%3Dsearch-c-item-text-01%26scid%3Daf_vlc_kobo%26argument%3DbgyDAcwK%26dmai%3DVC0001" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663670" height="1" width="0" border="0">楽天ブックスで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886662145&vc_url=https%3A%2F%2Fwww.amazon.co.jp%2F%25E3%2581%258B%25E3%2582%2593%25E3%2581%259F%25E3%2582%2593-Perl-%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B0%25E3%2583%25A9%25E3%2583%259F%25E3%2583%25B3%25E3%2582%25B0%25E3%2581%25AE%25E6%2595%2599%25E7%25A7%2591%25E6%259B%25B8-%25E6%25B7%25B1%25E6%25B2%25A2-%25E5%258D%2583%25E5%25B0%258B%2Fdp%2F4774177911%2Fref%3Dsr_1_1%3F__mk_ja_JP%3D%25E3%2582%25AB%25E3%2582%25BF%25E3%2582%25AB%25E3%2583%258A%26dchild%3D1%26keywords%3D%25E3%2581%258B%25E3%2582%2593%25E3%2581%259F%25E3%2582%2593Perl%26qid%3D1596210673%26s%3Dbooks%26sr%3D1-1%26tag%3Dvc-22%26linkCode%3Dure" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886662145" height="1" width="0" border="0">Amazonで購入</a></li>
 </ul>
-<h3>Perlゼミブランドのサイト一覧</h3>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/25</div>
+<style>
+  .bottom { display:none; }
+</style>
+<h2><a href="/blog/20200725215543.html">【書籍案内】正規表現ポケットリファレンス （改訂新版）</a></h2>
+<p>
+  正規表現ポケットリファレンスは、正規表現についてコンパクトにまとめられた一冊。実践における正規表現を素早く覚えるのに適しています。正規表現のプログラムのサンプルとしてPerl、JavaScript、PHP、Ruby、Javaが紹介されています。
+</p>
+<p>
+  <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/47741/4774177407.jpg">
+</p>
+<blockquote>
+<p>
+  内容説明
+</p>
+<p>
+  プログラマ必携！これ１冊で正規表現がわかる！使える！基本のメタキャラクタから実例のパターンレシピまで厳選収録。Ｒｕｂｙ、Ｐｅｒｌ、ＰＨＰ、ＪａｖａＳｃｒｉｐｔ、Ｊａｖａ対応の処理系別ガイドが充実。すぐに役立つプチプログラム付き。
+</p>
+</blockquote>
+<h3>正規表現ポケットリファレンスの目次</h3>
+<p>
+  正規表現ポケットリファレンスの目次です。
+</p>
+<pre>
+目次
+第１章　正規表現入門
+第２章　メタキャラクタ辞典
+第３章　メタキャラクタ以外の正規表現要素
+第４章　処理系別ガイド
+第５章　正規表現パターンレシピ
+第６章　プチプログラム
+著者等紹介
+</pre>
+<blockquote>
+<p>
+  著者等紹介
+</p>
+<p>
+  宮前竜也［ミヤマエタツヤ］
+</p>
+<p>
+  １９７４年東京生まれ。１９９８年より（有）ビットアーツ代表。２０１５年よりラグル（株）ファウンダー・取締役ＣＴＯ。１９９０年代のインターネット黎明期から４０歳代に突入した現在までＷｅｂ専門のプログラマとして活動中（本データはこの書籍が刊行された当時に掲載されていたものです）
+</p>
+<p>
+  ※書籍に掲載されている著者及び編者、訳者、監修者、イラストレーターなどの紹介情報です。
+</p>
+</blockquote>
+<h3>正規表現ポケットリファレンスの購入</h3>
 <ul>
-  <li><a href="https://philosophy.perlzemi.com">Perlの哲学</a>2019～</li>
-  <li><a href="https://linux.perlzemi.com">Linuxサーバー管理入門</a>2019～</li>
-  <li><a href="https://web.perlzemi.com">Mojoliciousスタートアップ</a>2019～</li>
-  <li><a href="https://doc.giblog.net">Giblog日本語ドキュメント</a>2019～</li>
-  <li><a href="https://jp.giblog.net">Giblog公式サイト</a>2019～</li>
-  <li><a href="https://jp.spvm.info">SPVMドキュメント</a>2019～</li>
-  <li><a href="https://perlcodesample.hateblo.jp">Perlテックブログ</a>2018年～</li>
-  <li><a href="https://mojodoc.perlzemi.com">Mojoliciousドキュメント 日本語訳</a>2014～</li>
-  <li><a href="https://tutorial.perlzemi.com/">Perl入門ゼミ</a>2009年～</li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784774177403" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886428281" height="1" width="0" border="0">紀伊国屋書店で購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663584&vc_url=https%3A%2F%2Fhonto.jp%2Fnetstore%2Fpd-book_27512010.html%3Fpartnerid%3D02vc01" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663584" height="1" width="0" border="0">hontoで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663670&vc_url=https%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F13450260%2F%3Fl-id%3Dsearch-c-item-text-01%26scid%3Daf_vlc_kobo%26argument%3DbgyDAcwK%26dmai%3DVC0001" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663670" height="1" width="0" border="0">楽天ブックスで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886662145&vc_url=https%3A%2F%2Fwww.amazon.co.jp%2F%25E6%2594%25B9%25E8%25A8%2582%25E6%2596%25B0%25E7%2589%2588-%25E6%25AD%25A3%25E8%25A6%258F%25E8%25A1%25A8%25E7%258F%25BE%25E3%2583%259D%25E3%2582%25B1%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AA%25E3%2583%2595%25E3%2582%25A1%25E3%2583%25AC%25E3%2583%25B3%25E3%2582%25B9-%25E5%25AE%25AE%25E5%2589%258D-%25E7%25AB%259C%25E4%25B9%259F%2Fdp%2F4774177407%2Fref%3Dsr_1_1%3F__mk_ja_JP%3D%25E3%2582%25AB%25E3%2582%25BF%25E3%2582%25AB%25E3%2583%258A%26dchild%3D1%26keywords%3D%25E6%25AD%25A3%25E8%25A6%258F%25E8%25A1%25A8%25E7%258F%25BE%25E3%2583%259D%25E3%2582%25B1%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AA%25E3%2583%2595%25E3%2582%25A1%25E3%2583%25AC%25E3%2583%25B3%25E3%2582%25B9%26qid%3D1596210653%26s%3Dbooks%26sr%3D1-1%26tag%3Dvc-22%26linkCode%3Dure" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886662145" height="1" width="0" border="0">Amazonで購入</a></li>
+</ul>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/24</div>
+<style>
+  .bottom { display:none; }
+</style>
+<h2><a href="/blog/20200724215543.html">【書籍案内】Perlではじめるプログラミング超入門</a></h2>
+<p>
+  Perlではじめるプログラミング超入門は、Perlの基礎を覚えることができるPerlプログラミングの入門書です。
+</p>
+<p>
+  <img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/47741/4774192635.jpg">
+</p>
+<blockquote>
+<p>
+  内容説明
+</p>
+<p>
+  プログラミングの経験がなくても大丈夫！この１冊でＰｅｒｌの基礎をしっかりマスターできる！
+</p>
+</blockquote>
+<h3>Perlではじめるプログラミング超入門の目次</h3>
+<p>
+  Perlではじめるプログラミング超入門の目次です。
+</p>
+<pre>
+目次
+Ｐｅｒｌの概要
+Ｐｅｒｌ開発実行環境の構築
+変数と演算子
+データ入力
+条件分岐
+ループ
+配列
+標準関数
+サブルーチン
+パターンマッチと正規表現
+ファイル操作
+乱数とゲーム
+ロールプレイングゲームの制作
+</pre>
+<blockquote>
+<p>
+  著者等紹介
+</p>
+<p>
+  高橋順子［タカハシジュンコ］
+</p>
+<p>
+  京都大学大学院理学研究科化学専攻博士後期課程修了。理学博士（京都大学）。基礎化学研究所（現・京都大学福井謙一記念研究センター）研究員、日本学術振興会特別研究員、国立天文台・山梨大学・理化学研究所の博士研究員を経て、明治学院大学法学部消費情報環境法学科准教授（情報処理教育担当者）（本データはこの書籍が刊行された当時に掲載されていたものです）
+</p>
+<p>
+  ※書籍に掲載されている著者及び編者、訳者、監修者、イラストレーターなどの紹介情報です。
+</p>
+</blockquote>
+<h3>Perlではじめるプログラミング超入門の購入</h3>
+<ul>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886428281&vc_url=https%3A%2F%2Fwww.kinokuniya.co.jp%2Ff%2Fdsg-01-9784774192635" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886428281" height="1" width="0" border="0">紀伊国屋書店で購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663584&vc_url=https%3A%2F%2Fhonto.jp%2Fnetstore%2Fpd-book_28678494.html%3Fpartnerid%3D02vc01" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663584" height="1" width="0" border="0">hontoで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886663670&vc_url=https%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F15138984%2F%3Fl-id%3Dsearch-c-item-text-01%26scid%3Daf_vlc_kobo%26argument%3DbgyDAcwK%26dmai%3DVC0001" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886663670" height="1" width="0" border="0">楽天ブックスで購入</a></li>
+  <li><a href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3513971&pid=886662145&vc_url=https%3A%2F%2Fwww.amazon.co.jp%2FPerl%25E3%2581%25A7%25E3%2581%25AF%25E3%2581%2598%25E3%2582%2581%25E3%2582%258B-%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B0%25E3%2583%25A9%25E3%2583%259F%25E3%2583%25B3%25E3%2582%25B0%25E8%25B6%2585%25E5%2585%25A5%25E9%2596%2580-%25E3%2581%258B%25E3%2582%2593%25E3%2581%259F%25E3%2582%2593IT%25E5%259F%25BA%25E7%25A4%258E%25E8%25AC%259B%25E5%25BA%25A7-%25E9%25AB%2598%25E6%25A9%258B-%25E9%25A0%2586%25E5%25AD%2590%2Fdp%2F4774192635%2Fref%3Dsr_1_1%3F__mk_ja_JP%3D%25E3%2582%25AB%25E3%2582%25BF%25E3%2582%25AB%25E3%2583%258A%26dchild%3D1%26keywords%3DPerl%25E3%2581%25A7%25E3%2581%25AF%25E3%2581%2598%25E3%2582%2581%25E3%2582%258B%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B0%25E3%2583%25A9%25E3%2583%259F%25E3%2583%25B3%25E3%2582%25B0%25E8%25B6%2585%25E5%2585%25A5%25E9%2596%2580%26qid%3D1596210631%26s%3Dbooks%26sr%3D1-1%26tag%3Dvc-22%26linkCode%3Dure" rel="nofollow"><img src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3513971&pid=886662145" height="1" width="0" border="0">Amazonで購入</a></li>
 </ul>
 
 
   </div>
   <div class="bottom">
     <div style="font-size:22px;text-align:center;font-weight:bold;margin:30px 0 15px 0;">
-  Perlゼミ おすすめ講座
+  関連おすすめ講座
 </div>
 
 <ul>
   <li>
-    <a rel="nofollow" href="/tutorial.html">プログラミングを独学で学ぶ<br>Perlプログラミング入門</a>
+    <a href="https://linux.perlzemi.com/">Linuxサーバー管理入門</a>
   </li>
   <li>
-    <a href="https://linux.perlzemi.com/">Linuxコマンドを学ぶなら<br>Linuxサーバー管理入門</a>
+    <a href="https://webdesign.perlzemi.com/">Webデザイン入門</a>
   </li>
   <li>
-    <a href="https://webdesign.perlzemi.com/">Webシステム開発者のための<br>Webデザイン入門</a>
-  </li>
-  <li>
-    <a href="https://web.perlzemi.com/">Webシステム開発入門 Perl+Mojolicious</a>
+    <a href="https://web.perlzemi.com/">Webシステム開発入門</a>
   </li>
 </ul>
 
 <div style="font-size:22px;text-align:center;font-weight:bold;margin:30px 0 15px 0;">
-  パール木本のPerlプログラミングちゃんねる 紹介動画
+  Perlプログラミングちゃんねるの紹介
 </div>
 
 <div style="margin-left:auto;margin-right:auto;text-align:center;">
@@ -1009,7 +893,7 @@ setenv PERL5LIB /foo/lib:/bar/lib
   <iframe width="560" height="315" src="https://www.youtube.com/embed/z_oHTUGLyls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 <div style="text-align:center">
-  <a href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">パール木本のPerlプログラミングちゃんねる<br>役立った、面白かったら、いいね、ちゃんねる登録で応援</a>
+  <a href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">Perlプログラミングちゃんねる<br>チャンネル登録・口コミ歓迎</a>
 </div>
 
   </div>
@@ -1077,7 +961,7 @@ setenv PERL5LIB /foo/lib:/bar/lib
 </div>
 <div class="hatena-module">
   <div class="hatena-moduletitle">
-    Perlの入門書
+    Perlの書籍
   </div>
   <div class="hatena-modulebody" style="text-align:center;letter-spacing:1px;">
     <ul>
@@ -1090,6 +974,14 @@ setenv PERL5LIB /foo/lib:/bar/lib
         <div style="font-size:17px;margin-bottom:5px"><b>業務に役立つPerl</b></div>
         <a href="/blog/20120326133275.html"><img src="https://images-na.ssl-images-amazon.com/images/I/51d4T7m8NzL._SX347_BO1,204,203,200_.jpg" width="160"></a><br>
         <div style="margin-top:10px;">ログ解析など日本語を含むテキスト処理の実践!</div>
+      </li>
+      <li>
+        <div style="font-size:17px;margin-bottom:5px"><b>詳説　正規表現</b></div>
+        <a href="/blog/20200727215543.html"><img src="https://www.kinokuniya.co.jp/images/goods/ar2/web/imgdata2/48731/4873113598.jpg" width="160px"></a><br>
+        <div style="margin-top:10px;">正規表現の詳細な解説</div>
+      </li>
+      <li>
+        <a href="/blog/20200728215543.html">Perlの書籍の紹介 »</a>
       </li>
     </ul>
   </div>
