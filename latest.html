@@ -57,7 +57,73 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/29</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/31</div>
+<h2><a href="/blog/20200731104457.html">Perlにおけるお勧めのシェバンの書き方</a></h2>
+<p>
+  Perlにおける、お勧めのシェバンの書き方。「#!/usr/bin/env perl」。
+</p>
+<pre>
+#!/usr/bin/env perl
+</pre>
+<p>
+  Unix/Linuxには、シェバンと呼ばれる機能があり、シェバンに書かれたコマンドで、ファイルに書かれた内容を実行してくれます。
+</p>
+<p>
+  シェバンは「#!」で始まります。
+</p>
+<p>
+  「#!/usr/bin/env perl」がお勧めな理由は、ほとんどの<a href="https://linux.perlzemi.com/">Linux</a>/Unix環境で動くからです。
+</p>
+<p>
+  <a href="https://tutorial.perlzemi.com/blog/20110220130464.html">perlbrew</a>や<a href="https://tutorial.perlzemi.com/blog/20180816153437.html">plenv</a>でユーザー環境にPerlをインストールした場合でも正しく動きます。
+</p>
+<p>
+  envコマンドは、環境変数PATHのディレクトリを検索して最初に見つかったperlで実行してくれます。
+</p>
+<h3>envを使うことのデメリット</h3>
+<p>
+  envを使うことのデメリットは、どのPerlを使うかが確定されないということです。envという名前のとおり、PATH環境変数という、環境に依存します。
+</p>
+<p>
+  Perlスクリプトのポータビリティを高めるか、指定したPerlでプログラムを実行するのと、どちらがメリットがあるかという選択になります。
+</p>
+<h3>シェバン行は必須ですか?</h3>
+<p>
+  シェバン行は必須ではないです。
+</p>
+<p>
+  perlコマンドを実行すれば、シェバンに関係なく、perlで実行できるからです。
+</p>
+<pre>
+perl script.pl
+</pre>
+<p>
+  Windows環境であれば、シェバンを書かずに、直接Perlで実行するということも多いでしょう。
+</p>
+<p>
+  サーバー運用の現場で作るプログラムでは、perlスクリプトは、シェバンを書いて、拡張子をなしにして、実行ファイルのように扱うという規約や慣例があれば、それに従ってください。
+</p>
+<p>
+  Perlを中心に開発している現場では、Perlのプログラムは、拡張子をplにして、perlで実行するという選択もよいでしょう。
+</p>
+<p>
+  CGIスクリプトにおいては、シェバンは必須です。CGIというプロトコルは、実行権限のあるファイルをそのまま実行し、perlというコマンドで実行してくれるわけではないからです。ApacheなどのWebサーバーでは、シェバンを書かないと「Internal Server Error」になります。
+</p>
+<h3>CPANモジュールに含むスクリプトは「#!perl」がお勧め</h3>
+<p>
+  CPANモジュールを配布する場合に含むスクリプトは「#!perl」がお勧めです。
+</p>
+<pre>
+#!perl
+</pre>
+<p>
+  <a href="https://mojolicious.perlzemi.com/">Mojolicious</a>の本番サーバー起動コマンドの<a href="https://mojolicious.perlzemi.com/blog/20110122130016.html">hypnotoad</a>も「#!perl」を使っています。CPANクライアントは、インストール先の、Unix/Linux/Windowsで、スクリプトを実行できるように、この行を、自動的に書き換えてくれます。
+</p>
+<p>
+  <a href="https://github.com/mojolicious/mojo/blob/master/script/hypnotoad">hypnotoadで「#!perl」をシェバンとして使っている例</a>
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/07/29</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
@@ -906,126 +972,6 @@ setenv PERL5LIB /foo/lib:/bar/lib
   <li><a href="https://mojodoc.perlzemi.com">Mojoliciousドキュメント 日本語訳</a>2014～</li>
   <li><a href="https://tutorial.perlzemi.com/">Perl入門ゼミ</a>2009年～</li>
 </ul>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/02/12</div>
-<h2><a href="/blog/20200212001942.html">Dモジュール - データをエンコードし標準エラー出力へダンプ</a></h2>
-<p>
-  Dモジュールは、データをエンコードし標準エラー出力へダンプするユーティリティ関数を提供します。
-</p>
-<h3>インストール</h3>
-<p>
-  cpanmでインストールする方法
-</p>
-<pre>
-$ cpanm install D
-</pre>
-<p>
-  githubからダウンロードしてインストールする方法
-</p>
-<pre>
-$ git clone https://github.com/YoshiyukiItoh/D.git
-$ cd D
-$ perl Makefile.PL
-$ make
-$ make test
-$ make install
-</pre>
-<h3>利用例</h3>
-<p>
-  Dモジュールは、以下のように利用します。
-</p>
-<pre>
-use utf8;
- 
-# dw, du, dn関数をexportします
-use D;
- 
-# デコードされた文字列を含むデータ(リファレンス)を準備します
-my $data = [{name =&gt; 'あ'}, {name =&gt; 'い'}];
- 
-# リファレンスデータをエンコード(utf8)し、文字列を返します
-my $str = dustr $data;
- 
-# リファレンスデータをエンコード(cp932)し、文字列を返します
-my $str = dwstr $data;
- 
-# リファレンスデータをエンコードせずに文字列を返します
-my $str = dnstr $data;
-
-# dustr関数の結果を標準エラー出力へダンプします
-du $data;
- 
-# dwstr関数の結果を標準エラー出力へダンプします
-dw $data;
- 
-# dnstr関数の結果を標準エラー出力へダンプします
-dn $data;
-</pre>
-<h3>特徴</h3>
-<ul>
-<li>du, dw, dn, dustr, dwstr, dnstr関数をエクスポートします。これらの関数名は、2文字のため'p' などのデバックコマンドと競合しないでください。</li>
-<li>dustr, dwstr関数はリファレンスデータの全ての文字列をエンコードします。</li>
-<li>duは'dump UTF-8'の短縮名です。</li>
-<li>dwは'dump Windows cp932'の短縮名です。</li>
-<li>dnは'dump no encoding'の短縮名です。</li>
-<li>One Linerは便利です。'use D; du $data;' or 'use D; dw $data;' or 'use D; dn $data;'</li>
-<li>Data::DumperのDump関数を使用してデータをダンプします。</li>
-<li>行番号とファイル名を標準エラーへ出力します。</li>
-<li>ダンプされたデータのハッシュのキーでソートします。</li>
-<li>Data::Dumperのデフォルトとは異なり、'$VAR1 ='を出力しません。</li>
-</ul>
-<h3>エクスポートする関数</h3>
-<p>
-  du, dw, dn, dustr, dwstr, dnstr関数をエクスポートします。
-</p>
-<h3>関数</h3>
-<h4>dustr関数</h4>
-<p>
-  リファレンスデータ内のすべての文字列をUTF-8にエンコードし、リファレンスデータをファイル名, 行番号とともに文字列を返却します。
-</p>
-<p>
-  引数が文字列などの参照データでない場合も、リファレンスデータと同じ方法でダンプされます。
-</p>
-<h4>du関数</h4>
-<p>
-  dustr関数の結果を標準エラー出力へダンプします。
-</p>
-<h4>dwstr関数</h4>
-<p>
-  リファレンスデータ内のすべての文字列をCP932にエンコードし、リファレンスデータをファイル名, 行番号とともに文字列を返却します。
-</p>
-<p>
-  引数が文字列などの参照データでない場合も、リファレンスデータと同じ方法でダンプされます。
-</p>
-<h4>dw関数</h4>
-<p>
-  dwstr関数の結果を標準エラー出力へダンプします。
-</p>
-<h4>dnstr関数</h4>
-<p>
-  リファレンスデータ内のすべての文字列をエンコードせず、リファレンスデータをファイル名, 行番号とともに文字列を返却します。
-</p>
-<p>
-  引数が文字列などの参照データでない場合も、リファレンスデータと同じ方法でダンプされます。
-</p>
-<h4>dn関数</h4>
-<p>
-  dwstr関数の結果を標準エラー出力へダンプします。
-</p>
-<h3>バグレポート</h3>
-<p>
-  <a href="https://github.com/YoshiyukiItoh/D" target="_blank">https://github.com/YoshiyukiItoh/D</a>
-</p>
-<h3>関連項目</h3>
-<ul>
-<li><a href="https://metacpan.org/pod/Data::Dumper" target="_blank">Data::Dumper</a></li>
-<li><a href="https://metacpan.org/pod/Carp" target="_blank">Carp</a></li>
-<li><a href="https://metacpan.org/pod/Data::Recursive::Encode" target="_blank">Data::Recursive::Encode</a></li>
-</ul>
-<h3>元ページ(meta::cpan)</h3>
-<p>
-  <a href="https://metacpan.org/pod/D" target="_blank">https://metacpan.org/pod/D</a>
-</p>
 
 
   </div>
