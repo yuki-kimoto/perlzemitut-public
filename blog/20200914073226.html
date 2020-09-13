@@ -42,12 +42,12 @@
     var vc_pid = "886663612";
 </script><script type="text/javascript" src="//aml.valuecommerce.com/vcdal.js" async></script>
 
-<title>PDFファイルを作成する - PDF::API2で帳票作成 - Perlゼミ</title>
-<meta name="description" content="PDF::API2で、PDFファイルを作成するには次のようにします。">
+<title>PDFを結合する - PDF::API2で帳票作成 - Perlゼミ</title>
+<meta name="description" content="PDF::API2で、PDFファイルを結合するには次のようにします。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="PDFファイルを作成する - PDF::API2で帳票作成 - Perlゼミ" />
-<meta name="twitter:description" content="PDF::API2で、PDFファイルを作成するには次のようにします。" />
+<meta name="twitter:title" content="PDFを結合する - PDF::API2で帳票作成 - Perlゼミ" />
+<meta name="twitter:description" content="PDF::API2で、PDFファイルを結合するには次のようにします。" />
 <meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
 
 
@@ -86,9 +86,9 @@
     here
   </li>
 </ol>
-<h2><a href="/blog/20191226175520.html">PDFファイルを作成する - PDF::API2で帳票作成</a></h2>
+<h2><a href="/blog/20200914073226.html">PDFを結合する - PDF::API2で帳票作成</a></h2>
 <p>
-  PDF::API2で、PDFファイルを作成するには次のようにします。
+  PDF::API2で、PDFファイルを結合するには次のようにします。
 </p>
 <p>
   PDFの空の情報を作成するには、newメソッドを使用します。
@@ -276,25 +276,6 @@ my @page_size_infos = $page-&gt;mediabox;
 <p>
   一般的には、左下からのマージンXが0、 左下からのマージンYが0で返ってきますので、右上の座標Xが幅、右上の座標Yが、高さと考えてよいでしょう。
 </p>
-<h3>複数のPDFファイルを結合する</h3>
-<p>
-  複数のPDFファイルを結合する手順を紹介します。新しいPDF::API2オブジェクトを作成します。既存のPDFファイルを開きます。
-</p>
-<p>
-  import_pageメソッドを使って、既存のPDFファイルを新しいPDFに挿入します。
-</p>
-<p>
-  最後に、新しいPDFを保存して終了です。
-</p>
-<pre>
-my $pdf = PDF::API2-&gt;new();
-my $old = PDF::API2-&gt;open('our/old.pdf');
- 
-# Add page 2 from the old PDF as page 1 of the new PDF
-$pdf-&gt;import_page($old, 2);
- 
-$pdf-&gt;saveas('our/new.pdf');
-</pre>
 
   </div>
   <div class="bottom">
