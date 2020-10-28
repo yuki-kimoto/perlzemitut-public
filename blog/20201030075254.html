@@ -42,6 +42,15 @@
     var vc_pid = "886663612";
 </script><script type="text/javascript" src="//aml.valuecommerce.com/vcdal.js" async></script>
 
+<title>ダブルクォート文字列のエスケープシーケンス - Perlゼミ</title>
+<meta name="description" content="(書きかけ)">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="ダブルクォート文字列のエスケープシーケンス - Perlゼミ" />
+<meta name="twitter:description" content="(書きかけ)" />
+<meta name="twitter:image" content="https://tutorial.perlzemi.com/images/perlzemi-twitter-card.png" />
+
+
   </head>
   <body>
     <div class="container">
@@ -60,166 +69,10 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/10/30</div>
-<h2><a href="/blog/20201030075254.html">ダブルクォート文字列のエスケープシーケンス</a></h2>
+    <h2><a href="/blog/20201030075254.html">ダブルクォート文字列のエスケープシーケンス</a></h2>
 <p>
   (書きかけ)
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/10/29</div>
-<h2><a href="/blog/20201029075254.html">シングルクォート文字列のエスケープシーケンス</a></h2>
-<p>
-  シングルクォート文字列のエスケープシーケンスの一覧です。
-</p>
-<table>
-  <tr><th>エスケープシーケンス</th><th>意味</th></tr>
-  <tr><td>\'</td><td>'</td></tr>
-  <tr><td>\\</td><td>\</td></tr>
-</table>
-<p>
-  シングルクォートの中で、シングルクォートを表現する「\'」と、バックスラッシュ自体を表現する「\\」を覚えておきましょう。
-</p>
-<pre>
-my $message = 'I \'m honest Perl User\\';
-</pre>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/10/28</div>
-<h2><a href="/blog/20201028075254.html">Perlのエスケープシーケンス</a></h2>
-<p>
-  Perlにおけるエスケープシーケンスとは、シングルクォート文字列あるいはダブルクォート文字列の中で使える特殊な文字を表現する記法のことです。
-</p>
-<p>
-  たとえば、シングルクォート文字列の中で、シングルクォート自体を表す「\'」や、ダブルクォート文字列の中で改行を表す「\n」などです。
-</p>
-<ul>
-  <li><a href="/blog/20201029075254.html">シングルクォート文字列のエスケープシーケンス</a></li>
-  <li><a href="/blog/20201030075254.html">ダブルクォート文字列のエスケープシーケンス</a></li>
-</ul>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/10/27</div>
-<h2><a href="/blog/20201027075254.html">シングルクォート文字列</a></h2>
-<p>
-  <b>シングルクォート文字列</b>とは、シングルクォートで囲まれた文字列です。<a href="/blog/20201026075254.html">ダブルクォート文字列</a>とは違って、<a href="/blog/20180228151982.html">変数展開</a>は行われず、改行文字「\n」などの<a href="/blog/20201030075254.html">ダブルクォート用のエスケープシーケンス</a>も使えません。
-</p>
-<pre>
-# シングルクォート文字列
-my $name = 'Perl Tutorial Book';
-</pre>
-<p>
-  変数展開は行われず、改行文字もそのまま表示されます。
-</p>
-<pre>
-my $message = 'I like $book\n';
-
-# 「I like $book\n」と表示される。
-print $message;
-</pre>
-<p>
-  シングルクォート文字列は、変数展開や改行文字を使わない文字列定数であることを明示的に表現したいときに使うことができます。
-</p>
-<h3>シングルクォート文字列のエスケープシーケンス</h3>
-<p>
-  シングルクォート文字列のエスケープシーケンスの一覧です。
-</p>
-<table>
-  <tr><th>エスケープシーケンス</th><th>意味</th></tr>
-  <tr><td>\'</td><td>'</td></tr>
-  <tr><td>\\</td><td>\</td></tr>
-</table>
-<p>
-  シングルクォートの中で、シングルクォートを表現する「\'」と、バックスラッシュ自体を表現する「\\」を覚えておきましょう。
-</p>
-<pre>
-my $message = 'I \'m honest Perl User\\';
-</pre>
-<p>
-  シングルクォート文字列のエスケープシーケンスの解説ページは以下です。
-</p>
-<ul>
-  <li><a href="/blog/20201029075254.html">シングルクォート文字列のエスケープシーケンス</a></li>
-</ul>
-<p>
-  もしシングルクォートが含まれた文字列をコピー＆ペーストで利用したい場合は、<a href="/blog/20100304126967.html">シングルクォート演算子</a>を使うこともできます。
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/10/26</div>
-<h2><a href="/blog/20201026075254.html">ダブルクォート文字列</a></h2>
-<p>
-  (書きかけ)
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/09/12</div>
-<h2><a href="/blog/20200912152545.html">Perlゼミの関連講座</a></h2>
-<p>
-  Perlゼミの関連講座のご紹介。
-</p>
-<h4>プログラミング入門</h4>
-<ul>
-  <li><a href="https://tutorial.perlzemi.com/">Perlゼミ</a></li>
-  <li><a href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">Youtube - プログラミングちゃんねる</a></li>
-</ul>
-<h4>Webシステム開発 環境構築</h4>
-<ul>
-  <li><a href="https://www.ubuntu-perl-web.com/">Ubuntu Webシステム開発 環境構築</a></li> 
-  <li><a href="https://centos.perlzemi.com">CentOS Webシステム開発 環境構築</a></li>
-  <li><a href="https://linux.perlzemi.com">Linuxサーバー管理入門</a></li>
-</ul>
-<h4>Webシステム開発</h4>
-<ul>
-  <li><a href="https://websystem.perlzemi.com/">Webシステム開発入門</a></li>
-  <li><a href="https://webdesign.perlzemi.com">Webデザイン入門</a></li> 
-  <li><a href="https://mojolicious.perlzemi.com/">Mojolicious入門</a></li>
-  <li><a href="https://www.mojolicious-document.com/">Mojoliciousドキュメント日本語訳</a></li>
-  <li><a href="https://mariadb.perlzemi.com">MariaDB入門</a></li>
-  <li><a href="https://dbix-custom.perlzemi.com">DBIx::Custom</a></li>
-</ul>
-<h4>Perlの哲学</h4>
-<ul>
-  <li><a href="https://philosophy.perlzemi.com">Perlの哲学</a></li>
-</ul>
-<h4>ブログ・Webサイト作成</h4>
-<ul>
-  <li><a href="https://jp.giblog.net">Giblog公式サイト</a></li>
-  <li><a href="https://docjp.giblog.net/">Giblog日本語ドキュメント</a></li>
-</ul>
-<h4>トレンド</h4>
-<ul>
-  <li><a href="https://deeplearning.perlzemi.com/">ディープラーニング入門</a></li> 
-  <li><a href="https://datascience.perlzemi.com/">ビジネスデータ分析入門</a></li>
-</ul>
-<h4>その他</h4>
-<ul>
-  <li><a href="https://jp.spvm.info">SPVMドキュメント</a></li>
-  <li><a href="https://text.perlzemi.com/">テキスト処理・正規表現入門</a></li>
-  <li><a href="https://bio.perlzemi.com/">バイオインフォマティクス入門</a></li> 
-</ul>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/08/04</div>
-<h2><a href="/blog/20200804183547.html">木本システムのオンラインテキスト</a></h2>
-<p>
-  木本システムのオンラインテキストのご紹介です。Perlを中心とし、Linux上でWebシステム開発環境の作成、Webシステムの開発の話題があります。
-</p>
-<ul>
-  <li><a href="https://www.youtube.com/embed/51rY9Xswv0E">Perlプログラミングちゃんねる - Youtube</a></li>
-  <li><a href="https://web.perlzemi.com">Webシステム開発入門</a></li>
-  <li><a href="https://webdesign.perlzemi.com">Webデザイン入門</a></li> 
-  <li><a href="https://mojolicious.perlzemi.com/">Mojolicious入門</a></li>
-  <li><a href="https://mojodoc.perlzemi.com">Mojoliciousドキュメント</a></li>
-  <li><a href="https://linux.perlzemi.com">Linuxサーバー管理入門</a></li>
-  <li><a href="https://ubuntu.perlzemi.com/">Ubuntuサーバー構築入門</a></li> 
-  <li><a href="https://centos.perlzemi.com">CentOSサーバー構築入門</a></li>
-  <li><a href="https://mariadb.perlzemi.com">MariaDB</a></li>
-  <li><a href="https://dbix-custom.perlzemi.com">DBIx::Custom</a></li>
-  <li><a href="https://philosophy.perlzemi.com">Perlの哲学</a></li>
-  <li><a href="https://jp.giblog.net">Giblog</a></li>
-  <li><a href="https://jp.spvm.info">SPVM</a></li>
-  <li><a href="https://perlcodesample.hateblo.jp">木本システムブログ</a></li>
-  <li><a href="https://datascience.perlzemi.com/">データサイエンス</a></li> 
-  <li><a href="https://deeplearning.perlzemi.com/">AI・ディープラーニング</a></li> 
-  <li><a href="https://bio.perlzemi.com/">バイオインフォマティクス</a></li> 
-  <li><a href="https://text.perlzemi.com/">テキスト処理・正規表現</a></li>
-</ul>
-
 
   </div>
   <div class="bottom">
