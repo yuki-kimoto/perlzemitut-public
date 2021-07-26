@@ -63,7 +63,50 @@
 
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/07/02</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/07/26</div>
+<h2><a href="/blog/20210726104613.html">PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう</a></h2>
+<p>
+  PerlでWebブラウザ自動操作ロボット作成方法をここにまとめていきます。Windowsのユーザーが対象です。
+</p>
+<h3>Strawberry PerlをWindowsにインストールする</h3>
+<p>
+  Webブラウザ自動操作ロボットを作成するためには、Windows用にセッティングされたPerlが必要です。
+</p>
+<p>
+  Active PerlとStrawberry Perlという選択枝がありますが、ここでは、Strawberry Perlを使います。
+</p>
+<p>
+  Strawberry Perlには、Webブラウザ自動操作ロボットを作成するための、GUI操作のモジュールがインストールされています。マウス位置指定、クリック、キーボード操作、クリップボード操作などです。
+</p>
+<p>
+  <a href="https://tutorial.perlzemi.com/blog/20180808153368.html">Strawberry Perlのインストール</a>
+</p>
+<h3>Webブラウザ自動操作ロボット作成に使うPerlモジュール</h3>
+<p>
+  Webブラウザ自動操作ロボット作成に使うPerlモジュールは、以下が中心です。
+</p>
+<ul>
+  <li>Win32::GuiTest - マウス位置指定、キーボード操作</li>
+  <li>Win32::Clipboard - クリップボード操作</li>
+</ul>
+<p>
+  (続く)
+</p>
+<h3>RPAロボットの注意点</h3>
+<p>
+  処理自動化・業務効率化において、RPAは最後の手段です。RPAロボットは、見た瞬間に、その動きに感銘を受けますが、プログラムのメンテナンス性、自動化の信頼性が著しく低いということを覚えておいてください。
+</p>
+<p>
+  処理自動化・作業効率化の最初に取りうる基本的で、実際に効果が高い手法は、テキスト化、コマンド化、Web化、バッチ化、RDBMS化です。
+</p>
+<p>
+  この五つの基本的な手段を、まず検討してください。その上で、どうにもならない限られた部分に対して、RPAは効果を発揮するでしょう。
+</p>
+<p>
+  RPAロボットの見た目の感銘と、実際に効率的な手法は、区別してください。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/07/02</div>
 <h2><a href="/blog/20210702173243.html">Perlテキスト処理のエッセンスが発売されました</a></h2>
 <p>
   Perlゼミを運営する、Perl総合研究所から「Perlテキスト処理のエッセンス」が発売されました。Perlテキスト処理と正規表現の基礎が学べます。
@@ -1989,46 +2032,6 @@ print $message;
 <p>
   正規表現のエスケープシーケンスのすべての解説になっていますが、ダブルクォート文字列のエスケープシーケンスは、正規表現のエスケープシーケンスに含まれますので、ダブルクォート文字列に関する部分のエスケープシーケンスだけを参照しましょう。
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2020/10/29</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161022147731.html">
-        <span itemprop="name">構文</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161003147558.html">
-        <span itemprop="name">文字列</span></a>
-    <meta itemprop="position" content="3" />
-  </li>
-  &#8250;
-  <li>
-    here
-  </li>
-</ol>
-<h2><a href="/blog/20201029075254.html">シングルクォート文字列のエスケープシーケンス</a></h2>
-<p>
-  シングルクォート文字列のエスケープシーケンスの一覧です。
-</p>
-<table>
-  <tr><th>エスケープシーケンス</th><th>意味</th></tr>
-  <tr><td>\'</td><td>'</td></tr>
-  <tr><td>\\</td><td>\</td></tr>
-</table>
-<p>
-  シングルクォートの中で、シングルクォートを表現する「\'」と、バックスラッシュ自体を表現する「\\」を覚えておきましょう。
-</p>
-<pre>
-my $message = 'I \'m honest Perl User\\';
-</pre>
 
 
   </div>
