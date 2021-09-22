@@ -93,7 +93,7 @@
 <p>
   Net::FTPを使用すると、FTPでファイルのダウンロード・アップロードができます。
 </p>
-<div style="width:calc(100% - 30px);margin:0 auto;">
+<div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
        crossorigin="anonymous"></script>
   <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
@@ -415,6 +415,45 @@ my $user = 'anonymous';
 
 my $ftp = Net::FTP-&gt;new($host)
   or die "Cannot connect to '$host': $!";
+
+$ftp-&gt;login($user)
+  or die "Cannot login '$host:$user':" . $ftp-&gt;message;
+
+$ftp-&gt;cwd('/pub/CPAN')
+  or die "FTP command fail: " . $ftp-&gt;message;
+
+$ftp-&gt;get('index.html')
+  or die "FTP command fail: " . $ftp-&gt;message;
+
+$ftp-&gt;quit;
+</pre>
+<h3>FTPSによる接続 - FTP over SSL/TLS</h3>
+<p>
+  Net::FTPによるFTPSによる接続方法について解説します。FTPSは、SSL/TSL上でFTP接続するプロトコルです。SSH上でファイル転送を行うSFTPとは、異なるものなので注意してください。
+</p>
+<p>
+  ここでは、FTPのポート番号(標準で21)でFTP接続した後に、AUTHコマンドでSSL接続要求を行う「明示的なTSL/SSL暗号化」を行う方法について解説します。
+</p>
+<p>
+  Net::FTPは、IO::Socket::SSLがインストールされている場合、FTPSを使って通信を行うことができます。IO::Socket::SSLのバージョンが古い場合は、アップグレードしてください。
+</p>
+<p>
+  「明示的なTSL/SSL暗号化」を行うには、newメソッドで接続した直後に、starttlsメソッドを呼び出すだけです。上記のサンプルを「明示的なTSL/SSL暗号化」で書き直してみましょう。
+</p>
+<pre>
+use strict;
+use warnings;
+
+use Net::FTP;
+
+my $host = 'ftp.u-aizu.ac.jp';
+my $user = 'anonymous';
+
+my $ftp = Net::FTP-&gt;new($host)
+  or die "Cannot connect to '$host': $!";
+
+# 明示的なTSL/SSL暗号化を開始
+$ftp-&gt;starttls() or die "Can't upgrade start TLS:";
 
 $ftp-&gt;login($user)
   or die "Cannot login '$host:$user':" . $ftp-&gt;message;
