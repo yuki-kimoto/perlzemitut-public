@@ -51,7 +51,7 @@
     <a href="/"><img src="/images/logo.png">Perlゼミ</a>
   </h1>
   <div class="header_right">
-    <a rel="nofollow" href="https://perlri.com/account/create">会員登録</a>
+    <a rel="nofollow" href="https://perlclub.net/account/create">会員登録</a>
   </div>
 </div>
 
@@ -133,7 +133,7 @@ use v7;
   Strawberry Perlには、Webブラウザ自動操作ロボットを作成するための、GUI操作のモジュールがインストールされています。マウス位置指定、クリック、キーボード操作、クリップボード操作などです。
 </p>
 <p>
-  <a href="https://tutorial.perlzemi.com/blog/20180808153368.html">Strawberry Perlのインストール</a>
+  <a href="https://perlzemi.com/blog/20180808153368.html">Strawberry Perlのインストール</a>
 </p>
 <h3>Webブラウザ自動操作ロボット作成に使うPerlモジュール</h3>
 <p>
@@ -203,14 +203,14 @@ my $win_text = GetWindowText($win);
   ウィンドウのテキストは、ブラウザの種類によって、異なる可能性があります。Google Chromeで確認したものでは、以下のように「ウィンドウのタイトル - アプリケーション名」になっていました。
 </p>
 <pre>
-Perl元気塾 - Google Chrome
+Perlクラブ - Google Chrome
 </pre>
 <h4>対象ウィンドウの取得</h4>
 <p>
   Webブラウザ自動操作ロボットを作る場合は、子ウィンドウの一覧から、対象のウィンドウを取得する必要があります。対象のウィンドウを取得するサンプルを記述します。確実に、対象のWebブラウザの対象のページが、一つ立ち上がっていることをチェックします。
 </p>
 <pre>
-# 対象のウィンドウを取得(Perl元気塾 - Google Chrome)
+# 対象のウィンドウを取得(Perlクラブ - Google Chrome)
 my $win;
 {
   my $desktop_win = GetDesktopWindow();
@@ -225,7 +225,7 @@ my $win;
 
     # ブラウザ名
     if ($win_text =~ /\b$browser_name\b/) {
-      if ($win_text =~ /Perl元気塾/) {
+      if ($win_text =~ /Perlクラブ/) {
         push @browser_wins, $win;
       }
     }
@@ -341,10 +341,10 @@ sleep 3;
   Perlゼミを運営する、Perl総合研究所から「Perlテキスト処理のエッセンス」が発売されました。Perlテキスト処理と正規表現の基礎が学べます。
 </p>
 <div style="text-align:center;">
-  <a href="https://www.perlri.com/book/perl_text_essense" rel="nofollow"><img src="/images/book/perl_text_essence.jpg" style="width:260px;margin:0 auto;"></a><a href="https://www.perlri.com/book/perl_text_essense" rel="nofollow" style="font-size:20px;">Perlテキスト処理のエッセンス発売中</a>
+  <a href="https://perlclub.net/book/perl_text_essense" rel="nofollow"><img src="/images/book/perl_text_essence.jpg" style="width:260px;margin:0 auto;"></a><a href="https://perlclub.net/book/perl_text_essense" rel="nofollow" style="font-size:20px;">Perlテキスト処理のエッセンス発売中</a>
 </div>
 <p>
-  <a href="https://www.perlri.com/account/create">Perlクラブへの会員登録</a>で、サンプルコードがダウンロードできます。<a href="https://perlgenki.hatenadiary.com/">Perlテキスト処理のエッセンスの活用ブログ</a>もあり。
+  <a href="https://perlclub.net/account/create">Perlクラブへの会員登録</a>で、サンプルコードがダウンロードできます。<a href="https://perlgenki.hatenadiary.com/">Perlテキスト処理のエッセンスの活用ブログ</a>もあり。
 </p>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/06/05</div>
@@ -433,20 +433,20 @@ $driver-&gt;shutdown_binary();
 </p>
 <h4>Unix/Linuxの場合</h4>
 <p>
-  <a href="https://centos.perlzemi.com/blog/20210103090837.html">ChromeDriverをインストールする - Cent OS 7</a>
+  <a href="https://centos.perlclub.net/blog/20210103090837.html">ChromeDriverをインストールする - Cent OS 7</a>
 </p>
 <p>
-  <a href="https://centos.perlzemi.com/blog/20210104090837.html">Google Chromeをインストールする - CentOS 7</a>
+  <a href="https://centos.perlclub.net/blog/20210104090837.html">Google Chromeをインストールする - CentOS 7</a>
 </p>
 <p>
-  Ubuntu、Debian、FreeBSDなどの他の<a href="https://linux.perlzemi.com/">UNIX/Linux</a>の場合は、Chromeブラウザ本体とChromeDriverのインストール方法を検索してみましょう。
+  Ubuntu、Debian、FreeBSDなどの他の<a href="https://linux.perlclub.net/">UNIX/Linux</a>の場合は、Chromeブラウザ本体とChromeDriverのインストール方法を検索してみましょう。
 </p>
 <h4>Windows</h4>
 <p>
   <a href="https://qiita.com/omokawa_yasu/items/2d985efb346dd889fe27">SPAサイトにおいて、Selenium::Remote::DriverでGUIテストを行う</a>の環境構築手順が参考になります。
 </p>
 <p>
-  <a href="https://tutorial.perlzemi.com/blog/20080602121231.html">Active Perl</a>でも<a href="https://tutorial.perlzemi.com/blog/20180808153368.html">Strawberry Perl</a>でも大丈夫かと思います。
+  <a href="https://perlzemi.com/blog/20080602121231.html">Active Perl</a>でも<a href="https://perlzemi.com/blog/20180808153368.html">Strawberry Perl</a>でも大丈夫かと思います。
 </p>
 <h4>Macの場合</h4>
 <p>
@@ -482,7 +482,7 @@ $driver-&gt;shutdown_binary;&lt;/pre&gt;
   </div>
   <div class="bottom">
     <div class="perlclub_register">
-  <a rel="nofollow" href="https://perlri.com/account/create">Perlクラブへの<br>無料の会員登録で<br>書籍サンプルプレゼント</a>
+  <a rel="nofollow" href="https://perlclub.net/account/create">Perlクラブへの<br>無料の会員登録で<br>書籍サンプルプレゼント</a>
 </div>
 
   </div>
@@ -498,7 +498,7 @@ $driver-&gt;shutdown_binary;&lt;/pre&gt;
     <ul>
       <li>
         <div class="side_list_image">
-          <a rel="nofollow" href="https://www.amazon.co.jp/Perl%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E5%87%A6%E7%90%86%E3%81%AE%E3%82%A8%E3%83%83%E3%82%BB%E3%83%B3%E3%82%B9-Perl%E7%B7%8F%E5%90%88%E7%A0%94%E7%A9%B6%E6%89%80-ebook/dp/B097T6CBR6/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=1629243986&sr=8-1"><img src="https://perlri.com/images/book/perl_text_essence/perl_text_essence.jpg"></a>
+          <a rel="nofollow" href="https://www.amazon.co.jp/Perl%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E5%87%A6%E7%90%86%E3%81%AE%E3%82%A8%E3%83%83%E3%82%BB%E3%83%B3%E3%82%B9-Perl%E7%B7%8F%E5%90%88%E7%A0%94%E7%A9%B6%E6%89%80-ebook/dp/B097T6CBR6/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=1629243986&sr=8-1"><img src="https://perlclub.net/images/book/perl_text_essence/perl_text_essence.jpg"></a>
         </div>
         <div class="side_list_description">
           <div >初級者向け・テキスト処理と正規表現の基本をマスター</div>
@@ -516,7 +516,7 @@ $driver-&gt;shutdown_binary;&lt;/pre&gt;
     <ul>
       <li>
         <div class="side_list_image">
-          <a  rel="nofollow" href="https://perlri.com/book/perl_gyoumu"><img src="https://perlri.com/images/book/perl_gyoumu/perl_gyoumu.jpg"></a>
+          <a  rel="nofollow" href="https://perlclub.net/book/perl_gyoumu"><img src="https://perlclub.net/images/book/perl_gyoumu/perl_gyoumu.jpg"></a>
         </div>
         <div class="side_list_description">
           実務者向け・ログ解析など日本語を含むテキスト処理の実践!
@@ -534,7 +534,7 @@ $driver-&gt;shutdown_binary;&lt;/pre&gt;
     <ul>
       <li>
         <div class="side_list_image">
-          <a rel="nofollow" href="http://perlri.com/"><img style="width:130px" src="https://perlri.com/images/perl_club_logo.png"></a>
+          <a rel="nofollow" href="https://perlclub.net/"><img style="width:130px" src="https://perlclub.net/images/perl_club_logo.png"></a>
         </div>
         <div class="side_list_description">
           仲間と出会い<br>ゆとりあるエンジニアライフを送る
@@ -548,7 +548,7 @@ $driver-&gt;shutdown_binary;&lt;/pre&gt;
       </div>
       <div class="footer">
         <div class="perlri_link">
-  <a rel="nofollow" href="http://perlri.com">
+  <a rel="nofollow" href="https://perlclub.net">
     仲間と出会い<br>ゆとりあるエンジニアライフを送る<br>Perlクラブ
   </a>
 </div>
