@@ -64,22 +64,51 @@
   </div>
   <div class="middle">
     <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/09/21</div>
-<h2><a href="/blog/20210921094146.html">Perl 7、Perl 6、Perl 5について - 2021年度版</a></h2>
+<h2><a href="/blog/20210921094146.html">保守性の高いPerl7の計画</a></h2>
+<p>
+  2021年現在、保守性の高いPerl7が計画されています。Perl7は、Perlの保守性を上げ、初級者のミスを減らし、現行バージョンのPerl5との高い後方互換性を維持した、新しいバージョンのPerlです。
+</p>
+<p>
+  以下の記述で、Perl7の機能が使えるようになる計画です。リリース時期は未定です。
+</p>
+<pre>
+use v7;
+</pre>
+<p>
+  「use v7」の記述で、Perlの文法を厳密にする「use strict;」、警告を出力する「use warnings;」が有効になり、一行の記述で、保守性の高いPerlが書けます。
+</p>
+<p>
+  say関数などのPerl5の機能として使えるようになっていた関数を使うことができます。
+</p>
+<pre>
+use v7;
+
+say 'Hello';
+</pre>
+<h3>Perl 7の発表内容はどうなったの?</h3>
+<p>
+  2020年6月にPerl.comで<a href="https://www.perl.com/article/announcing-perl-7/">Perl 7のアナウンス</a>がありましたが、アナウンスされた内容は、現在では更新されています。
+</p>
+<h3>Perl6はどうなったの?</h3>
+<p>
+  Perl5の後継としてかつて開発されていた<a href="/blog/20210605102758.html">Perl6</a>はRakuという名称に変わりました。2021年現在、情報が更新されないままPerl6のまま言及されているサイトもありますが、Perl6は、Rakuへ名称変更されたというのが、正しい情報です。
+</p>
+<h3>Perl 7、Perl 6、Perl 5の関係</h3>
 <p>
   Perl 7、Perl 6、Perl 5について、世間ではとても多くの誤解と混乱が生じています。これは、Perl側の責任だと僕は感じており、Perl 7が正式にリリースされて、数年がたつと、状況は良くなると感じます。
 </p>
 <p>
   誤解と混乱の軽減を目的に、2021年度版 Perl 7、Perl 6、Perl 5について書きます。
 </p>
-<h3>Perlの最新版はPerl 5.34</h3>
+<h4>Perlの最新版はPerl 5.34</h4>
 <p>
   2021年におけるPerlの最新バージョンは、Perl 5.34です。Perl 5の最新バージョンが、Perlの最新バージョンです。
 </p>
-<h3>Perl 6はRakuに改名</h3>
+<h4>Perl 6はRakuに改名</h4>
 <p>
   Perlの次期バージョンになる予定だったPerl 6は、現在は、異なるプログラミング言語と定義され、名称がRakuに変更されました。
 </p>
-<h3>次期PerlがPerl 7になることは決定、Perl 7のリリース日は未定</h3>
+<h4>次期PerlがPerl 7になることは決定、Perl 7のリリース日は未定</h4>
 <p>
   次期Perlが、現在のPerl 5と非常に高い互換性を持つ状態で、Perl 7としてリリースされることは、決定されています。
 </p>
@@ -348,21 +377,13 @@ sleep 3;
 </p>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/06/05</div>
-<h2><a href="/blog/20210605102758.html">Perl6はRakuに変わり、Perl 5の後継のPerl 7が計画されている</a></h2>
+<h2><a href="/blog/20210605102758.html">Perl6はRakuに名称変更され、Perl5の後継のPerl7が計画されている</a></h2>
 <p>
   Perl5の後継としてかつて開発されていたPerl6はRakuという名称に変わりました。
 </p>
-<blockquote>
-<p>
-  Raku（旧称: Perl 6）は、ラリー・ウォールにより設計されたオブジェクト指向スクリプト言語である。
-</p>
-<p>
-  <a href="https://ja.wikipedia.org/wiki/Raku">Raku - Wikipedia</a>
-</p>
-</blockquote>
 <h4>Perlはどうなるの?</h4>
 <p>
-  現在Perlは、Perlの新しいバージョンである「Perl 7」が将来のリリースに向けて計画されています。7は、言語名の一部ではなく、メジャーバージョン番号になります。
+  現在Perlは、Perlの新しいバージョンである<a href="/blog/20210921094146.html">Perl7</a>」が将来のリリースに向けて計画されています。7は、言語名の一部ではなく、メジャーバージョン番号になります。
 </p>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/01/07</div>
