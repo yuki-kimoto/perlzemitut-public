@@ -136,11 +136,33 @@ print $cos-&gt;call(2.0);
   ドキュメントにライブラリの検索パスの記述はないですが、<b>/lib</b>と<b>/usr/lib</b>におかれているものが検索対象だと思われます。
 </p>
 <p>
-  ライブラリの検索パスを追加するには、「環境変数 LD_LIBRARY_PATHを設定する方法」と「/etc/ld.so.confに追加する方法」があるようです。(参考:<a href="http://d.hatena.ne.jp/n9d/20080820/1219228809">/usr/local/libの共有ライブラリ(.so)を参照しないとき</a>)
+  ライブラリの検索パスを追加するには、「環境変数 LD_LIBRARY_PATHを設定する方法」と「/etc/ld.so.confに追加する方法」があるようです。
 </p>
 <p>
   第二引数は関数名です。第三引数は戻り値の型、第四引数以降は、引数の型になります。
 </p>
+<h3>他のPerlのFFIモジュール</h3>
+<p>
+  他のPerlのFFIモジュールの紹介です。
+</p>
+<h4>FFI::Platypus</h4>
+<p>
+  FFIのPerlのモジュールとして<a href="https://metacpan.org/pod/FFI::Platypus">FFI::Platypus</a>があります。FFI::Platypusは、FFIの機能が豊富で、メンテナンスも継続的にされているようです。
+</p>
+<pre>
+use FFI::Platypus 1.00;
+ 
+# for all new code you should use api =&gt; 1
+my $ffi = FFI::Platypus-&gt;new( api =&gt; 1 );
+$ffi-&gt;lib(undef); # search libc
+ 
+# call dynamically
+$ffi-&gt;function( puts =&gt; ['string'] =&gt; 'int' )-&gt;call("hello world");
+ 
+# attach as a xsub and call (much faster)
+$ffi-&gt;attach( puts =&gt; ['string'] =&gt; 'int' );
+puts("hello world");
+</pre>
 
   </div>
   <div class="bottom">
