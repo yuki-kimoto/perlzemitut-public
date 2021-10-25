@@ -283,6 +283,25 @@ $ftp-&gt;ascii
 -rwxr-xr-x  3 someuser  somegroup    512 Apr  1  2009 a.pl
 -rwx------  1 someuser  somegroup     77 Apr  1  2009 mm.txt
 </pre>
+<h4>rmdir</h4>
+<p>
+  ディレクトリを削除します。
+</p>
+<pre>
+# ディレクトリの削除
+$ftp-&gt;rmdir($dir)
+</pre>
+<h4>mkdir</h4>
+<p>
+  ディレクトリを作成します。第二引数が真であれば、再帰的にディレクトリを作成します。
+</p>
+<pre>
+# ディレクトリを作成
+$ftp-&gt;mkdir($dir)
+
+# 再帰的にディレクトリを作成
+$ftp-&gt;mkdir($dir, $is_recurse)
+</pre>
 <h4>quit</h4>
 <p>
   FTPサーバーとの接続を閉じます。
