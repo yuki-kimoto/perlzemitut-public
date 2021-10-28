@@ -42,11 +42,11 @@
   gtag('config', 'G-PGRMKMYSC2');
 </script>
 
-<title>PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう(書き始め) - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<title>PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
 <meta name="description" content="PerlでWebブラウザ自動操作ロボット作成方法をここにまとめていきます。Windowsのユーザーが対象です。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう(書き始め) - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:title" content="PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
 <meta name="twitter:description" content="PerlでWebブラウザ自動操作ロボット作成方法をここにまとめていきます。Windowsのユーザーが対象です。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
@@ -72,7 +72,7 @@
     
   </div>
   <div class="middle">
-    <h2><a href="/blog/20210726104613.html">PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう(書き始め)</a></h2>
+    <h2><a href="/blog/20210726104613.html">PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう</a></h2>
 <p>
   PerlでWebブラウザ自動操作ロボット作成方法をここにまとめていきます。Windowsのユーザーが対象です。
 </p>
@@ -221,6 +221,88 @@ my $win;
   }
   $win = $browser_wins[0];
 }
+</pre>
+<h3>マウス操作</h3>
+<p>
+  マウス操作ついて説明します。
+</p>
+<h4>マウスを移動させる</h4>
+<p>
+  マウスを移動させるにはMouseMoveAbsPix関数を使用します。原点は、デスクトップウィンドウの左上になります。
+</p>
+<pre>
+# マウスを移動させる
+MouseMoveAbsPix($x, $y);
+</pre>
+<h4>対象ウィンドウの左上の位置を取得する</h4>
+<p>
+  ブラウザを操作する場合は、ブラウザのウィンドウの左上の位置を知りたいですね。GetWindowRect関数を使うと、対象のウィンドウの原点の位置を取得できます。
+</p>
+<pre>
+# 対象ウィンドウの左上の位置を取得する
+my ($win_left, $win_top, $win_right, $win_bottom) = Win32::GuiTest::GetWindowRect($win);
+</pre>
+<p>
+  対象ウィンドウの原点から、左100px、下200pxの位置にマウスを移動させるには次のようにします。
+</p>
+<pre>
+# 対象ウィンドウの原点から、左100px、下200pxの位置にマウスを移動
+my $left = 100;
+my $top = 200;
+MouseMoveAbsPix($win_left + $left, $win_top + $top);
+</pre>
+<h4>マウスの左ボタンを押す</h4>
+<p>
+  マウスの左ボタンを押すにはSendLButtonDown関数を使用します。
+</p>
+<pre>
+# マウスの左ボタンを押す
+SendLButtonDown();
+</pre>
+<h4>マウスの左ボタンを離す</h4>
+<p>
+  マウスの左ボタンを離すにはSendLButtonUp関数を使用します。
+</p>
+<pre>
+# マウスの左ボタンを押す
+SendLButtonDown();
+</pre>
+<h4>マウスを左クリックする</h4>
+<p>
+  マウスを左クリックするには、マウスの左ボタンを押して、離します。
+</p>
+<pre>
+# マウスを左クリックする
+SendLButtonDown();
+SendLButtonUp();
+</pre>
+<h4>マウスの左ボタンをダブルクリックする</h4>
+<p>
+  マウスの左ボタンをダブルクリックするには、マウスの左ボタンを押して、離してを2回繰り返します。
+</p>
+<pre>
+# ダブルクリック
+SendLButtonDown();
+SendLButtonUp();
+SendLButtonDown();
+SendLButtonUp();
+</pre>
+<h4>その他のマウスイベント</h4>
+<p>
+  その他のマウスイベントです。真ん中のボタンを押す、離す、右ボタンを押す、離すです。
+</p>
+<pre>
+# 真ん中のボタンを押す
+SendMButtonDown()
+
+# 真ん中のボタンを離す
+SendMButtonUp()
+
+# 右ボタンを押す
+SendRButtonDown()
+
+# 右ボタンを離す
+SendRButtonUp()
 </pre>
 <h3>キーボード入力</h3>
 <p>
@@ -452,9 +534,40 @@ if ($html =~ /検索結果/) {
   # ...
 }
 </pre>
+<h4>HTMLの保存</h4>
+<p>
+  HTMLを保存するには、通常の<a href="/blog/20110212130370.html">Perlのファイル入出力</a>を使用します。
+</p>
+<pre>
+use FindBin;
+
+# 保存場所(プログラムのあるディレクトリのdata/test.html)
+my $file = "$FindBin::Bin/data/test.html";
+
+# ファイルを書き込みモードでオープン
+open my $fh, '&gt;', $file
+  or die "Can't open file $file: $!";
+
+# 書き込み
+print $fh $html;
+</pre>
 <h3>RPAロボット作成のポイント</h3>
 <p>
-  RPAロボット作成のポイント
+  RPAロボット作成のポイントです。
+</p>
+<h4>ブラウザの起動サイズを決めておく</h4>
+<p>
+  マウスでクリックする位置を確定させるために、ブラウザの起動サイズを決めて起動しましょう。
+</p>
+<p>
+  Chromeでは、ショートカット」「プロパティ」「リンク先」に次のように設定することで、ブラウザの起動サイズを決めることができます。
+</p>
+<pre>
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --window-position=150,10 --window-size=1505,933
+</pre>
+<h4>試験環境と本番環境でディスプレイのサイズをそろえる</h4>
+<p>
+  試験環境と本番環境でディスプレイのサイズをそろえましょう。マウス移動は、ピクセル位置指定なので、ディスプレイの解像度が違うと、違う位置を指してしまいます。
 </p>
 <h4>ブラウザの応答を待つ</h4>
 <p>
