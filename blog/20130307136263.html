@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/logo.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<script type="text/javascript" language="javascript">
+    var vc_pid = "886663612";
+</script><script type="text/javascript" src="//aml.valuecommerce.com/vcdal.js" async></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGRMKMYSC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGRMKMYSC2');
+</script>
+
+<title>Perlの今について熱く語る - 『「なぜ国内でPerlが急速に萎んだのか」という記事を読んで』リライト - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="Perlの今について熱く語ってみます。「Perlの今は実際にはどうなっているんだろう?」という純粋な関心を持たれているユーザーの方に対して、Perlの今について語ります。この記事はもともとは『「なぜ国内でPerlが急速に萎んだのか」という記事を読んで』という反論的なものでしたが、Perlの今にスポットを当てて、前向きで、建設的で、明るい基調でリライトします。">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="Perlの今について熱く語る - 『「なぜ国内でPerlが急速に萎んだのか」という記事を読んで』リライト - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="Perlの今について熱く語ってみます。「Perlの今は実際にはどうなっているんだろう?」という純粋な関心を持たれているユーザーの方に対して、Perlの今について語ります。この記事はもともとは『「なぜ国内でPerlが急速に萎んだのか」という記事を読んで』という反論的なものでしたが、Perlの今にスポットを当てて、前向きで、建設的で、明るい基調でリライトします。" />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header_main">
+  <h1>
+    <a href="/"><img src="/images/logo.png">Perlゼミ</a>
+  </h1>
+  <div class="header_right">
+    <a rel="nofollow" href="https://perlclub.net/account/create">会員登録</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    
+  </div>
+  <div class="middle">
+    <h2><a href="/blog/20130307136263.html">Perlの今について熱く語る - 『「なぜ国内でPerlが急速に萎んだのか」という記事を読んで』リライト</a></h2>
+<p>
+  Perlの今について熱く語ってみます。「Perlの今は実際にはどうなっているんだろう?」という純粋な関心を持たれているユーザーの方に対して、Perlの今について語ります。この記事はもともとは『「なぜ国内でPerlが急速に萎んだのか」という記事を読んで』という反論的なものでしたが、Perlの今にスポットを当てて、前向きで、建設的で、明るい基調でリライトします。
+</p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+<h3>Perlの最新バージョン</h3>
+<p>
+  Perlの最新バージョンはPerl 5.34です。Perl 1.0は、1987年にリリースされ、現在はバージョン5.34となり、34年を迎えました。
+</p>
+<h3>Perlのリリース間隔</h3>
+<p>
+  Perlは、1年に一回、リリースされます。リリース日は、5月下旬から6月初旬になることが多いです。次のバージョンは、Perl 5.36です。
+</p>
+<h3>保守性の高いPerl 7の計画</h3>
+<p>
+  保守性の高いPerl 7の計画があります。Perl 7の後方互換性は高く、Perl 5から維持され、現在記述しているPerlモジュール、Perlプログラムが、ほぼ変更なし、または、少しの修正で動きます。
+</p>
+<h3>Perl6はRakuへ名称変更</h3>
+<p>
+  次期バージョンのPerlとして予定されていたPerl6は、Rakuに名称が変更になりました。Perl 7が、Perl 5の後継となります。
+</p>
+<h3>PerlってCGI?</h3>
+<p>
+  CGIは、プロトコルのことで、仕様を満たしていれば、PHP、Python、Ruby、Javaなど、どんなプログラミング言語でも記述可能です。PerlとCGIが、記憶の中で強くつながっているのは、1990年代のCGIブームのころにPerlがたくさん使われたためだと考えています。
+</p>
+<p>
+  現在2021年は、Webフレームワークとリバースプロキシを使うと、リアルタイム更新など現代的なWeb機能、パフォーマンス、スケーラビリティに優れたWebアプリ開発が行えます。
+</p>
+<h3>Webアプリ開発の環境構築</h3>
+<p>
+  PerlでのWebアプリ開発は、ファイルをFTPでアップロードするだけとは、いかなくなりました。Web開発環境の環境構築は、ひとりでは難しいですが、UbuntuというLinuxディストリビューションで手順化したものを、こちらにご用意しています。月額500円から1000円程度のVPS(バーチャルプライベートサーバー)をレンタルして、その上に構築すると安くできます。
+</p>
+<ul>
+  <li><a href="https://ubuntu.perlzemi.com/">Ubuntu開発環境構築 - Perl Web開発環境構築</a></li>
+</ul>
+<h3>CPANモジュールインストーラー</h3>
+<p>
+  PerlモジュールをCPANと呼ばれるサイトからインストールするには、cpanmというツールを使うのが便利です。Strawberry Perlにも、デフォルトで添付されています。
+</p>
+<p>
+  cpanfileを定義すると、インストールするモジュールを定義しておくこともできます。
+</p>
+<h3>FTP</h3>
+<p>
+  FTPでファイルアップロードダウンロードするにはNet::FTPが使えます。
+</p>
+<ul>
+  <li>Net::FTP</li>
+</ul>
+<h3>Webフレームワーク</h3>
+<p>
+  PerlのWebフレームワークの紹介です。50音順。
+</p>
+<ul>
+  <li>Amon2</li>
+  <li>Catalyst</li>
+  <li>Dancer2</li>
+  <li>Mojolicious</li>
+  <li>Plack/PSGI(ミドルウェア)</li>
+</ul>
+<h3>深層学習ライブラリ</h3>
+<p>
+  Perlから使える深層学習ライブラリには、AI::MXNetがあります。
+</p>
+<ul>
+  <li>AI::MXNet</li>
+</ul>
+<p>
+  (書きかけ)
+</p>
+
+  </div>
+  <div class="bottom">
+    <h3>関連情報</h3>
+
+<div style="margin:10px 10px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          <div style="margin-bottom:30px">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<!-- ディスプレイ縦長 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="4544919209"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div style="margin-bottom:30px;padding:0 8px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li>
+        <div class="side_list_image">
+          <a rel="nofollow" href="https://perlclub.net/book/serial"><img style="width:220px;border:1px solid green;" src="/images/perl_sirial.png"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li>
+        <div class="side_list_image">
+          <a rel="nofollow" href="https://perlclub.net/book/perl_text_essense"><img style="width:220px;" src="https://perlclub.net/images/book/perl_text_essence/perl_text_essence.jpg"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li>
+        <div class="side_list_image">
+          <a  rel="nofollow" href="https://perlclub.net/book/perl_gyoumu"><img style="width:220px;" src="https://perlclub.net/images/book/perl_gyoumu/perl_gyoumu.jpg"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li>
+        <div class="side_list_image">
+          <a rel="nofollow" href="/list.html"><img style="width:100px;margin-right:5px;" src="/images/new.png"></a>
+          <a rel="nofollow" href="https://twitter.com/hashtag/Perl%E3%82%BC%E3%83%9F%E6%9B%B4%E6%96%B0%E6%83%85%E5%A0%B1?src=hashtag_click"><img style="width:100px;" src="/images/update.png"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li>
+        <div class="side_list_image">
+          <a rel="nofollow" href="https://twitter.com/perlzemi"><img style="height:50px;margin-right:40px;" src="https://perlclub.net/images/external/twitter_icon.png"></a>
+          <a rel="nofollow" href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ"><img style="height:50px;" src="https://perlclub.net/images/external/youtube_icon.png"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+        </div>
+      </div>
+      <div class="footer">
+        <div class="perlri_link">
+  <a rel="nofollow" href="https://perlclub.net">Perlクラブ</a>
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+     
+      </div>
+    </div>
+  </body>
+</html>
