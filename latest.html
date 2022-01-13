@@ -63,7 +63,16 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/09/21</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/01/13</div>
+<h2><a href="/blog/20220113110311.html">【新発売】PerlでポータブルなLinuxファイル管理入門</a></h2>
+<p>
+  2022年1月11日「PerlでポータブルなLinuxファイル管理入門」を新発売しました。Linuxコマンド、ファイルバックアップ管理、Git基礎、Perlプログラム、Perlワンライナーを使ったファイル管理を学べます。電子書籍版が先行発売です。
+</p>
+<p>
+  <a href="https://www.amazon.co.jp/dp/B09Q8QV5G5"><img src="https://perlclub.net/images/book/perl_linux/perl_linux.jpg" style="width:280px;"></a>
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/09/21</div>
 <h2><a href="/blog/20210921094146.html">保守性の高いPerl7の計画</a></h2>
 <p>
   2021年現在、保守性の高いPerl7が計画されています。Perl7は、Perlの保守性を上げ、初級者のミスを減らし、現行バージョンのPerl5との高い後方互換性を維持した、新しいバージョンのPerlです。
@@ -758,31 +767,6 @@ $driver-&gt;shutdown_binary();
 <p>
   <a href="https://perlzemi.com/blog/20080602121231.html">Active Perl</a>でも<a href="https://perlzemi.com/blog/20180808153368.html">Strawberry Perl</a>でも大丈夫かと思います。
 </p>
-<h4>Macの場合</h4>
-<p>
-  <a href="https://sironekotoro.hateblo.jp/entry/2020/06/06/185455">Perl から Selenium を使う</a>の環境構築手順が参考になります。
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/01/06</div>
-<h2><a href="/blog/20210106145700.html">Selenium::FirefoxでJavaScript対応のWebスクレイピングを行う</a></h2>
-<p>
-  Selenium::FirefoxでJavaScript対応のWebスクレイピングを行ってみます。Selenium::Firefoxは、Firefox用にカスタマイズされた<a href="/blog/20210105145700.html">Selenium::Remote::Driver</a>です。
-</p>
-<pre>
-# ドライバを生成。以下の二つは同じですが、Firefox 48+でのみ動作します。
-my $driver = Selenium::Firefox-&gt;new;
-$driver = Selenium::Firefox-&gt;new( marionette_enabled =&gt; 1 );
- 
-# 何かを行う
-
-# ドライバをシャットダウンする
-$driver-&gt;shutdown_binary;
-
-# For Firefox 47とそれりも古い場合。マリオネットは無効になっています。
-$driver = Selenium::Firefox-&gt;new( marionette_enabled =&gt; 0 );
-$driver-&gt;shutdown_binary;&lt;/pre&gt;
-</pre>
-<h3>実行環境の準備</h3>
 <h4>Macの場合</h4>
 <p>
   <a href="https://sironekotoro.hateblo.jp/entry/2020/06/06/185455">Perl から Selenium を使う</a>の環境構築手順が参考になります。
