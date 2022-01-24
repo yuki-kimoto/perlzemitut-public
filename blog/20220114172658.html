@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/logo.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<script type="text/javascript" language="javascript">
+    var vc_pid = "886663612";
+</script><script type="text/javascript" src="//aml.valuecommerce.com/vcdal.js" async></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGRMKMYSC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGRMKMYSC2');
+</script>
+
+<title>How to create the Cover of Amazon Kindle Paperback using Perl? - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="Describe how to create the Cover of Amazon Kindle Paperback using Perl? Perl is a programing language. You can create the the cover image of Amazon Kindle Paperback using Perl module Imager.">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="How to create the Cover of Amazon Kindle Paperback using Perl? - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="Describe how to create the Cover of Amazon Kindle Paperback using Perl? Perl is a programing language. You can create the the cover image of Amazon Kindle Paperback using Perl module Imager." />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header_main">
+  <h1>
+    <a href="/"><img src="/images/logo.png">Perlゼミ</a>
+  </h1>
+  <div class="header_right">
+    <a rel="nofollow" href="https://perlclub.net/account/create">会員登録</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    
+  </div>
+  <div class="middle">
+    <h2><a href="/blog/20220114172658.html">How to create the Cover of Amazon Kindle Paperback using Perl?</a></h2>
+<p>
+  Describe how to create the Cover of Amazon Kindle Paperback using Perl? Perl is a programing language. You can create the the cover image of Amazon Kindle Paperback using Perl module <a href="https://metacpan.org/pod/Imager">Imager</a>.
+</p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+<p>
+  I assume you have an ebook cover. Based on this, you will create the paperback cover. In this example, I use A5(148 x 210 mm).
+</p>
+<p>
+  <a href="/images/kindle_paperback/ebook_coloer.jpg" style="width:200px">
+</p>
+<h3>Create a Paperback Cover - Amazon Kindle Officail</h3>
+<p>
+  At first, you see the Amazon Kindle Officail page "Create a Paperback Cover".
+</p>
+<ul>
+  <li><a href="https://kdp.amazon.com/en_US/help/topic/G201953020">Create a Paperback Cover</a></li>
+</ul>
+<p>
+  You will find the following page "Print Cover Calculator and Templates".
+</p>
+<ul>
+  <li><a href="https://kdp.amazon.com/cover-calculator">Create a Paperback Cover</a></li>
+</ul>
+<p>
+  You must calcurate the size of the cover image using the tool "Print Cover Calculator and Templates".
+</p>
+<h3>Enter Your Book Information</h3>
+<p>
+  <b>Binding type</b>
+</p>
+<p>
+  Paperback
+</p>
+<p>
+  <b>Interior type</b>
+</p>
+<p>
+  Choice the one of them you want.
+</p>
+<ul>
+  <li>
+    Black & White
+  </li>
+  <li>
+    Premiam Color
+  </li>
+  <li>
+    Standard Color
+  </li>
+</ul>
+<p>
+  <b>Paper type</b>
+</p>
+<p>
+  White paper
+</p>
+<p>
+  <b>Page-turn direction</b>
+</p>
+<p>
+  Choice the one of them you want.
+</p>
+<ul>
+  <li>
+    Left to Right
+  </li>
+  <li>
+    Right to Left
+  </li>
+</ul>
+<p>
+  <b>Measurement units</b>
+</p>
+<p>
+  Millimeters.
+</p>
+<p>
+  <b>Interior trim size</b>
+</p>
+<p>
+  Custom trim size.
+</p>
+<p>
+  A5(148 x 210 mm)
+</p>
+<p>
+  <b>Page count</b>
+</p>
+<p>
+  Calcurate the page count of your book.
+</p>
+<pre>
+page_count = body_page_count + cover_page_count.
+</pre>
+<p>
+  body_page_count is the page count of your PDF book.
+</p>
+<p>
+  cover_page_count is the page count of the color. This is always 4p.
+</p>
+<p>
+  <b>Example:</b>
+</p>
+<pre>
+120p = 116p + 4p
+</pre>
+
+  </div>
+  <div class="bottom">
+    <h3>関連情報</h3>
+
+<div style="margin:10px 10px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div style="margin:30px auto;text-align:center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/M990Xu0Po3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          <div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li><b style="color:red">2022年1月新刊</b><br><b>Perlでファイル管理</b><br><a href="https://perlclub.net/book/perl_linux_file"><img src="https://perlclub.net/images/book/perl_linux_file/cover_ebook.jpg" width="180"></a></li>
+      <li><b>初心者向けPerl入門書</b><br><a href="https://perlclub.net/book/perl_text_essense"><img src="https://perlclub.net/images/book/perl_text_essence/perl_text_essence.jpg" width="180" style="margin-right:10px;"></a></li>
+      <li><b>業務で活用</b><br><a href="https://www.amazon.co.jp/dp/4774150258"><img src="https://perlclub.net/images/book/perl_gyoumu/perl_gyoumu.jpg" width="180"></a></li>
+    </ul>
+  </div>
+</div>
+<div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li>
+    </ul>
+  </div>
+</div>
+
+<div style="margin-bottom:30px">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<!-- ディスプレイ縦長 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="4544919209"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div class="side_list">
+  <div class="side_list_body">
+    <ul>
+      <li>
+        <div class="side_list_image">
+          <a rel="nofollow" href="/list.html"><img style="width:100px;margin-right:5px;" src="/images/new.png"></a>
+          <a rel="nofollow" href="https://twitter.com/hashtag/Perl%E3%82%BC%E3%83%9F%E6%9B%B4%E6%96%B0%E6%83%85%E5%A0%B1?src=hashtag_click"><img style="width:100px;" src="/images/update.png"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+        </div>
+      </div>
+      <div class="footer">
+        <div class="perlri_link">
+  <a rel="nofollow" href="https://perlclub.net">Perlクラブ</a>
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+     
+      </div>
+    </div>
+  </body>
+</html>
