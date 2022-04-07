@@ -42,12 +42,12 @@
   gtag('config', 'G-PGRMKMYSC2');
 </script>
 
-<title>cpanmによるPerlのローカル環境構築 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="cpanmを使ってローカル環境を構築する手順です。迷わない一直線の手順です。">
+<title>cpanm - ユーザーディレクトリへのCPANモジュールのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="cpanmを使うとユーザーディレクトリにCPANモジュールをインストールすることができます。cpanmは、Perlのモジュールインストーラーとして、デフォルトで採用するディストリビューションも増えています。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="cpanmによるPerlのローカル環境構築 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="cpanmを使ってローカル環境を構築する手順です。迷わない一直線の手順です。" />
+<meta name="twitter:title" content="cpanm - ユーザーディレクトリへのCPANモジュールのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="cpanmを使うとユーザーディレクトリにCPANモジュールをインストールすることができます。cpanmは、Perlのモジュールインストーラーとして、デフォルトで採用するディストリビューションも増えています。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -89,9 +89,9 @@
     here
   </li>
 </ol>
-<h2><a href="/blog/20101027127859.html">cpanmによるPerlのローカル環境構築</a></h2>
+<h2><a href="/blog/20101027127859.html">cpanm - ユーザーディレクトリへのCPANモジュールのインストール</a></h2>
 <p>
-  cpanmを使ってローカル環境を構築する手順です。迷わない一直線の手順です。 
+  cpanmを使うとユーザーディレクトリに<a href="/blog/20100504127089.html">CPAN</a>モジュールをインストールすることができます。cpanmは、Perlのモジュールインストーラーとして、デフォルトで採用するディストリビューションも増えています。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -109,81 +109,82 @@
 </div>
 
 
+<pre>
+# CPANモジュールのインストール
+cpanm モジュール名
+</pre>
 <h3>cpanmのインストール</h3>
 <p>
-  以下のコマンドを個人ユーザで実行してください。
+  cpanmのインストール方法を解説します。
+</p>
+<h4>Strawberry Perl</h4>
+<p>
+  Windowsで利用できるPerlディストリビューションである<a href="/blog/20180808153368.html">Strawberry Perl</a>では、cpanmを標準で利用することができます。
+</p>
+<h4>perlbrew</h4>
+<p>
+  <a href="/blog/20110220130464.html">perlbrew</a>でPerlをユーザーディレクトリにインストールした場合は、以下のコマンドでcpanmをインストールできます。
+</p>
+<pre>
+perlbrew install-cpanm
+</pre>
+<h4>plenv</h4>
+<p>
+  <a href="/blog/20180816153437.html">plenv</a>でPerlをユーザーディレクトリにインストールした場合は、以下のコマンドでcpanmをインストールできます。
+</p>
+<pre>
+plenv install-cpanm
+</pre>
+<h4>cpanm単体でダウンロード</h4>
+<p>
+  cpanmは、単体のコマンドとしてダウンロードすることも可能です。
 </p>
 <pre>
 # cpanmのインストール
-curl -L -O http://xrl.us/cpanm
-perl cpanm App::cpanminus
+curl -L -O http://xrl.us/cpanm &gt; cpanm
+chmod 755 cpanm
 </pre>
 <p>
-  cpanmを使うと簡単にローカル環境にCPANモジュールをインストールできるようになります。root権限がない場合はユーザのホームディレクトリ以下のperl5というディレクトリ以下にCPANモジュールがインストールされます。インストールには時間がかかるかもしれませんが、しばらく待ちます。
-</p>
-<h3>モジュールやコマンドを利用するための設定</h3>
-<p>
-  インストールしたモジュールやコマンドを利用するには次の設定を「.bashrc」というbashの設定ファイルに追加する必要があります。
+  単体でダウンロードした場合は、以下のようにして実行します。
 </p>
 <pre>
-export PERL_CPANM_OPT="--local-lib=~/perl5"
-export PATH=$HOME/perl5/bin:$PATH;
-export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
+# CPANモジュールのインストール
+./cpanm モジュール名
 </pre>
 <p>
-  PERL_CPANM_OPTはcpanmの設定を行うための環境変数です。モジュールをインストールするディレクトリを指定しています。デフォルトで「~/perl5」以下にインストールされるのですが、警告が発生するので明示的に指定します。PATHはインストールされたコマンドを利用するための設定です。たとえばcpanmコマンドが利用できるようになります。PERL5LIBでモジュールのインクルードパスを追加できます。この設定を行うとスクリプトからインストールしたモジュールが利用できるようになります。
+  配布するアプリケーションに組み込む場合に便利です。
 </p>
-<p>
-  次のように「.bashrc」を編集して、上記の記述を追加しましょう。
-</p>
-<pre>
-vi ~/.bashrc
-</pre>
-<p>
-  次にこの設定を反映させます。
-</p>
-<pre>
-source ~/.bashrc
-</pre>
 <h3>モジュールのインストール</h3>
 <p>
-  ためしにMojoliciousというモジュールをインストールしてみましょう。
+  <a href="https://mojolicious.perlzemi.com/">Mojolicious</a>というモジュールをインストールしてみましょう。
 </p>
 <pre>
 cpanm Mojolicious
 </pre>
+<h4>バージョンを指定してインストール</h4>
 <p>
-  lsコマンドを使って「~/perl5/lib/perl5」というディレクトリにMojoliciousがインストールされていることを確認できます。
+  バージョンを指定してインストールすることができます。
 </p>
 <pre>
-ls ~/perl5/lib/perl5
+cpanm Mojolicious@9.23
 </pre>
+<h4>指定したディレクトリにインストール</h4>
 <p>
-  またモジュールを実際に利用できるかどうかを試してみましょう。コマンドラインから次のコマンドを実行してエラーが出なかったら成功です。
-</p>
-<pre>
-perl -MMojolicious -e 1
-</pre>
-<p>
-  これでローカル環境にモジュールをどんどんインストールすることができます。他のサーバにモジュールを配置したい場合は、アーキテクチャがまったく同じであれば、「~/perl5」をまるまるコピーするだけです。もちろん「.bashrc」の記述も忘れずに行います。Perlでのデプロイ作業はとても簡単ですね。
-</p>
-<h3>cpanmを使って指定したディレクトリにCPANモジュールをインストールする</h3>
-<p>
-  cpanmを使って指定したディレクトrにCPANモジュールをインストールするには<b>-L</b>オプションを使用します。
+  指定したディレクトリにCPANモジュールをインストールするには<b>-L</b>オプションを使用します。
 </p>
 <pre>
 cpanm -L extlib DBIx::Custom
 </pre>
 <p>
-  カレントディレクトリの<b>extlib</b>というディレクトリにDBIx::Customがインストールされます。
+  カレントディレクトリの<b>extlib</b>というディレクトリに<a href="https://dbix-custom.perlzemi.com/">DBIx::Custom</a>がインストールされます。
 </p>
-<h3>cpanmとcpanfileでバージョンを指定してモジュールをインストールする</h3>
+<h3>cpanfile - インストールするモジュールの定義</h3>
 <p>
-  <strong>cpanm</strong>と<strong>cpanfile</strong>を使うと、バージョンを指定してモジュールをインストールすることができます。
+  <strong>cpanfile</strong>を使うと、インストールするモジュールを定義することができます。
 </p>
 <h4>cpanfileの記述</h4>
 <p>
-  cpanfileを記述します。cpanfileはモジュールのバージョンを指定するためのファイルです。cpanfileという名前のファイルを作成してください。以下のような記述を行います。
+  cpanfileを記述します。cpanfileはモジュールとモジュールのバージョンを指定するためのファイルです。cpanfileという名前のファイルを作成してください。以下のような記述を行います。
 </p>
 <pre>
 requires 'DBI', '== 1.619';
@@ -269,20 +270,18 @@ requires モジュール名 バージョン
 </table>
 <h4>モジュールのインストール</h4>
 <p>
-  cpanmの<strong>--installdeps</strong>オプションを使うと、cpanfileの記述を調べて、モジュールをインストールしてくれます。(ドットがオプションの後ろに続くことに注意)
+  cpanmの<strong>--installdeps</strong>オプションを使うと、cpanfileの定義を使って、モジュールをインストールしてくれます。
 </p>
 <pre>
-perl cpanm --installdeps .
+# cpanfileの定義を使ってモジュールをインストール
+cpanm --installdeps .
 </pre>
 <p>
   <strong>-L</strong>オプションを使えば、指定したディレクトリにモジュールをインストールすることもできます。
 </p>
 <pre>
-perl cpanm -L extlib --installdeps .
+cpanm -L extlib --installdeps .
 </pre>
-<p>
-  自分の作成したPerlのアプリケーションが、CPANに存在するモジュールに依存しているときは、cpanmとcpanfileを一緒に含めておくと、ユーザーに簡単に利用してもらうことができます。
-</p>
 
   </div>
   <div class="bottom">
