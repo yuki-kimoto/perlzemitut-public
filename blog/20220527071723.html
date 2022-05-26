@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<!-- Google Automatic Advertising -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+     
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/logo.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css?20220416">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<title>【翻訳】Perl7はどうなりましたか? - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="Perlの公式の声明からの翻訳です。">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="【翻訳】Perl7はどうなりましたか? - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="Perlの公式の声明からの翻訳です。" />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header_main">
+  <h1>
+    <a href="/"><img src="/images/logo.png">Perlゼミ</a>
+  </h1>
+  <div class="header_right">
+    <a rel="nofollow" href="https://perlclub.net/forum">フォーラムに参加</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    
+  </div>
+  <div class="middle">
+    <h2><a href="/blog/20220527071723.html">【翻訳】Perl7はどうなりましたか?</a></h2>
+<p>
+  Perlの公式の声明からの翻訳です。
+</p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+<p>
+  <a href="https://blogs-perl-org.translate.goog/users/psc/2022/05/what-happened-to-perl-7.html?_x_tr_sch=http&_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=ja&_x_tr_pto=wapp">What happened to Perl 7?</a>
+</p>
+<p>
+  Perl 5.36.0が間近に迫った今、Perlプログラミング言語の将来の計画を明確にする良い機会だと思いました。私たちは、未来が数ヶ月にわたって、いくつかのステップで打ち出されていることに気づきました。これは、私たちが人々に紹介できる単一の声明がなかったことを意味しました。この投稿は、そのギャップを埋めるためのものです。
+</p>
+<p>
+  2年前にPerl7が発表されました。Perl 7の重要なアイデアは、広く使用されているモジュール/プラグマを多数有効にすることで、コードの上部に必要なボイラープレートを大幅に削減することでしたが、これには下位互換性が失われるという代償が伴います。これは、一部の既存のコードが変更なしでは機能しなかったことを意味します。
+</p>
+<p>
+  これは多くの白熱した議論を促しました。これは素晴らしいアイデアだと考える人もいれば、Perlの重要な強みの1つを捨てるのはひどいアイデアだと考える人もいました。最終的に、これは、ラリーがもはやPerlに関与していない（そして約20年間関与していない）ので、誰がこの決定を下す権利を持っているかについての議論につながりました。これらすべての議論の最終結果は、新しいガバナンス構造でした。
+</p>
+<p>
+  Perl 5 Porters（ "p5p"）メーリングリストは、Perlの将来について議論されている場所であり、コンセンサスの構築を目指していますが、それが不可能な場合は、3人のPerl Steering Council（PSC）が最終的な意思決定権限を持ちます。 Perlの未来。PSCは、コアチーム（Perlに「最近」貢献したp5pのサブセット）によって毎年選出されます。選挙のきっかけはPerlの年次リリースであるため、次の選挙は5.36.0がリリースされた後に行われます。
+</p>
+<p>
+  最初のPSCは2020年後半に選出され、私たちの最初のタスクの1つは、Perlの将来の計画を作成し、それを実行に移すことでした。多くの議論と反復が続きましたが、私たちが合意した戦略は次のとおりです。
+</p>
+<p>
+  賢明に書かれた既存のPerl5コードは、Perlの将来のリリースでも引き続き実行されるはずです。たとえば、セキュリティバグによって下位互換性を損なう変更が必要な場合など、これが不可能な場合があります。
+</p>
+<p>
+  私たちは言語を前進させ、新機能が導入される割合を増やしたいと考えています。その結果、 RFCプロセスが導入され、誰でも使用して言語の変更を提案できます。
+</p>
+<p>
+  私たちは、人々がこれらの新機能を簡単に使用できるようにし、彼らの採用を促進するためにできることをしたいと考えています。この戦略の中心は、機能ガードとバージョンバンドルです。
+</p>
+<p>
+  【全文を読む】
+</p>
+<p>
+  <a href="https://blogs-perl-org.translate.goog/users/psc/2022/05/what-happened-to-perl-7.html?_x_tr_sch=http&_x_tr_sl=en&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp">Perl7はどうなりましたか?</a>
+</p>
+
+  </div>
+  <div class="bottom">
+    <h3>関連情報</h3>
+
+<div style="margin:10px 10px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div style="width:calc(100% - 30%);max-width:500px;margin:0 auto;margin-top:50px;margin-bottom:70px;">
+  <a rel="nofollow" style="line-height:1.9;text-align:center;font-weight:bold;font-size:19px;display:block;padding:33px 30px;background:#FF4DA0;text-decoration:none;border-radius:5px;color:white;" href="https://perlclub.net/forum">Perlクラブフォーラムへ参加</a>
+</div>
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-services">
+  <ul>
+    <li><a rel="nofollow" href="https://perlclub.net/campaign">毎月8日電子書籍無料キャンペーン</a></li>
+    <li><a rel="nofollow" href="https://www.amazon.co.jp/dp/B097T6CBR6">Kindle・Perlテキスト処理のエッセンス</a></li>
+    <li><a rel="nofollow" href="https://www.amazon.co.jp/dp/B09Q8QV5G5">Kindle・PerlでポータブルなLinuxシステム管理入門</a></li>
+    <li><a rel="nofollow" href="/all.html">すべての記事</a></li>
+    <li><a rel="nofollow" href="/list.html">新着情報</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/sites">無料Web講座</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/book">書籍</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/lesson">プログラミング教室</a></li>
+    <li><a rel="nofollow" href="https://twitter.com/perlzemi">Twitter</a>
+    <li><a rel="nofollow" href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">Youtube</a>
+    <li><a rel="nofollow" href="https://perlclub.net/forum">Perlクラブフォーラム</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/account/create">会員登録</a></li>
+  </ul>
+</div>
+
+<div class="perlri_link">
+  <a rel="nofollow" href="https://perlclub.net">Perlクラブ</a>
+</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGRMKMYSC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGRMKMYSC2');
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

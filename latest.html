@@ -55,7 +55,46 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/03/10</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/05/27</div>
+<h2><a href="/blog/20220527071723.html">【翻訳】Perl7はどうなりましたか?</a></h2>
+<p>
+  Perlの公式の声明からの翻訳です。
+</p>
+<p>
+  <a href="https://blogs-perl-org.translate.goog/users/psc/2022/05/what-happened-to-perl-7.html?_x_tr_sch=http&_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=ja&_x_tr_pto=wapp">What happened to Perl 7?</a>
+</p>
+<p>
+  Perl 5.36.0が間近に迫った今、Perlプログラミング言語の将来の計画を明確にする良い機会だと思いました。私たちは、未来が数ヶ月にわたって、いくつかのステップで打ち出されていることに気づきました。これは、私たちが人々に紹介できる単一の声明がなかったことを意味しました。この投稿は、そのギャップを埋めるためのものです。
+</p>
+<p>
+  2年前にPerl7が発表されました。Perl 7の重要なアイデアは、広く使用されているモジュール/プラグマを多数有効にすることで、コードの上部に必要なボイラープレートを大幅に削減することでしたが、これには下位互換性が失われるという代償が伴います。これは、一部の既存のコードが変更なしでは機能しなかったことを意味します。
+</p>
+<p>
+  これは多くの白熱した議論を促しました。これは素晴らしいアイデアだと考える人もいれば、Perlの重要な強みの1つを捨てるのはひどいアイデアだと考える人もいました。最終的に、これは、ラリーがもはやPerlに関与していない（そして約20年間関与していない）ので、誰がこの決定を下す権利を持っているかについての議論につながりました。これらすべての議論の最終結果は、新しいガバナンス構造でした。
+</p>
+<p>
+  Perl 5 Porters（ "p5p"）メーリングリストは、Perlの将来について議論されている場所であり、コンセンサスの構築を目指していますが、それが不可能な場合は、3人のPerl Steering Council（PSC）が最終的な意思決定権限を持ちます。 Perlの未来。PSCは、コアチーム（Perlに「最近」貢献したp5pのサブセット）によって毎年選出されます。選挙のきっかけはPerlの年次リリースであるため、次の選挙は5.36.0がリリースされた後に行われます。
+</p>
+<p>
+  最初のPSCは2020年後半に選出され、私たちの最初のタスクの1つは、Perlの将来の計画を作成し、それを実行に移すことでした。多くの議論と反復が続きましたが、私たちが合意した戦略は次のとおりです。
+</p>
+<p>
+  賢明に書かれた既存のPerl5コードは、Perlの将来のリリースでも引き続き実行されるはずです。たとえば、セキュリティバグによって下位互換性を損なう変更が必要な場合など、これが不可能な場合があります。
+</p>
+<p>
+  私たちは言語を前進させ、新機能が導入される割合を増やしたいと考えています。その結果、 RFCプロセスが導入され、誰でも使用して言語の変更を提案できます。
+</p>
+<p>
+  私たちは、人々がこれらの新機能を簡単に使用できるようにし、彼らの採用を促進するためにできることをしたいと考えています。この戦略の中心は、機能ガードとバージョンバンドルです。
+</p>
+<p>
+  【全文を読む】
+</p>
+<p>
+  <a href="https://blogs-perl-org.translate.goog/users/psc/2022/05/what-happened-to-perl-7.html?_x_tr_sch=http&_x_tr_sl=en&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp">Perl7はどうなりましたか?</a>
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/03/10</div>
 <h2><a href="/blog/20220310104840.html">Perl ABC - Perl Introduction for Beginners</a></h2>
 <p>
   <b>Perl ABC</b> is <b>a Perl introduction for beginners</b> to learn the basics of Perl programming.
@@ -769,18 +808,6 @@ sleep 3;
 </p>
 <p>
   処理自動化・作業効率化を考える場合は、この五つの基本的な手段から、まずは検討してみませんか? 限られた部分に対して、RPAは効果を発揮するでしょう。
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/07/02</div>
-<h2><a href="/blog/20210702173243.html">Perlテキスト処理のエッセンスが発売されました</a></h2>
-<p>
-  Perlゼミを運営する、Perl総合研究所から「Perlテキスト処理のエッセンス」が発売されました。Perlテキスト処理と正規表現の基礎が学べます。
-</p>
-<div style="text-align:center;">
-  <a href="https://perlclub.net/book/perl_text_essense" rel="nofollow"><img src="/images/book/perl_text_essence.jpg" style="width:260px;margin:0 auto;"></a><a href="https://perlclub.net/book/perl_text_essense" rel="nofollow" style="font-size:20px;">Perlテキスト処理のエッセンス発売中</a>
-</div>
-<p>
-  <a href="https://perlclub.net/account/create">Perlクラブへの会員登録</a>で、サンプルコードがダウンロードできます。<a href="https://perlgenki.hatenadiary.com/">Perlテキスト処理のエッセンスの活用ブログ</a>もあり。
 </p>
 
 
