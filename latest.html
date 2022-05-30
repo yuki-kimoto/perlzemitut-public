@@ -55,7 +55,247 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/05/27</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/05/30</div>
+<h2><a href="/blog/20220530161828.html">Perl 5.36がリリース - warningsの有効化、サブルーチンシグネチャ、try-catch-finally文</a></h2>
+<p>
+  Perl 5.36が2022年5月28日にリリースされました。warningsの有効化、サブルーチンシグネチャ、try-catch-finally文、ブール・文字列・数値を区別する関数の追加など機能強化が図られています。
+</p>
+<h3>Perl 5.36の機能を使う</h3>
+<p>
+  Perl 5.36で提供されているすべての機能を使うには、バージョン宣言「use v5.36」をソースコードの先頭に記述します。
+</p>
+<pre>
+use v5.36;
+</pre>
+<p>
+  バージョン宣言はソースコードの先頭で行ってください。そうしないと、予期しない動作が発生する可能性があります。
+</p>
+<h3>warningsの有効化</h3>
+<p>
+  警告を発生させる<a href="/blog/20130916137930.html">warningsモジュール</a>が、バージョン宣言によって有効になります。
+</p>
+<pre>
+use warnings;
+</pre>
+<p>
+  <a href="https://perlzemi.com/blog/20130912137895.html">strictモジュール</a>は、すでにバージョン宣言によって有効になっているので、Perl 5.36では、バージョン宣言によってstrictとwarningsが有効になります。
+</p>
+<pre>
+# これまで
+use strict;
+use warnings;
+
+# Perl 5.36以降
+use v5.36;
+</pre>
+<p>
+  将来<a href="https://perlzemi.com/blog/20220527071723.html">Perl 7</a>がリリースされた場合は、マイナーバージョンを省略して、以下のように書けます。
+</p>
+<pre>
+use v7;
+</pre>
+<h3>サブルーチンシグネチャが実験的ではなくなりました</h3>
+<p>
+  サブルーチンシグネチャが実験的ではなくなり、バージョン宣言を行うと有効になります。サブルーチンシグネチャは、引数をサブルーチン名の後ろに記述できる機能のことです。
+</p>
+<pre>
+use v5.36;
+
+sub add ($x, $y) {
+  return $x + $y;
+}
+</pre>
+<p>
+  これまで、書いていたサブルーチンは次のように書けます。
+</p>
+<pre>
+# これまで
+sub add ($x, $y) {
+  my ($x, $y) = @_;
+  
+  $y = 3 unless defined $y;
+  
+  return $x + $y;
+}
+
+# v5.36
+sub add ($x, $y = 3) {
+  return $x + $y;
+}
+</pre>
+<p>
+  ただし、サブルーチンシグネチャで書かれたサーブルーチンは、引数の個数のチェックが行われることに注意してください。与えられた引数が少ないあるいは多い場合は、例外が発生します。
+</p>
+<p>
+  引数が多い場合の引数チェックを省略させたい場合は、以下のように記述します。
+</p>
+<pre>
+sub add ($x, $y, @) {
+  return $x + $y;
+}
+</pre>
+<h3>実験的なtry-catch-finally構文</h3>
+<p>
+  実験的なtry-catch-finally構文が書けるようになりました。
+</p>
+<pre>
+use feature 'try';
+
+try {
+  
+}
+catch ($e) {
+  
+}
+finally {
+  
+}
+</pre>
+<h3>「-g」コマンドラインフラグ</h3>
+<p>
+  perlコマンドで、ファイルを一度に読みこむオプション「-g」が追加されました。
+</p>
+<pre>
+perl -n -g -E 'if (m|&lt;h1&gt;(.*?)&lt;/h1&gt;|) { say $1; }' a.html
+</pre>
+<p>
+  これまでPerlは「-0777」というオプションで、同じ機能を実現できていましたが、頻繁に使われるので、使いやすいオプション名が追加されました。
+</p>
+<pre>
+perl -n -0777 -E 'if (m|&lt;h1&gt;(.*?)&lt;/h1&gt;|) { say $1; }' a.html
+</pre>
+<h3>Unicode 14.0がサポートされました。</h3>
+<p>
+  <a href="https://gigazine.net/news/20210916-unicode-14-emoji/">Unicode 14.0</a>がサポートされました。
+</p>
+<h3>builtin名前空間</h3>
+<p>
+  実験的に標準関数用のbuiltin名前空間が追加されました。Perlが、名前の衝突を気にせずに、関数を追加することができるようになりました。
+</p>
+<pre>
+my $true = builtin::true;
+
+use builtin 'true';
+
+my $true = true;
+</pre>
+<p>
+  builtin名前空間のすべての関数は現在実験的です。
+</p>
+<h3>true関数、false関数、is_bool関数の追加</h3>
+<p>
+  真偽値を表すbuiltin::trueとbuiltin::false関数が追加されました。
+</p>
+<pre>
+# 真
+builtin::true;
+
+# 偽
+builtin::falsebuiltin::false;
+</pre>
+<p>
+  「builtin::true」は「!!1」、builtin::false「!!0」と等価です。
+</p>
+<p>
+  builtin::is_bool関数で、真偽値をチェックできるようになりました。
+</p>
+<pre>
+if (builtin::is_bool $bool) {
+  
+}
+</pre>
+<p>
+  JSONを生成するときなどに便利です。
+</p>
+<h3>数値と文字列の区別ができるようになりました</h3>
+<p>
+  Perl 5.36では、builtin::created_as_number関数とbuiltin::created_as_string関数を使って、数値と文字列を区別できるようになりました。JSONなどのシリアライザーで使われることが想定されています。
+</p>
+<pre>
+if (builtin::created_as_number $data) {
+  
+}
+
+if (builtin::created_as_string $data) {
+  
+}
+</pre>
+<p>
+  builtin::is_boolを組み合わせて使うと、JSONのシリアライズとデシリアライズをコアの関数だけを使って、正しく行うことができます。
+</p>
+<pre>
+if (builtin::is_bool $data) {
+  
+}
+eleif (builtin::created_as_number $data) {
+  
+}
+elsif (builtin::created_as_string $data) {
+  
+}
+</pre>
+<h3>builtin::trim関数</h3>
+<p>
+  builtin::trim関数が追加されました。前後の空白を取り除くことができます。
+</p>
+<pre>
+my $trim = builtin::trim $string;
+</pre>
+<h3>複数個の要素のイテレート</h3>
+<p>
+  複数個の要素をイテレートするfor文が追加されました。この機能は、実験的です。
+</p>
+<pre>
+for my ($key, $value) (%hash) { ... }
+for my ($left, $right, $gripping) (@moties) { ... }
+</pre>
+<h3>Perl 5.36をすぐにインストールするには?</h3>
+<p>
+  <a href="/blog/20110220130464.html">perlbrew</a>あるいは<a href="/blog/20180816153437.html">plenv</a>を使うと、Perl 5.36をすぐに試すことができます。
+</p>
+<p>
+  <b>perlbrew</b>
+</p>
+<pre>
+perlbrew install perl-5.36.0
+</pre>
+<p>
+  <b>plenv</b>
+</p>
+<pre>
+plenv install 5.36.0
+</pre>
+<h3>すべての変更を見る</h3>
+<p>
+  すべての変更点を見るには、perldeltaを見てください。
+</p>
+<p>
+  <a href="https://metacpan-org.translate.goog/release/RJBS/perl-5.36.0/view/pod/perldelta.pod?_x_tr_sl=en&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp">perldelta</a>
+</p>
+<h3>感想</h3>
+<p>
+  Perl 5.36リリースおめでとうございます。開発者の皆様、ありがとうございます。
+</p>
+<p>
+  「use warnings」がバージョン宣言で、有効になって、バージョン宣言を使う動機が増えそうです。
+</p>
+<p>
+  複数イテレートforループは、使う機会がありそうです。
+</p>
+<p>
+  「-g」オプションでワンライナーが簡単になりますね。
+</p>
+<p>
+  trimも使用頻度が高そうです。
+</p>
+<p>
+  文字列・数値・ブールが区別できるようになったのは、とても良いです。
+</p>
+<p>
+  サブルーチンシグネチャの引数の個数チェックは、予期しない実行時例外が発生するので、高い信頼性が必要とされるプロダクトの本番環境で使用された場合に、ちょっと心配ではあります。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/05/27</div>
 <h2><a href="/blog/20220527071723.html">【翻訳】Perl7はどうなりましたか?</a></h2>
 <p>
   Perlの公式の声明からの翻訳です。
@@ -304,510 +544,6 @@ use v7;
 </p>
 <p>
   <a href="https://qiita.com/s4i/items/75c19c9feb10b54c1ce9">PowerShell起動時、文字コードをUTF-8に変える方法 - Qiita</a>
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2021/07/26</div>
-<h2><a href="/blog/20210726104613.html">PerlでWebブラウザ自動操作ロボット作成方法のまとめ - 実用的なRPAをPerlで作ってみよう</a></h2>
-<p>
-  PerlでWebブラウザ自動操作ロボット作成方法をここにまとめていきます。Windowsのユーザーが対象です。
-</p>
-<h3>Strawberry PerlをWindowsにインストールする</h3>
-<p>
-  Webブラウザ自動操作ロボットを作成するためには、Windows用にセッティングされたPerlが必要です。
-</p>
-<p>
-  Active PerlとStrawberry Perlという選択枝がありますが、ここでは、Strawberry Perlを使います。
-</p>
-<p>
-  Strawberry Perlには、Webブラウザ自動操作ロボットを作成するための、GUI操作のモジュールがインストールされています。マウス位置指定、クリック、キーボード操作、クリップボード操作などです。
-</p>
-<ul>
-  <li>
-    <a href="https://perlzemi.com/blog/20180808153368.html">Strawberry Perlのインストール</a>
-  </li>
-</ul>
-<h3>Webブラウザ自動操作ロボット作成に使うPerlモジュール</h3>
-<p>
-  Webブラウザ自動操作ロボット作成に使うPerlモジュールは、以下が中心です。
-</p>
-<ul>
-  <li><a href="https://metacpan.org/pod/Win32::GuiTest">Win32::GuiTest</a> - マウス位置指定、キーボード操作</li>
-  <li><a href="https://metacpan.org/pod/Win32::Clipboard">Win32::Clipboard</a> - クリップボード操作</li>
-  <li><a href="https://mojodoc.perlzemi.com/Mojo::DOM.html">Mojo::DOM</a> - HTML解析</li>
-</ul>
-<h3>ウィンドウ操作</h3>
-<p>
-  ウィンドウ操作について解説します。
-</p>
-<h4>Win32::GuiTest</h4>
-<p>
-  Windowsで、ウィンドウの取得、マウス位置指定、クリック、キーボード操作を行うにはWin32::GuiTestを使い、必要な関数を読み込みます。
-</p>
-<pre>
-use Win32::GuiTest (
-  'UnicodeSemantics',
-  'GetDesktopWindow',
-  'GetParent',
-  'GetWindowText',
-  'GetClassName',
-  'GetChildWindows',
-  'GetChildDepth',
-  'MouseMoveAbsPix',
-  'SendLButtonUp',
-  'SendLButtonDown',
-  'SendKeys',
-);
-</pre>
-<p>
-  以下のようにWin32::GuiTestを読み込むと、関数がすべてインポートされます。プログラムの保守性を上げたい場合は、上の記述、とりあえず楽に書きたい場合は、下の記述が使えます。
-</p>
-<pre>
-# 関数をすべてインポート
-use Win32::GuiTest;
-</pre>
-<h4>ユニコードセマンティクスを有効にする</h4>
-<p>
-  PerlはPerl 5.8以降で、ユニコード対応されていますので、Win32::GuiTestの方も、ユニコードに対応したセマンティクスが使えるようにします。Perlのソースコードは、UTF-8で記述し「use utf8;」を記述していることが前提です。
-</p>
-<pre>
-# ユニコードセマンティクスを有効にする
-UnicodeSemantics(1);
-</pre>
-<h4>デスクトップウィンドウの取得</h4>
-<p>
-  デスクトップウィンドウを取得するには、GetDesktopWindow関数を使用します。デスクトップウィンドウとは、デスクトップ全体を示すウィンドウのことです。
-</p>
-<pre>
-# デスクトップウィンドウの取得
-my $desktop_win = GetDesktopWindow();
-</pre>
-<h4>子ウィンドウの一覧を取得</h4>
-<p>
-  Webブラウザ自動操作を行うためには、ブラウザのウィンドウを取得する必要がありますが、そのためには、まずデスクトップウィンドウの下で管理されている子ウィンドウの一覧を取得する必要があります。子ウィンドウの一覧を取得するには、GetChildWindowsを使用します。
-</p>
-<pre>
-# 子ウィンドウの一覧を取得
-my @windows = GetChildWindows($desktop_win);
-
-# 子ウィンドウをループ
-for my $window (@windows) {
-  
-}
-</pre>
-<h4>ウィンドウのテキストを取得</h4>
-<p>
-  ウィンドウのテキストを取得するにはGetWindowText関数を使います。
-</p>
-<pre>
-# ウィンドウのテキストを取得
-my $win_text = GetWindowText($win);
-</pre>
-<p>
-  ウィンドウのテキストは、ブラウザの種類によって、異なる可能性があります。Google Chromeで確認したものでは、以下のように「ウィンドウのタイトル - アプリケーション名」になっていました。
-</p>
-<pre>
-Perlクラブ - Google Chrome
-</pre>
-<h4>対象ウィンドウの取得</h4>
-<p>
-  Webブラウザ自動操作ロボットを作る場合は、子ウィンドウの一覧から、対象のウィンドウを取得する必要があります。対象のウィンドウを取得するサンプルを記述します。確実に、対象のWebブラウザの対象のページが、一つ立ち上がっていることをチェックします。
-</p>
-<pre>
-# 対象のウィンドウを取得(Perlクラブ - Google Chrome)
-my $win;
-{
-  my $desktop_win = GetDesktopWindow();
-  die "Oops!" if GetParent($desktop_win) != 0;
-
-  my @browser_wins;
-  my $browser_name = 'Chrome';
-  for my $win (GetChildWindows($desktop_win)) {
-
-    # ウィンドウの名前
-    my $win_text    = GetWindowText($win);
-
-    # ブラウザ名
-    if ($win_text =~ /\b$browser_name\b/) {
-      if ($win_text =~ /Perlクラブ/) {
-        push @browser_wins, $win;
-      }
-    }
-  }
-
-  my $browser_wins_count = @browser_wins;
-  unless ($browser_wins_count == 1) {
-    die "Must be open one window");
-  }
-  $win = $browser_wins[0];
-}
-</pre>
-<h3>マウス操作</h3>
-<p>
-  マウス操作ついて説明します。
-</p>
-<h4>マウスを移動させる</h4>
-<p>
-  マウスを移動させるにはMouseMoveAbsPix関数を使用します。原点は、デスクトップウィンドウの左上になります。
-</p>
-<pre>
-# マウスを移動させる
-MouseMoveAbsPix($x, $y);
-</pre>
-<h4>対象ウィンドウの左上の位置を取得する</h4>
-<p>
-  ブラウザを操作する場合は、ブラウザのウィンドウの左上の位置を知りたいですね。GetWindowRect関数を使うと、対象のウィンドウの原点の位置を取得できます。
-</p>
-<pre>
-# 対象ウィンドウの左上の位置を取得する
-my ($win_left, $win_top, $win_right, $win_bottom) = Win32::GuiTest::GetWindowRect($win);
-</pre>
-<p>
-  対象ウィンドウの原点から、左100px、下200pxの位置にマウスを移動させるには次のようにします。
-</p>
-<pre>
-# 対象ウィンドウの原点から、左100px、下200pxの位置にマウスを移動
-my $left = 100;
-my $top = 200;
-MouseMoveAbsPix($win_left + $left, $win_top + $top);
-</pre>
-<h4>マウスの左ボタンを押す</h4>
-<p>
-  マウスの左ボタンを押すにはSendLButtonDown関数を使用します。
-</p>
-<pre>
-# マウスの左ボタンを押す
-SendLButtonDown();
-</pre>
-<h4>マウスの左ボタンを離す</h4>
-<p>
-  マウスの左ボタンを離すにはSendLButtonUp関数を使用します。
-</p>
-<pre>
-# マウスの左ボタンを押す
-SendLButtonDown();
-</pre>
-<h4>マウスを左クリックする</h4>
-<p>
-  マウスを左クリックするには、マウスの左ボタンを押して、離します。
-</p>
-<pre>
-# マウスを左クリックする
-SendLButtonDown();
-SendLButtonUp();
-</pre>
-<h4>マウスの左ボタンをダブルクリックする</h4>
-<p>
-  マウスの左ボタンをダブルクリックするには、マウスの左ボタンを押して、離してを2回繰り返します。
-</p>
-<pre>
-# ダブルクリック
-SendLButtonDown();
-SendLButtonUp();
-SendLButtonDown();
-SendLButtonUp();
-</pre>
-<h4>その他のマウスイベント</h4>
-<p>
-  その他のマウスイベントです。真ん中のボタンを押す、離す、右ボタンを押す、離すです。
-</p>
-<pre>
-# 真ん中のボタンを押す
-SendMButtonDown()
-
-# 真ん中のボタンを離す
-SendMButtonUp()
-
-# 右ボタンを押す
-SendRButtonDown()
-
-# 右ボタンを離す
-SendRButtonUp()
-</pre>
-<h3>キーボード入力</h3>
-<p>
-  キーボード入力ついて説明します。
-</p>
-<h4>キーボード入力の基本</h4>
-<p>
-  キーボード入力するにはSendKeys関数を使用します。複数の文字を指定した場合は、デフォルトで50m間隔でキーボード入力が行われます。
-</p>
-<pre>
-# 「a」とキーボード入力
-SendKeys('a');
-
-# 「abcde」とキーボード入力
-SendKeys('abcde');
-</pre>
-<p>
-  同じ文字を、繰り返し実行する場合は<a href="/blog/20180227151973.html">繰り返し演算子「x」</a>を使うと簡単です。
-</p>
-<pre>
-「a」を5回入力
-SendKeys('a' x 5);
-</pre>
-<h4>アルファベット以外のキー</h4>
-<p>
-  上下左右、タブ、ファンクションキー、Enterキーなどは、アルファベット以外のキーです。「{キー名}」という記法を使います。
-</p>
-<pre>
-SendKeys('{DOWN}');
-SendKeys('{UP}');
-SendKeys('{ENTER}');
-SendKeys('{TAB}');
-SendKeys('{F12}');
-</pre>
-<p>
-  すべてのアルファベット以外のキー名です。<a href="https://metacpan.org/pod/Win32::GuiTest">Win32::GuiTestのドキュメント</a>から引用しました。
-</p>
-<pre>
-{BACKSPACE}   Backspace
-{BS}          Backspace
-{BKSP}        Backspace
-{BREAK}       Break
-{CAPS}        Caps Lock
-{DELETE}      Delete
-{DOWN}        Down arrow
-{END}         End
-{ENTER}       Enter (same as ~)
-{ESCAPE}      Escape
-{HELP}        Help key
-{HOME}        Home
-{INSERT}      Insert
-{LEFT}        Left arrow
-{NUMLOCK}     Num lock
-{PGDN}        Page down
-{PGUP}        Page up
-{PRTSCR}      Print screen
-{RIGHT}       Right arrow
-{SCROLL}      Scroll lock
-{TAB}         Tab
-{UP}          Up arrow
-{PAUSE}       Pause
-{F1}          Function Key 1
-...           ...
-{F24}         Function Key 24
-{SPC}         Spacebar
-{SPACE}       Spacebar
-{SPACEBAR}    Spacebar
-{LWI}         Left Windows Key
-{RWI}         Right Windows Key 
-{APP}         Open Context Menu Key
-</pre>
-<p>
-  TABで特定のフォーム部品にフォーカスを当てたい場合は、繰り返し使うので、繰り返し演算子と一緒に使うと便利です。
-</p>
-<pre>
-SendKeys('{TAB}' x 5);
-</pre>
-<h4>Ctrl, Alt, Shift</h4>
-<p>
-  Ctrl, Alt, Shiftを押しながらのキーボード入力は、以下の文字を、先頭につけることでできます。
-</p>
-<pre>
-+ means SHIFT 
-^ means CTRL 
-% means ALT
-</pre>
-<p>
-  Ctrl, Alt, Shiftを組み合わせた例です。
-</p>
-<pre>
-# Ctrl + c (コピー)
-SendKeys('^c');
-
-# Ctrl + v (貼り付け)
-SendKeys('^v');
-
-# Shift + a (A)
-SendKyes('+a');
-
-# Alt + l (画面ロック)
-SendKyes('%l');
-</pre>
-<h4>日本語のフォーム入力</h3>
-<p>
-  IMEを使って日本語をキーボードからフォーム入力するのは、難しいです。
-</p>
-<p>
-  キーボードから入力するのではなくって、Perlの内部文字列を、Windowsのクリップボードに保存して、それを、フォーム入力に貼り付けるのがお勧めです。Perlのソースコードは、UTF-8で保存してください。
-</p>
-<pre>
-use utf8;
-use Encode 'encode';
-
-use Win32::GuiTest;
-use Win32::Clipboard;
-
-# クリップボードオブジェクトの作成
-my $clip = Win32::Clipboard-&gt;new;
-
-my $string = 'Perlゼミ';
-
-# 文字列をクリップボードに保存
-$clip-&gt;Set(encode('cp932', $string));
-
-# 「Ctrl + v」で貼り付け
-SendKeys('^v');
-</pre>
-<h3>クリップボード操作</h3>
-<p>
-  クリップボード操作について解説します。テキストをコピーしたり、フォームの入力欄に、文字を貼り付ける場合に使用します。
-</p>
-<h4>Win32::Clipboard</h4>
-<p>
-  Windowsのクリップボードを扱うには、Win32::Clipboardモジュールを使用します。
-</p>
-<pre>
-use Win32::Clipboard;
-</pre>
-<h4>クリップボードオブジェクトの生成</h4>
-<p>
-  クリップボードオブジェクトをまず作成します。
-</p>
-<pre>
-# クリップボードオブジェクトの作成
-my $clip = Win32::Clipboard-&gt;new;
-</pre>
-<h4>クリップボードにPerl文字列を保存する</h4>
-<p>
-  Setメソッドで、Perlの文字列を保存します。Perlのソースコードは、UTF-8で記述し「use utf8;」を記述していることが前提です。Windowsのクリップボードに、Perl側から文字列を保存するときは、cp932にエンコードして渡します。Windowsのクリップボードのテキストの文字コードが、cp932だからです。
-</p>
-<pre>
-# 文字列をクリップボードに保存
-$clip-&gt;Set(encode('cp932', $string));
-</pre>
-<h4>クリップボードからPerl文字列を取り出す</h4>
-<p>
-  GetAsメソッドの引数に「CF_UNICODETEXT」を指定することで、「UTF16-LE」というユニコードのひとつの符号化形式で取得することができます。これを、PerlのEncode関数のdecode関数を使って、Perlの文字列に変換します。Windowsのクリップボードの内容をPerlの文字列として取得することができます。たんなるGetText関数では、正しく取得できないので、注意しましょう。
-</p>
-<pre>
-# クリップボードからPerl文字列を取り出す
-my $string = $clip-&gt;GetAs(CF_UNICODETEXT);
-$text = Encode::decode("UTF16-LE",  $string);
-</pre>
-<h4>クリップボードの内容をフォーム部品に貼り付ける</h4>
-<p>
-  クリップボードの内容を、テキストフィールドや、テキストエリアなどのフォーム部品に貼り付けるには「Ctrl + c」を送信します。「^」は「Ctrl」という意味です。
-</p>
-<pre>
-# クリップボードの内容をフォーム部品に貼り付ける
-SendKeys('^c');
-</pre>
-<h3>画面のHTMLの解析</h3>
-<p>
-  ブラウザとRPAを組み合わせた場合にページのHTMLを解析する手法を解説します。
-</p>
-<h4>画面のHTMLを取得する</h4>
-<p>
-  RPAとブラウザと組み合わせる場合は、HTMLの解析が利用できます。ChomeやEdgeでは、開発ツールと呼ばれるものが存在し、このツールを起動して、コピーすれば、クリップボードに、ページのHTMLを取得できます。Chromeでは、このツールをF12で開くことができます。「要素」タグが選択されている状態である必要があることに注意しましょう。
-</p>
-<p>
-  HTMLを取得するサンプルです。
-</p>
-<pre>
-# Chromeデベロッパーツールを開く
-$self-&gt;SendKeys('{F12}');
-
-# 開くのを待機
-sleep 1;
-
-# HTMLをクリップボードにコピー
-$self-&gt;SendKeys('^c');
-
-# クリップボードのテキストをUTF16-LEとして取得
-my $html = $clip-&gt;GetAs(Win32::Clipboard::CF_UNICODETEXT());
-
-# Perlの内部文字列にデコード
-$html = Encode::decode("UTF16-LE", $html);
-
-# Chromeデベロッパーツールを閉じる
-$self-&gt;SendKeys('{F12}');
-
-# 閉じるのを待機
-sleep 1;
-</pre>
-<h4>HTMLを解析する</h4>
-<p>
-  HTMLを解析するには、HTMLをDOMに変換してくれる<a href="https://mojodoc.perlzemi.com/Mojo::DOM.html">Mojo::DOM</a>を使うのが簡単です。取り出しが単純な場合は、<a href="/blog/20100827127859.html">Perlの正規表現</a>を使うのもよいでしょう。
-</p>
-<p>
-  Mojo::DOMで、テーブルの列をたどるサンプルです。find関数には、任意のCSSセレクタが使えます。
-</p>
-<pre>
-use Mojo::DOM;
-
-my $dom = Mojo::DOM-&gt;new($html);
-
-for my $row ($dom-&gt;find('tr')-&gt;each) {
-  my $row_text = $row-&gt;content;
-  
-  # 処理
-}
-</pre>
-<p>
-  特定の言葉が含まれているかをPerlの正規表現でチェックするサンプルです。
-</p>
-<pre>
-# 検索結果という文字列が含まれている
-if ($html =~ /検索結果/) {
-  # ...
-}
-</pre>
-<h4>HTMLの保存</h4>
-<p>
-  HTMLを保存するには、通常の<a href="/blog/20110212130370.html">Perlのファイル入出力</a>を使用します。
-</p>
-<pre>
-use FindBin;
-
-# 保存場所(プログラムのあるディレクトリのdata/test.html)
-my $file = "$FindBin::Bin/data/test.html";
-
-# ファイルを書き込みモードでオープン
-open my $fh, '&gt;', $file
-  or die "Can't open file $file: $!";
-
-# 書き込み
-print $fh $html;
-</pre>
-<h3>RPAロボット作成のポイント</h3>
-<p>
-  RPAロボット作成のポイントです。
-</p>
-<h4>ブラウザの起動サイズを決めておく</h4>
-<p>
-  マウスでクリックする位置を確定させるために、ブラウザの起動サイズを決めて起動しましょう。
-</p>
-<p>
-  Chromeでは、ショートカット」「プロパティ」「リンク先」に次のように設定することで、ブラウザの起動サイズを決めることができます。
-</p>
-<pre>
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --window-position=150,10 --window-size=1505,933
-</pre>
-<h4>試験環境と本番環境でディスプレイのサイズをそろえる</h4>
-<p>
-  試験環境と本番環境でディスプレイのサイズをそろえましょう。マウス移動は、ピクセル位置指定なので、ディスプレイの解像度が違うと、違う位置を指してしまいます。
-</p>
-<h4>ブラウザの応答を待つ</h4>
-<p>
-  ブラウザの応答を待ちたい場合は、sleep関数を使います。ブラウザの応答が返ってくるなるべく安心な秒を設定しましょう。といっても、ネットワークの状況などに依存しますから、返ってこなくて、次の操作が始まって、動作が変になるということが、発生します。
-</p>
-<pre>
-# 3秒待つ
-sleep 3;
-</pre>
-<h3>RPAロボットの注意点</h3>
-<p>
-  処理自動化・業務効率化において、RPAは、課題点が多い手法です。RPAロボットは、見た瞬間に、その動きに感銘を受けますが、処理速度、プログラムのメンテナンス性、自動化の信頼性が低いということに注意しましょう。
-</p>
-<p>
-  「WindowsのアップグレードでGUI画面が変わってしまったら?」「Webの利用サービスの更新でボタンの位置やテキストの表示が変わってしまったら?」「Webの応答が5秒間返ってこなかったら?」「マウスクリックやキーボードの入力がロストしたら?」「毎日だれが、そのプログラムをスタートさせるの?」「Linux上などで動いている他のプログラムとの連携はどうするの?」
-</p>
-<p>
-  処理自動化・作業効率化の最初に取りうる基本的で、実際に効果が高い手法は、テキスト化、コマンド化、Web化、バッチ化、RDBMS化です。
-</p>
-<p>
-  処理自動化・作業効率化を考える場合は、この五つの基本的な手段から、まずは検討してみませんか? 限られた部分に対して、RPAは効果を発揮するでしょう。
 </p>
 
 
