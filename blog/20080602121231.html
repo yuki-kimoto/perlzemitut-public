@@ -34,11 +34,11 @@
   });
 </script>
 
-<title>ActivePerlのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<title>ActivePerl のダウンロードとインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
 <meta name="description" content="ActivePerlはActiveState社によって無償で提供されているWindowsで商用利用可能なPerlディストリビューションの一つです。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="ActivePerlのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:title" content="ActivePerl のダウンロードとインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
 <meta name="twitter:description" content="ActivePerlはActiveState社によって無償で提供されているWindowsで商用利用可能なPerlディストリビューションの一つです。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
@@ -76,7 +76,7 @@
     <meta itemprop="position" content="2" />
   </li>
 </ol>
-<h2><a href="/blog/20080602121231.html">ActivePerlのインストール</a></h2>
+<h2><a href="/blog/20080602121231.html">ActivePerl のダウンロードとインストール</a></h2>
 <p>
   <strong>ActivePerl</strong>はActiveState社によって無償で提供されているWindowsで商用利用可能なPerlディストリビューションの一つです。
 </p>
@@ -104,7 +104,7 @@
 </p>
 <h3>ActivePerlのダウンロード</h3>
 <p>
-  ActivePerlをt次のページからダウンロードします。2021年現在の最新版は、5.32です。
+  次のページから ActivePerl をダウンロードしてインストールします。 2022 年の最新バージョンは Perl 5.34 です。
 </p>
 <ul>
   <li>
@@ -112,48 +112,47 @@
   </li>
 </ul>
 <p>
-  <a href="https://www.activestate.com/activeperl/downloads"><img style="border:1px solid #ddd;width:100%;" src="/images/active_perl/active_perl_click.png"></a>
+  <a href="https://www.activestate.com/activeperl/downloads"><img style="border: 1px solid # ddd; width: 100%;" src="/images/installation/active_perl_click.png"></a>
 </p>
 <p>
   2021年現在は、ActivePerlのダウンロードにはActiveStateへの会員登録が必要です。msiという拡張子はWindowsのインストーラであることを表します。
 </p>
 <p>
-  フリーで提供されているのは64bit版だけです。
-</p>
-<h3>ActivePerlのインストール</h3>
-<p>
-  ダウンロードしたActive Perlをダブルクリックします。
+  ActivePerl のダウンロードには、ActiveState メンバーシップへの登録が必要です。
 </p>
 <p>
-  インストーラーが起動します。「Next」を押して進みます。
+  登録後、以下のページが表示されます。
 </p>
 <p>
-  途中で「I accept the terms in the License Agreement」というチェックボックスがでてくるので、チェックをいれて「Next」を押します。
+  <img style="border: 1px solid # ddd; width: 100%;" src="/images/installation/active_perl_create_project.png">
 </p>
 <p>
-  「typical」を選択します。
+  ページの一番下までスクロールします。
 </p>
 <p>
-  さらに「Next」を押して進んでいって、最後に「Install」をクリックするとActive Perlのインストールが始まります。
+  <img style="border: 1px solid # ddd; width: 100%;" src="/images/installation/active_perl_create_rantime.png">
 </p>
 <p>
-  ここで「この不明な発行元からのアプリがデバイスに変更を加えることを許可しますか?」というダイアログが表示されると思いますが、「はい」をクリックしましょう。
+  「ランタイムの作成」をクリックします。ランタイムが作成されます。
 </p>
 <p>
-  5分くらい時間がかかるので待ちましょう。
+  「Install」ボタンをクリックすると、以下の内容が表示されます。
 </p>
 <p>
-  プログレスバーが満タンになると、Active Perlのインストールが完了します。
+  <img style="border: 1px solid # ddd; width: 100%;" src="/images/installation/active_perl_install_runtime.png">
 </p>
 <p>
-  「Finish」を押してダイアログを閉じましょう。Readmeが表示されますが、これも閉じて大丈夫です。
+  コマンドをコピーして、コマンド プロンプトに貼り付けます。
 </p>
-<h3>Perlがインストールされていることの確認</h3>
+<h3>ActivePerl のインストールを確認する</h3>
 <p>
   インストールが完了したら実際にActive Perlがインストールできているか確認してみましょう。
 </p>
 <p>
   コマンドプロンプトというツールをを実行してPerlのバージョンを表示してみます。
+</p>
+<p>
+  まず、<a href="/blog/20080603121251.html">コマンド プロンプト</a>を実行します。コマンド プロンプトは Windows CLI ツールです。
 </p>
 <p>
   コマンドプロンプトは、「スタートメニュー」→「アプリの一覧」→「Windowsシステムツール」→「コマンドプロンプト」から実行できます。
@@ -168,8 +167,7 @@ perl -v
   次のようにバージョン情報が表示されればインストールは成功しています。
 </p>
 <pre>
-This is perl 5, version 32, subversion 1 (v5.32.1) built for MSWin32-x64-multi-thread
-(with 1 registered patch, see perl -V for more detail)
+This is perl 5, version 34, subversion 0 (v5.34.0) built for MSWin32-x64-multi-thread
 </pre>
 <p>
   これでActive Perlのインストールは完了です。
@@ -216,6 +214,15 @@ This is perl 5, version 32, subversion 1 (v5.32.1) built for MSWin32-x64-multi-t
   </li>
   <li>
     <a href="/blog/20180806153350.html">msys2をWindowsにインストールしてPerlを使う</a>
+  </li>
+</ul>
+<h3>他のコマンドラインツール</h3>
+<p>
+  Perlを実行するための他のコマンドラインツールです。
+</p>
+<ul>
+  <li>
+    <a href="/blog/20220420170117.html">PerlのためのPowerShell(pwsh)入門</a>
   </li>
 </ul>
 
