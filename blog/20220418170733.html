@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<!-- Google Automatic Advertising -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+     
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/logo.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css?20220416">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<title>WSL 2 への Perl のインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="WSL 2 は、Linux 用の Windows サブシステムです。 WSL 2 を使用して Linux を Windows にインストールできます。そして、Perl を使用できます。">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="WSL 2 への Perl のインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="WSL 2 は、Linux 用の Windows サブシステムです。 WSL 2 を使用して Linux を Windows にインストールできます。そして、Perl を使用できます。" />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header_main">
+  <h1>
+    <a href="/"><img src="/images/logo.png">Perlゼミ</a>
+  </h1>
+  <div class="header_right">
+    <a rel="nofollow" href="https://perlclub.net/forum">フォーラムに参加</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    
+  </div>
+  <div class="middle">
+    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name"><a href="/blog/20180820153471.html">インストール</a></span>
+    <meta itemprop="position" content="2" />
+  </li>
+</ol>
+<h2><a href="/blog/20220418170733.html">WSL 2 への Perl のインストール</a></h2>
+<p>
+  <a href="https://docs.microsoft.com/en-us/windows/wsl/install">WSL 2</a> は、Linux 用の Windows サブシステムです。 WSL 2 を使用して Linux を Windows にインストールできます。そして、Perl を使用できます。
+</p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+<p>
+  <img style = "border: 1px solid # ddd; max-width: 600px;" src = "/images/installation/wsl2.png">
+</p>
+<h3>WSL 2 のインストール</h3>
+<p>
+  WSL 2 をインストールしましょう。<a href="/blog/20080603121251.html">Windows コマンド プロンプト</a>で次のコマンドを実行します。
+</p>
+<pre>
+# WSL 2 をインストール
+wsl --install
+</pre>
+<p>
+  <a href="https://en.ubuntu.perlzemi.com/">Ubuntu</a> がデフォルトでインストールされます。
+</p>
+<p>
+  Windows を再起動して WSL2 を有効にします。
+</p>
+<p>
+  数分かかります。
+</p>
+<p>
+  次のメッセージが表示されます。
+</p>
+<h4>ユーザー名</h4>
+<pre>
+Installing, this may take a few minutes...
+
+Please create a default UNIX user account. The username does not need to match your Windows username.
+For more information visit: https://aka.ms/wslusers
+Enter new UNIX username:
+</pre>
+<p>
+  例として以下のユーザー名を入力します。
+</p>
+<pre>
+kimoto_ubuntu
+</pre>
+<p>
+  Ubuntu 端末上で右クリックすると、ユーザー名を貼り付けることができます。
+</p>
+<h4>Password</h4>
+<p>
+  次にパスワードを設定します。
+</p>
+<p>
+  Ubuntuのセットアップが完了しました。
+</p>
+<h3>Ubuntu を起動</h3>
+<p>
+  Ubuntuを起動しましょう。
+</p>
+<p>
+  "スタートメニュー" | "Ubuntu"
+</p>
+<h3>Perl のインストールを確認</h3>
+<p>
+  Perl はデフォルトで Ubuntu にインストールされています。 Perlのインストールを確認してみましょう。
+</p>
+<pre>
+perl -v
+</pre>
+<p>
+  Perlのバージョンが表示されます。
+</p>
+<pre>
+This is perl 5, version 30, subversion 0 (v5.30.0) built for x86_64-linux-gnu-thread-multi
+</pre>
+<h3>エクスプローラー使用してファイルを表示する</h3>
+<p>
+  Ubuntu 上のファイルは、次のパスで参照できます。 <b>\\wsl$</b> は WSL 2 のルート ディレクトリです。
+</p>
+<pre>
+\\wsl$\Ubuntu\home\kimoto_ubuntu
+</pre>
+
+  </div>
+  <div class="bottom">
+    <h3>関連情報</h3>
+
+<div style="margin:10px 10px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div style="width:calc(100% - 30%);max-width:500px;margin:0 auto;margin-top:50px;margin-bottom:70px;">
+  <a rel="nofollow" style="line-height:1.9;text-align:center;font-weight:bold;font-size:19px;display:block;padding:33px 30px;background:#FF4DA0;text-decoration:none;border-radius:5px;color:white;" href="https://perlclub.net/forum">Perlクラブフォーラムへ参加</a>
+</div>
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-services">
+  <ul>
+    <li><a href="https://en.perlzemi.com/">Perl ABC</a></li>
+    <li><a rel="nofollow" href="/list.html">新着情報</a></li>
+    <li><a rel="nofollow" href="/all.html">すべての記事</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/sites">無料Web講座</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/book">書籍・電子書籍</a></li>
+    <li><a rel="nofollow" href="https://twitter.com/perlzemi">Twitter</a>
+    <li><a rel="nofollow" href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">Youtube</a>
+  </ul>
+</div>
+
+<div class="perlri_link">
+  <a rel="nofollow" href="https://perlclub.net">Perlクラブ</a>
+</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGRMKMYSC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGRMKMYSC2');
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
