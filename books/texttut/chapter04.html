@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<!-- Google Automatic Advertising -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+     
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/logo.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css?20220416">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<title>正規表現の検索・置換をHTMLで実践 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="見出し「h1」のテキストを正規表現で取得してみましょう。">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="正規表現の検索・置換をHTMLで実践 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="見出し「h1」のテキストを正規表現で取得してみましょう。" />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header_main">
+  <h1>
+    <a href="/"><img src="/images/logo.png">Perlゼミ</a>
+  </h1>
+  <div class="header_right">
+    <a rel="nofollow" href="https://perlclub.net/forum">フォーラムに参加</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    
+  </div>
+  <div class="middle">
+    <style>
+  h2 {
+    counter-increment:count1;
+    counter-reset:count2;
+  }
+  h2:before {
+    content:"4." counter(count1) " ";
+  }
+  h3 {
+    counter-increment:count2;
+  }
+  h3:before {
+    content:"4." counter(count1) "." counter(count2) " ";
+  }
+</style>
+<div style="font-size:25px;font-weight:bold;padding:10px;">第４章 正規表現の検索・置換をHTMLで実践</div>
+<div class="chapter">
+<div class="chapter_description">
+  <div class="chapter_description_left">
+    <!-- <img width="65" src="images/kaeru_w_01.png"> -->
+  </div>
+  <div class="chapter_description_right" style="padding:10px;">
+    HTMLをサンプルに正規表現の検索・置換を実践してみるよ。「HTMLのタグの中のここを取り出したい」「URLだけを取り出したい」「空白を取り除きたい」「この文字列をまとめて置換したい」などなど、よく使うテクニックを紹介していくね。
+  </div>
+</div>
+<h2><a href="/books/texttut/chapter04.html">正規表現の検索・置換をHTMLで実践</a></h2>
+<h3>見出しのテキストを取得する</h3>
+<p>
+  見出し「h1」のテキストを正規表現で取得してみましょう。
+</p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+<pre>
+&lt;h1&gt;Linuxサーバー管理入門&lt;/h1&gt;
+</pre>
+<p>
+  正規表現で見出し「h1」のテキストである「UNIX/Linuxサーバー管理入門」を取得するプログラム「head_text.pl」です。ソースコードはUTF-8で保存してください。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode';
+
+my $html = '&lt;h1&gt;Linuxサーバー管理入門&lt;/h1&gt;';
+
+my $head_text;
+if ($html =~ /&lt;h1&gt;(.+)&lt;\/h1&gt;/) {
+  $head_text = $1;
+}
+print encode('UTF-8', "$head_text") . "\n";
+</pre>
+<p>
+  Windowsの場合はencode関数の「UTF-8」の部分を「cp932」にしてみてください(head_text_win.pl)。この後のサンプルも同じです。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode';
+
+my $html = '&lt;h1&gt;Linuxサーバー管理入門&lt;/h1&gt;';
+
+my $head_text;
+if ($html =~ /&lt;h1&gt;(.+)&lt;\/h1&gt;/) {
+  $head_text = $1;
+}
+print encode('cp932', "$head_text") . "\n";
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl head_text.pl
+</pre>
+<p>
+  または
+</p>
+<pre>
+perl head_text_win.pl
+</pre>
+<p>
+  出力結果です。見出しを取り出せています。
+</p>
+<pre>
+Linuxサーバー管理入門
+</pre>
+<h3>見出しのテキストを取得する - 最短マッチ</h3>
+<p>
+  先ほどの見出しを取得するスクリプト、HTMLが次のようになっていたらどうなるんでしょうか?
+</p>
+<pre>
+&lt;h1&gt;Linuxサーバー管理入門&lt;/h1&gt;まちがえ閉じタグ&lt;/h1&gt;
+</pre>
+<p>
+  先ほどのスクリプトを実行すると、以下の出力になります。
+</p>
+<pre>
+Linuxサーバー管理入門&lt;/h1&gt;まちがえ閉じタグ
+</pre>
+<p>
+  あれ、後ろの方の&lt/h1&gtの直前までが取り出されてしまいました。
+</p>
+<p>
+  「*」や「+」などのPerlの正規表現の量指定子は、デフォルトで最も長い位置までマッチします。
+</p>
+<p>
+  これを、最も短い位置でマッチさせるようにするには、正規表現を以下のように書き変えます。量指定子の後ろに「?」をつけるのがポイントです。
+</p>
+<pre>
+$html =~ /&lt;h1&gt;(.+?)&lt;\/h1&gt;
+</pre>
+<p>
+  では、プログラムを書き直してみましょう。最も短い位置でマッチする「head_text_short_match.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode';
+
+my $html = '&lt;h1&gt;Linuxサーバー管理入門&lt;/h1&gt;まちがえ閉じタグ&lt;/h1&gt;';
+
+my $head_text;
+if ($html =~ /&lt;h1&gt;(.+?)&lt;\/h1&gt;/) {
+  $head_text = $1;
+}
+print encode('UTF-8', "$head_text") . "\n";
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl head_text_short_match.pl
+</pre>
+<p>
+  今度は正しく欲しい部分を取得することができました。
+</p>
+<pre>
+Linuxサーバー管理入門
+</pre>
+<h3>HTMLからタグを削除する</h3>
+<p>
+  正規表現で置換の構文を使って、HTMLからタグを削除してテキストの部分だけを取り出してみましょう。
+</p>
+<pre>
+今日は&lt;b&gt;プログラミング&lt;/b&gt;を学んで充実した一日。今度は&lt;span style="font-size:18px"&gt;Webシステム開発構築&lt;/span&gt;を行いたいです。
+</pre>
+<p>
+  以下のようなタグを取り除くことができる正規表現を考えます。
+</p>
+<pre>
+&lt;b&gt;
+&lt;/b&gt;
+&lt;span style="font-size:18px"&gt;
+&lt;/span&gt;
+</pre>
+<p>
+  正規表現を使って、タグを取り除くプログラム「remove_tag.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode';
+
+my $html = '今日は&lt;b&gt;プログラミング&lt;/b&gt;を学んで充実した一日。今度は&lt;span style="font-size:18px"&gt;Webシステム開発構築&lt;/span&gt;を行いたいです。';
+
+# 元のHTMLを残しておくために文字列を置換前にコピーする
+my $text = $html;
+
+# &lt;と&gt;で囲まれている部分をすべて削除する
+$text =~ s/&lt;.+?&gt;//g;
+
+print encode('UTF-8', "$text") . "\n";
+</pre>
+<p>
+  正規表現の解説です。「<」がきて、改行以外のなんでもよい文字が1文字以上で最短マッチ「.+?」、「>」がくる。gオプションは、すべて置換を意味しています。
+</p>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl remove_tag.pl
+</pre>
+<p>
+  出力結果です。タグが取り除かれています。
+</p>
+<pre>
+今日はプログラミングを学んで充実した一日。今度はWebシステム開発構築を行いたいです。
+</pre>
+<h3>前後の空白文字を取り除く</h3>
+<p>
+  前後の空白文字を取り除いてみましょう。目には見えませんが、全角のスペースと半角のスペースが、前後に複数含まれています。
+</p>
+<pre>
+   　Linuxサーバー管理入門　  
+</pre>
+<p>
+  前後の空白文字を取り除くには、「先頭から複数の空白を取り除く」「末尾から複数の空白を取り除く」という二つの正規表現を書きます。
+</p>
+<pre>
+# 前後の空白文字を取り除く
+$text =~ s/^\s+//;
+$text =~ s/\s+$//;
+</pre>
+<p>
+  前後の空白文字を取り除く「trim.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode';
+
+my $text = '   　Linuxサーバー管理入門　  ';
+
+# 先頭から複数の空白を取り除く
+$text =~ s/^\s+//;
+
+# 末尾から複数の空白を取り除く
+$text =~ s/\s+$//;
+
+print encode('UTF-8', "$text") . "\n";
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl trim.pl
+</pre>
+<p>
+  出力結果です。前後の空白が取り除けています。
+</p>
+<pre>
+Linuxサーバー管理入門
+</pre>
+<p>
+  「\s」という正規表現は、Unicodeで空白文字として定義されている文字を意味します。ですので、ASCIIコードの空白文字である、半角スペース、タブ、改行に加え、Unicodeで空白文字として定義されている、日本語の全角スペースも対象になります。
+</p>
+<p>
+  もしASCIIコードで空白とみなされる空白だけを意味したいのであれば、次のように書きます。特殊な文字クラスである「\p{PosixSpace}」を使って表現できます。
+</p>
+<p>
+  ASCIIコードの空白だけを取り除く「trim_ascii.pl」です。
+</p>
+<pre>
+# 先頭から複数の空白を取り除く
+$text =~ s/^\p{PosixSpace}+//;
+
+# 末尾から複数の空白を取り除く
+$text =~ s/\p{PosixSpace}$//;
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl trim_ascii.pl
+</pre>
+<p>
+  出力結果です。ASCIIの空白だけが取り除けています。全角の空白は残っています。
+</p>
+<pre>
+　Linuxサーバー管理入門
+</pre>
+<p>
+  Perl 5.14以降であれば「\s」にASCIIコードの空白のみを意味させる「a」オプションを使って以下のように簡単に書けます。サンプルは「trim_ascii_simple.pl」です。
+</p>
+<pre>
+# 先頭から複数の空白を取り除く
+$text =~ s/^\s+//a;
+
+# 末尾から複数の空白を取り除く
+$text =~ s/\s+$//a;
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl trim_ascii_simple.pl
+</pre>
+<p>
+  出力結果です。ASCIIの空白だけが取り除けています。全角の空白は残っています。
+</p>
+<pre>
+　Linuxサーバー管理入門　
+</pre>
+<h3>pタグで作られた複数行の段落から本文だけを取り出す</h3>
+<p>
+  複数行のpタグで作られた段落から本文だけを取り出すということをやってみましょう。先頭、末尾の空白は削除して、間の複数の空白はひとつの空白に置換してみましょう。
+</p>
+<pre>
+  &lt;p&gt;
+    今日は、毎週土曜日更新のPerlプログラミングちゃんねるを見ています。
+    
+    ひげで、坊主のオジサンが雑にしゃべっているのが気になり、講義が頭の中に入ってきません。
+  &lt;/p&gt;
+</pre>
+<p>
+  正規表現を書いてみましょう。「.」は「改行以外のすべての文字」にマッチするのですが、今回の場合は、改行を含めたすべての文字をマッチさせる必要があります。このような場合は、「.」をすべての文字にマッチさせるようにする「s」オプション(シングルラインオプション)を使用します。最短マッチでマッチさせます。
+</p>
+<pre>
+my $text;
+if ($html =~ /&lt;p&gt;(.*?)&lt;\/p&gt;/s;) {
+  $text = $1;
+  
+  # 先頭の空白文字を削除
+  $text =~ s/^\s+//;
+  
+  # 末尾の空白文字を削除
+  $text =~ s/\s+$//;
+  
+  # 複数の空白文字を一つの空白へ
+  $text =~ s/\s+/ /;
+}
+</pre>
+<p>
+  サンプルコード全体「get_p_text.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode';
+
+my $html = &lt;&lt;'EOS';
+  &lt;p&gt;
+    今日は、毎週土曜日更新のPerlプログラミングちゃんねるを見ています。
+    
+    ひげで、坊主のオジサンが雑にしゃべっているのが気になり、講義が頭の中に入ってきません。
+  &lt;/p&gt;
+EOS
+
+my $text;
+if ($html =~ /&lt;p&gt;(.*?)&lt;\/p&gt;/s) {
+  $text = $1;
+  
+  # 先頭の空白文字を削除
+  $text =~ s/^\s+//;
+  
+  # 末尾の空白文字を削除
+  $text =~ s/\s+$//;
+  
+  # 複数の空白文字を一つの空白へ
+  $text =~ s/\s+/ /;
+}
+
+print encode('UTF-8', "$text") . "\n";
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl get_p_text.pl;
+</pre>
+<p>
+  出力結果です。本文だけが取り出せています。
+</p>
+<pre>
+今日は、毎週土曜日更新のPerlプログラミングちゃんねるを見ています。 ひげで、坊主のオジサンが雑にしゃべっているのが気になり、講義が頭の中に入ってきません。
+</pre>
+<p>
+  複数行の文字列を表現する場合に、ヒアドキュメントという機能をここでは使っています。
+</p>
+<pre>
+# ヒアドキュメントで複数行を表現
+my $html = &lt;&lt;'EOS';
+  &lt;p&gt;
+    今日は、毎週土曜日更新のPerlプログラミングちゃんねるを見ています。
+    
+    ひげで、坊主のオジサンが雑にしゃべっているのが気になり、講義が頭の中に入ってきません。
+  &lt;/p&gt;
+EOS
+</pre>
+<p>
+  EOSの囲み文字を「"」に変えると、変数展開を行えるようになるので覚えておきましょう。
+</p>
+<pre>
+# ヒアドキュメントで複数行を表現(変数展開あり)
+my $language = 'Perl';
+my $html = &lt;&lt;"EOS";
+  &lt;p&gt;
+    今日は、毎週土曜日更新の${language}プログラミングちゃんねるを見ています。
+    
+    ひげで、坊主のオジサンが雑にしゃべっているのが気になり、講義が頭の中に入ってきません。
+  &lt;/p&gt;
+EOS
+</pre>
+<h2>HTMLファイルを処理する</h2>
+<p>
+  今度は、HTMLファイルの全体を処理する方法について学んでみましょう。
+</p>
+<h3>HTMLファイル全体を読み込む</h3>
+<p>
+  HTMLファイル全体を一度に読み込んで、処理してみましょう。
+</p>
+<p>
+  ファイルの内容を一度に読み込むには、まず、行入力演算子のセパレーターを表現する特殊変数「$/」を未定義値「undef」にします。localは、特殊変数などのグローバル変数を一時的に変更したい場合に、使用します。localで、変更した内容は「{}」で囲まれたスコープの終わりで、復元されます。
+</p>
+<pre>
+# 行入力演算子のセパレーター「$/」を未定義にする
+local $/ = undef;
+</pre>
+<p>
+  次に、行入力演算子で、読み込みます。
+</p>
+<pre>
+# 行入力演算子で読み込む
+$html = &lt;&gt;;
+</pre>
+<p>
+  ファイルから読み込んだ内容は、decode関数でデコードして、Perlの内部文字列にします。
+</p>
+<pre>
+# デコードしてPerlの内部文字列へ変換
+$html = decode('UTF-8', $html);
+</pre>
+<p>
+  上記の内容を一度に書くと、次のようになります。
+</p>
+<pre>
+# ファイル全部を読み込む
+my $html;
+{
+  local $/ = undef;
+  $html = &lt;&gt;;
+  $html = decode('UTF-8', $html);
+}
+</pre>
+<p>
+  では、サンプルコードを書いてみましょう。ます、入力ファイル「proc_html_in.html」を、以下の内容で、UTF-8で保存してください。
+</p>
+<pre>
+  &lt;p&gt;
+    今日は、毎週土曜日更新のPerlプログラミングちゃんねるを見ています。
+    
+    ひげで、坊主のオジサンが雑にしゃべっているのが気になり、講義が頭の中に入ってきません。
+  &lt;/p&gt;
+</pre>
+<p>
+  HTMLファイルを読み込んで処理して、出力するサンプルです。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# ファイル全部を読み込む
+my $html;
+{
+  local $/ = undef;
+  $html = &lt;&gt;;
+  $html = decode('UTF-8', $html);
+}
+
+my $text;
+if ($html =~ /&lt;p&gt;(.*?)&lt;\/p&gt;/s) {
+  $text = $1;
+  
+  # 先頭の空白文字を削除
+  $text =~ s/^\s+//;
+  
+  # 末尾の空白文字を削除
+  $text =~ s/\s+$//;
+  
+  # 複数の空白文字を一つの空白へ
+  $text =~ s/\s+/ /;
+}
+
+print encode('UTF-8', $text);
+</pre>
+<p>
+  次のように実行してください。
+</p>
+<pre>
+perl proc_html.pl proc_html_in.html &gt; proc_html_out.html
+</pre>
+<p>
+  「proc_html_out.html」ファイルには、以下の内容が出力されます。
+</p>
+<pre>
+今日は、毎週土曜日更新のPerlプログラミングちゃんねるを見ています。 ひげで、坊主のオジサンが雑にしゃべっているのが気になり、講義が頭の中に入ってきません。
+</pre>
+<h3>すべてのバナナをリンゴに置換する</h3>
+<p>
+  テキストファイル「replace_all_in.html」(UTF-8で保存)に含まれるすべてのバナナをリンゴに置換してみましょう。
+</p>
+<pre>
+モジガエルは、バナナを食べています。
+
+バナナは、まだ青く熟していません。
+
+「早く、バナナが食べごろにならないかなぁ」
+</pre>
+<p>
+  すべて置換するには、gオプションを使用します。
+</p>
+<pre>
+# すべてのバナナをリンゴに置換
+$out_html =~ s/バナナ/リンゴ/g;
+</pre>
+<p>
+  テキストファイルに含まれるすべてのバナナをリンゴに置換するプログラム「replace_all.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# ファイル全部を読み込む
+my $in_html;
+{
+  local $/ = undef;
+  $in_html = &lt;&gt;;
+  $in_html = decode('UTF-8', $in_html);
+}
+
+# ファイルの内容を出力用のHTMLにコピー
+my $out_html = $in_html;
+
+# すべてのバナナをリンゴに置換
+$out_html =~ s/バナナ/リンゴ/g;
+
+print encode('UTF-8', $out_html);
+</pre>
+<p>
+  次のようにプログラムを実行します。
+</p>
+<pre>
+perl replace_all.pl replace_all_in.html &gt; replace_all_out.html
+</pre>
+<p>
+  出力ファイル「replace_all_out.html」の中身は以下のようになり、バナナがリンゴに置換されています。
+</p>
+<pre>
+モジガエルは、リンゴを食べています。
+
+リンゴは、まだ青く熟していません。
+
+「早く、リンゴが食べごろにならないかなぁ」
+</pre>
+<h3>青リンゴ、赤リンゴ、黄リンゴの数を数える</h3>
+<p>
+  次のテキスト「count_color_in.html」に含まれている青リンゴ、赤リンゴ、黄リンゴの数を数えてみましょう。
+</p>
+<pre>
+青リンゴ、赤リンゴ、黄リンゴ、どれが好き。
+
+うーん、赤リンゴが、食べたいなぁ。赤リンゴは、すっかり食べごろ。
+
+青リンゴも、酸味がすっきり、おいしそう。
+</pre>
+<p>
+  すべて検索をするには、while構文で、正規表現のgオプションを使います。
+</p>
+<p>
+  青リンゴ、赤リンゴ、黄リンゴの数を数えるプログラム「count_color.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# ファイル全部を読み込む
+my $html;
+{
+  local $/ = undef;
+  $html = &lt;&gt;;
+  $html = decode('UTF-8', $html);
+}
+
+# リンゴの色の個数を数える
+my %apple_counts;
+while ($html =~ /(青|赤|黄)リンゴ/g) {
+  my $color = $1;
+  
+  # 個数を加算
+  $apple_counts{$color}++;
+}
+
+# リンゴの個数を記述したテキスト
+my $apple_counts_str = '';
+for my $color (sort keys %apple_counts) {
+  my $apple_count = $apple_counts{$color};
+  $apple_counts_str .= "${color}リンゴ: ${apple_count}個\n";
+}
+
+print encode('UTF-8', $apple_counts_str);
+</pre>
+<p>
+  次のように実行してみましょう。
+</p>
+<pre>
+perl count_color.pl count_color_in.html &gt; count_color_out.html
+</pre>
+<p>
+  出力ファイルには、以下のように出力されます。リンゴの数を数えられていますね。
+</p>
+<pre>
+赤リンゴ: 3個
+青リンゴ: 2個
+黄リンゴ: 1個
+</pre>
+<h3>全角数字を半角数字に変換する</h3>
+<p>
+  全角数字を半角数字に変換するサンプルです。正規表現ではないのですがtr演算子と呼ばれる、対応する文字を置換する演算子を使うと簡単にできます。
+</p>
+<p>
+  次のテキスト「repnum_zen_to_han_in.html」に含まれている全角数字を半角数字に変換してみましょう。
+</p>
+<pre>
+モジガエル君。君の好きな果物を５つ書いてください。
+
+1 バナナ
+２ リンゴ
+３ いちご
+４ ぶどう
+5 みかん
+</pre>
+<p>
+  全角数字を半角数字に変換する「repnum_zen_to_han.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# ファイル全部を読み込む
+my $in_html;
+{
+  local $/ = undef;
+  $in_html = &lt;&gt;;
+  $in_html = decode('UTF-8', $in_html);
+}
+
+# ファイルの内容を出力用のHTMLにコピー
+my $out_html = $in_html;
+
+# 全角数字を半角数字に置換
+$out_html =~ tr/０-９/0-9/;
+
+print encode('UTF-8', $out_html);
+</pre>
+<p>
+  次のように実行してみましょう。
+</p>
+<pre>
+perl repnum_zen_to_han.pl repnum_zen_to_han_in.html &gt; repnum_zen_to_han_out.html
+</pre>
+<p>
+  出力ファイルには、以下のように出力されます。全角数字が、半角文字に変換されていますね。
+</p>
+<pre>
+モジガエル君。君の好きな果物を5つ書いてください。
+
+1 バナナ
+2 リンゴ
+3 いちご
+4 ぶどう
+5 みかん
+</pre>
+<h3>小文字の単語を大文字の単語に変換する</h3>
+<p>
+  正規表現の置換の構文を使って、英語の小文字の単語を大文字の単語に変換してみましょう。
+</p>
+<p>
+  Perlの置換の構文では、eオプションを使って、置換に式を利用できます。キャプチャした英単語をuc関数で大文字に変換します。eの意味は、executeという意味だと思われます。すべて置換するのでgオプションも指定します。
+</p>
+<pre>
+# すべての小文字を大文字に置換
+$out_html =~ s/([a-z]+)/uc $1/eg;
+</pre>
+<p>
+  次のテキスト「replace_lc_to_uc_in.html」に含まれている全角数字を半角数字に変換してみましょう。
+</p>
+<pre>
+私はappleを持っています。
+
+私はpenを持っています。
+
+うーん、apple pen。
+</pre>
+<p>
+  小文字に大文字に変換する「replace_lc_to_uc.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# ファイル全部を読み込む
+my $in_html;
+{
+  local $/ = undef;
+  $in_html = &lt;&gt;;
+  $in_html = decode('UTF-8', $in_html);
+}
+
+# ファイルの内容を出力用のHTMLにコピー
+my $out_html = $in_html;
+
+# すべての小文字を大文字に置換
+$out_html =~ s/([a-z]+)/uc $1/eg;
+
+print encode('UTF-8', $out_html);
+</pre>
+<p>
+  次のように実行してみましょう。
+</p>
+<pre>
+perl replace_lc_to_uc.pl replace_lc_to_uc_in.html &gt; replace_lc_to_uc_out.html
+</pre>
+<p>
+  出力ファイルには、以下のように出力されます。小文字の英単語が、大文字の英単語に変換されています。
+</p>
+<pre>
+私はAPPLEを持っています。
+
+私はPENを持っています。
+
+うーん、APPLE PEN。
+</pre>
+<h3>すべての外部URLを取り出す</h3>
+<p>
+  正規表現を使って、すべての外部URLを取り出してみましょう。
+</p>
+<p>
+  次のテキスト「get_url_in.html」に含まれているhttpまたはhttpsで始まる外部URLを取り出します。
+</p>
+<pre>
+&lt;a href="https://perlclub.net"&gt;Perlクラブ&lt;/a&gt;
+
+&lt;a href="https://www.perlzemi.com"&gt;Perlゼミ&lt;/a&gt;
+
+&lt;a href="ftp://www.perlzemi.com"&gt;FTPのURL&lt;/a&gt;
+</pre>
+<p>
+  外部URLの条件は以下のように決めます。
+</p>
+<p>
+  ・「href="http://foo.bar"」のように「href="URL"」となっている。
+</p>
+<p>
+  ・href = "http://foo.bar" のように、「=」の前後はスペースを許可
+</p>
+<p>
+  ・URLは、http://あるいはhttps://で始まる。
+</p>
+<p>
+  正規表現の部分です。
+</p>
+<pre>
+# httpまたはhttpsで始まる外部URLをすべて取得
+my @urls;
+while ($in_html =~ m|href\s*=\s*"(https?://[^"]+)"|g) {
+  my $url = $1;
+  push @urls, $url;
+}
+</pre>
+<p>
+  すべて取り出すのでwhile文とgオプションの組み合わせを使います。
+</p>
+<p>
+  「m|正規表現|」は「/正規表現/」と同じ意味ですが、正規表現の中でそのまま「/」が使えます。
+</p>
+<p>
+  「\s*」は空白が0文字以上。
+</p>
+<p>
+  「https?」は「s」があってもなくてもよいという意味なので「http」あるいは「https」と読みます。
+</p>
+<p>
+  「[^"]」は文字クラスの否定です。「"」以外の任意の文字と読みます。「[^"]+」は、「"」以外の任意の文字の1文字以上と読みます。URLの終わりの次の文字が「"」なので、その文字が出現しない間、読み込みます。
+</p>
+<p>
+  httpまたはhttpsで始まる外部URLを取り出す「get_url.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# ファイル全部を読み込む
+my $in_html;
+{
+  local $/ = undef;
+  $in_html = &lt;&gt;;
+  $in_html = decode('UTF-8', $in_html);
+}
+
+# httpまたはhttpsで始まる外部URLをすべて取得
+my @urls;
+while ($in_html =~ m|href\s*=\s*"(https?://[^"]+)"|g) {
+  my $url = $1;
+  push @urls, $url;
+}
+
+# URLを出力
+for my $url (@urls) {
+  print encode('UTF-8', "$url\n");
+}
+</pre>
+<p>
+  次のように実行してみましょう。
+</p>
+<pre>
+perl get_url.pl get_url_in.html &gt; get_url_out.html
+</pre>
+<p>
+  出力ファイルには、以下のように出力されます。httpまたはhttpsで始まる外部URLが取り出せています。
+</p>
+<pre>
+https://perlclub.net
+https://www.perlzemi.com
+</pre>
+<h3>ファイル全部を読み込むより簡単な方法</h3>
+<p>
+  この章では、以下のようにファイルの内容を一度に読み込んでいました。
+</p>
+<pre>
+# ファイル全部を読み込む
+my $html;
+{
+  local $/ = undef;
+  $html = &lt;&gt;;
+  $html = decode('UTF-8', $html);
+}
+</pre>
+<p>
+  これは、行入力演算子「<>」を学んだ後に、行入力セパレーター「$/」を未定義「undef」にすれば、ファイルの全部を読み込めるという解説をしたためです。もう少し短くすることは可能です。
+</p>
+<p>
+  Perlには、doブロック「do {}」と呼ばれる、最後に評価された値を返す機能があります。また「local $/;」は「local $/ = undef;」と同じ意味です。
+</p>
+<p>
+  Perlに慣れてくると、ファイル全体の読み込みは、一般的に次のように書かれることが多いです。初めて見ると「なんじゃこりゃー」と思いますね...。
+</p>
+<pre>
+# ファイル全部を読み込む
+my $html = do { local $/; &lt;&gt; };
+
+# ファイルの内容をデコード
+$html = decode('UTF-8', $html);
+</pre>
+<p>
+  上記の簡単な書き方で、ファイルの内容を読み込んで、そのまま出力するサンプルを作成してみましょう。
+</p>
+<p>
+  入力ファイル「get_whole_file_in.html」は以下にします。
+</p>
+<pre>
+モジガエルは、池で水浴びをしています。
+
+涼しそうで、気持ちよさそうですね。
+</pre>
+<p>
+  HTMLファイルを読み込んで処理して、出力するサンプル「get_whole_file_simple.pl」です。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# ファイル全部を読み込む
+my $html = do { local $/; &lt;&gt; };
+
+# ファイルの内容をデコード
+$html = decode('UTF-8', $html);
+
+# ファイルの内容を出力
+print encode('UTF-8', $html);
+</pre>
+<p>
+  次のように実行してみてください。
+</p>
+<pre>
+perl get_whole_file.pl get_whole_file_in.html &gt; get_whole_file_out.html
+</pre>
+<p>
+  出力結果です。
+</p>
+<pre>
+モジガエルは、池で水浴びをしています。
+
+涼しそうで、気持ちよさそうですね。
+</pre>
+
+  </div>
+  <div class="bottom">
+    <h3>Perlクラブフォーラム</h3>
+
+<div style="width:calc(100% - 30%);max-width:500px;margin:0 auto;margin-top:50px;margin-bottom:70px;">
+  <a rel="nofollow" style="line-height:1.9;text-align:center;font-weight:bold;font-size:19px;display:block;padding:33px 30px;background:#FF4DA0;text-decoration:none;border-radius:5px;color:white;" href="https://perlclub.net/forum">Perlクラブフォーラムへ参加</a>
+</div>
+
+<h3>業務に役立つPerl</h3>
+
+      <div style="background:white;text-align:center;margin-top:30px;max-width:300px;width:100%;margin:0 auto;">
+                <a target="_blank" href="https://www.amazon.co.jp/gp/product/4774150258/ref=as_li_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4774150258&linkCode=as2&tag=perlgenki-22&linkId=abbe3008cd3722ec516d51eba88b1b3d"><img src="https://perlclub.net/images/book/perl_gyoumu/perl_gyoumu.jpg" style="margin:0 auto"></a>
+
+      </div>
+
+<h3>関連情報</h3>
+
+<div style="margin:10px 10px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-services">
+  <ul>
+    <li><a href="https://en.perlzemi.com/">Perl ABC</a></li>
+    <li><a rel="nofollow" href="/list.html">新着情報</a></li>
+    <li><a rel="nofollow" href="/all.html">すべての記事</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/sites">無料Web講座</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/book">書籍・電子書籍</a></li>
+    <li><a rel="nofollow" href="https://twitter.com/perlzemi">Twitter</a>
+    <li><a rel="nofollow" href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">Youtube</a>
+  </ul>
+</div>
+
+<div class="perlri_link">
+  <a rel="nofollow" href="https://perlclub.net">Perlクラブ</a>
+</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGRMKMYSC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGRMKMYSC2');
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

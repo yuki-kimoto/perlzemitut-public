@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<!-- Google Automatic Advertising -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+     
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/logo.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css?20220416">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<title>正規表現でCSVファイルから行を取り出す準備 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="正規表現を使ってCSVファイルから必要な行を取り出してみましょう。第２章で学習したCSVデータに発売日などの情報を追加したデータを使います。">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="正規表現でCSVファイルから行を取り出す準備 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="正規表現を使ってCSVファイルから必要な行を取り出してみましょう。第２章で学習したCSVデータに発売日などの情報を追加したデータを使います。" />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header_main">
+  <h1>
+    <a href="/"><img src="/images/logo.png">Perlゼミ</a>
+  </h1>
+  <div class="header_right">
+    <a rel="nofollow" href="https://perlclub.net/forum">フォーラムに参加</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    
+  </div>
+  <div class="middle">
+    <style>
+  h2 {
+    counter-increment:count1;
+    counter-reset:count2;
+  }
+  h2:before {
+    content:"3." counter(count1) " ";
+  }
+  h3 {
+    counter-increment:count2;
+  }
+  h3:before {
+    content:"3." counter(count1) "." counter(count2) " ";
+  }
+</style>
+<div style="font-size:25px;font-weight:bold;padding:10px;">第３章 正規表現でCSVファイルから必要な行を取り出す</div>
+<div class="chapter">
+<div class="chapter_description">
+  <div class="chapter_description_left">
+    <!-- <img width="65" src="images/kaeru_w_01.png"> -->
+  </div>
+  <div class="chapter_description_right" style="padding:10px;">
+    正規表現で検索してCSVファイルから必要な行を取り出してみるよ。正規表現のパターンマッチの構文を使うと、文字のパターンで検索できるんだ。正規表現が使えるようになるとテキスト処理がとっても便利になるよ。
+  </div>
+</div>
+<h2><a href="/books/texttut/chapter03.html">正規表現でCSVファイルから行を取り出す準備</a></h2>
+<p>
+  正規表現を使ってCSVファイルから必要な行を取り出してみましょう。第２章で学習したCSVデータに発売日などの情報を追加したデータを使います。
+</p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+<pre>
+ID,書名,著者名,価格,発売日
+1,Perlテキスト処理プログラミング入門,木本裕紀,2900,2021-01-03
+2,Web開発をやるぜPerl,木本裕紀,2000,2021-01-03
+3,データベース入門,田中太郎,1900,2019-03-06
+4,正規表現テクニック,田中太郎,3000,2019-01-08
+5,本音で語るWeb開発,望月正太郎,5000,2018-02-19
+6,気になるperl,竜崎新次郎,5000,2017-05-23
+</pre>
+<p>
+  これを「book_data.csv」として保存してください。文字コードはUTF-8で保存してください。
+</p>
+<p>
+  まず、第２章で学習した、プログラムを少し改造します。CSVファイルを入力して、CSVデータをそのまま出力するプログラム「output_csv.pl」を書きます。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# DATAセクションから行を一行ずつ読み込む
+while (my $line = &lt;&gt;) {
+
+  # 一行目は読み飛ばす($.はファイルの行番号。nextで次のループの先頭へ)
+  if ($. == 1) { next }
+
+  # PerlのUTF-8を内部文字列へデコード
+  $line = decode('UTF-8', $line);
+  
+  # 改行を削除
+  chomp $line;
+
+  # カンマで分割して各変数へ
+  my ($id, $name, $author, $price, $issued_date) = split(/,/, $line);
+  
+  # 出力行を作成
+  my $output_line = join(',', $id, $name, $author, $price, $issued_date);
+  
+  # Perlの内部文字列をUTF-8にエンコードして出力
+  print encode('UTF-8', $output_line) . "\n";
+}
+</pre>
+<p>
+  次のように入力ファイルと出力ファイルを指定して実行します。
+</p>
+<pre>
+perl output_csv.pl book_data.csv &gt; raw_output.csv
+</pre>
+<p>
+  出力結果です。ヘッダを除いて、入力されたデータとまったく同じデータが出力されていれば、OKです。
+</p>
+<pre>
+1,Perlテキスト処理プログラミング入門,木本裕紀,2900,2021-01-03
+2,Web開発をやるぜPerl,木本裕紀,2000,2021-01-03
+3,データベース入門,田中太郎,1900,2019-03-06
+4,正規表現テクニック,田中太郎,3000,2019-01-08
+5,本音で語るWeb開発,望月正太郎,5000,2018-02-19
+6,気になるperl,竜崎新次郎,5000,2017-05-23
+</pre>
+<p>
+  正規表現を使った検索を実践していきましょう。
+</p>
+<h2>検索条件を指定してみよう</h2>
+<p>
+  さまざまな検索条件を指定してみましょう。
+</p>
+<h3>書名にPerlが含まれている</h3>
+<p>
+  Perlが書名に含まれている行だけを出力してみましょう。
+</p>
+<p>
+  以下の正規表現を使います。「=~」は、パターンマッチ演算子です。「/」と「/」の間に正規表現を書きます。
+</p>
+<pre>
+if ($name =~ /Perl/) {
+  # マッチした場合の処理
+}
+</pre>
+<p>
+  以下がプログラムの全体「contain_perl.pl」です。マッチした場合のみ行を出力します。
+</p>
+<pre>
+use strict;
+use warnings;
+use utf8;
+use Encode 'encode', 'decode';
+
+# DATAセクションから行を一行ずつ読み込む
+while (my $line = &lt;&gt;) {
+
+  # 一行目は読み飛ばす($.はファイルの行番号。nextで次のループの先頭へ)
+  if ($. == 1) { next }
+
+  # PerlのUTF-8を内部文字列へデコード
+  $line = decode('UTF-8', $line);
+  
+  # 改行を削除
+  chomp $line;
+
+  # カンマで分割して各変数へ
+  my ($id, $name, $author, $price, $issued_date) = split(/,/, $line);
+  
+  if ($name =~ /Perl/) {
+    # 出力行を作成
+    my $output_line = join(',', $id, $name, $author, $price, $issued_date);
+    
+    # Perlの内部文字列をUTF-8にエンコードして出力
+    print encode('UTF-8', $output_line) . "\n";
+  }
+}
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl contain_perl.pl book_data.csv
+</pre>
+<p>
+  出力結果では、書名に「Perl」を含む行だけが出力されます。
+</p>
+<pre>
+1,Perlテキスト処理プログラミング入門,木本裕紀,2900,2021-01-03
+2,Web開発をやるぜPerl,木本裕紀,2000,2021-01-03
+</pre>
+<h3>書名がPerlで始まる</h3>
+<p>
+  書名がPerlで始まるという正規表現に変えてみましょう。「^」は先頭を意味する正規表現文字です。サンプルプログラムは「contain_perl_head.pl」です。
+</p>
+<pre>
+  if ($name =~ /^Perl/) {
+    # 出力処理
+  }
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl contain_perl_head.pl book_data.csv
+</pre>
+<p>
+  出力結果です。書名がPerlで始まる行だけが出力されています。
+</p>
+<pre>
+1,Perlテキスト処理プログラミング入門,木本裕紀,2900,2021-01-03
+</pre>
+<h3>書名がPerlで終わる</h3>
+<p>
+  書名がPerlで終わるという正規表現に変えてみましょう。「$」は終端を意味する正規表現文字です。サンプルプログラムは「contain_perl_tail.pl」です。
+</p>
+<pre>
+  if ($name =~ /Perl$/) {
+    # 出力処理
+  }
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl contain_perl_tail.pl book_data.csv
+</pre>
+<p>
+  出力結果です。
+</p>
+<pre>
+2,Web開発をやるぜPerl,木本裕紀,2000,2021-01-03
+</pre>
+<h3>Perlの大文字と小文字を区別せずに検索</h3>
+<p>
+  Perlの大文字と区別を区別せずに検索してみましょう。「Perl」「PERL」「perl」などにマッチさせます。
+</p>
+<p>
+  大文字と小文字を区別せずに検索するには正規表現の「i」オプションを使用します。サンプルプログラムは「contain_perl_nocase.pl」です。
+</p>
+<pre>
+  if ($name =~ /perl/i) {
+    # 出力処理
+  }
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl contain_perl_nocase.pl book_data.csv
+</pre>
+<p>
+  出力結果です。「Perl」を含む行、「perl」を含む行が取り出せています。
+</p>
+<pre>
+1,Perlテキスト処理プログラミング入門,木本裕紀,2900,2021-01-03
+2,Web開発をやるぜPerl,木本裕紀,2000,2021-01-03
+6,気になるperl,竜崎新次郎,5000,2017-05-23
+</pre>
+<h3>書名にPerlまたはWebを含む</h3>
+<p>
+  書名にPerlまたはWebを含むという正規表現を書いてみましょう。またはを表現する「|」を使用し、「()」で囲みます。サンプルプログラムは「contain_perl_or_web.pl」です。
+</p>
+<pre>
+  if ($name =~ /(Perl|Web)/) {
+    # 出力処理
+  }
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl contain_perl_or_web.pl book_data.csv
+</pre>
+<p>
+  出力結果です。書籍にPerlとWebが含まれている行が出力されます。
+</p>
+<pre>
+1,Perlテキスト処理プログラミング入門,木本裕紀,2900,2021-01-03
+2,Web開発をやるぜPerl,木本裕紀,2000,2021-01-03
+5,本音で語るWeb開発,望月正太郎,5000,2018-02-19
+</pre>
+<h3>書名が「Web(なんでもよい一文字以上)Perl」を含む</h3>
+<p>
+  書名が「Web(なんでもよい一文字以上)Perl」という正規表現を書いてみましょう。サンプルプログラムは「contain_web_any_perl.pl」です。
+</p>
+<pre>
+  if ($name =~ /Web.+Perl/) {
+    # 出力処理
+  }
+</pre>
+<p>
+  「.」で「改行文字を除いたすべての文字」を表現できます。「+」で「直前の文字の1文字以上」を表現できます。
+</p>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl contain_web_any_perl.pl book_data.csv
+</pre>
+<p>
+  出力結果です。
+</p>
+<pre>
+2,Web開発をやるぜPerl,木本裕紀,2000,2021-01-03
+</pre>
+<p>
+  もし、WebとPerlの間が0文字でも良い場合は「+」の代わりに「*」を使うことができます。「*」で「直前の文字の0文字以上」を表現できます。 
+</p>
+<pre>
+  if ($name =~ /Web.*Perl/) {
+    # 出力処理
+  }
+</pre>
+<h3>価格が1000円以上、2000円より小さい</h3>
+<p>
+  これは、正規表現ではありませんが、価格のの大小で検索するサンプルを書いてみます。サンプルプログラムは「price_range.pl」です。
+</p>
+<pre>
+  if ($price &gt;= 1000 &amp;&amp; $price &lt; 2000) {
+    # 出力処理
+  }
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl price_range.pl book_data.csv
+</pre>
+<p>
+  出力結果です。価格が1000円以上、2000円より小さい行が出力されています。サンプルプログラムは「price_range.pl」です。
+</p>
+<pre>
+3,データベース入門,田中太郎,1900,2019-03-06
+</pre>
+<h3>2018年から2019年の間に発売された</h3>
+<p>
+  2018年から2019年の間に発売されたという条件を書いてみましょう。サンプルプログラムは「issued_date_range_ymd.pl」です。
+</p>
+<pre>
+  # 正規表現で発売日の年の部分を取得
+  my $issued_year;
+  if ($issued_date =~ /^(\d{4})/) {
+    $issued_year = $1;
+  }
+  
+  # 出版年を取得できた場合のみ処理
+  if (defined $issued_year) {
+    # 出版年が2018年～2019年まで
+    if ($issued_year &gt;= 2018 &amp;&amp; $issued_year &lt;= 2019) {
+      # 出力処理
+    }
+  }
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl issued_date_range_ymd.pl book_data.csv
+</pre>
+<p>
+  出力結果です。2018年から2019年の間に発売された書籍のみ出力されます。
+</p>
+<pre>
+3,データベース入門,田中太郎,1900,2019-03-06
+4,正規表現テクニック,田中太郎,3000,2019-01-08
+5,本音で語るWeb開発,望月正太郎,5000,2018-02-19
+</pre>
+<h4>年を取得する正規表現の解説</h4>
+<p>
+  年を取得する正規表現の解説です。
+</p>
+<pre>
+  # 正規表現で発売日の年の部分を取得
+  my $issued_year;
+  if ($issued_date =~ /^(\d{4})/) {
+    $issued_year = $1;
+  }
+</pre>
+<p>
+  「^」は先頭を表現する正規表現文字。「\d」は、数字を表現する正規表現の文字クラス。「{4}」は、4文字続くという意味の正規表現の量指定子です。
+</p>
+<p>
+  丸カッコ「()」を使って、キャプチャすることができます。キャプチャされた文字は「$1」という変数で取得できます。
+</p>
+<p>
+  次の処理を見てみましょう。年が取得できた場合のみ処理を行いたいのでdefined関数で、年が取得できていることを確認しています。その後は、比較演算子「>=」「<=」と論理演算子「&&」を使って「2018年以上、かつ、2019年以下」という条件を作成しています。
+</p>
+<pre>
+  # 出版年を取得できた場合のみ処理
+  if (defined $issued_year) {
+    # 出版年が2018年～2019年まで
+    if ($issued_year &gt;= 2018 &amp;&amp; $issued_year &lt;= 2019) {
+      # 出力処理
+    }
+  }
+</pre>
+<h4>年月日を取得する正規表現</h4>
+<p>
+  上記の例では、年を取っているだけですが、年月日を取得する正規表現を書いてみましょう。キャプチャの丸かっこが複数存在する場合は「$2」「$3」でキャプチャを取得できます。サンプルプログラムは「issued_date_range_ymd.pl」です。サンプルプログラムは「issued_date_range_ymd.pl」です。
+</p>
+<pre>
+  my $issued_year;
+  my $issued_month;
+  my $issued_mday;
+  if ($issued_date =~ /^(\d{4})-(\d{2})-(\d{2})/) {
+    $issued_year = $1;
+    $issued_month = $2;
+    $issued_mday = $3;
+  }
+</pre>
+<p>
+  実行してみましょう。出力結果は、先ほどのサンプルと同じです。
+</p>
+<pre>
+perl issued_date_range_ymd.pl book_data.csv
+</pre>
+<p>
+  出力結果です。2018年から2019年の間に発売された書籍のみ出力されます。
+</p>
+<pre>
+3,データベース入門,田中太郎,1900,2019-03-06
+4,正規表現テクニック,田中太郎,3000,2019-01-08
+5,本音で語るWeb開発,望月正太郎,5000,2018-02-19
+</pre>
+<h4>文字列比較で日付の範囲を指定する方法</h4>
+<p>
+  また単純に以下のように文字列比較演算子「ge」「le」を使って文字列比較をしてもかまいません。サンプルプログラムは「issued_date_range_string.pl」です。
+</p>
+<pre>
+  # 2018年1月1日から2019年12月31の間に発売された
+  if ($issued_date ge '2018-01-01' &amp;&amp; $issued_date le '2019-12-31') {
+    # 出力処理
+  }
+</pre>
+<p>
+  実行してみましょう。
+</p>
+<pre>
+perl issued_date_range_string.pl book_data.csv
+</pre>
+<p>
+  出力結果です。2018年から2019年の間に発売された書籍のみ出力されます。
+</p>
+<pre>
+3,データベース入門,田中太郎,1900,2019-03-06
+4,正規表現テクニック,田中太郎,3000,2019-01-08
+5,本音で語るWeb開発,望月正太郎,5000,2018-02-19
+</pre>
+<p>
+  次の章では、HTMLを題材にして正規表現の検索と置換をさらに実践していきます。
+</p>
+
+  </div>
+  <div class="bottom">
+    <h3>Perlクラブフォーラム</h3>
+
+<div style="width:calc(100% - 30%);max-width:500px;margin:0 auto;margin-top:50px;margin-bottom:70px;">
+  <a rel="nofollow" style="line-height:1.9;text-align:center;font-weight:bold;font-size:19px;display:block;padding:33px 30px;background:#FF4DA0;text-decoration:none;border-radius:5px;color:white;" href="https://perlclub.net/forum">Perlクラブフォーラムへ参加</a>
+</div>
+
+<h3>業務に役立つPerl</h3>
+
+      <div style="background:white;text-align:center;margin-top:30px;max-width:300px;width:100%;margin:0 auto;">
+                <a target="_blank" href="https://www.amazon.co.jp/gp/product/4774150258/ref=as_li_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4774150258&linkCode=as2&tag=perlgenki-22&linkId=abbe3008cd3722ec516d51eba88b1b3d"><img src="https://perlclub.net/images/book/perl_gyoumu/perl_gyoumu.jpg" style="margin:0 auto"></a>
+
+      </div>
+
+<h3>関連情報</h3>
+
+<div style="margin:10px 10px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-services">
+  <ul>
+    <li><a href="https://en.perlzemi.com/">Perl ABC</a></li>
+    <li><a rel="nofollow" href="/list.html">新着情報</a></li>
+    <li><a rel="nofollow" href="/all.html">すべての記事</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/sites">無料Web講座</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/book">書籍・電子書籍</a></li>
+    <li><a rel="nofollow" href="https://twitter.com/perlzemi">Twitter</a>
+    <li><a rel="nofollow" href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">Youtube</a>
+  </ul>
+</div>
+
+<div class="perlri_link">
+  <a rel="nofollow" href="https://perlclub.net">Perlクラブ</a>
+</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGRMKMYSC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGRMKMYSC2');
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

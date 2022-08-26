@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<!-- Google Automatic Advertising -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+     
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="google-site-verification" content="4cR7WuQWEtkbu8ThfxGkT1vACiVi5Q_8ykfkRudOnTU" />
+
+<link rel="shortcut icon" href="/images/logo.png">
+
+<link rel="stylesheet" type="text/css" href="/css/common.css?20220416">
+<script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/js/google-code-prettify/prettify.js"></script>
+<link  type="text/css" rel="stylesheet" href="/js/google-code-prettify/prettify.css"/>
+<script>
+  $(function(){
+    // google code prettifyの有効化
+    $("pre").addClass("prettyprint");
+    function init(event){
+      prettyPrint();
+    }
+    if(window.addEventListener)window.addEventListener("load",init,false);
+    else if(window.attachEvent)window.attachEvent("onload",init);
+    
+    $(".to-top").click(function() {
+      // ページの一番上までスクロールさせます。
+      $('body, html').animate({scrollTop: 0}, 300, 'linear');;
+    });
+  });
+</script>
+
+<title>WindowsへのPerlのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="WindowsにPerlをインストールしましょう。Strawberry Perl(ストロベリーパール)と呼ばれるWindows用のPerlディストリビュートをダウンロードして、インストールします。インストールの解説はWindows 10であることを前提にします。Windows 7, 8でも、ほとんど同じ手順で行えますが、アプリケーションを探す場所など、一部異なる場合があります。">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="WindowsへのPerlのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="WindowsにPerlをインストールしましょう。Strawberry Perl(ストロベリーパール)と呼ばれるWindows用のPerlディストリビュートをダウンロードして、インストールします。インストールの解説はWindows 10であることを前提にします。Windows 7, 8でも、ほとんど同じ手順で行えますが、アプリケーションを探す場所など、一部異なる場合があります。" />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header_main">
+  <h1>
+    <a href="/"><img src="/images/logo.png">Perlゼミ</a>
+  </h1>
+  <div class="header_right">
+    <a rel="nofollow" href="https://perlclub.net/forum">フォーラムに参加</a>
+  </div>
+</div>
+
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="entry">
+  <div class="top">
+    
+  </div>
+  <div class="middle">
+    <style>
+  h2 {
+    counter-increment:count1;
+    counter-reset:count2;
+  }
+  h2:before {
+    content:"1." counter(count1) " ";
+  }
+  h3 {
+    counter-increment:count2;
+  }
+  h3:before {
+    content:"1." counter(count1) "." counter(count2) " ";
+  }
+</style>
+<div style="font-size:25px;font-weight:bold;padding:10px;">第１章 Perlのインストール</div>
+<div class="chapter">
+<div class="chapter_description">
+  <div class="chapter_description_left">
+    <!-- <img width="65" src="images/kaeru_w_01.png"> -->
+  </div>
+  <div class="chapter_description_right;" style="padding:10px;">
+    Perlテキスト処理プログラミングって、最初は何から始めたらいいのかな。最初はPerlのインストールから。この章では、Perlのインストール方法を、Windows、Mac、Linux/UNIXで解説していくよ。
+  </div>
+</div>
+<h2><a href="/books/texttut/chapter01.html">WindowsへのPerlのインストール</a></h2>
+<p>
+  WindowsにPerlをインストールしましょう。Strawberry Perl(ストロベリーパール)と呼ばれるWindows用のPerlディストリビュートをダウンロードして、インストールします。インストールの解説はWindows 10であることを前提にします。Windows 7, 8でも、ほとんど同じ手順で行えますが、アプリケーションを探す場所など、一部異なる場合があります。
+</p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+<h3>Strawberry PerlのWebサイト</h3>
+<p>
+  Strawberry Perl(ストロベリーパール)と呼ばれるWindows用のPerlディストリビューションのサイトに、ブラウザを使ってアクセスしてください。
+</p>
+<p>
+  　
+</p>
+<p>
+  <b>Strawberry Perl for Windows</b>
+</p>
+<p>
+  https://strawberryperl.com/
+</p>
+<p>
+  　
+</p>
+<div>
+  <!-- <img src="images/chapter01/strawberry_perl.png" width="400"> -->
+</div>
+ 
+<h3>Strawberry Perlのダウンロード</h3>
+<p>
+  Strawberry Perlをダウンロードして、インストールしてみましょう。2021年の最新のPerlは、Perl 5.32です。
+</p>
+<p>
+  Strawberry Perlのサイトの以下のリンクから<b>strawberry-perl-5.32.0.1-64bit.msi</b>をクリックして、Strawberry Perlをダウンロードしましょう。
+</p>
+<div>
+  <!-- <img src="images/chapter01/strawberry_perl_download.png"> -->
+</div>
+<p>
+  Perlは毎年、最新バージョンがリリースされますので、新しいバージョンになっている場合は、それをダウンロードします。末尾のバージョン番号が少し違うこともあるかもしれませんが、気にしないで大丈夫です。
+</p>
+<p>
+  2021年では、ほとんどの場合は64bit版のPerlで大丈夫だと思いますが、Windows OSが32bitである場合は、32bitの方のStrawberry Perlをダウンロードしてください。
+</p>
+<h3>Strawberry Perlのインストール</h3>
+ 
+<p>
+  ダウンロードしたStrawberry Perlをダブルクリックします。インストーラーが起動します。空き容量の計算に少し時間がかかる場合がありますが、そのまま待ちましょう。インストーラーが起動しますので「Next」を押して進みます。
+</p>
+<p>
+  途中で「I accept the terms in the License Agreement」というチェックボックスがでてくるので、チェックをいれて「Next」を押します。
+</p>
+<p>
+  さらに「Next」を押して進んでいって、最後に「Install」をクリックするとStrawberry Perlのインストールが始まります。
+</p>
+<p>
+  ここで「この不明な発行元からのアプリがデバイスに変更を加えることを許可しますか?」というダイアログが表示されると思いますが、「はい」をクリックしましょう。
+</p>
+<p>
+  5分くらい時間がかかるので待ちましょう。
+</p>
+<p>
+  プログレスバーが満タンになると、Strawberry Perlのインストールが完了します。
+</p>
+<p>
+  「Finish」を押してダイアログを閉じましょう。Readmeが表示されますが、これも閉じて大丈夫です。
+</p>
+<h3>Perlがインストールされていることの確認</h3>
+<p>
+  インストールが完了したら実際にStrawberry Perlがインストールできているか確認してみましょう。
+</p>
+<p>
+  コマンドプロンプトというツールをを実行してPerlのバージョンを表示してみます。
+</p>
+<p>
+  コマンドプロンプトは画面左下のウインドウズの「スタートメニュー」→「アプリの一覧」→「Windowsシステムツール」→「コマンドプロンプト」から実行できます。
+</p>
+<p>
+  黒い画面がでてくるので、以下の文字をキーボードで入力し「Enter」を押してみてください。
+</p>
+<pre>
+perl -v
+</pre>
+<p>
+  次のようにバージョン情報が表示されればインストールは成功しています。
+</p>
+<pre>
+This is perl 5, version 32, subversion 0 (v5.32.0) built for MSWin32-x64-multi-thread
+</pre>
+<p>
+  これでStrawberry Perlのインストールは完了です。
+</p>
+<h3>Windowsへのその他のPerlのインストール方法</h3>
+<p>
+  Windowsへのその他のPerlのインストール方法も紹介しておきます。 
+</p>
+<h4>ActivePerl</h4>
+<p>
+  Windows用のPerlディストリビューションとしてよく知られたActivePerlをインストールしてPerlを実行することができます。
+</p>
+<h4>msys2</h4>
+<p>
+  msys2と呼ばれるUnixの疑似環境をインストールして、Perlを実行できます。Perlのサーバーアプリケーションなど、UNIXの機能を必要とするアプリケーションも正しく動かすことができます。Unixの疑似環境なので、シンボリックリンクなど本物のLinux/UNIXと一部互換性がない部分もあります。
+</p>
+<h4>WSL2</h4>
+<p>
+  WSL2と呼ばれるLinux環境をWindows上で有効にして、Perlを実行できます。本物のLinux環境なので、Linuxの機能を必要とするPerlのサーバーアプリケーションを完全に正しく動かすことができます。これは、Windows 10の機能です。 
+</p>
+<h2>コマンドプロンプトでPerlを実行する</h2>
+<p>
+  WindowsでPerlを実行するにはコマンドプロンプトと呼ばれるツールを使用します。perlコマンドを使ってPerlプログラムを実行できます。
+</p>
+<p>
+  まず最初にWindowsにおけるコマンド実行ツールであるコマンドプロンプトについて解説します。
+</p>
+<h3>コマンドプロンプトとは</h3>
+<p>
+  コマンドプロンプトとは、Windows環境におけるCUIを用いたプログラムの実行環境のことです。CUIとは、Character-based User Interfaceの略で、テキストを入力して、プログラムを実行する環境のことです。Windows上で、Perlプログラムを実行するときは、コマンドプロンプトを使います。
+</p>
+<h3>コマンドプロンプトを実行するには</h3>
+<p>
+  画面左下のWindowsメニューからアプリの一覧で「Windowsシステムツール」→「コマンドプロンプト」で実行できます。コマンドプロンプトのアイコンを左クリックでドラッグして、デスクトップに、ショートカットを作っておくと便利です。
+</p>
+<p>
+  コマンドプロンプトを実行すると、以下のようにコマンドプロンプトが立ち上がります。
+</p>
+<!-- <img src="images/chapter01/commandprompt.png"> -->
+<p>
+  コマンドプロンプトのホームディレクトリは、ユーザーディレクトリです。
+</p>
+<p>
+  この例では以下です。
+</p>
+<pre>
+C:\Users\kimot
+</pre>
+<h3>拡張子を表示する</h3>
+<p>
+  Perlのプログラムは単なるテキストファイルですが、拡張子を「.pl」にするので、拡張子を表示するように設定しておきましょう。拡張子とはプログラムの種類を表すためのものです。
+</p>
+<p>
+  画面左下のWindowsメニューを右クリック → 「エクスプローラー」をクリック → 上のタブの「表示」をクリック → 「ファイル名拡張子」にチェックを入れる。
+</p>
+<h3>Perlプログラムを作成する</h3>
+<p>
+  コマンドプロンプトのホームディレクトリをエクスプローラーで開きましょう。
+</p>
+<p>
+  この例では以下のディレクトリにアクセスします。
+</p>
+<pre>
+C:\Users\kimot
+</pre>
+<p>
+  画面左下のWindowsメニューを右クリック → 「エクスプローラー」をクリック → 左メニュー「OS(C:)」をクリック → 「ユーザー」をクリック → 「kimot」をクリック。
+</p>
+<p>
+  Usersに該当する部分は、日本語では「ユーザー」と表示されていることに注意してください。
+</p>
+<p>
+  C:\Users\kimotのディレクトリの空いている部分を右クリック→「新規作成」→「テキスト文書」。名前を「start.pl」にして保存してください。「拡張子を変えると動かなくなる可能性があります」の注意ができますが、そのまま進めます。
+</p>
+<p>
+  「.pl」の関連付けをメモ帳に変更します。使っているテキストエディタがある場合は、使っているテキストエディタに関連付けを変更してください。
+</p>
+<p>
+  「start.pl」を右クリック →「プログラムから開く」→「別のプログラムを選択」→「メモ帳」→「常にこのアプリを使って.plファイルを開く」にチェック。
+</p>
+<p>
+  「start.pl」をクリックして、メモ帳で開く。
+</p>
+<p>
+  以下の内容を入力してください。
+</p>
+<pre>
+print "Hello World";
+</pre>
+<p>
+  左上の「ファイル」→「上書き保存」で保存します。ショートカットキー「Ctrl + s」でも保存できます。
+</p>
+<h3>Perlプログラムを実行する</h3>
+<p>
+  Perlを実行するにはperlコマンドを使用します。コマンドプロンプトで以下の記述してEnterを入力してください。
+</p>
+<pre>
+perl start.pl
+</pre>
+<p>
+  以下のように出力されれば、Perlプログラムを実行できています。おめでとうございます。
+</p>
+<pre>
+Hello World
+</pre>
+<p>
+  コマンドプロンプトでよく使うコマンドをいくつか紹介します。
+</p>
+<h3>ファイル一覧を表示する - dirコマンド</h3>
+<p>
+  ファイル一覧を表示するには「dir」コマンドを使用します。「dir」と入力してEnterを押すと、ファイルの一覧が表示されます。
+</p>
+<pre>
+dir
+</pre>
+<p>
+  以下のようにファイルが表示されます。
+</p>
+<pre>
+2021/03/25  16:54    &lt;DIR&gt;          Desktop
+2021/03/18  10:58    &lt;DIR&gt;          Documents
+2021/03/29  08:04                20 start.pl
+</pre>
+<h3>ディレクトリを作成する - mkdirコマンド</h3>
+<p>
+  ディレクトリを作成するにはmkdirコマンドを使用します。ディレクトリとはフォルダのことです。
+</p>
+<pre>
+mkdir ディレクトリ名
+</pre>
+<p>
+  testという名前のディレクトリを作成してみましょう。
+</p>
+<pre>
+mkdir test
+</pre>
+<h3>作業ディレクトリを変更する - cdコマンド</h3>
+<p>
+  作業ディレクトリを変更するには「cd」コマンドを使用します。
+</p>
+<pre>
+cd ディレクトリ名
+</pre>
+<p>
+  testというディレクトリに作業ディレクトリを変更する例です。
+</p>
+<pre>
+cd test
+</pre>
+<p>
+  作業ディレクトリの表示が変わっています。
+</p>
+<pre>
+C:\Users\kimot\test&gt;
+</pre>
+<p>
+  一つ上の階層へ作業ディレクトリを変更したい場合は特殊な「..」というディレクトリ名を使用します。
+</p>
+<pre>
+cd ..
+</pre>
+<h3>ドライブを変更する</h3>
+<p>
+  「c:」で、C ドライブに「d:」で、D ドライブにドライブを変更することができます。
+</p>
+<pre>
+c:
+d:
+</pre>
+<h3>コマンド履歴を参照する</h3>
+<p>
+  上下キーでコマンド履歴をたどることができます。
+</p>
+<pre>
+↑
+↓
+</pre>
+<h3>補足:コマンドプロンプトとPowerShellの違い</h3>
+<p>
+  WindowsのCUI実行環境にはコマンドプロンプトの他に、PowerShellと呼ばれるものがあります。PowerShellはコマンドプロンプトより機能が豊富な一方で、入出力が「.net」によって変換されるという特殊な仕様があります。
+</p>
+<p>
+  このため、リダイレクトやパイプという機能を使う場合に、意図しない動作を引き起こすことがあります。
+</p>
+<h2>MacへのPerlのインストール</h2>
+<p>
+  Macには、デフォルトでPerlがインストールされているので、すぐに使い始めることができます。
+</p>
+<h3>ターミナルの起動</h3>
+<p>
+  MacでPerlを実行するには、ターミナルと呼ばれるCUI環境を使用します。
+</p>
+<p>
+  「アプリケーション」->「ユーティリティ」->「ターミナル」からターミナルを起動しましょう。ターミナルは、コマンドが実行できるCUI端末です。
+</p>
+<h3>Perlがインストールされていることの確認</h3>
+<p>
+  以下のコマンドでPerlがインストールされているか確認してみましょう。
+</p>
+<pre>
+perl -v
+</pre>
+<p>
+  Perlのバージョン情報が表示されればOKです。
+</p>
+<h3>拡張子を表示する</h3>
+<p>
+  Perlのプログラムは単なるテキストファイルですが、拡張子を「.pl」にするので、拡張子を表示するように設定しておきましょう。拡張子とはプログラムの種類を表すためのものです。
+</p>
+<p>
+  「Finder」＞「環境設定」と選択してから、「詳細」をクリックします。
+</p>
+<p>
+  「すべてのファイル名拡張子を表示」を選択します。
+</p>
+<h3>Perlプログラムの作成</h3>
+<p>
+  お気に入りのテキストエディタで「start.pl」というファイルをホームディレクトリに作成してください。
+</p>
+<p>
+  以下の内容を入力してください。
+</p>
+<pre>
+print "Hello World";
+</pre>
+<h3>Perlプログラムの実行</h3>
+<p>
+  Perlを実行するにはperlコマンドを使用します。コマンドプロンプトで以下の記述してEnterを入力してください。
+</p>
+<pre>
+perl start.pl
+</pre>
+<p>
+  以下のように出力されれば、Perlプログラムを実行できています。おめでとうございます。
+</p>
+<pre>
+Hello World
+</pre>
+<h3>Macでのその他のPerlのインストール方法</h3>
+<p>
+  もしシステムにデフォルトでインストールされるPerlではなく、ユーザー環境にPerlをインストールしたい場合は、perlbrewやplenvというツールがあります。
+</p>
+<p>
+  ユーザー環境にPerlがインストールできるとシステム環境を汚さなくっても済むのでお勧めの方法でもあります。
+</p>
+<h2>Linux/UNIXへのPerlのインストール</h2>
+<p>
+  ほとんどのLinux/UNIXには、Perlがインストールされています。Perlがインストールされていることを前提に解説します。
+</p>
+<h3>Perlがインストールされていることの確認</h3>
+<p>
+  以下のコマンドでPerlがインストールされているか確認してみましょう。
+</p>
+<pre>
+perl -v
+</pre>
+<p>
+  Perlのバージョン情報が表示されればOKです。
+</p>
+<h3>Perlプログラムの作成</h3>
+<p>
+  お気に入りのテキストエディタで「start.pl」というファイルをホームディレクトリに作成してください。
+</p>
+<p>
+  以下の内容を入力してください。
+</p>
+<pre>
+print "Hello World";
+</pre>
+<h3>Perlプログラムの実行</h3>
+<p>
+  Perlを実行するにはperlコマンドを使用します。コマンドプロンプトで以下の記述してEnterを入力してください。
+</p>
+<pre>
+perl start.pl
+</pre>
+<p>
+  以下のように出力されれば、Perlプログラムを実行できています。おめでとうございます。
+</p>
+<pre>
+Hello World
+</pre>
+<h3>Linux/UNIXでのその他のPerlのインストール方法</h3>
+<p>
+  もしシステムにデフォルトでインストールされるPerlではなく、ユーザー環境にPerlをインストールしたい場合は、perlbrewやplenvというツールがあります。
+</p>
+<p>
+  ユーザー環境にPerlがインストールできるとシステム環境を汚さなくっても済むのでお勧めの方法でもあります。
+</p>
+<h2>覚えておきたいシェルコマンド</h2>
+<p>
+  MacやLinux/UNIXでは、CUI端末で作業をしますが、コマンドを実行できるのはシェルという機能があるからです。
+</p>
+<p>
+  よく使うシェルのコマンドをいくつか覚えておきましょう。
+</p>
+<h3>ファイル一覧を表示する - lsコマンド</h3>
+<p>
+  ファイル一覧を表示するには「ls」コマンドを使用します。
+</p>
+<pre>
+ls
+</pre>
+<h3>ディレクトリを作成する - mkdirコマンド</h3>
+<p>
+  ディレクトリを作成するにはmkdirコマンドを使用します。
+</p>
+<pre>
+mkdir ディレクトリ名
+</pre>
+<p>
+  testという名前のディレクトリを作成してみましょう。
+</p>
+<pre>
+mkdir test
+</pre>
+<h3>作業ディレクトリを変更する - cdコマンド</h3>
+<p>
+  作業ディレクトリを変更するには「cd」コマンドを使用します。
+</p>
+<pre>
+cd ディレクトリ名
+</pre>
+<p>
+  testというディレクトリに作業ディレクトリを変更する例です。
+</p>
+<pre>
+cd test
+</pre>
+<p>
+  一つ上の階層へ作業ディレクトリを変更したい場合は特殊な「..」というディレクトリ名を使用します。
+</p>
+<pre>
+cd ..
+</pre>
+<p>
+  Perlのインストールが完了したので、実際にPerlでプログラムを書いてみましょう。
+</p>
+
+  </div>
+  <div class="bottom">
+    <h3>Perlクラブフォーラム</h3>
+
+<div style="width:calc(100% - 30%);max-width:500px;margin:0 auto;margin-top:50px;margin-bottom:70px;">
+  <a rel="nofollow" style="line-height:1.9;text-align:center;font-weight:bold;font-size:19px;display:block;padding:33px 30px;background:#FF4DA0;text-decoration:none;border-radius:5px;color:white;" href="https://perlclub.net/forum">Perlクラブフォーラムへ参加</a>
+</div>
+
+<h3>業務に役立つPerl</h3>
+
+      <div style="background:white;text-align:center;margin-top:30px;max-width:300px;width:100%;margin:0 auto;">
+                <a target="_blank" href="https://www.amazon.co.jp/gp/product/4774150258/ref=as_li_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4774150258&linkCode=as2&tag=perlgenki-22&linkId=abbe3008cd3722ec516d51eba88b1b3d"><img src="https://perlclub.net/images/book/perl_gyoumu/perl_gyoumu.jpg" style="margin:0 auto"></a>
+
+      </div>
+
+<h3>関連情報</h3>
+
+<div style="margin:10px 10px;">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-4525414114581084"
+     data-ad-slot="9163995495"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+  </div>
+</div>
+
+        </div>
+        <div class="side">
+          
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-services">
+  <ul>
+    <li><a href="https://en.perlzemi.com/">Perl ABC</a></li>
+    <li><a rel="nofollow" href="/list.html">新着情報</a></li>
+    <li><a rel="nofollow" href="/all.html">すべての記事</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/sites">無料Web講座</a></li>
+    <li><a rel="nofollow" href="https://perlclub.net/book">書籍・電子書籍</a></li>
+    <li><a rel="nofollow" href="https://twitter.com/perlzemi">Twitter</a>
+    <li><a rel="nofollow" href="https://www.youtube.com/channel/UCbeAS6ZXpSKqkzb-Nykb0ZQ">Youtube</a>
+  </ul>
+</div>
+
+<div class="perlri_link">
+  <a rel="nofollow" href="https://perlclub.net">Perlクラブ</a>
+</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGRMKMYSC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGRMKMYSC2');
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
