@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>baseモジュール - クラスの継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="baseモジュールを使用すると、クラスを継承することができます。">
+<title>parentモジュール - クラスの継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="parentモジュールを使用すると、クラスを継承することができます。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="baseモジュール - クラスの継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="baseモジュールを使用すると、クラスを継承することができます。" />
+<meta name="twitter:title" content="parentモジュール - クラスの継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="parentモジュールを使用すると、クラスを継承することができます。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -84,9 +84,9 @@
     here
   </li>
 </ol>
-<h2><a href="/blog/20100425127089.html">baseモジュール - クラスの継承</a></h2>
+<h2><a href="/blog/20220925104815.html">parentモジュール - クラスの継承</a></h2>
 <p>
-  <strong>base</strong>モジュールを使用すると、クラスを継承することができます。
+  <strong>parent</strong>モジュールを使用すると、クラスを継承することができます。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -108,15 +108,24 @@
 # クラスの継承
 package MyClass;
 
-use base 'ParentClass';
+use parent 'BaseClass';
 </pre>
 <p>
-  継承を行うと親クラスにあるメソッドをサブクラスで呼び出すことができるようになります。親クラスのParentClassでparseというメソッドが定義されていた場合はサブクラスのMyClassでもparseメソッドを呼び出すことができます。
+  上記のサンプルでは<code>MyClass</code>が<code>BaseClass</code>を継承しています。
+</p>
+<p>
+  <code>BaseClass</code>は、コンパイル時に、<a href="/blog/20090207123288.html">require</a>を使って読み込まれ、特殊変数<a href="/blog/20090324123747.html">@ISA</a>の最後に追加されます。
+</p>
+<h3>同一ファイルで定義されたクラスの継承</h3>
+<p>
+  同一ファイルで定義されたクラスを継承するには<code>-norequire</code>オプションを使用します。
 </p>
 <pre>
-親クラス
-　▲
-サブクラス ← 親クラスのメソッド + 自身のメソッドを利用できる
+  package Foo;
+  sub exclaim { "I CAN HAS PERL" }
+
+  package DoesNotLoadFooBar;
+  use parent -norequire, 'Foo', 'Bar';
 </pre>
 <h3>単一継承と多重継承</h3>
 <p>
@@ -125,80 +134,12 @@ use base 'ParentClass';
 <p>
   実際、単一継承でプログラムを組むと、わかりやすく可読性の高いプログラムになります。単一継承でできないことはありませんし、設計もきれいになりますので、ぜひ単一継承でプログラムを作成してみてください。
 </p>
-<h2>baseモジュールを使ってクラスを継承する</h2>
+<h2>parentモジュールを使ってクラスを継承する</h2>
 <p>
   @ISAを使用したクラスの継承を解説しました。けれども、この方法は何かパッケージ変数を触っているので、ほかの言語で継承の構文を学んだ人から見るとどこか変な感じです。
 </p>
 <p>
-  もうすこし、継承を表現するわかりやすい方法があります。それは、<a href="/blog/20100425127089.html">baseモジュール</a>を使用する方法です。
-</p>
-<h3>baseモジュール</h3>
-<p>
-  Perlの継承は@ISAを使うよりも、baseモジュールを使うほうが良いです。baseモジュールは内部では、 @ISA を触って同じことをしますが、@ISAを触っていることを隠蔽してくれます。
-</p>
-<p>
-  またコンパイル時に@ISAを操作するので、ひとつのスクリプトにクラスの定義とオブジェクトの生成を書く場合に便利です。
-</p>
-<p>
-  では@ISAを使った継承をbaseを使って書き直してみます。
-</p>
-<pre>
-use strict;
-use warnings;
-
-# ボタンクラスを使用する。
-my $button = Button-&gt;new;
-print $button-&gt;x;
-
-
-# コンポーネントクラス
-package Component;
-sub x { return 5 }
-
-# ボタンクラス
-package Button;
-# 継承
-use base 'Component'; 
-
-sub new { bless {}, 'Button' }
-</pre>
-<p>
-  use base と記述して引数に継承したいクラス名を渡します。コンパイル時にuse base が実行されるため
-</p>
-<pre>
-my $button = Button-&gt;new;
-</pre>
-<p>
-  を上側に書いても問題ありません。ここからのサンプルは、baseモジュールを使って書いていきたいと思います。
-</p>
-<h3>parentモジュール</h3>
-<p>
-  <a href="/blog/20220926104815.html">parent</a>モジュールは、<code>base</code>モジュールの動作を簡潔にしたものです。
-</p>
-<pre>
-package MyClass;
-
-# parentモジュール
-use parent 'ParentClass';
-</pre>
-<p>
-  親クラス<code>ParentClass</code>は、コンパイル時に、<a href="/blog/20090207123288.html">require</a>を使って読み込まれ、特殊変数<a href="/blog/20090324123747.html">@ISA</a>の最後に追加されます。
-</p>
-<p>
-  <a href="/blog/20090207123288.html">require</a>を実行したくない場合は、<code>-norequire</code>オプションを使用する必要があります。
-</p>
-<pre>
-package Foo;
-sub exclaim { "I CAN HAS PERL" }
-
-package DoesNotLoadFooBar;
-use parent -norequire, 'Foo', 'Bar';
-</pre>
-<p>
-  <code>parent</code>モジュールは。<code>v5.10</code>からコアモジュールです。
-</p>
-<p>
-  <code>base</code>モジュールは。<code>v5.0</code>からコアモジュールです。
+  もうすこし、継承を表現するわかりやすい方法があります。それは、<a href="/blog/20100425127089.html">parentモジュール</a>を使用する方法です。
 </p>
 
   </div>

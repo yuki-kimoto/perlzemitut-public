@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>クラスを継承する - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="今回は他のクラスを継承する方法について解説します。">
+<title>@ISA - 親クラスの取得・設定 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="特殊変数@ISAで、親クラスの取得・設定することができます。単一継承を行う場合は、クラスをひとつだけ、多重継承を行う場合は、二つ以上指定します。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="クラスを継承する - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="今回は他のクラスを継承する方法について解説します。" />
+<meta name="twitter:title" content="@ISA - 親クラスの取得・設定 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="特殊変数@ISAで、親クラスの取得・設定することができます。単一継承を行う場合は、クラスをひとつだけ、多重継承を行う場合は、二つ以上指定します。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -85,9 +85,9 @@
     <meta itemprop="position" content="3" />
   </li>
 </ol>
-<h2><a href="/blog/20090324123747.html">クラスを継承する</a></h2>
+<h2><a href="/blog/20090324123747.html">@ISA - 親クラスの取得・設定</a></h2>
 <p>
-  今回は他のクラスを継承する方法について解説します。
+  特殊変数<code>@ISA</code>で、親クラスの取得・設定することができます。単一継承を行う場合は、クラスをひとつだけ、多重継承を行う場合は、二つ以上指定します。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,7 +105,17 @@
 </div>
 
 
-<h3>他のクラスを継承する</h3>
+<pre>
+# 単一継承
+package MyClass;
+
+our @ISA = ('ParentClass');
+
+# 多重継承
+package MyClass;
+
+our @ISA = ('ParentClass1', 'ParentClass2');
+</pre>
 <p>
   他のクラスを継承してみます。少し注意してほしいことがあります。通常はクラスというものは、ファイル単位で作成します。もしパッケージ名を、Componet にしたとすると、そのパッケージだけを含んだファイルをComponent.pm という名前をつけて保存します。
 </p>
@@ -115,7 +125,6 @@
 <p>
   x, y というメソッドを持つComponentというクラスを継承したButtonクラスの例を考えてみます。
 </p>
-<h3>@ISAを使用した継承</h3>
 <p>
   Perlの継承はどのような仕組みで動くのでしょうか。それを説明するために以下のサンプルを動かしてみましょう。
 </p>
