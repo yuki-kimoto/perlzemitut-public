@@ -77,6 +77,87 @@
     <meta itemprop="position" content="3" />
   </li>
 </ol>
+<h2><a href="/blog/20220927131702.html">クラスの作成</a></h2>
+<p>
+  Perlでクラスを作成するには<a href="/blog/20090316123712.html">package</a>文を使います。
+</p>
+<pre>
+# Pointクラス
+package Point;
+
+# Foo::Barクラス
+package Foo::Bar;
+</pre>
+<h3>モジュール</h3>
+<p>
+  クラスをモジュールとして利用するには、クラス名に対応したファイルを作成します。「::」を「/」に変換して「.pm」を末尾につけます。
+</p>
+<pre>
+Point.pm
+Foo/Bar.pm
+</pre>
+<p>
+  モジュールファイルの末尾には「1;」をつける必要があります。
+</p>
+<pre>
+# Point.pm
+package Point;
+
+1;
+</pre>
+<pre>
+# Foo/Bar.pm
+package Foo::Bar;
+
+1;
+</pre>
+<p>
+  これらのモジュールをPerlプログラムから読み込むサンプルです。「Point.pm」と「Foo/Bar.pm」は「lib」ディレクトリの中に配置してください。
+</p>
+<p>
+  ファイル配置
+</p>
+<pre>
+class.pl
+lib/Point.pm
+lib/Foo/Bar.pm
+</pre>
+<p>
+  サンプルプログラム
+</p>
+<pre>
+# class.pl
+
+use strict;
+use warnings;
+use FindBin::Bin;
+
+use lib "$FindBin::Bin/lib";
+
+# クラスの読み込み
+use Point;
+use Foo::Bar;
+</pre>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/27</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20161030147778.html">
+      <span itemprop="name">オブジェクト指向プログラミング</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">here</span>
+    <meta itemprop="position" content="3" />
+  </li>
+</ol>
 <h2><a href="/blog/20220927122208.html">カプセル化とは</a></h2>
 <p>
   カプセル化とは、フィールドに直接アクセスせずに、メソッドを使ってアクセスすることをいいます。
@@ -258,114 +339,6 @@ use parent 'BaseClass';
 <p>
   Python,Ruby,PHP,JavaScript,Perlは動的な型を持つプログラミング言語です。Javaは静的な型を持つプログラミング言語です。
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/07/02</div>
-<h2><a href="/blog/20220702062032.html">Perlを使い始める最も簡単な方法</a></h2>
-<p>
-  Perlを使い始める最も簡単な方法は、<a href="https://perlbanjo.com/">PerlBanjo.com</a>を使用することです。
-</p>
-<p>
-  次のソースコードを<a href="https://perlbanjo.com/">PerlBanjo.com</a>にコピーして、実行ボタンをクリックしてください。
-</p>
-<pre>
-print "Hello World！\ n";
-</pre>
-<p>
-  <b>結果：</b>
-</p>
-<pre>
-Hello World!
-</pre>
-<h3>正規表現</h3>
-<p>
-  <a href="/blog/20100827127859.html">正規表現</a>の例を最新のPerlの書き方で書きます。
-</p>
-<pre>
-use v5.36;
-
-my $message = 'I like apples. I buy apples.';
-
-say "Input:$message";
-
-$message =~ s/apple/orange/g;
-
-say "Outpu:$message";
-</pre>
-<p>
-  <b>結果：</b>
-</p>
-<pre>
-Input:I like apples. I buy apples.
-Outpu:I like oranges. I buy oranges.
-</pre>
-<h3>CSVの解析</h3>
-<p>
-  1ファイルでのCSVの解析。 <code>,</code>は、空白に変換されます。
-</p>
-<pre>
-use v5.36;
-
-while (my $line = &lt;DATA&gt;) {
-  chomp $line;
-  
-  my ($id, $name, $price) = split(',', $line);
-  
-  my $new_line = join(' ', $id, $name, $price);
-  
-  say $new_line;
-}
-
-__DATA__
-1,Perl,2000
-2,Database,3000
-3,Web,4000
-</pre>
-<p>
-  <b>Result:</b>
-</p>
-<pre>
-1 Perl 2000
-2 Database 3000
-3 Web 4000
-</pre>
-<h3>Parsing UTF-8 CSV</h3>
-<p>
-  <code>UTF-8</code>で書かれたCSVの解析。
-</p>
-<pre>
-use v5.36;
-use utf8;
-use Encode 'decode', 'encode';
-
-while (my $line = &lt;DATA&gt;) {
-  $line = decode('UTF-8', $line);
-  
-  chomp $line;
-  
-  my ($id, $name, $price) = split(',', $line);
-  
-  my $new_line = join(' ', $id, $name, $price);
-  
-  say encode('UTF-8', $new_line);
-}
-
-# Plain UTF-8 CSV data
-
-no utf8;
-
-__DATA__
-1,Perl,2000
-2,あいう,3000
-3,えお,4000
-</pre>
-<p>
-  <b>Result:</b>
-</p>
-<pre>
-1 Perl 2000
-2 あいう 3000
-3 えお 4000
-</pre>
 
 
   </div>
