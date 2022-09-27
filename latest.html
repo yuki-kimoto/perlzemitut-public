@@ -310,34 +310,54 @@ use Point;
 use Foo::Bar;
 </pre>
 
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/03</div>
-<h2><a href="/blog/20220903064440.html">Python,Ruby,PHP,Java,JavaScript,Perlのプログラミング言語の比較</a></h2>
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/22</div>
+<h2><a href="/blog/20220922134115.html">SUPER疑似クラス - スーパークラスのメソッドの呼び出し</a></h2>
 <p>
-  Python,Ruby,PHP,Java,JavaScript,Perlって何が違うの? Python,Ruby,PHP,Java,JavaScript,Perlのプログラミング言語が比較できます。
+  <code>SUPER</code>疑似クラスを使うと、スーパークラスのメソッドを呼び出すことができます。
 </p>
-<h3>比較の詳細</h3>
-<div class="block-link-list"> 
-  <ul>
-    <li>
-      <a href="https://qiita.com/yuki_kimoto/items/f9c2454e7f9130ddb003">Python,Ruby,PHP,Java,JavaScript,Perlのプログラミング言語の比較</a><span>Python,Ruby,PHP,Java,JavaScript,Perlのプログラミング言語が比較できます。</span>
-    </li>
-  </ul>
-</div>
-<h3>変数宣言</h3>
+<pre>
+package Point;
+
+sub move {
+  my ($self, $x, $y) = @_;
+  
+  $self-&gt;{x} += $x;
+  $self-&gt;{y} += $y;
+}
+
+package Point3D;
+
+use base 'Point';
+
+sub move {
+  my ($self, $x, $y, $z) = @_;
+  
+  # スーパークラスのメソッドの呼び出し
+  $self-&gt;SUPER::clear($x, $y);
+  
+  $self-&gt;{z} += $z;
+}
+</pre>
 <p>
-  Python,Ruby,PHP,Java,JavaScript,Perlには変数宣言があります。明示的に変数を宣言するPerl、Java、JavaScript。暗黙的に変数を宣言するPython、Ruby、PHP。
+  <code>$self->SUPER::clear($x, $y)</code>で、現在の<a href="/blog/20090316123712.html">パッケージ</a>である「Point3D」のスーパークラスの<code>clear</code>メソッドを探索します。
 </p>
-<h3>条件分岐</h3>
 <p>
-  Python,Ruby,PHP,Java,JavaScript,Perlの条件分岐はif文を使いよく似ています。
+  <code>Point</code>クラスの<code>clear</code>メソッドが見つかり、これが呼び出されます。
 </p>
-<h3>繰り返し</h3>
+<h3>SUPER疑似クラスの注意点</h3>
 <p>
-  Python,Ruby,PHP,Java,JavaScript,Perlの繰り返しはfor文、while文を使いよく似ています。
+  SUPER疑似クラスの注意点として、メソッドの探索順序があります。
 </p>
-<h3>型</h3>
+<quotemeta>
 <p>
-  Python,Ruby,PHP,JavaScript,Perlは動的な型を持つプログラミング言語です。Javaは静的な型を持つプログラミング言語です。
+  デフォルトでは、Perl はメソッドに対して深さ優先左から右探索を行います。 つまり、@ISA 配列の最初の親から始め、それからその全ての親、祖父母、 というように探索します。 メソッドを見つけることに失敗すると、元のクラスの @ISA 配列の 次の親に行き、そこから探索します。
+</p>
+<p>
+  <a href="https://perldoc.jp/docs/perl/5.36.0/perlobj.pod#How32SUPER32is32Resolved">メソッド解決順序 - perlobj</a>
+</p>
+</quotemeta>
+<p>
+  <a href="/blog/20220924105911.html">単一継承</a>のみを使っている場合は、SUPER疑似クラスの使用は問題ありません。
 </p>
 
 
