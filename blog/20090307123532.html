@@ -35,11 +35,11 @@
 </script>
 
 <title>オブジェクト指向プログラミングとは - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="(このコンテンツは今後更新されまぜん。内容が古かったり、不適切な内容を含む可能性があります。)">
+<meta name="description" content="オブジェクト指向プログラミングについての、一般的な解説は「オブジェクト指向プログラミング」をご覧ください。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
 <meta name="twitter:title" content="オブジェクト指向プログラミングとは - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="(このコンテンツは今後更新されまぜん。内容が古かったり、不適切な内容を含む可能性があります。)" />
+<meta name="twitter:description" content="オブジェクト指向プログラミングについての、一般的な解説は「オブジェクト指向プログラミング」をご覧ください。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -76,18 +76,18 @@
   &#8250;
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向</span></a>
+      <span itemprop="name">オブジェクト指向プログラミング</span></a>
     <meta itemprop="position" content="2" />
   </li>
   &#8250;
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">オブジェクト指向プログラミングとは</span>
+      <span itemprop="name">here</span>
     <meta itemprop="position" content="3" />
   </li>
 </ol>
 <h2><a href="/blog/20090307123532.html">オブジェクト指向プログラミングとは</a></h2>
 <p>
-  (このコンテンツは今後更新されまぜん。内容が古かったり、不適切な内容を含む可能性があります。)
+  オブジェクト指向プログラミングについての、一般的な解説は「<a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0">オブジェクト指向プログラミング</a>」をご覧ください。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,109 +105,6 @@
 </div>
 
 
-<p>
-  オブジェクト指向とはなんぞやという難しいことを記述する前に、オブジェクト指向で書かれたモジュールを使ってみましょう。
-</p>
-<h3>オブジェクト指向で書かれたモジュールの使用方法</h3>
-<p>
-  オブジェクト指向で書かれたモジュールを使用するには、まずモジュールを<strong>useを使用して読み込み</strong>ます。CGIモジュールを読み込んでみます。
-</p>
-<pre>
-use CGI;
-</pre>
-<p>
-  オブジェクトを作成するには、<strong>モジュール名->new</strong> のように記述します。作成されたオブジェクトを$cgiに代入しています。
-</p>
-<pre>
-my $cgi = CGI-&gt;new();
-</pre>
-<p>
-  <strong>newはオブジェクトを作成するためのメソッド</strong>でコンストラクタと呼ばれます。<strong>メソッドとは、-> から呼び出せる関数</strong>だと最初は考えればよいです。
-</p>
-<p>
-  new以外のメソッドも呼び出してみましょう。
-</p>
-<pre>
-my $str = $cgi-&gt;h1( 'a' );
-</pre>
-<p>
-  h1 メソッドは文字列を受け取って
-</p>
-<pre>
-&lt;h1&gt;...&lt;/h1&gt;
-</pre>
-<p>
-  という文字列を返却します。
-</p>
-<h3>サンプル</h3>
-<p>
-  ここまでの記述をサンプルにまとめておきます。
-</p>
-<pre>
-use strict;
-use warnings;
-
-use CGI;
-my $cgi = CGI-&gt;new;
-my $str = $cgi-&gt;h1('a');
-
-# &lt;h1&gt;a&lt;/h1&gt; と出力される
-print $str; 
-</pre>
-<h3>オブジェクト指向の特徴</h3>
-<p>
-  オブジェクト指向では、<strong>メソッドは->を使ってモジュール名かオブジェクトから</strong>呼び出されます。
-</p>
-<table>
-  <tr>
-    <td>
-      記述
-    </td>
-    <td>
-      メソッドの呼び出し方法
-    </td>
-  </tr>
-  <tr>
-    <td>
-      CGI->new()
-    </td>
-    <td>
-       モジュール名からの呼び出し
-    </td>
-  </tr>
-  <tr>
-    <td>
-      $cgi->h1
-    </td>
-    <td>
-       オブジェクトからの呼び出し
-    </td>
-  </tr>
-</table>
-<p>
-  メソッドがモジュール名かオブジェクトから呼び出されるというのがオブジェクト指向のひとつの特徴です。
-</p>
-<h3>Javaでのクラスの使い方</h3>
-<p>
-  javaをでの記述もPerlとほぼ同じになることがわかると思います。
-</p>
-<pre>
-import java.awt.Button;
-import java.lang.Math;
-
-# Buttonクラスからコンストラクタ(new に該当)を呼び出す
-Button btn = new Button();
-
-# btnオブジェクトから描画を行うpaintメソッドを呼び出す
-btn.paint();
-
-# Math クラスから絶対値を返すabsメソッドを呼び出す
-Math.abs(-3);
-</pre>
-<h3>Perlでのクラスとは</h3>
-<p>
-  Perlにはクラスを作る専用の文法はありません。Perlでクラスといった場合には、単にオブジェクト指向で書かれたモジュールのことを指します。
-</p>
 
   </div>
   <div class="bottom">

@@ -35,11 +35,11 @@
 </script>
 
 <title>コンストラクタに引数を渡せるようにする - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="今回は、コンストラクタに引数を渡せるようにしてみましょう。">
+<meta name="description" content="このページの記事はコンストラクタに移動しました。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
 <meta name="twitter:title" content="コンストラクタに引数を渡せるようにする - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="今回は、コンストラクタに引数を渡せるようにしてみましょう。" />
+<meta name="twitter:description" content="このページの記事はコンストラクタに移動しました。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -87,7 +87,7 @@
 </ol>
 <h2><a href="/blog/20090319123712.html">コンストラクタに引数を渡せるようにする</a></h2>
 <p>
-  今回は、コンストラクタに引数を渡せるようにしてみましょう。
+  このページの記事は<a href="/blog/20090317123712.html">コンストラクタ</a>に移動しました。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,82 +105,6 @@
 </div>
 
 
-<h3>1. コンストラクタに引数を渡す。</h3>
-<p>
-  オブジェクトを作成するときは
-</p>
-<pre>
-my $book = Book-&gt;new(title =&gt; 'Good news', author =&gt; 'Kimoto');
-</pre>
-<p>
-  という形が理想的です。
-</p>
-<p>
-  このような機能を持つコンストラクタを作成してみましょう。
-</p>
-<pre>
-sub new {
-  my ($class, %args) = @_;
-  my $self = {%args};
-  return $self, $class;
-}
-</pre>
-<p>
-  特に難しい部分はありませんね。
-</p>
-<h3>2. ハッシュのリファレンスも受け入れたい</h3>
-<p>
-  ハッシュを受け入れられると同時に<b>ハッシュのリファレンス</b>も受け入れたいと思うところでしょう。こんな感じに。
-</p>
-<pre>
-my $book = Book-&gt;new({title =&gt; 'Good news', author =&gt; 'Kimoto'});
-</pre>
-<p>
-  対応できるコンストラクタは、こんな感じです。
-</p>
-<pre>
-sub new{
-    my ($class, @args) = @_;
-    my %args = ref $args[0] eq 'HASH' ? %{ $args[0] } : @args;
-    my $self = {%args};
-    return $self, $class;
-}
-</pre>
-<p>
-  第1引数が、ハッシュリファレンスだった場合は、それをデリファレンスしてハッシュに代入しますそうでない場合は、引数をハッシュとして代入します。
-</p>
-<h3>3. コンストラクタにデフォルト値を設定したい</h3>
-<p>
-  さてさて、コンストラクタに対する要求はまだまだ続きます。値が代入されない場合の<b>デフォルト値を設定</b>したい場合などです。
-</p>
-<pre>
-sub new {
-  my ( $class, @args ) = @_;
-  my %args = ref $args[0] eq 'HASH' ? %{$args[0]} : @args;
-  my $self = {%args};
- 
-  $self-&gt;{title} ||= 'default title';
-  $self-&gt;{author} ||= 'default author';
-
-  return $self, $class;
-}
-</pre>
-<p>
-  以下の部分に注目してください。<b>値が偽値ならば、デフォルト値を代入</b>するという操作をしています。
-</p>
-<pre>
-  $self-&gt;{ title } ||= 'default title';
-  $self-&gt;{ author } ||= 'default author';
-</pre>
-<p>
-  でもこれじゃ、空文字を代入された場合もデフォルト値が設定されてしまいますので、それがまずい場合は、<b>defined</b> 関数を使用して
-</p>
-<pre>
-  $self-&gt;{ title } = 'default title' unless defined $self-&gt;{ title };
-</pre>
-<p>
-  とします。
-</p>
 
   </div>
   <div class="bottom">

@@ -34,11 +34,11 @@
   });
 </script>
 
-<title>コンストラクタの作成 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<title>コンストラクタ - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
 <meta name="description" content="前回は以下のようなクラスの雛形を作成しました。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="コンストラクタの作成 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:title" content="コンストラクタ - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
 <meta name="twitter:description" content="前回は以下のようなクラスの雛形を作成しました。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
@@ -85,7 +85,7 @@
     <meta itemprop="position" content="3" />
   </li>
 </ol>
-<h2><a href="/blog/20090317123712.html">コンストラクタの作成</a></h2>
+<h2><a href="/blog/20090317123712.html">コンストラクタ</a></h2>
 <p>
   前回は以下のようなクラスの雛形を作成しました。
 </p>
@@ -188,6 +188,166 @@ return bless $self, $class;
 </p>
 <p>
   そしてこのように作ったオブジェクトは、他の言語で使用されるオブジェクトと遜色ない機能を発揮します。
+</p>
+<h2>コンストラクタに引数を渡せるようにする</h2>
+<p>
+  今回は、コンストラクタに引数を渡せるようにしてみましょう。
+</p>
+<h3>1. コンストラクタに引数を渡す。</h3>
+<p>
+  オブジェクトを作成するときは
+</p>
+<pre>
+my $book = Book-&gt;new(title =&gt; 'Good news', author =&gt; 'Kimoto');
+</pre>
+<p>
+  という形が理想的です。
+</p>
+<p>
+  このような機能を持つコンストラクタを作成してみましょう。
+</p>
+<pre>
+sub new {
+  my ($class, %args) = @_;
+  my $self = {%args};
+  return $self, $class;
+}
+</pre>
+<p>
+  特に難しい部分はありませんね。
+</p>
+<h3>2. ハッシュのリファレンスも受け入れたい</h3>
+<p>
+  ハッシュを受け入れられると同時に<b>ハッシュのリファレンス</b>も受け入れたいと思うところでしょう。こんな感じに。
+</p>
+<pre>
+my $book = Book-&gt;new({title =&gt; 'Good news', author =&gt; 'Kimoto'});
+</pre>
+<p>
+  対応できるコンストラクタは、こんな感じです。
+</p>
+<pre>
+sub new{
+    my ($class, @args) = @_;
+    my %args = ref $args[0] eq 'HASH' ? %{ $args[0] } : @args;
+    my $self = {%args};
+    return $self, $class;
+}
+</pre>
+<p>
+  第1引数が、ハッシュリファレンスだった場合は、それをデリファレンスしてハッシュに代入しますそうでない場合は、引数をハッシュとして代入します。
+</p>
+<h3>3. コンストラクタにデフォルト値を設定したい</h3>
+<p>
+  さてさて、コンストラクタに対する要求はまだまだ続きます。値が代入されない場合の<b>デフォルト値を設定</b>したい場合などです。
+</p>
+<pre>
+sub new {
+  my ( $class, @args ) = @_;
+  my %args = ref $args[0] eq 'HASH' ? %{$args[0]} : @args;
+  my $self = {%args};
+ 
+  $self-&gt;{title} ||= 'default title';
+  $self-&gt;{author} ||= 'default author';
+
+  return $self, $class;
+}
+</pre>
+<p>
+  以下の部分に注目してください。<b>値が偽値ならば、デフォルト値を代入</b>するという操作をしています。
+</p>
+<pre>
+  $self-&gt;{ title } ||= 'default title';
+  $self-&gt;{ author } ||= 'default author';
+</pre>
+<p>
+  でもこれじゃ、空文字を代入された場合もデフォルト値が設定されてしまいますので、それがまずい場合は、<b>defined</b> 関数を使用して
+</p>
+<pre>
+  $self-&gt;{ title } = 'default title' unless defined $self-&gt;{ title };
+</pre>
+<p>
+  とします。
+</p>
+</ol>
+<h2>汎用的なコンストラクタの雛形</h2>
+<p>
+  汎用的なコンストラクタの雛形を提示しておきます。汎用的なコンストラクタの雛形はちょっと難しいです。
+</p>
+<h3>1. 汎用的なコンストラクタの指針</h3>
+<p>
+  汎用的なコンストラクタは、クラスから呼ばれたときだけではなくて、<b>オブジェクトから呼び出された場合も考慮に入れる</b>必要があります。
+</p>
+<p>
+  クラスから呼ばれた場合と
+</p>
+<pre>
+my $book = Book-&gt;new;
+</pre>
+<p>
+  オブジェクトから呼ばれた場合の
+</p>
+<pre>
+my $book2 = $book-&gt;new
+</pre>
+<p>
+  の両方に対応する。
+</p>
+<p>
+  またもうひとつの指針として、コンストラクタと初期化処理は分離するということが挙げられます。<b>初期化用のinitメソッド</b>を作成してあげます。
+</p>
+<h3>2. 汎用的なコンストラクタの作成</h3>
+<p>
+  以下が汎用的なコンストラクタの雛形です。
+</p>
+<pre>
+sub new {
+  my $proto = shift;
+  my $class = ref $proto || $proto;
+  my $self = {};
+  bless $self, $class;
+  
+  $self-&gt;init(@_);
+  return $self;
+}
+
+sub init {
+  my ($self, @args) = @_;
+  # 追加で行いたい処理
+}
+</pre>
+<h3>3. オブジェクトからクラス名を取り出す処理</h3>
+<p>
+  この部分がわかりにくいと思います。
+</p>
+<pre>
+  my $proto = shift;
+  my $class = ref $proto || $proto;　
+</pre>
+<p>
+  これは何をやっているかというと、$proto がオブジェクトだった場合には、<a href="/blog/20090318123712.html">ref関数</a>を使って関連付けられているクラス名を取り出します。
+</p>
+<p>
+  そうでない場合は、クラス名をそのまま使用するということをやっています。<a href="/blog/20090318123712.html">ref関数</a>に文字列(クラス名)が渡された場合は、偽値が返るので、|| の右側が実行されます。
+</p>
+<p>
+  そういうわけで、クラス名から呼ばれても、オブジェクトから呼ばれても、$classにはクラス名が入ることになります。
+</p>
+<h3>4. 初期化処理を分離する</h3>
+<p>
+  初期化処理を分離しているのが以下の部分です。初期化を行う場合は、bless 関数で先にオブジェクトを作成しておいてあげます。そしてそのオブジェクトから、initメソッドを呼び出します。
+</p>
+<p>
+  ちょっとわかりにくいですが、慣れましょう。同じクラスのメソッドを呼び出すには、オブジェクトつまり、bless された $self から呼び出す必要があるのです。
+</p>
+<pre>
+  my $self = {};
+  bless $self, $class;
+  $self-&gt;init(@_);
+</pre>
+<h3>5. なぜこのように作成する必要があるのか?</h3>
+<p>
+  それはきちんとはまだいいません。継承のところで取り上げることにします。このようにオブジェクトを作成しておかないと、継承をしようとしたときに面倒な問題が発生するとだけいっておきます。
 </p>
 
   </div>
