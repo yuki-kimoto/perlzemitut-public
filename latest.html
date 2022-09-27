@@ -77,87 +77,6 @@
     <meta itemprop="position" content="3" />
   </li>
 </ol>
-<h2><a href="/blog/20220927131702.html">クラスの作成</a></h2>
-<p>
-  Perlでクラスを作成するには<a href="/blog/20090316123712.html">package</a>文を使います。
-</p>
-<pre>
-# Pointクラス
-package Point;
-
-# Foo::Barクラス
-package Foo::Bar;
-</pre>
-<h3>モジュール</h3>
-<p>
-  クラスをモジュールとして利用するには、クラス名に対応したファイルを作成します。「::」を「/」に変換して「.pm」を末尾につけます。
-</p>
-<pre>
-Point.pm
-Foo/Bar.pm
-</pre>
-<p>
-  モジュールファイルの末尾には「1;」をつける必要があります。
-</p>
-<pre>
-# Point.pm
-package Point;
-
-1;
-</pre>
-<pre>
-# Foo/Bar.pm
-package Foo::Bar;
-
-1;
-</pre>
-<p>
-  これらのモジュールをPerlプログラムから読み込むサンプルです。「Point.pm」と「Foo/Bar.pm」は「lib」ディレクトリの中に配置してください。
-</p>
-<p>
-  ファイル配置
-</p>
-<pre>
-class.pl
-lib/Point.pm
-lib/Foo/Bar.pm
-</pre>
-<p>
-  サンプルプログラム
-</p>
-<pre>
-# class.pl
-
-use strict;
-use warnings;
-use FindBin::Bin;
-
-use lib "$FindBin::Bin/lib";
-
-# クラスの読み込み
-use Point;
-use Foo::Bar;
-</pre>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/27</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
 <h2><a href="/blog/20220927122208.html">カプセル化とは</a></h2>
 <p>
   カプセル化とは、フィールドに直接アクセスせずに、メソッドを使ってアクセスすることをいいます。
@@ -309,6 +228,87 @@ use parent 'BaseClass';
 <p>
   単一継承とは、親クラスを一つ指定する継承のことを言います。
 </p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/23</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20161030147778.html">
+      <span itemprop="name">オブジェクト指向プログラミング</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">here</span>
+    <meta itemprop="position" content="3" />
+  </li>
+</ol>
+<h2><a href="/blog/20220923131702.html">クラスの作成</a></h2>
+<p>
+  Perlでクラスを作成するには<a href="/blog/20090316123712.html">package</a>文を使います。
+</p>
+<pre>
+# Pointクラス
+package Point;
+
+# Foo::Barクラス
+package Foo::Bar;
+</pre>
+<h3>モジュール</h3>
+<p>
+  クラスをモジュールとして利用するには、クラス名に対応したファイルを作成します。「::」を「/」に変換して「.pm」を末尾につけます。
+</p>
+<pre>
+Point.pm
+Foo/Bar.pm
+</pre>
+<p>
+  モジュールファイルの末尾には「1;」をつける必要があります。
+</p>
+<pre>
+# Point.pm
+package Point;
+
+1;
+</pre>
+<pre>
+# Foo/Bar.pm
+package Foo::Bar;
+
+1;
+</pre>
+<p>
+  これらのモジュールをPerlプログラムから読み込むサンプルです。「Point.pm」と「Foo/Bar.pm」は「lib」ディレクトリの中に配置してください。
+</p>
+<p>
+  ファイル配置
+</p>
+<pre>
+class.pl
+lib/Point.pm
+lib/Foo/Bar.pm
+</pre>
+<p>
+  サンプルプログラム
+</p>
+<pre>
+# class.pl
+
+use strict;
+use warnings;
+use FindBin::Bin;
+
+use lib "$FindBin::Bin/lib";
+
+# クラスの読み込み
+use Point;
+use Foo::Bar;
+</pre>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/03</div>
 <h2><a href="/blog/20220903064440.html">Python,Ruby,PHP,Java,JavaScript,Perlのプログラミング言語の比較</a></h2>
