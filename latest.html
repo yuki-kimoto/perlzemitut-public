@@ -58,7 +58,122 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/27</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/28</div>
+<h2><a href="/blog/20220928125807.html">mro - next::methodの有効化・メソッド解決順序の変更</a></h2>
+<p>
+  <code>mro</code>モジュールは、<a href="/blog/20220926105812.html">多重継承</a>における、スーパークラスのメソッド解決順序を変更するためのモジュールです。<code>mro</code>を読み込むと、<code>next::method</code>が有効になります。多重継承で、スーパークラスのメソッドを探索する場合は<a href="/blog/20220922134115.html">SUPER疑似クラス</a>よりも、<code>next::method</code>うことが推奨されています。
+</p>
+<pre>
+# next::methodの有効化
+use mro;
+</pre>
+<p>
+  <code>next::method</code>は、オブジェクトから呼び出します。
+</p>
+<pre>
+# next::methodの使い方
+$self-&gt;next::method(@args);
+</pre>
+<h3>next::methodの動作</h3>
+<p>
+  <code>next::method</code>は、C3というアルゴリズムで、スーパークラスを探索します。
+</p>
+<pre>
+C3 は常に局所的な優先順位を保存して動作します。 これは、基本的にどのクラスもそのサブクラスより先に現れることはないことを 意味します。 例えば、以下のような古典的なダイヤ型継承パターンを考えます:
+
+     &lt;A&gt;
+    /   \
+  &lt;B&gt;   &lt;C&gt;
+    \   /
+     &lt;D&gt;
+
+標準の Perl 5 MRO は (D, B, A, C) です。 この結果、C は A のサブクラスにも関わらず、A が C より先に 検索されます。 しかし、C3 MRO アルゴリズムでは、(D, B, C, A) の順序になり、この問題は ありません。
+</pre>
+<p>
+  参考:<a href="https://perldoc.jp/docs/modules/mro-1.01/mro.pod#How32does32C332work">C3 の動作 - mro</a>
+</p>
+<h3>next::methodを多重継承で使ったサンプル</h3>
+<p>
+  <code>next::method</code>を多重継承で使ったサンプルです。
+</p>
+<pre>
+use strict;
+use warnings;
+use mro;
+
+package MultiBase1 {
+  sub b1_init {
+    my $self = shift;
+    
+    push @{$self-&gt;{ps}}, 2;
+    $self-&gt;{b1} = 3;
+  }
+}
+
+package MultiBase2 {
+  sub b1_init {
+    my $self = shift;
+    
+    push @{$self-&gt;{ps}}, 7;
+    $self-&gt;{b1} = 8;
+  }
+  
+  sub b2_init {
+    my $self = shift;
+    
+    push @{$self-&gt;{ps}}, 3;
+    $self-&gt;{b2} = 4;
+  }
+}
+
+package MultiClass {
+  
+  use base 'MultiBase1', 'MultiBase2';
+  
+  sub new {
+    my $class = shift;
+    
+    my $self = bless {@_}, ref $class || $class;
+    
+    $self-&gt;{ps} //= [];
+    
+    $self-&gt;init;
+    
+    return $self;
+  }
+  
+  sub init {
+    my $self = shift;
+    
+    push @{$self-&gt;{ps}}, 1;
+    
+    $self-&gt;b1_init;
+    $self-&gt;b2_init;
+  }
+  
+  sub b1_init {
+    my $self = shift;
+    
+    $self-&gt;next::method;
+  }
+  
+  sub b2_init {
+    my $self = shift;
+    
+    $self-&gt;next::method;
+  }
+}
+
+my $object = MultiClass-&gt;new;
+
+print $object-&gt;{b1} . "\n"; # 3
+
+print $object-&gt;{b2} . "\n"; # 4
+
+print "@{$object-&gt;{ps}}" . "\n"; # [1, 2, 3]
+</pre>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/27</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
@@ -309,56 +424,6 @@ use lib "$FindBin::Bin/lib";
 use Point;
 use Foo::Bar;
 </pre>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/22</div>
-<h2><a href="/blog/20220922134115.html">SUPER疑似クラス - スーパークラスのメソッドの呼び出し</a></h2>
-<p>
-  <code>SUPER</code>疑似クラスを使うと、スーパークラスのメソッドを呼び出すことができます。
-</p>
-<pre>
-package Point;
-
-sub move {
-  my ($self, $x, $y) = @_;
-  
-  $self-&gt;{x} += $x;
-  $self-&gt;{y} += $y;
-}
-
-package Point3D;
-
-use base 'Point';
-
-sub move {
-  my ($self, $x, $y, $z) = @_;
-  
-  # スーパークラスのメソッドの呼び出し
-  $self-&gt;SUPER::clear($x, $y);
-  
-  $self-&gt;{z} += $z;
-}
-</pre>
-<p>
-  <code>$self->SUPER::clear($x, $y)</code>で、現在の<a href="/blog/20090316123712.html">パッケージ</a>である「Point3D」のスーパークラスの<code>clear</code>メソッドを探索します。
-</p>
-<p>
-  <code>Point</code>クラスの<code>clear</code>メソッドが見つかり、これが呼び出されます。
-</p>
-<h3>SUPER疑似クラスの注意点</h3>
-<p>
-  SUPER疑似クラスの注意点として、メソッドの探索順序があります。
-</p>
-<quotemeta>
-<p>
-  デフォルトでは、Perl はメソッドに対して深さ優先左から右探索を行います。 つまり、@ISA 配列の最初の親から始め、それからその全ての親、祖父母、 というように探索します。 メソッドを見つけることに失敗すると、元のクラスの @ISA 配列の 次の親に行き、そこから探索します。
-</p>
-<p>
-  <a href="https://perldoc.jp/docs/perl/5.36.0/perlobj.pod#How32SUPER32is32Resolved">メソッド解決順序 - perlobj</a>
-</p>
-</quotemeta>
-<p>
-  <a href="/blog/20220924105911.html">単一継承</a>のみを使っている場合は、SUPER疑似クラスの使用は問題ありません。
-</p>
 
 
   </div>
