@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>継承の仕組み - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="Perlにおける継承の仕組みを解説します。">
+<title>継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="Perlは、単一継承と多重継承をサポートしています。一般的な継承の解説については「継承 - Wikipedia」をご覧ください。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="継承の仕組み - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="Perlにおける継承の仕組みを解説します。" />
+<meta name="twitter:title" content="継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="Perlは、単一継承と多重継承をサポートしています。一般的な継承の解説については「継承 - Wikipedia」をご覧ください。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -85,9 +85,9 @@
     <meta itemprop="position" content="3" />
   </li>
 </ol>
-<h2><a href="/blog/20090325123747.html">継承の仕組み</a></h2>
+<h2><a href="/blog/20090325123747.html">継承</a></h2>
 <p>
-  Perlにおける継承の仕組みを解説します。
+  Perlは、単一継承と多重継承をサポートしています。一般的な継承の解説については「<a href="https://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)">継承 - Wikipedia</a>」をご覧ください。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,49 +105,24 @@
 </div>
 
 
-<h3>1. 継承の仕組み</h3>
+<h3>単一継承</h3>
 <p>
-  継承の仕組みは上位クラスに対してメソッドの探索をしているということです。前回のコードをもう一度見てみましょう。
+  継承において、親クラスがひとつであることを単一継承と呼びます。
 </p>
-<pre>
-use strict;
-use warnings;
-
-# コンポーネントクラス
-package Component;
-sub x { return 5 }
-
-
-# ボタンクラス
-package Button;
-# 継承の記述
-our @ISA = ('Component');
-
-sub new { bless {}, 'Button' }
-
-package main;
-# ボタンクラスを使用する
-my $button = Button-&gt;new;
-print $button-&gt;x;
-</pre>
+<ul>
+  <li>
+    <a href="/blog/20220924105911.html">単一継承</a>
+  </li>
+</ul>
+<h3>多重継承</h3>
 <p>
-  Buttonクラスには、x というメソッドがないのに、 x というメソッドを呼び出しているのでした。これは、@ISA = ('Component')という記述で継承しているからだと解説しました。
+  継承において、親クラスがふたつ以上であることを多重継承と呼びます。
 </p>
-<p>
-  でも実は本当はメソッドの探索が行われているだけです。
-</p>
-<h3>2. メソッド探索のアルゴリズム</h3>
-<p>
-  以下がメソッド探索のアルゴリズムです。
-</p>
-<blockquote>
-<p>
-  自分のパッケージ(この例の場合は Button) に x メソッドがあれば、それを呼び出す。もしなければ、 @ISA に含まれるパッケージ(この例では Component) の x メソッドを呼び出す。
-</p>
-</blockquote>
-<p>
-  これを最上位のスーパークラスまで繰り返します。これが、Perlにおける継承の実装です。
-</p>
+<ul>
+  <li>
+    <a href="/blog/20220926105812.html">多重継承</a>
+  </li>
+</ul>
 
   </div>
   <div class="bottom">
