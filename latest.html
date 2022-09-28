@@ -594,6 +594,65 @@ use lib "$FindBin::Bin/lib";
 use Point;
 use Foo::Bar;
 </pre>
+<h2>クラスの雛形</h2>
+<p>
+  クラスの雛形を示しておきます。
+</p>
+<h3>1. クラスの雛形</h3>
+<p>
+  以下がクラスの雛形になります。
+</p>
+<pre>
+package Book;
+use strict;
+use warnings;
+
+# コンストラクタ
+sub new {
+  my $proto = shift;
+  my $class = ref $proto || $proto;
+  my $self = {};
+  bless $self, $class;
+    
+  $self-&gt;init( @_ );
+  return $self;
+}
+
+# オブジェクトの初期化
+sub init {
+  my ($self, @args) = @_;
+  # 追加で行いたい処理
+}
+
+# アクセッサ
+sub title {
+  my $self = shift;
+  if (@_) {
+    my $old = $self-&gt;{title};
+    return $self-&gt;{title} = $_[0];
+  }
+  else{
+    return $self-&gt;{ title };
+  }
+}
+
+
+sub author {
+  my $self = shift;
+  if (@_) {
+    my $old = $self-&gt;{author};
+    return $self-&gt;{author} = $_[0];
+  }
+  else{
+    return $self-&gt;{author};
+  }
+}
+
+1;
+</pre>
+<p>
+  後は好きなメソッドを追加するだけですね。
+</p>
 
 
   </div>

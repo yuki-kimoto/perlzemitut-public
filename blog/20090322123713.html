@@ -35,11 +35,11 @@
 </script>
 
 <title>クラスの雛形 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="クラスの雛形を示しておきます。">
+<meta name="description" content="この記事はクラスの作成に移動しました。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
 <meta name="twitter:title" content="クラスの雛形 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="クラスの雛形を示しておきます。" />
+<meta name="twitter:description" content="この記事はクラスの作成に移動しました。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -81,13 +81,13 @@
   </li>
   &#8250;
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">クラスのひな型</span>
+      <span itemprop="name">here</span>
     <meta itemprop="position" content="3" />
   </li>
 </ol>
 <h2><a href="/blog/20090322123713.html">クラスの雛形</a></h2>
 <p>
-  クラスの雛形を示しておきます。
+  この記事は<a href="/blog/20220923131702.html">クラスの作成</a>に移動しました。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,61 +105,6 @@
 </div>
 
 
-<h3>1. クラスの雛形</h3>
-<p>
-  以下がクラスの雛形になります。
-</p>
-<pre>
-package Book;
-use strict;
-use warnings;
-
-# コンストラクタ
-sub new {
-  my $proto = shift;
-  my $class = ref $proto || $proto;
-  my $self = {};
-  bless $self, $class;
-    
-  $self-&gt;init( @_ );
-  return $self;
-}
-
-# オブジェクトの初期化
-sub init {
-  my ($self, @args) = @_;
-  # 追加で行いたい処理
-}
-
-# アクセッサ
-sub title {
-  my $self = shift;
-  if (@_) {
-    my $old = $self-&gt;{title};
-    return $self-&gt;{title} = $_[0];
-  }
-  else{
-    return $self-&gt;{ title };
-  }
-}
-
-
-sub author {
-  my $self = shift;
-  if (@_) {
-    my $old = $self-&gt;{author};
-    return $self-&gt;{author} = $_[0];
-  }
-  else{
-    return $self-&gt;{author};
-  }
-}
-
-1;
-</pre>
-<p>
-  後は好きなメソッドを追加するだけですね。
-</p>
 
   </div>
   <div class="bottom">
