@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>アクセサを生成する - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="今回はアクセッサを作成してみましょう。">
+<title>アクセッサを生成する - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="アクセッサを生成してみます。アクセッサとは、フィールドを取得・設定するためのメソッドのことです。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="アクセサを生成する - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="今回はアクセッサを作成してみましょう。" />
+<meta name="twitter:title" content="アクセッサを生成する - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="アクセッサを生成してみます。アクセッサとは、フィールドを取得・設定するためのメソッドのことです。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -76,18 +76,18 @@
   &#8250;
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向</span></a>
+      <span itemprop="name">オブジェクト指プログラミング</span></a>
     <meta itemprop="position" content="2" />
   </li>
   &#8250;
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">アクセサ</span>
+      <span itemprop="name">アクセッサ</span>
     <meta itemprop="position" content="3" />
   </li>
 </ol>
-<h2><a href="/blog/20090321123713.html">アクセサを生成する</a></h2>
+<h2><a href="/blog/20090321123713.html">アクセッサを生成する</a></h2>
 <p>
-  今回はアクセッサを作成してみましょう。
+  アクセッサを生成してみます。アクセッサとは、フィールドを取得・設定するための<a href="/blog/20220929115717.html">メソッド</a>のことです。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,78 +105,93 @@
 </div>
 
 
-<h3>1. アクセッサとは何か?</h3>
-<p>
-  オブジェクト指向では<b>データを直接いじって</b>は駄目です。オブジェクト指向ではオブジェクトに対するアクセスは<b>公開されたメソッド</b>を通じて行うのが正しい作法だからです。
-</p>
 <pre>
-my $book = Book-&gt;new;
+package Point;
 
-# 駄目!
-$book-&gt;{title} = 'aaa';
-</pre>
-<p>
-  データをいじる場合は、アクセッサを通じて行います。アクセッサとは、<b>データを変更したり取得したりするためのメソッド</b>のことを言います。
-</p>
-<p>
-  以下のようにアクセッサを使ってデータに値を設定するのが正しい作法です。
-</p>
-<pre>
-my $book = Book-&gt;new;
-$book-&gt;title('aaa');
-</pre>
-<p>
-  クラスを作成する側は、アクセッサを作成して公開する義務があります。
-</p>
-<h3>2. アクセッサの作成</h3>
-<p>
-  では早速アクセッサを作成してみましょう。Perlでは、値を取得するのにも、値を設定するのも同じアクセッサを使って行うというのが一般的です。
-</p>
-<p>
-  (Perlベストプラスティスという本では、設定のためのアクセッサと取得するためのアクセッサは分けるべきだと書いてありますが、CPANなどの実際で見ると、アクセッサはひとつだけ作ることが好まれているようです。)
-</p>
-<pre>
-sub title {
+sub new {
+  my $class = shift;
+  my $self = bless {@_}, $class;
+  return $self;
+}
+
+# xを取得・設定するアクセッサ
+sub x {
   my $self = shift;
+  
   if (@_) {
-    $self-&gt;{title} = $_[0];
+    $self-&gt;{x} = $_[0];
+    return $self;
   }
-  return $self-&gt;{title};
+  
+  return $self-&gt;{x};
 }
 </pre>
 <p>
-  $self には、オブジェクトが入ってきます。それで、@_に値があった場合は、$_[0] を $self->{title} に設定しています。
-</p>
-<p>
-  最後の行で$self->{title} を返却しています。
-</p>
-<h3>3. 値が設定された場合は、古い値を返却するアクセッサを作成する</h3>
-<p>
-  上記のアクセッサのほかに、値が設定された場合に<b>古い値を返却</b>するように実装しているアクセッサも一般的です。
+  アクセッサを使って、<code>x</code>の値を取得・設定してみましょう。
 </p>
 <pre>
-my $book = Book-&gt;new(title =&gt; 'aaa');
-my $old_val = $book-&gt;title('bbb');
+my $point = Point-&gt;new;
+
+# xの設定
+$point-&gt;x(3);
+
+# xの取得
+print $point-&gt;x . "\n";
 </pre>
+<h2>アクセッサの実装の解説</h2>
 <p>
-  古い値を返すアクセッサは以下のように作成します。
+  アクセッサの実装を解説します。
 </p>
 <pre>
-sub title {
+# xを取得・設定するアクセッサ
+sub x {
   my $self = shift;
+  
   if (@_) {
-    my $old = $self-&gt;{title};
-    $self-&gt;{title} = $_[0];
-    return $old;
+    $self-&gt;{x} = $_[0];
+    return $self;
   }
-  else {
-    return $self-&gt;{ title };
-  }
+  
+  return $self-&gt;{x};
 }
 </pre>
 <p>
-  これで、コンストラクタとアクセッサの解説が終わりました。後は好きなメソッドを追加していけばよいだけですね。
+  <a href="/blog/20100104126425.html">shift関数</a>で、インスタンスを受け取ります。
 </p>
+<pre>
+  my $self = shift;
+</pre>
+<p>
+  引数が存在する場合は、フィールドの設定と解釈し、引数の値をフィールドに設定します。戻り値は、インスタンスとしています。
+</p>
+<pre>
+  if (@_) {
+    $self-&gt;{x} = $_[0];
+    return $self;
+  }
+</pre>
+<p>
+  引数が存在しない場合は、フィールドの取得と解釈し、フィールドを返却します。
+</p>
+<pre>
+  return $self-&gt;{x};
+</pre>
+<h3>アクセッサのカスタマイズ</h3>
+<p>
+  アクセッサのカスタマイズのサンプルです。
+</p>
+<h4>読み取り専用アクセッサ</h4>
+<p>
+  読み取り専用のアクセッサにしたい場合は以下のように記述します。
+</p>
+<pre>
+# xを取得するアクセッサ
+sub x {
+  my $self = shift;
+  
+  return $self-&gt;{x};
+}
+</pre>
 
   </div>
   <div class="bottom">

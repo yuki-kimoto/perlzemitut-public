@@ -116,7 +116,7 @@ sub new {
   my $class = shift;
   
   # オブジェクトの生成
-  my $self = bless {@_}, ref $class || $class;
+  my $self = bless {@_}, $class;
   
   # 初期化処理
   
@@ -140,7 +140,7 @@ sub new {
   my $class = shift;
   
   # オブジェクトの生成
-  my $self = bless {@_}, ref $class || $class;
+  my $self = bless {@_}, $class;
  
   $self-&gt;{x} //= 0;
   $self-&gt;{y} //= 0;
@@ -151,29 +151,6 @@ sub new {
 <p>
   <a href="/blog/20120702134129.html">//演算子</a>を使って初期化しています。
 </p>
-<h3>ハッシュのリファレンスも受け入れたい</h3>
-<p>
-  コンストラクタで、<a href="/blog/20180208151809.html">ハッシュのリファレンス</a>も受け入れたい場合は、コンストラクタを以下のように書きます。
-</p>
-<pre>
-package Point;
-
-sub new {
-  my $class = shift;
-  
-  # オブジェクトの生成
-  my $self = bless ref $_[0] ? {%{$_[0]} : {@_}, ref $class || $class;
-  
-  # 初期化処理
-  
-  return $self;
-}
-
-my $point = Point-&gt;new({x =&gt; 1, y =&gt; 2});
-</pre>
-<p>
-  第1引数がハッシュリファレンスだった場合は、<a href="/blog/20180301151991.html">デリファレンス</a>します。
-</p>
 <h3>コンストラクタの実装</h3>
 <p>
   コンストラクタの実装の解説です。
@@ -183,7 +160,7 @@ sub new {
   my $class = shift;
   
   # オブジェクトの生成
-  my $self = bless {@_}, ref $class || $class;
+  my $self = bless {@_}, $class;
   
   # 初期化処理
   
@@ -213,26 +190,82 @@ sub new {
   # ...
   
   # オブジェクトの生成
-  my $self = bless {@_}, ref $class || $class;
+  my $self = bless {@_}, $class;
   
   # ...
 }
 </pre>
 <p>
-  <code>bless</code>関数は、第一引数で指定されたデータに、第二引数で指定されたクラスを結び付けます。戻り値で、第一引数に指定されたデータを返します。これは、オブジェクトになっています。
+  <a href="/blog/20100203126425.html">bless関数</a>は、第一引数で指定されたデータに、第二引数で指定されたクラスを結び付けます。戻り値で、第一引数に指定されたデータを返します。これは、オブジェクトになっています。
 </p>
 <p>
   第一引数は、<a href="/blog/20100930127859.html">リファレンス</a>である必要があります。<a href="/blog/20180214151861.html">配列のリファレンス</a>や<a href="/blog/20180308152051.html">スカラのリファレンス</a>も利用できますが、標準的な用途では、<a href="/blog/20180208151809.html">ハッシュリファレンス</a>が使われます。
-</p>
-<p>
-  第二引数は、クラス名ですが、クラス名がオブジェクトであった場合でも大丈夫なように実装してあります。<a href="/blog/20220920105812.html">ref関数</a>でオブジェクトからクラス名を取得することができます。
 </p>
 <p>
   <a href="/blog/20180523152759.html">引数 @_</a>は、そのまま<a href="/blog/20161013147635.html">ハッシュ</a>のキーと値になります。
 </p>
 <h3>Perlにおけるオブジェクトとは?</h3>
 <p>
-  Perlにおけるオブジェクトとは、bless関数によって、クラスに紐づけられたデータです。
+  Perlにおけるオブジェクトとは、<a href="/blog/20100203126425.html">bless関数</a>によって、クラスに紐づけられたデータです。
+</p>
+<h3>コンストラクタのカスタマイズ</h3>
+<h4>ハッシュのリファレンスも受け入れたい</h4>
+<p>
+  コンストラクタで、<a href="/blog/20180208151809.html">ハッシュのリファレンス</a>も受け入れたい場合は、コンストラクタを以下のように書きます。
+</p>
+<pre>
+package Point;
+
+sub new {
+  my $class = shift;
+  
+  # オブジェクトの生成
+  my $self = bless ref $_[0] ? {%{$_[0]} : {@_}, $class;
+  
+  # 初期化処理
+  
+  return $self;
+}
+
+my $point = Point-&gt;new({x =&gt; 1, y =&gt; 2});
+</pre>
+<p>
+  第1引数がハッシュリファレンスだった場合は、<a href="/blog/20180301151991.html">デリファレンス</a>します。
+</p>
+<h4>オブジェクトからnewを呼び出したい</h4>
+<p>
+  クラス名からではなく、オブジェクトからもnewを呼び出したい場合は、次のように書きます。<a href="/blog/20220920105812.html">ref関数</a>でオブジェクトからクラス名を取得することができます。
+</p>
+<pre>
+sub new {
+  my $class = shift;
+  
+  # オブジェクトの生成
+  my $self = bless {@_}, ref $class || $class;
+  
+  # 初期化処理
+  
+  return $self;
+}
+</pre>
+<h4>データを配列のリファレンスにしたい</h4>
+<p>
+  データを<a href="/blog/20180214151861.html">配列のリファレンス</a>にすることもできます。
+</p>
+<pre>
+sub new {
+  my $class = shift;
+  
+  # データを配列のリファレンスにする
+  my $self = bless [@_], $class;
+  
+  # 初期化処理
+  
+  return $self;
+}
+</pre>
+<p>
+  ただし、このクラスは、配列以外のデータを保存できないことに注意してください。
 </p>
 
   </div>
