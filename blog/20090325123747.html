@@ -35,11 +35,11 @@
 </script>
 
 <title>継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="Perlは、単一継承と多重継承をサポートしています。一般的な継承の解説については「継承 - Wikipedia」をご覧ください。">
+<meta name="description" content="Perlにおける継承について解説します。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
 <meta name="twitter:title" content="継承 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="Perlは、単一継承と多重継承をサポートしています。一般的な継承の解説については「継承 - Wikipedia」をご覧ください。" />
+<meta name="twitter:description" content="Perlにおける継承について解説します。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -87,7 +87,7 @@
 </ol>
 <h2><a href="/blog/20090325123747.html">継承</a></h2>
 <p>
-  Perlは、単一継承と多重継承をサポートしています。一般的な継承の解説については「<a href="https://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)">継承 - Wikipedia</a>」をご覧ください。
+  Perlにおける継承について解説します。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,7 +105,15 @@
 </div>
 
 
-<h3>単一継承</h3>
+<h3>継承とは</h3>
+<p>
+  一般的な継承の解説については「<a href="https://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)">継承 - Wikipedia</a>」をご覧ください。
+</p>
+<h3>継承の種類</h3>
+<p>
+  Perlは、単一継承と多重継承をサポートしています。
+</p>
+<h4>単一継承</h4>
 <p>
   継承において、親クラスがひとつであることを単一継承と呼びます。
 </p>
@@ -114,7 +122,7 @@
     <a href="/blog/20220924105911.html">単一継承</a>
   </li>
 </ul>
-<h3>多重継承</h3>
+<h4>多重継承</h4>
 <p>
   継承において、親クラスがふたつ以上であることを多重継承と呼びます。
 </p>
@@ -123,6 +131,173 @@
     <a href="/blog/20220921105812.html">多重継承</a>
   </li>
 </ul>
+<h3>継承のサンプル</h3>
+<p>
+  継承のサンプルを書きます。単一継承を使って、Pointクラスを継承したPoint3Dクラスを作成しています。
+</p>
+<pre>
+use strict;
+use warnings;
+
+package Point;
+  
+sub new {
+  my $class = shift;
+  
+  my $self = bless {@_}, $class;
+  
+  $self-&gt;{x} //= 0;
+  $self-&gt;{y} //= 0;
+  
+  return $self;
+}
+
+# フィールド
+sub x {
+  my $self = shift;
+  
+  if (@_) {
+    $self-&gt;{x} = $_[0];
+    return $self;
+  }
+  
+  return $self-&gt;{x};
+}
+
+sub y {
+  my $self = shift;
+  
+  if (@_) {
+    $self-&gt;{y} = $_[0];
+    return $self;
+  }
+  
+  return $self-&gt;{y};
+}
+
+# インスタンスメソッド
+sub move {
+  my $self = shift;
+  
+  my ($x, $y) = @_;
+  
+  $self-&gt;{x} += $x;
+  $self-&gt;{y} += $y;
+}
+
+package Point3D;
+
+use base 'Point';
+
+sub new {
+  my $class = shift;
+  
+  # スーパークラスのコンストラクタの呼び出し
+  my $self = $class-&gt;SUPER::new(@_);
+  
+  $self-&gt;{z} //= 0;
+  
+  return $self;
+}
+
+sub z {
+  my $self = shift;
+  
+  if (@_) {
+    $self-&gt;{z} = $_[0];
+    return $self;
+  }
+  
+  return $self-&gt;{z};
+}
+
+# オーバーライド
+sub move {
+  my $self = shift;
+  
+  my ($x, $y, $z) = @_;
+  
+  $self-&gt;SUPER::move($x, $y);
+  $self-&gt;{z} += $z;
+}
+
+package main;
+
+my $point = Point3D-&gt;new(x =&gt; 5, y =&gt; 10, z =&gt; 3);
+
+$point-&gt;move(4, 2, 5);
+
+print $point-&gt;x . "\n";
+print $point-&gt;y . "\n";
+print $point-&gt;z . "\n";
+</pre>
+<h3>継承の解説</h3>
+<p>
+  上記のサンプルを使って、継承を解説します。
+</p>
+<h4>継承</h4>
+<p>
+  <a href="/blog/20100425127089.html">baseモジュール</a>を使って、<code>Point</code>クラスを継承した、<code>Point3D</code>クラスを作成します。
+</p>
+<pre>
+package Point3D;
+
+use base 'Point';
+</pre>
+<p>
+  継承によって、Point3Dクラスは、Pointクラスのメソッドを呼び出すことができます。
+</p>
+<h4>スーパークラスのコンストラクタの呼び出し</h4>
+<p>
+  スーパークラスPointのコンストラクタを呼び出しています。スーパークラスのコンストラクタは、<a href="/blog/20220922134115.html">SUPER</a>を使って呼び出すことができます。
+</p>
+<pre>
+# Point3D-&gt;new
+sub new {
+  my $class = shift;
+  
+  # スーパークラスのコンストラクタの呼び出し
+  my $self = $class-&gt;SUPER::new(@_);
+  
+  $self-&gt;{z} //= 0;
+  
+  return $self;
+}
+</pre>
+<h4>独自のアクセッサの定義</h4>
+<p>
+  Point3D独自のアクセッサを実装することもできます。
+</p>
+<pre>
+# Point3D-&gt;z
+sub z {
+  my $self = shift;
+  
+  if (@_) {
+    $self-&gt;{z} = $_[0];
+    return $self;
+  }
+  
+  return $self-&gt;{z};
+}
+</pre>
+<h4>メソッドオーバーライド</h4>
+<p>
+  メソッドをオーバーライドして、Pointクラスのメソッドをカスタマイズしたメソッドを実装することもできます。スーパークラスのメソッドは、<a href="/blog/20220922134115.html">SUPER</a>を使って呼び出すことができます。
+</p>
+<pre>
+# オーバーライド
+# Point3D-&gt;move
+
+sub move {
+  my $self = shift;
+  
+  my ($x, $y, $z) = @_;
+  
+  $self-&gt;SUPER::move($x, $y);
+  $self-&gt;{z} += $z;
+}
+</pre>
 
   </div>
   <div class="bottom">
