@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>Perlオブジェクト指向プログラミング - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="Perlでオブジェクト指向プログラミングを実現する方法を解説します。">
+<title>インスタンスメソッド - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="Perlでは、インスタンスメソッドとは、インスタンスからメソッド呼び出しが行われるメソッドのことをいいます。インスタンスメソッドの定義では、第一引数にインスタンスを受け取るようにします。単にメソッドとも呼ばれます。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="Perlオブジェクト指向プログラミング - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="Perlでオブジェクト指向プログラミングを実現する方法を解説します。" />
+<meta name="twitter:title" content="インスタンスメソッド - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="Perlでは、インスタンスメソッドとは、インスタンスからメソッド呼び出しが行われるメソッドのことをいいます。インスタンスメソッドの定義では、第一引数にインスタンスを受け取るようにします。単にメソッドとも呼ばれます。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -75,13 +75,19 @@
   </li>
   &#8250;
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
+    <a itemprop="item" href="/blog/20161030147778.html">
+      <span itemprop="name">オブジェクト指向プログラミング</span></a>
     <meta itemprop="position" content="2" />
   </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">here</span>
+    <meta itemprop="position" content="3" />
+  </li>
 </ol>
-<h2><a href="/blog/20161030147778.html">Perlオブジェクト指向プログラミング</a></h2>
+<h2><a href="/blog/20220929115717.html">インスタンスメソッド</a></h2>
 <p>
-  Perlでオブジェクト指向プログラミングを実現する方法を解説します。
+  Perlでは、インスタンスメソッドとは、インスタンスからメソッド呼び出しが行われるメソッドのことをいいます。インスタンスメソッドの定義では、第一引数にインスタンスを受け取るようにします。単にメソッドとも呼ばれます。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -99,120 +105,20 @@
 </div>
 
 
-<h3>Perlオブジェクト指向プログラミング入門</h3>
-<ul>
-  <li>
-    <a href="/blog/20130305136248.html">Perlオブジェクト指向プログラミング入門</a>
-  </li>
-</ul>
-<h3>Perlオブジェクト指向プログラミングの辞典</h3>
-<ul>
-  <li>
-    <a href="/blog/20220923131702.html">クラス</a>
-  </li>
-  <li>
-    <a href="/blog/20220929115717.html">インスタンスメソッド</a>
-  </li>
-  <li>
-    <a href="/blog/20220930115720.html">クラスメソッド</a>
-  </li>
-  <li>
-    <a href="/blog/20090317123712.html">コンストラクタ</a>
-  </li>
-  <li>
-    <a href="/blog/20090327123752.html">カプセル化</a>
-  </li>
-  <li>
-    <a href="/blog/20090321123713.html">アクセサの生成</a>
-  </li>
-  <li>
-    <a href="/blog/20100203126425.html">bless関数 - オブジェクトの生成</a>
-  </li>
-  <li>
-    <a href="/blog/20220920105812.html">ref関数 - クラス名の取得</a>
-  </li>
-  <li>
-    <a href="/blog/20090325123747.html">継承</a>
-  </li>
-  <li>
-    <a href="/blog/20220924105911.html">単一継承</a>
-  </li>
-  <li>
-    <a href="/blog/20220921105812.html">多重継承</a>
-  </li>
-  <li>
-    <a href="/blog/20090324123747.html">@ISA - 親クラスの取得・設定</a>
-  </li>
-  <li>
-    <a href="/blog/20100425127089.html">baseモジュール - クラスの継承</a>
-  </li>
-  <li>
-    <a href="/blog/20220926104815.html">parentモジュール - クラスの継承</a>
-  </li>
-  <li>
-    <a href="/blog/20220922134115.html">SUPER疑似クラス - スーパークラスのメソッドの呼び出し</a>
-  </li>
-  <li>
-    <a href="/blog/20220928125807.html">mro - next::methodの有効化・メソッド解決順序の変更</a>
-  </li>
-  <li>
-    <a href="/blog/20090327123752.html">ポリモーフィズム</a>
-  </li>
-</ul>
-<h3>オブジェクト指向を簡単・便利にするモジュール</h3>
-<ul>
-  <li>
-    <a href="https://metacpan.org/pod/Class::Accessor::Fast">Class::Accessor::Fast</a>
-  </li>
-  <li>
-    <a href="https://metacpan.org/pod/Class::Accessor">Class::Accessor</a>
-  </li>
-  <li>
-    <a href="https://metacpan.org/pod/Class::Plain">Class::Plain</a>
-  </li>
-  <li>
-    <a href="https://metacpan.org/pod/Moo">Moo</a>
-  </li>
-  <li>
-    <a href="https://metacpan.org/pod/Moose">Moose</a>
-  </li>
-  <li>
-    <a href="/blog/20160912147368.html">Object::Simple</a>
-  </li>
-</ul>
-<h3>旧コンテンツ</h3>
+<pre>
+# インスタンスメソッド呼び出し
+$object-&gt;foo(1, 2);
+
+# インスタンスメソッドの定義
+sub foo {
+  my ($self, @args) = @_;
+  
+  
+}
+</pre>
 <p>
-  以下のコンテンツは今後更新されまぜん。内容が古かったり、不適切な内容を含む可能性があります。
+  <a href="/blog/20220930115720.html">クラスメソッド</a>も参考にしてください。
 </p>
-<ul>
-  <li>
-    <a href="/blog/20090307123532.html">オブジェクト指向プログラミングとは</a>
-  </li>
-  <li>
-    <a href="/blog/20090319123712.html">コンストラクタに引数を渡せるようにする</a>
-  </li>
-  <li>
-    <a href="/blog/20090320123713.html">汎用的なコンストラクタの雛形</a>
-  </li>
-  <li>
-    <a href="/blog/20090322123713.html">クラスの雛形</a>
-  </li>
-  <li>
-    <a href="/blog/20090323123746.html">継承とは</a>
-  </li>
-  <li>
-    <a href="/blog/20090318123712.html">生成したオブジェクトをいじって遊ぶ</a>
-  </li>
-  <li>
-    <a href="/blog/20090308123557.html">「もの型」オブジェクトと「ひと型」オブジェクト</a>
-  </li>
-  <li>
-    <a href="/blog/20090328123752.html">環境に応じたオブジェクトを作成する</a>
-  </li>
-  <li>
-    <a href="/blog/20090310123564.html">オブジェクト指向の利点 その1 名前の衝突を防ぐ</a>
-  </li>
-</ul>
 
   </div>
   <div class="bottom">

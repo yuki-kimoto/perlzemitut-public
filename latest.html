@@ -58,7 +58,83 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/28</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/30</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20161030147778.html">
+      <span itemprop="name">オブジェクト指向プログラミング</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">here</span>
+    <meta itemprop="position" content="3" />
+  </li>
+</ol>
+<h2><a href="/blog/20220930115720.html">クラスメソッド</a></h2>
+<p>
+  Perlでは、クラスメソッドとは、クラス名を使ってメソッド呼び出しが行われるメソッドのことをいいます。クラスメソッドの定義では、第一引数にクラス名を受け取るようにします。
+</p>
+<pre>
+# クラスメソッド呼び出し
+MyClass-&gt;foo(1, 2);
+
+# クラスメソッドの定義
+sub foo {
+  my ($class, @args) = @_;
+  
+  
+}
+</pre>
+<p>
+  <a href="/blog/20220929115717.html">インスタンスメソッド</a>も参考にしてください。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/29</div>
+<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/">
+        <span itemprop="name">Perl</span></a>
+    <meta itemprop="position" content="1" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+    <a itemprop="item" href="/blog/20161030147778.html">
+      <span itemprop="name">オブジェクト指向プログラミング</span></a>
+    <meta itemprop="position" content="2" />
+  </li>
+  &#8250;
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <span itemprop="name">here</span>
+    <meta itemprop="position" content="3" />
+  </li>
+</ol>
+<h2><a href="/blog/20220929115717.html">インスタンスメソッド</a></h2>
+<p>
+  Perlでは、インスタンスメソッドとは、インスタンスからメソッド呼び出しが行われるメソッドのことをいいます。インスタンスメソッドの定義では、第一引数にインスタンスを受け取るようにします。単にメソッドとも呼ばれます。
+</p>
+<pre>
+# インスタンスメソッド呼び出し
+$object-&gt;foo(1, 2);
+
+# インスタンスメソッドの定義
+sub foo {
+  my ($self, @args) = @_;
+  
+  
+}
+</pre>
+<p>
+  <a href="/blog/20220930115720.html">クラスメソッド</a>も参考にしてください。
+</p>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/28</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
@@ -79,7 +155,7 @@
 </ol>
 <h2><a href="/blog/20220928125807.html">mro - next::methodの有効化・メソッド解決順序の変更</a></h2>
 <p>
-  <code>mro</code>モジュールは、<a href="/blog/20220926105812.html">多重継承</a>における、スーパークラスのメソッド解決順序を変更するためのモジュールです。<code>mro</code>を読み込むと、<code>next::method</code>が有効になります。多重継承で、スーパークラスのメソッドを探索する場合は<a href="/blog/20220922134115.html">SUPER疑似クラス</a>よりも、<code>next::method</code>うことが推奨されています。
+  <code>mro</code>モジュールは、<a href="/blog/20220921105812.html">多重継承</a>における、スーパークラスのメソッド解決順序を変更するためのモジュールです。<code>mro</code>を読み込むと、<code>next::method</code>が有効になります。多重継承で、スーパークラスのメソッドを探索する場合は<a href="/blog/20220922134115.html">SUPER疑似クラス</a>よりも、<code>next::method</code>うことが推奨されています。
 </p>
 <pre>
 # next::methodの有効化
@@ -214,97 +290,6 @@ print "@{$object-&gt;{ps}}" . "\n"; # [1, 2, 3]
 <p>
   カプセル化とは、フィールドに直接アクセスせずに、メソッドを使ってアクセスすることをいいます。
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/26</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20220926105812.html">多重継承</a></h2>
-<p>
-  多重継承とは、親クラスを二つ以上指定する継承のことを言います。一般的には、多重継承を使わないで、<a href="/blog/20220924105911.html">単一継承</a>でオブジェクト指向プログラミングを行うことが推奨されています。
-</p>
-<h4>多重継承の実装</h4>
-<p>
-  多重継承の実装方法を紹介します。Perlには継承を行う方法が複数存在します。公式にはparentモジュールが推奨されていますが、baseモジュールはPerl v5.0から存在し、もっとも多く使われているように感じます。
-</p>
-<h4>@ISAを使う場合</h4>
-<p>
-  <a href="/blog/20090324123747.html">@ISA</a>を使った多重継承のサンプルです。
-</p>
-<pre>
-package Multi;
-
-sub foo {
-  # ...
-}
-
-package Point3D;
-
-sub new {
-  # ...
-}
-
-package Point;
-
-our @ISA = ('Point3D', 'Multi');
-</pre>
-<h4>baseモジュール</h4>
-<p>
-  <a href="/blog/20100425127089.html">baseモジュール</a>を使った多重継承のサンプルです。
-</p>
-<pre>
-package Multi;
-
-sub foo {
-  # ...
-}
-
-package Point3D;
-
-sub new {
-  # ...
-}
-
-package Point;
-
-use base 'Point3D', 'Multi';
-</pre>
-<h4>parentモジュール</h4>
-<p>
-  <a href="/blog/20220926104815.html">parentモジュール</a>を使った多重継承のサンプルです。
-</p>
-<pre>
-package Multi;
-
-sub foo {
-  # ...
-}
-
-package Point3D;
-
-sub new {
-  # ...
-}
-
-package Point;
-
-use parent -norequire, 'Point3D', 'Multi';
-</pre>
 
 <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/26</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -462,7 +447,7 @@ use parent 'BaseClass';
 </ol>
 <h2><a href="/blog/20220924105911.html">単一継承</a></h2>
 <p>
-  単一継承とは、親クラスを一つ指定する継承のことを言います。一般的には、<a href="/blog/20220926105812.html">多重継承</a>を使わないで、単一継承でオブジェクト指向プログラミングを行うことが推奨されています。
+  単一継承とは、親クラスを一つ指定する継承のことを言います。一般的には、<a href="/blog/20220921105812.html">多重継承</a>を使わないで、単一継承でオブジェクト指向プログラミングを行うことが推奨されています。
 </p>
 <h4>単一継承の実装</h4>
 <p>
@@ -513,146 +498,6 @@ package Point;
 
 use parent -norequire, 'Point3D';
 </pre>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/23</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20220923131702.html">クラスの作成</a></h2>
-<p>
-  Perlでクラスを作成するには<a href="/blog/20090316123712.html">package</a>文を使います。
-</p>
-<pre>
-# Pointクラス
-package Point;
-
-# Foo::Barクラス
-package Foo::Bar;
-</pre>
-<h3>モジュール</h3>
-<p>
-  クラスをモジュールとして利用するには、クラス名に対応したファイルを作成します。「::」を「/」に変換して「.pm」を末尾につけます。
-</p>
-<pre>
-Point.pm
-Foo/Bar.pm
-</pre>
-<p>
-  モジュールファイルの末尾には「1;」をつける必要があります。
-</p>
-<pre>
-# Point.pm
-package Point;
-
-1;
-</pre>
-<pre>
-# Foo/Bar.pm
-package Foo::Bar;
-
-1;
-</pre>
-<p>
-  これらのモジュールをPerlプログラムから読み込むサンプルです。「Point.pm」と「Foo/Bar.pm」は「lib」ディレクトリの中に配置してください。
-</p>
-<p>
-  ファイル配置
-</p>
-<pre>
-class.pl
-lib/Point.pm
-lib/Foo/Bar.pm
-</pre>
-<p>
-  サンプルプログラム
-</p>
-<pre>
-# class.pl
-
-use strict;
-use warnings;
-use FindBin::Bin;
-
-use lib "$FindBin::Bin/lib";
-
-# クラスの読み込み
-use Point;
-use Foo::Bar;
-</pre>
-<h2>クラスの雛形</h2>
-<p>
-  クラスの雛形を示しておきます。
-</p>
-<h3>1. クラスの雛形</h3>
-<p>
-  以下がクラスの雛形になります。
-</p>
-<pre>
-package Book;
-use strict;
-use warnings;
-
-# コンストラクタ
-sub new {
-  my $proto = shift;
-  my $class = ref $proto || $proto;
-  my $self = {};
-  bless $self, $class;
-    
-  $self-&gt;init( @_ );
-  return $self;
-}
-
-# オブジェクトの初期化
-sub init {
-  my ($self, @args) = @_;
-  # 追加で行いたい処理
-}
-
-# アクセッサ
-sub title {
-  my $self = shift;
-  if (@_) {
-    my $old = $self-&gt;{title};
-    return $self-&gt;{title} = $_[0];
-  }
-  else{
-    return $self-&gt;{ title };
-  }
-}
-
-
-sub author {
-  my $self = shift;
-  if (@_) {
-    my $old = $self-&gt;{author};
-    return $self-&gt;{author} = $_[0];
-  }
-  else{
-    return $self-&gt;{author};
-  }
-}
-
-1;
-</pre>
-<p>
-  後は好きなメソッドを追加するだけですね。
-</p>
 
 
   </div>
