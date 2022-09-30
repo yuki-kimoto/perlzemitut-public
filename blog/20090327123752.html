@@ -35,11 +35,11 @@
 </script>
 
 <title>ポリモーフィズム - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="オブジェクト指向のひとつの特徴にポリモーフィズム(多態性)があります。ポリモーフィズムは、同じように見える記述の振る舞いが異なるという意味で捉えておけばよいでしょう。">
+<meta name="description" content="オブジェクト指向のひとつの特徴にポリモーフィズム(多態性)があります。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
 <meta name="twitter:title" content="ポリモーフィズム - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="オブジェクト指向のひとつの特徴にポリモーフィズム(多態性)があります。ポリモーフィズムは、同じように見える記述の振る舞いが異なるという意味で捉えておけばよいでしょう。" />
+<meta name="twitter:description" content="オブジェクト指向のひとつの特徴にポリモーフィズム(多態性)があります。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -87,7 +87,7 @@
 </ol>
 <h2><a href="/blog/20090327123752.html">ポリモーフィズム</a></h2>
 <p>
-  オブジェクト指向のひとつの特徴にポリモーフィズム(多態性)があります。ポリモーフィズムは、<b>同じように見える記述の振る舞いが異なる</b>という意味で捉えておけばよいでしょう。
+  オブジェクト指向のひとつの特徴にポリモーフィズム(多態性)があります。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,153 +105,10 @@
 </div>
 
 
-<h3>1. クラスによって異なる振る舞いをさせる</h3>
+<h3>ポリモーフィズムとは</h3>
 <p>
-  では、自分の属するクラスによって異なった動きをするサンプルを書いてみます。簡単な例として、特定の記号で文字列を連結するということをします。Unixの区切り文字と、Windowsの区切り文字をサンプルとして扱います。
+  ポリモーフィズムの一般的な解説については<a href="https://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%95%E3%82%A3%E3%82%BA%E3%83%A0">ポリモーフィズム - Wikipedia</a>を参考にしてください。
 </p>
-<pre>
-use strict;
-use warnings;
-
-my $file_path_unix = FilePath::Unix-&gt;new;
-my $file_path_win = FilePath::Windows-&gt;new;
-
-my $unix_result = $file_path_unix-&gt;cat_path('a', 'b');
-my $win_result = $file_path_win-&gt;cat_path('a', 'b');
-
-print "unix: $unix_result\n";
-print "win: $win_result\n";
-
-# ファイルパスを扱うための基底クラス
-package FilePath::Base;
-sub new {
-  my $proto = shift;
-  my $class = ref $proto || $proto;
-  my $self = {};
-  bless $self, $class;
-  return $self;
-}
-
-sub cat_path {
-  my ($self, $str1, $str2) = @_;
-  return $str1 . $self-&gt;delimiter . $str2;
-}
-
-
-# Unix 用
-package FilePath::Unix;
-use base 'FilePath::Base';
-
-# Unixの場合の区切り文字
-sub delimiter { return '/' }
-
-# Windows用
-package FilePath::Windows;
-use base 'FilePath::Base';
-
-# Windowsの場合の区切り文字
-sub delimiter { return '\\' }
-</pre>
-<p>
-  このサンプルを実行すると
-</p>
-<pre>
-unix: a/b
-win: a\b
-</pre>
-<p>
-  と表示されます。
-</p>
-<h3>2. cat_pathの振る舞いに注目</h3>
-<p>
-  まずこのサンプルで特徴的なことは、cat_pathというメソッドがふたつの意味を持つということです。
-</p>
-<pre>
-package FilePath::Base;
-sub new { ... }
-
-sub cat_path {
-  my ($self, $str1, $str2) = @_;
-  return $str1 . $self-&gt;delimiter . $str2;
-}
-</pre>
-<p>
-  FilePath::Base というクラスを見ると、cat_path というメソッドがあります。ところで、cat_pathを呼び出している部分を見ると、File::Pathクラスのオブジェクトが生成されているわけではありません。
-</p>
-<pre>
-my $file_path_unix = FilePath::Unix-&gt;new;
-my $file_path_win = FilePath::Windows-&gt;new;
-
-my $unix_result = $file_path_unix-&gt;cat_path('a', 'b');
-my $win_result = $file_path_win-&gt;cat_path('a', 'b');
-</pre>
-<p>
-  それぞれ、FilePath::Unixクラス と FilePath::Windowsクラスのオブジェクトが生成されています。
-</p>
-<p>
-  これは<a href="/blog/20090324123747.html">継承のところ</a>で解説したように、FilePath::Unix と FilePath::Windows が FilePath::Base を継承しているので、FilePath::Baseクラスが持つメソッド、cat_path を呼び出すことができるのでした。
-</p>
-<p>
-  次に注目してほしいところは、cat_pathの中で、$self->delimiter という記述の部分です。
-</p>
-<h3>3. スーバークラスでサブクラスのメソッドを呼び出す。</h3>
-<p>
-  cat_pathの中に注目してみましょう。
-</p>
-<pre>
-sub cat_path {
-  my ($self, $str1, $str2) = @_;
-  return $str1 . $self-&gt;delimiter . $str2;
-}
-</pre>
-<p>
-  cat_pathの中で、delimiterメソッドが呼ばれています。けれども、FilePath::Baseは、delimiterというメソッドをもっていません。自分が持っていないメソッドを呼び出すことができるのでしょうか?
-</p>
-<p>
-  実はこの $self の部分に秘密があります。
-</p>
-<pre>
-my $unix_result = $file_path_unix-&gt;cat_path('a', 'b');
-</pre>
-<p>
-  のようにcat_pathメソッドを呼び出したときに、$self に代入されるのは、FilePath::Unix クラスのオブジェクとになります。
-</p>
-<p>
-  FilePath::Unixクラスは delimiter メソッドを持っているので、cat_path メソッドの中から、delimiter メソッドを呼び出すことができます。
-</p>
-<h3>4. FilePath::Base クラスは継承されることを予定した不完全なクラスである。</h3>
-<p>
-  FilePath::Base クラスのオブジェクトを作成しても、cat_file は内部でdelimiter メソッドを呼び出そうとしても失敗します。
-</p>
-<pre>
-my $file_path_base = FilePath::Base-&gt;new;
-$file_path_base-&gt;cat_file( 'a', 'b' ); # 失敗!
-</pre>
-<p>
-  FilePath::Base クラスを継承したdelimiterメソッドを実装したクラスが作って意味を持つものになります。
-</p>
-<p>
-  このようなクラスを、<b>継承予定クラス</b>と名づけたい。( Perlの本を読んでもこのようなクラスを適切に命名した名前が発見できなかったので、<b>継承予定クラス</b>と呼ぶことにします。オブジェクトを生成できるのでJavaの抽象クラスというわけでもないので)
-</p>
-<h3>5. サブクラスでのメソッドの定義</h3>
-<p>
-  そしてポリモーフィズムを実現するために、FilePath::UnixクラスとFilePath::Windows クラスで、delimiterメソッドの実装が異なっていることに注目してください。
-</p>
-<pre>
-# FilePath::Unixクラスの場合
-sub delimiter{ return '/' }
-</pre>
-<pre>
-# FilePath::Windowsクラスの場合
-sub delimiter{ return '\\' }
-</pre>
-<p>
-  この記述が、出力結果の振る舞いを実質的に変えている部分です。
-</p>
-<pre>
-unix: a/b
-win: a\b
-</pre>
 
   </div>
   <div class="bottom">

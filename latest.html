@@ -58,7 +58,47 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/30</div>
+    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/10/01</div>
+<h2><a href="/blog/20221001064718.html">オーバーライド</a></h2>
+<p>
+  オーバーライドとは、スーパークラスのメソッドを再定義することをいいます。
+</p>
+<pre>
+package Point;
+  
+sub move {
+  my $self = shift;
+  
+  my ($x, $y) = @_;
+  
+  $self-&gt;{x} += $x;
+  $self-&gt;{y} += $y;
+}
+
+package Point3D;
+
+use base 'Point';
+
+# moveメソッドをオーバーライド
+sub move {
+  my $self = shift;
+  
+  my ($x, $y, $z) = @_;
+  
+  $self-&gt;SUPER::move($x, $y);
+  $self-&gt;{z} += $z;
+}
+</pre>
+<p>
+  オーバーライドの詳しい解説については、継承の記事を見てください。
+</p>
+<ul>
+  <li>
+    <a href="/blog/20090325123747.html">継承</a>
+  </li>
+</ul>
+
+<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/30</div>
 <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
@@ -441,79 +481,6 @@ use parent 'BaseClass';
 <p>
   もうすこし、継承を表現するわかりやすい方法があります。それは、<a href="/blog/20100425127089.html">parentモジュール</a>を使用する方法です。
 </p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/24</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20220924105911.html">単一継承</a></h2>
-<p>
-  単一継承とは、親クラスを一つ指定する継承のことを言います。一般的には、<a href="/blog/20220921105812.html">多重継承</a>を使わないで、単一継承でオブジェクト指向プログラミングを行うことが推奨されています。
-</p>
-<h4>単一継承の実装</h4>
-<p>
-  単一継承の実装方法を紹介します。Perlには継承を行う方法が複数存在します。公式にはparentモジュールが推奨されていますが、baseモジュールはPerl v5.0から存在し、もっとも多く使われているように感じます。
-</p>
-<h4>@ISAを使う場合</h4>
-<p>
-  <a href="/blog/20090324123747.html">@ISA</a>を使った単一継承のサンプルです。
-</p>
-<pre>
-package Point3D;
-
-sub new {
-  # ...
-}
-
-package Point;
-
-our @ISA = ('Point3D');
-</pre>
-<h4>baseモジュール</h4>
-<p>
-  <a href="/blog/20100425127089.html">baseモジュール</a>を使った単一継承のサンプルです。
-</p>
-<pre>
-package Point3D;
-
-sub new {
-  # ...
-}
-
-package Point;
-
-use base 'Point3D';
-</pre>
-<h4>parentモジュール</h4>
-<p>
-  <a href="/blog/20220926104815.html">parentモジュール</a>を使った単一継承のサンプルです。
-</p>
-<pre>
-package Point3D;
-
-sub new {
-  # ...
-}
-
-package Point;
-
-use parent -norequire, 'Point3D';
-</pre>
 
 
   </div>
