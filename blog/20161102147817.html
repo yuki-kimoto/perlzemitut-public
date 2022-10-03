@@ -226,29 +226,57 @@ $^O
 </p>
 <table>
   <tr>
-    <td>
-      <span style="font-weight:bold;">$^Oの値</span>
-    </td>
-    <td>
-      <span style="font-weight:bold;">説明とリンク</span>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      MacOS　
-    </td>
-    <td>
-       MacOS 
-    </td>
+    <th>$^Oの値</th>
+    <th>OS</th>
   </tr>
   <tr>
     <td>
       MSWin32 
     </td>
+    <td>
+      Windows
+    </td>
   </tr>
-<p>
-  |Windows 全般|
-</p>
+  <tr>
+    <td>
+      darwin 
+    </td>
+    <td>
+      Mac OS X
+    </td>
+  </tr>
+  <tr>
+    <td>
+      linux    
+    </td>
+    <td>
+       Linux
+    </td>
+  </tr>
+  <tr>
+    <td>
+      freebsd  
+    </td>
+    <td>
+      FreeBSD
+    </td>
+  </tr>
+  <tr>
+    <td>
+      cygwin   
+    </td>
+    <td>
+       cygwin
+    </td>
+  </tr>
+  <tr>
+    <td>
+      solaris  
+    </td>
+    <td>
+      Solaris
+    </td>
+  </tr>
   <tr>
     <td>
       os2     
@@ -299,58 +327,10 @@ $^O
   </tr>
   <tr>
     <td>
-      cygwin   
+       MacOS 
     </td>
     <td>
-       cygwin
-    </td>
-  </tr>
-  <tr>
-    <td>
-      linux    
-    </td>
-    <td>
-       Linux
-    </td>
-  </tr>
-  <tr>
-    <td>
-      freebsd  
-    </td>
-    <td>
-      FreeBSD
-    </td>
-  </tr>
-  <tr>
-    <td>
-      solaris  
-    </td>
-    <td>
-      Solaris
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Unix  ( 違うかも )     
-    </td>
-    <td>
-       Unix 
-    </td>
-  </tr>
-  <tr>
-    <td>
-      darwin 
-    </td>
-    <td>
-      Mac OS X
-    </td>
-  </tr>
-  <tr>
-    <td>
-      CentOS
-    </td>
-    <td>
-      Linux
+      旧MacOS
     </td>
   </tr>
 </table>
@@ -400,12 +380,8 @@ our @ISA = ('ParentClass');
 </p>
 <table>
   <tr>
-    <td>
-      *特殊変数
-    </td>
-    <td>
-      *意味
-    </td>
+    <th>特殊変数</th>
+    <th>意味</th>
   </tr>
   <tr>
     <td>
@@ -559,9 +535,6 @@ our @ISA = ('ParentClass');
       オペレーティングシステムの名前
     </td>
   </tr>
-<p>
-  |
-</p>
   <tr>
     <td>
       %SIG
@@ -642,9 +615,6 @@ our @ISA = ('ParentClass');
       パターンマッチにおける最後に使われたグループ
     </td>
   </tr>
-<p>
-  |
-</p>
   <tr>
     <td>
       @+
