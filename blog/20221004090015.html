@@ -34,6 +34,15 @@
   });
 </script>
 
+<title>Perlオブジェクト指向プログラミング入門 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="Perlオブジェクト指向プログラミングの入門記事です。">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@perlzemi" />
+<meta name="twitter:title" content="Perlオブジェクト指向プログラミング入門 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="Perlオブジェクト指向プログラミングの入門記事です。" />
+<meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
+
+
   </head>
   <body>
     <div class="container">
@@ -58,8 +67,7 @@
     
   </div>
   <div class="middle">
-    <div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/10/04</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
   <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <a itemprop="item" href="/">
         <span itemprop="name">Perl</span></a>
@@ -81,6 +89,22 @@
 <p>
   Perlオブジェクト指向プログラミングの入門記事です。
 </p>
+<div style="width:calc(100% - 30px);margin:10px auto;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
+       crossorigin="anonymous"></script>
+  <!-- 最初の段落下 - ディスプレイ 横長 レスポンシブ -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4525414114581084"
+       data-ad-slot="2828858335"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
 <h3>クラスの定義</h3>
 <p>
   Perlでは<a href="/blog/20220923131702.html">クラス</a>の定義は<strong>package</strong>を使って行います。
@@ -492,313 +516,6 @@ perl object.pl
 <ul>
   <li><a href="/blog/20161030147778.html">Perlオブジェクト指向プログラミング</a>
 </ul>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/10/03</div>
-<h2><a href="/blog/20221003090015.html">UNIVERSAL - すべてのオブジェクトのスーパークラス</a></h2>
-<p>
-  <code>UNIVERSAL</code>は、すべてのオブジェクトのスーパークラスです。UNIVERSALで定義されているメソッドは、すべてのオブジェクトから呼び出すことができます。
-</p>
-<h3>isa</h3>
-<p>
-  <code>isa</code>メソッドは、あるオブジェクトが、引数で指定された<a href="/blog/20220923131702.html">クラス</a>、または、指定された<a href="/blog/20220923131702.html">クラス</a>を継承しているをチェックします。
-</p>
-<pre>
-# Pointまたは、Pointを継承
-my $isa = $point-&gt;isa("Point");
-
-# Point3Dまたは、Point3Dを継承
-my $isa = $point-&gt;isa("Point3D");
-</pre>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/10/01</div>
-<h2><a href="/blog/20221001064718.html">オーバーライド</a></h2>
-<p>
-  オーバーライドとは、スーパークラスのメソッドを再定義することをいいます。
-</p>
-<pre>
-package Point;
-  
-sub move {
-  my $self = shift;
-  
-  my ($x, $y) = @_;
-  
-  $self-&gt;{x} += $x;
-  $self-&gt;{y} += $y;
-}
-
-package Point3D;
-
-use base 'Point';
-
-# moveメソッドをオーバーライド
-sub move {
-  my $self = shift;
-  
-  my ($x, $y, $z) = @_;
-  
-  $self-&gt;SUPER::move($x, $y);
-  $self-&gt;{z} += $z;
-}
-</pre>
-<p>
-  オーバーライドの詳しい解説については、継承の記事を見てください。
-</p>
-<ul>
-  <li>
-    <a href="/blog/20090325123747.html">継承</a>
-  </li>
-</ul>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/30</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20220930115720.html">クラスメソッド</a></h2>
-<p>
-  Perlでは、クラスメソッドとは、クラス名を使ってメソッド呼び出しが行われるメソッドのことをいいます。クラスメソッドの定義では、第一引数にクラス名を受け取るようにします。
-</p>
-<pre>
-# クラスメソッド呼び出し
-MyClass-&gt;foo(1, 2);
-
-# クラスメソッドの定義
-sub foo {
-  my ($class, @args) = @_;
-  
-  
-}
-</pre>
-<p>
-  <a href="/blog/20220929115717.html">インスタンスメソッド</a>も参考にしてください。
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/29</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20220929115717.html">インスタンスメソッド</a></h2>
-<p>
-  Perlでは、インスタンスメソッドとは、インスタンスからメソッド呼び出しが行われるメソッドのことをいいます。インスタンスメソッドの定義では、第一引数にインスタンスを受け取るようにします。単にメソッドとも呼ばれます。
-</p>
-<pre>
-# インスタンスメソッド呼び出し
-$object-&gt;foo(1, 2);
-
-# インスタンスメソッドの定義
-sub foo {
-  my ($self, @args) = @_;
-  
-  
-}
-</pre>
-<p>
-  <a href="/blog/20220930115720.html">クラスメソッド</a>も参考にしてください。
-</p>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/28</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20220928125807.html">mro - next::methodの有効化・メソッド解決順序の変更</a></h2>
-<p>
-  <code>mro</code>モジュールは、<a href="/blog/20220921105812.html">多重継承</a>における、スーパークラスのメソッド解決順序を変更するためのモジュールです。<code>mro</code>を読み込むと、<code>next::method</code>が有効になります。多重継承で、スーパークラスのメソッドを探索する場合は<a href="/blog/20220922134115.html">SUPER疑似クラス</a>よりも、<code>next::method</code>うことが推奨されています。
-</p>
-<pre>
-# next::methodの有効化
-use mro;
-</pre>
-<p>
-  <code>next::method</code>は、オブジェクトから呼び出します。
-</p>
-<pre>
-# next::methodの使い方
-$self-&gt;next::method(@args);
-</pre>
-<h3>next::methodの動作</h3>
-<p>
-  <code>next::method</code>は、C3というアルゴリズムで、スーパークラスを探索します。
-</p>
-<pre>
-C3 は常に局所的な優先順位を保存して動作します。 これは、基本的にどのクラスもそのサブクラスより先に現れることはないことを 意味します。 例えば、以下のような古典的なダイヤ型継承パターンを考えます:
-
-     &lt;A&gt;
-    /   \
-  &lt;B&gt;   &lt;C&gt;
-    \   /
-     &lt;D&gt;
-
-標準の Perl 5 MRO は (D, B, A, C) です。 この結果、C は A のサブクラスにも関わらず、A が C より先に 検索されます。 しかし、C3 MRO アルゴリズムでは、(D, B, C, A) の順序になり、この問題は ありません。
-</pre>
-<p>
-  参考:<a href="https://perldoc.jp/docs/modules/mro-1.01/mro.pod#How32does32C332work">C3 の動作 - mro</a>
-</p>
-<h3>next::methodを多重継承で使ったサンプル</h3>
-<p>
-  <code>next::method</code>を多重継承で使ったサンプルです。
-</p>
-<pre>
-use strict;
-use warnings;
-use mro;
-
-package MultiBase1 {
-  sub b1_init {
-    my $self = shift;
-    
-    push @{$self-&gt;{ps}}, 2;
-    $self-&gt;{b1} = 3;
-  }
-}
-
-package MultiBase2 {
-  sub b1_init {
-    my $self = shift;
-    
-    push @{$self-&gt;{ps}}, 7;
-    $self-&gt;{b1} = 8;
-  }
-  
-  sub b2_init {
-    my $self = shift;
-    
-    push @{$self-&gt;{ps}}, 3;
-    $self-&gt;{b2} = 4;
-  }
-}
-
-package MultiClass {
-  
-  use base 'MultiBase1', 'MultiBase2';
-  
-  sub new {
-    my $class = shift;
-    
-    my $self = bless {@_}, ref $class || $class;
-    
-    $self-&gt;{ps} //= [];
-    
-    $self-&gt;init;
-    
-    return $self;
-  }
-  
-  sub init {
-    my $self = shift;
-    
-    push @{$self-&gt;{ps}}, 1;
-    
-    $self-&gt;b1_init;
-    $self-&gt;b2_init;
-  }
-  
-  sub b1_init {
-    my $self = shift;
-    
-    $self-&gt;next::method;
-  }
-  
-  sub b2_init {
-    my $self = shift;
-    
-    $self-&gt;next::method;
-  }
-}
-
-my $object = MultiClass-&gt;new;
-
-print $object-&gt;{b1} . "\n"; # 3
-
-print $object-&gt;{b2} . "\n"; # 4
-
-print "@{$object-&gt;{ps}}" . "\n"; # [1, 2, 3]
-</pre>
-
-<div style="font-weight:bold;font-size:18px;letter-spacing:2px;margin:35px 0 0px 0;padding-left:5px;padding-top:5px;border-top:2px solid #ddd">2022/09/27</div>
-<ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20161030147778.html">
-      <span itemprop="name">オブジェクト指向プログラミング</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <span itemprop="name">here</span>
-    <meta itemprop="position" content="3" />
-  </li>
-</ol>
-<h2><a href="/blog/20220927122208.html">カプセル化</a></h2>
-<p>
-  Perlでのカプセル化について解説します。
-</p>
-<h3>カプセル化とは</h3>
-<p>
-  カプセル化の一般的な解説については、<a href="https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%E5%8C%96#:~:text=%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%E5%8C%96%EF%BC%88%E8%8B%B1%3A%20encapsulation%EF%BC%89,%E9%9A%A0%E8%94%BD%E3%81%A8%E5%90%8C%E7%BE%A9%E3%81%A7%E3%81%82%E3%82%8B%E3%80%82">カプセル化 - Wikipedia</a>を見てください。
-</p>
-<h3>アクセッサ</h3>
-<p>
-  カプセル化の概念の一部である「フィールドに直接アクセスせずに、メソッドを使ってアクセスする」をPerlで書いてみましょう。
-</p>
-<p>
-  <a href="/blog/20090321123713.html">アクセッサ</a>と呼ばれる<a href="/blog/20220929115717.html">メソッド</a>を作成することによって、フィールドに直接アクセスすることを避けることができます。
-</p>
-<ul>
-  <li>
-    <a href="/blog/20090321123713.html">アクセッサの生成</a>
-  </li>
-</ul>
-
 
   </div>
   <div class="bottom">

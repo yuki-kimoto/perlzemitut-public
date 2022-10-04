@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>Scalar::Util - スカラ値に対するユーティリティ - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="Scalar::Utilはスカラ値に関するユーティリティを集めたモジュールです。">
+<title>UNIVERSAL - すべてのオブジェクトのスーパークラス - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="UNIVERSALは、すべてのオブジェクトのスーパークラスです。UNIVERSALで定義されているメソッドは、すべてのオブジェクトから呼び出すことができます。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="Scalar::Util - スカラ値に対するユーティリティ - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="Scalar::Utilはスカラ値に関するユーティリティを集めたモジュールです。" />
+<meta name="twitter:title" content="UNIVERSAL - すべてのオブジェクトのスーパークラス - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="UNIVERSALは、すべてのオブジェクトのスーパークラスです。UNIVERSALで定義されているメソッドは、すべてのオブジェクトから呼び出すことができます。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -67,26 +67,9 @@
     
   </div>
   <div class="middle">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/">
-        <span itemprop="name">Perl</span></a>
-    <meta itemprop="position" content="1" />
-  </li>
-  &#8250;
-  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-    <a itemprop="item" href="/blog/20091116124667.html">
-      <span itemprop="name">モジュール</span></a>
-    <meta itemprop="position" content="2" />
-  </li>
-  &#8250;
-  <li>
-    here
-  </li>
-</ol>
-<h2><a href="/blog/20100317126967.html">Scalar::Util - スカラ値に対するユーティリティ</a></h2>
+    <h2><a href="/blog/20221003090015.html">UNIVERSAL - すべてのオブジェクトのスーパークラス</a></h2>
 <p>
-  <strong>Scalar::Util</strong>はスカラ値に関するユーティリティを集めたモジュールです。
+  <code>UNIVERSAL</code>は、すべてのオブジェクトのスーパークラスです。UNIVERSALで定義されているメソッドは、すべてのオブジェクトから呼び出すことができます。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -104,87 +87,17 @@
 </div>
 
 
-<pre>
-# Scalar::Utilの使用
-use Scalar::Util 'looks_like_number';
-</pre>
-<h3>数値関連の関数</h3>
+<h3>isa</h3>
 <p>
-  数値であるかどうかの判定を行うには<strong>looks_like_number</strong>を使用します。
+  <code>isa</code>メソッドは、あるオブジェクトが、引数で指定された<a href="/blog/20220923131702.html">クラス</a>、または、指定された<a href="/blog/20220923131702.html">クラス</a>を継承しているをチェックします。
 </p>
 <pre>
-# 数値かどうかの判定
-$is_number = looks_like_number($num);
+# Pointまたは、Pointを継承
+my $isa = $point-&gt;isa("Point");
+
+# Point3Dまたは、Point3Dを継承
+my $isa = $point-&gt;isa("Point3D");
 </pre>
-<h3>その他のScalar::Utilの関数</h3>
-<p>
-  その他のScalar::Utilのその他の関数を紹介します。
-</p>
-<table>
-  <tr>
-    <th>関数名</th>
-    <th>意味</th>
-  </tr>
-  <tr>
-    <td>
-      blessed
-    </td>
-    <td>
-      blessされているかどうかを調べる
-    </td>
-  </tr>
-  <tr>
-    <td>
-      refaddr
-    </td>
-    <td>
-      リファレンスのメモリアドレスを返す
-    </td>
-  </tr>
-  <tr>
-    <td>
-      reftype
-    </td>
-    <td>
-      リファレンスのタイプを返す
-    </td>
-  </tr>
-  <tr>
-    <td>
-      weaken
-    </td>
-    <td>
-      リファレンスを弱参照にする
-    </td>
-  </tr>
-  <tr>
-    <td>
-      unweaken
-    </td>
-    <td>
-      リファレンスを普通の参照に戻す
-    </td>
-  </tr>
-  <tr>
-    <td>
-      isweak
-    </td>
-    <td>
-      リファレンスが弱参照かどうか調べる
-    </td>
-  </tr>
-  <tr>
-    <td>
-      looks_like_number
-    </td>
-    <td>
-      数値に見えるかどうか
-    </td>
-  </tr>
-</table>
-<p>
-  Scalar::Utilの関数の詳細については<a href="http://search.cpan.org/dist/Scalar-List-Utils/lib/Scalar/Util.pm">Scalar::Utilのドキュメント</a>をご覧ください。
-</p>
 
   </div>
   <div class="bottom">

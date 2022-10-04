@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>オブジェクト指向入門 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="Perlで、オブジェクト指向プログラミングをするのは難しい、クラスを作成したり、インスタンス変数を定義したりする方法が直感的にわからないと思う人は多いのではないでしょうか。">
+<title>Object::Simpleを使ったPerlオブジェクト指向プログラミング入門 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="Object::Simpleを使ったPerlオブジェクト指向プログラミング入門です。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="オブジェクト指向入門 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="Perlで、オブジェクト指向プログラミングをするのは難しい、クラスを作成したり、インスタンス変数を定義したりする方法が直感的にわからないと思う人は多いのではないでしょうか。" />
+<meta name="twitter:title" content="Object::Simpleを使ったPerlオブジェクト指向プログラミング入門 - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="Object::Simpleを使ったPerlオブジェクト指向プログラミング入門です。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -85,9 +85,9 @@
     <meta itemprop="position" content="3" />
   </li>
 </ol>
-<h2><a href="/blog/20130305136248.html">オブジェクト指向入門</a></h2>
+<h2><a href="/blog/20130305136248.html">Object::Simpleを使ったPerlオブジェクト指向プログラミング入門</a></h2>
 <p>
-  Perlで、オブジェクト指向プログラミングをするのは難しい、クラスを作成したり、インスタンス変数を定義したりする方法が直感的にわからないと思う人は多いのではないでしょうか。
+  <a href="/blog/20160912147368.html">Object::Simple</a>を使ったPerlオブジェクト指向プログラミング入門です。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -105,115 +105,109 @@
 </div>
 
 
-<p>
-  実は、モジュールの力を借りれば、Perlのオブジェクト指向はとてもわかりやすくなります。今回はObject::Simpleというモジュールを使ってPerlのオブジェクト指向を解説します。
-</p>
 <h3>Object::Simpleのインストール</h3>
 <p>
-  Object::Simpleをインストールします。cpanを使えば簡単にモジュールをインストールできます。
+  Object::Simpleをインストールします。<a href="/blog/20100504127089.html">cpan</a>または<a href="/blog/20101027127859.html">cpanm</a>でモジュールをインストールできます。
 </p>
 <pre>
+# cpan
 cpan Object::Simple
+
+# cpanm
+cpanm Object::Simple
 </pre>
-<p>
-  これで準備が完了です。
-</p>
 <h3>クラスの定義</h3>
 <p>
-  Perlではクラスの定義は<strong>package</strong>を使って行います。最初に<b>-base</b>フラグを使ってObject::Simpleを継承したクラスを作成します。次の記述は、まずおまじないとして覚えてください。
+  Perlでは<a href="/blog/20220923131702.html">クラス</a>の定義は<strong>package</strong>を使って行います。最初に<b>-base</b>フラグを使って<code>Object::Simple</code>を継承したクラスを作成します。
 </p>
 <pre>
-package MyClass;
+package Point;
 use Object::Simple -base;
 </pre>
 <h3>コンストラクタ</h3>
 <p>
-  このようにすると<b>MyClass</b>というクラスを定義できます。コンストラクタ<b>new</b>を使ってクラスからオブジェクトを生成することができます。(このnewはObject::Simpleから継承されたものです。)
+  <a href="/blog/20090317123712.html">コンストラクタ</a>である<b>new</b>という<a href="/blog/20220929115717.html">メソッド</a>を使ってクラスからオブジェクトを生成することができます。この<code>new</code>はObject::Simpleから<a href="/blog/20090325123747.html">継承</a>されたものです。
 </p>
 <pre>
-my $obj = MyClass-&gt;new;
+my $point = Point-&gt;new;
 </pre>
 <p>
-  <b>new</b>メソッドは、ハッシュあるいはハッシュのリファレンスを受け取ることができます。
+  <b>new</b>メソッドは、<a href="/blog/20161013147635.html">ハッシュ</a>あるいは<a href="/blog/20180208151809.html">ハッシュのリファレンス</a>を受け取ることができます。
 </p>
-    
 <pre>
-my $obj = MyClass-&gt;new(foo =&gt; 1, bar =&gt; 2);
-my $obj = MyClass-&gt;new({foo =&gt; 1, bar =&gt; 2});
+my $point = Point-&gt;new(x =&gt; 1, y =&gt; 2);
+my $point = Point-&gt;new({x =&gt; 1, y =&gt; 2});
 </pre>
 <p>
-  これは属性値として設定されます。
+  この値は、フィールドに設定されます。
 </p>
 <h3>アクセッサ</h3>
 <p>
-  次にアクセッサを定義してみましょう。アクセッサとは属性値(インスタンス変数)にアクセスするためのメソッドのことです。アクセッサを定義すれば、属性値にアクセスすることができます。
+  次に<a href="/blog/20090321123713.html">アクセッサ</a>を定義してみましょう。アクセッサとはフィールドにアクセスするための<a href="/blog/20220929115717.html">メソッド</a>のことです。アクセッサを定義すれば、フィールドにアクセスすることができます。
 </p>
 <p>
   アクセッサを生成するには<b>has</b>関数を使用します。
 </p>
 <pre>
-has 'foo';
+has 'x';
 </pre>
 <p>
-  アクセッサを定義すると属性値にアクセスすることができます。
+  アクセッサを定義するとフィールドにアクセスすることができます。
 </p>
 <pre>
 # 値の設定
-$obj-&gt;foo(1);
+$point-&gt;x(1);
 
 # 値の取得
-my $foo = $obj-&gt;foo;
+my $x = $point-&gt;x;
 </pre>
 <p>
-  属性値のデフォルトを指定することもできます。
+  フィールドのデフォルト値を指定することもできます。
 </p>
 <pre>
-has foo =&gt; 1;
+has x =&gt; 1;
 </pre>
 <p>
-  属性値が設定されていない場合は最初にアクセッサが呼び出されたときに
-</p>
-<p>
-  デフォルト値が属性値に設定されます。
+  フィールドが設定されていない場合は最初にアクセッサが呼び出されたときにデフォルト値がフィールドに設定されます。
 </p>
 <pre>
 # デフォルト値の1を取得
-my $default = $obj-&gt;foo;
+my $default = $point-&gt;x;
 </pre>
 <p>
-  もしリファレンスやオブジェクトをデフォルト値として指定したい場合は、サブルーチンのリファレンスの戻り値にする必要があります。
+  もし<a href="/blog/20100930127859.html">リファレンス</a>や<a href="/blog/20100203126425.html">オブジェクト</a>をデフォルト値として指定したい場合は、サブルーチンのリファレンスの戻り値にする必要があります。
 </p>
 <pre>
-has foo =&gt; sub { [] };
-has foo =&gt; sub { {} };
-has foo =&gt; sub { MyClass-&gt;new };
+has x =&gt; sub { [] };
+has x =&gt; sub { {} };
+has x =&gt; sub { Point-&gt;new };
 </pre>
 <p>
   複数のアクセッサを一度に生成することもできます。
 </p>
 <pre>
-has [qw/foo bar baz/];
-has [qw/foo bar baz/] =&gt; 0;
+has [qw/x y/];
+has [qw/x y/] =&gt; 0;
 </pre>
 <h3>継承</h3>
 <p>
-  継承を行うには<b>-base</b>を使います。<b>MyClass</b>を継承した<b>SubClass</b>を作ってみましょう。
+  <a href="/blog/20090325123747.html">継承</a>を行うには<b>-base</b>を使います。<b>Point</b>を継承した<b>Point3D</b>を作ってみましょう。
 </p>
 <pre>
-package MyClass;
+package Point;
 use Object::Simple -base;
 </pre>
 <pre>
-package SubClass;
-use MyClass -base;
+package Point3D;
+use Point -base;
 </pre>
 <h3>スーパークラスのメソッドの呼び出し</h3>
 <p>
-  <b>SUPER</b>を使って、スーパークラスのメソッドを呼び出すことができます。
+  <a href="/blog/20220922134115.html">SUPER疑似クラス</a>を使って、スーパークラスのメソッドを呼び出すことができます。
 </p>
 <pre>
-package SubClass;
-use MyClass -base;
+package Point3D;
+use Point -base;
 
 sub clear {
   my $self = shift;
@@ -223,10 +217,10 @@ sub clear {
 </pre>
 <h3>コンストラクタのオーバーライド</h3>
 <p>
-  サブクラスでコンストラクタをオーバーライドしたい場合があると思います。コンストラクタをオーバーライドするには次のようにします。
+  サブクラスでコンストラクタを<a href="/blog/20221001064718.html">オーバーライド</a>したい場合があると思います。コンストラクタをオーバーライドするには次のようにします。
 </p>
 <pre>
-package MyClass;
+package Point;
 use Object::Simple -base;
 
 sub new {
@@ -242,7 +236,7 @@ sub new {
 </p>
 <h3>クラスの作成 - 実践編</h3>
 <p>
-  あら不思議、これだけ覚えればPerlのオブジェクト指向はほぼマスターです。では、実践編です。<b>Point</b>クラスと<b>Point3D</b>クラスを作成してみます。
+  これだけ覚えればPerlのオブジェクト指向プログラミングはほぼマスターです。実践してみましょう。<b>Point</b>クラスと<b>Point3D</b>クラスを作成してみます。
 </p>
 <h4>Pointクラス</h4>
 <blockquote>
@@ -251,7 +245,7 @@ sub new {
     Pointは点を表すクラスです。
   </li>
   <li>
-    xとyというアクセッサを持ちます。
+    xとyというフィールドがあり、アクセッサを持ちます。
   </li>
   <li>
     xとyの値を0にクリアするclearというメソッドを持ちます。
@@ -275,7 +269,7 @@ sub clear {
 1;
 </pre>
 <p>
-  (末尾に「1;」という記述があるのは、モジュールを書くファイルの末尾が真でなければならないというルールがあるためです。)
+  末尾に「1;」という記述があるのは、<a href="/blog/20161130148051.html">モジュール</a>を書くファイルの末尾が真でなければならないというルールがあるためです。
 </p>
 <p>
   Pointクラスは以下のように使用することができます。
@@ -294,7 +288,7 @@ $point-&gt;clear;
     Point3Dは3次元の点を表すクラスです。
   </li>
   <li>
-    x,y,zというアクセッサを持ちます。
+    x,y,zというフィールドがあり、アクセッサを持ちます。
   </li>
   <li>
     x,y,zの値を0にクリアするclearというメソッドを持ちます。
@@ -375,7 +369,7 @@ sub clear {
 
 1;
 </pre>
-<h4>test.pl</h4>
+<h4>object.pl</h4>
 <p>
   クラスを読み込んで利用するサンプルです。libモジュールを使うことで、モジュールの検索パスを追加できます。
 </p>
@@ -387,24 +381,21 @@ use Point3D;
 
 my $point = Point3D-&gt;new(x =&gt; 3, y =&gt; 5, z =&gt; 8);
 
-# 8と表示される
 print $point-&gt;z . "\n";
 
 $point-&gt;z(9);
 
-# 9と表示される
 print $point-&gt;z . "\n";
 $point-&gt;clear;
 
-# 0と表示される
 print $point-&gt;z . "\n";
 </pre>
-<h4>スクリプトの実行</h4>
+<h4>プログラムの実行</h4>
 <p>
   ディレクトリ構成は以下のようにします。
 </p>
 <pre>
-test.pl
+object.pl
 lib - Point.pm
     - Point3D.pm
 </pre>
@@ -412,187 +403,23 @@ lib - Point.pm
   以下のように実行してください。
 </p>
 <pre>
-perl test.pl
+perl object.pl
 </pre>
-<h3>オブジェクト指向プログラミングの概念</h3>
-<h4>継承</h4>
 <p>
-  Object::Simpleをよく理解するために、オブジェクト指向の概念を解説したいと思います。
-</p>
-<p>
-  オブジェクト指向の一つ目の概念は「継承」です。「継承」とは「クラスQがクラスPを継承していたら、クラスQはクラスPのすべてのメソッドを呼び出すことができる」ということを意味します。
+  出力結果です。
 </p>
 <pre>
-+---+
-| P | スーパークラス
-+---+   method1とmethod2を定義
-  |
-+---+
-| Q | サブクラス
-+---+   method3を定義
+8
+9
+0
 </pre>
+<h3>オブジェクト指向プログラミングの詳細</h3>
 <p>
-  クラスQはクラスPを継承しているので、クラスQはクラスQのメソッドに加えて、クラスPのすべてのメソッドを呼び出すことができます。言い換えれば、クラスQはmethod1, method2とmethod3を呼び出すことができます。
+  オブジェクト指向プログラミングの詳細については、以下の記事を見てください。
 </p>
-<pre>
-package P;
-use Object::Simple -base;
-
-sub method1 { ... }
-sub method2 { ... }
-</pre>
-<pre>
-package Q;
-use P -base;
-
-sub method3 { ... }
-</pre>
-<p>
-  Perlはオブジェクト指向プログラミングを助ける便利な関数とメソッドを持っています。オブジェクトがどのクラスに属しているかを知るには、ref関数を使用します。
-</p>
-<pre>
-my $class = ref $obj;
-</pre>
-<p>
-  オブジェクトが特定のクラスを継承しているかどうかを調べるには、isaメソッドを使用します。
-</p>
-<pre>
-$obj-&gt;isa('MyClass');
-</pre>
-<p>
-  オブジェクト（あるいはクラス)が特定のメソッドを呼び出すことができるかどうかを知るには、canメソッドを使用します。
-</p>
-<pre>
-MyClass-&gt;can('method1');
-$obj-&gt;can('method1');
-</pre>
-<h4>カプセル化</h4>
-<p>
-  オブジェクト指向プログラミングのふたつ目の概念はカプセル化です。「カプセル化」は「内部的にデータに直接アクセスしてはいけない」ということを意味します。ドキュメントに記述された公開されたメソッドを使用しなければなりません。このルールを守ることによって、すべてのことがシンプルになります。
-</p>
-<p>
-  このルールを守るためには値を取得や設定を行うためのアクセッサを生成する必要があります。
-</p>
-<pre>
-my $value = $obj-&gt;foo;
-$obj-&gt;foo(1);
-</pre>
-  直接データにアクセスするのは良くない習慣です。
-<pre>
-# 良くない
-my $value = $obj-&gt;{foo};
-$obj-&gt;{foo} = 1;
-</pre>
-<h4>ポリモーフィズム</h4>
-<p>
-  オブジェクト指向プログラミングの三つ目の概念は「ポリモーフィズム」です。
-</p>
-<p>
-  「ポリモーフィズム」は、「オーバーロード」と「オーバーライド」のふたつの概念に
-</p>
-<p>
-  分割されます。
-</p>
-<p>
-  Perlプログラマはオーバーロードを気にする必要はありません。Perlは動的な言語なので、サブルーチンはどのような値でも受け取ることができます。オーバーロードはC++やJavaなどの静的な型を持つ言語にとって必要です。
-</p>
-<p>
-  「オーバーライド」は「サブクラスにおいて、基底クラスのメソッドを変更することができる」ということを意味します。
-</p>
-<pre>
-package P;
-use Object::Simple -base;
-
-sub method1 { return 1 }
-</pre>
-<pre>
-package Q;
-use P -base;
-
-sub method1 { return 2 }
-</pre>
-<p>
-  クラスPのmethod1は1という値を返却します。クラスQのmethod1は2という値を返却します。つまり、クラスQにおいて、method1はオーバーライドされたということです。
-</p>
-<pre>
-# 1を返す
-my $obj_p = P-&gt;new;
-$obj_p-&gt;method1;
-
-# 2を返す
-my $obj_q = Q-&gt;new;
-$obj_q-&gt;method1; # Return value is 2
-</pre>
-<p>
-  もし基底クラスのメソッドをサブクラスから呼び出したい場合はSUPER擬似クラスを使用します。
-</p>
-<pre>
-package Q;
-use Object::Simple -base;
-
-sub method1 {
-  my $self = shift;
-  
-  # SUPER擬似クラスを使ってPのmethod1を呼び出す
-  my $value = $self-&gt;SUPER::method1(@_);
-  
-  return 2 + $value;
-}
-</pre>
-<p>
-  newはオーバーライドすることができます。たとえば、オブジェクトの初期化処理を行いたい場合は、newをオーバーライドします。
-</p>
-<pre>
-sub new {
-  my $self = shift-&gt;SUPER::new(@_);
-  
-  # 初期化処理
-  
-  return $self;
-}
-</pre>
-<p>
-  newの引数を変更したい場合もnewをオーバーライドすることで解決できます。
-</p>
-    
-<pre>
-sub new {
-  my $self = shift;
-  
-  $self-&gt;SUPER::new(x =&gt; $_[0], y =&gt; $_[1]);
-  
-  return $self;
-}
-</pre>
-<p>
-  これらの三つの概念「継承」「カプセル化」「ポリモーフィズム」を理解するならば、十分強力なオブジェクト指向プログラムができ、ソースコードは他の言語のユーザから見ても読みやすいものになるでしょう。
-</p>
-<h3>パッケージブロック構文</h3>
-<p>
-  Perl 5.14では、パッケージブロック構文というものが追加されて、次のように記述することができ、ファイルの末尾に「1;」を書かなくてもよくなりました。Perl5.14以上のPerlを使っている方は、利用してみるのもよいと思います。
-</p>
-<pre>
-package Point {
-  use Object::Simple -base;
-
-  has x =&gt; 0;
-  has y =&gt; 0;
-
-  sub clear {
-    my $self = shift;
-    
-    $self-&gt;x(0);
-    $self-&gt;y(0);
-  }
-}
-</pre>
-<h3>まとめ</h3>
-<p>
-  Perlは柔軟な言語です。Perlという言語の中で、完全なオブジェクト指向を行うことができます。Perlのオブジェクト指向は後付けの実装と揶揄されることがありますが、機能としてはオブジェクト指向として、完全なものをそなえています。
-</p>
-<p>
-  Perlは名前空間を持ち、オブジェクト指向が可能なので、大規模開発にも十分耐えることができます。規模が大きくなってきたら、オブジェクト指向でプログラミングするとよいと思います。
-</p>
+<ul>
+  <li><a href="/blog/20161030147778.html">Perlオブジェクト指向プログラミング</a>
+</ul>
 
   </div>
   <div class="bottom">
