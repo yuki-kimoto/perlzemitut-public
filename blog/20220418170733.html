@@ -34,12 +34,12 @@
   });
 </script>
 
-<title>WSL2 への Perl のインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
-<meta name="description" content="WSL2 は、Linux 用の Windows サブシステムです。 WSL2 を使用して Linux を Windows にインストールできます。そして、Perl を使用できます。">
+<title>WSLを使ったWindowsへのPerlのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説</title>
+<meta name="description" content="WSL を使うと、Windows上にLinuxが利用可能になります。この記事ではWSLは、WLS2のことを意味します。一般的なLinuxディストリビューションにはPerlがインストールされているため、Perlが利用可能です。">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@perlzemi" />
-<meta name="twitter:title" content="WSL2 への Perl のインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
-<meta name="twitter:description" content="WSL2 は、Linux 用の Windows サブシステムです。 WSL2 を使用して Linux を Windows にインストールできます。そして、Perl を使用できます。" />
+<meta name="twitter:title" content="WSLを使ったWindowsへのPerlのインストール - Perlゼミ|Perlの基礎をインストールからサンプルで丁寧に解説" />
+<meta name="twitter:description" content="WSL を使うと、Windows上にLinuxが利用可能になります。この記事ではWSLは、WLS2のことを意味します。一般的なLinuxディストリビューションにはPerlがインストールされているため、Perlが利用可能です。" />
 <meta name="twitter:image" content="https://perlzemi.com//images/twitter_card_large_kaeru.png" />
 
 
@@ -79,9 +79,9 @@
     <meta itemprop="position" content="2" />
   </li>
 </ol>
-<h2><a href="/blog/20220418170733.html">WSL2 への Perl のインストール</a></h2>
+<h2><a href="/blog/20220418170733.html">WSLを使ったWindowsへのPerlのインストール</a></h2>
 <p>
-  <a href="https://docs.microsoft.com/en-us/windows/wsl/install">WSL2</a> は、Linux 用の Windows サブシステムです。 WSL2 を使用して Linux を Windows にインストールできます。そして、Perl を使用できます。
+  <a href="https://docs.microsoft.com/en-us/windows/wsl/install">WSL</a> を使うと、Windows上にLinuxが利用可能になります。この記事ではWSLは、WLS2のことを意味します。一般的なLinuxディストリビューションにはPerlがインストールされているため、Perlが利用可能です。
 </p>
 <div style="width:calc(100% - 30px);margin:10px auto;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4525414114581084"
@@ -102,27 +102,28 @@
 <p>
   <img style = "border: 1px solid # ddd; max-width: 600px;" src = "/images/installation/wsl2.png">
 </p>
-<h3>WSL2 のインストール</h3>
+<h3>WSL のインストール</h3>
 <p>
-  WSL2 をインストールしましょう。<a href="/blog/20080603121251.html">Windows コマンド プロンプト</a>で次のコマンドを実行します。
+  WSL をインストールしましょう。<a href="/blog/20080603121251.html">Windows コマンド プロンプト</a>で次のコマンドを実行します。コマンドプロンプトは管理者権限で実行する必要があります。「右クリック」→「管理者として実行」
 </p>
 <pre>
-# WSL2 をインストール
+# WSL をインストール
 wsl --install
 </pre>
 <p>
-  <a href="https://en.ubuntu.perlzemi.com/">Ubuntu</a> がデフォルトでインストールされます。
+  Windows を再起動して WSL を有効にします。
 </p>
+<h3>Ubuntuのインストール</h3>
 <p>
-  Windows を再起動して WSL2 を有効にします。
+  Linuxディストリビューションのひとつである<a href="https://en.ubuntu.perlzemi.com/">Ubuntu</a>をインストールしましょう。再度、管理者として、コマンドプロンプトを実行して、以下のコマンドを実行します。
 </p>
+<pre>
+wsl --install -d Ubuntu
+</pre>
+<h4>ユーザーアカウントの追加</h4>
 <p>
-  数分かかります。
+  Ubuntuのユーザーアカウントを追加しましょう。
 </p>
-<p>
-  次のメッセージが表示されます。
-</p>
-<h4>ユーザー名</h4>
 <pre>
 Installing, this may take a few minutes...
 
@@ -130,16 +131,17 @@ Please create a default UNIX user account. The username does not need to match y
 For more information visit: https://aka.ms/wslusers
 Enter new UNIX username:
 </pre>
+<h4>ユーザー名</h4>
 <p>
   例として以下のユーザー名を入力します。
 </p>
 <pre>
-kimoto_ubuntu
+kimoto
 </pre>
 <p>
   Ubuntu 端末上で右クリックすると、ユーザー名を貼り付けることができます。
 </p>
-<h4>Password</h4>
+<h4>パスワード</h4>
 <p>
   次にパスワードを設定します。
 </p>
@@ -168,10 +170,10 @@ This is perl 5, version 30, subversion 0 (v5.30.0) built for x86_64-linux-gnu-th
 </pre>
 <h3>エクスプローラー使用してファイルを表示する</h3>
 <p>
-  Ubuntu 上のファイルは、次のパスで参照できます。 <b>\\wsl$</b> は WSL2 のルート ディレクトリです。
+  Ubuntu 上のファイルは、次のパスで参照できます。 <b>\\wsl$</b> は WSL のルート ディレクトリです。
 </p>
 <pre>
-\\wsl$\Ubuntu\home\kimoto_ubuntu
+\\wsl$\Ubuntu\home\kimoto
 </pre>
 
   </div>
